@@ -1,0 +1,16 @@
+#!/bin/bash
+
+VIRTUALENV_DIR="environment"
+
+ROOT_DIR="$( cd "$( dirname "$0" )/.." && pwd )"
+
+mkdir -p "$VIRTUALENV_DIR"
+
+if [[ ! -d "$VIRTUALENV_DIR/bin" ]]; then
+  export VIRTUAL_ENV_DISABLE_PROMPT="true"
+  virtualenv "$VIRTUALENV_DIR"
+fi
+
+source "$VIRTUALENV_DIR/bin/activate"
+
+pip install -r requirements.txt
