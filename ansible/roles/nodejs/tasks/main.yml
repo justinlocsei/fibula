@@ -1,0 +1,7 @@
+---
+- include: repo.yml
+
+- name: install Node.js version {{ nodejs_version | join(".") }}
+  apt:
+    name: nodejs={{ nodejs_version | join(".") }}*
+    state: present
