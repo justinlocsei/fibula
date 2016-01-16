@@ -2,7 +2,7 @@
 
 VIRTUALENV_DIR="environment"
 
-ROOT_DIR="$( cd "$( dirname "$0" )/.." && pwd )"
+ROOT_DIR="$( cd "$( dirname "$file" )/.." && pwd )"
 
 mkdir -p "$VIRTUALENV_DIR"
 
