@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: nodejs
+    nodejs_version: [4, 2, 4]
