@@ -6,8 +6,9 @@ ROOT_DIR="$( cd "$( dirname "$file" )/.." && pwd )"
 
 mkdir -p "$VIRTUALENV_DIR"
 
+export VIRTUAL_ENV_DISABLE_PROMPT="true"
+
 if [[ ! -d "$VIRTUALENV_DIR/bin" ]]; then
-  export VIRTUAL_ENV_DISABLE_PROMPT="true"
   virtualenv "$VIRTUALENV_DIR"
 fi
 
