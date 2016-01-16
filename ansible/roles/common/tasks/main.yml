@@ -1,0 +1,15 @@
+---
+- name: ensure that ntpd is current
+  apt:
+    pkg: ntp
+    state: latest
+  notify:
+    - restart ntpd
+
+- name: customize readline settings
+  copy:
+    src: inputrc
+    dest: /etc/inputrc
+    owner: root
+    group: root
+    mode: 0644
