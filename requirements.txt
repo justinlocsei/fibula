@@ -1,1 +1,5 @@
-ansible==2.0.0.2
+httplib2
+Jinja2
+paramiko
+PyYAML
+six
