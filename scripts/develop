@@ -1,0 +1,39 @@
+#!/bin/bash
+
+ROOT_DIR="$( cd "$( dirname "$BASH_SOURCE" )/.." && pwd )"
+
+VENV_DIR="environments"
+VENV_NAME="fibula"
+
+# Configure the environment using the task-specific functions
+function configure_environment() {
+  enable_virtualenv
+  install_python_requirements
+  update_ansible
+}
+
+# Ensure that a Python virtual environment exists
+function enable_virtualenv() {
+  mkdir -p "$ROOT_DIR/$VENV_DIR"
+  cd "$ROOT_DIR/$VENV_DIR"
+
+  if [[ ! -d $VENV_NAME  ]]; then
+    virtualenv $VENV_NAME
+  fi
+
+  VIRTUAL_ENV_DISABLE_PROMPT="true" source $VENV_NAME/bin/activate
+}
+
+# Install the project's Python requirements via pip
+function install_python_requirements() {
+  cd "$ROOT_DIR"
+  pip install --requirement requirements.txt --quiet
+}
+
+# Update to the latest version of Ansible
+function update_ansible() {
+  git submodule update --recursive
+}
+
+configure_environment
+cd "$ROOT_DIR"
