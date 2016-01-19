@@ -2,6 +2,7 @@
 
 ROOT_DIR="$( cd "$( dirname "$BASH_SOURCE" )/.." && pwd )"
 
+VENDOR_DIR="vendor"
 VENV_DIR="environments"
 VENV_NAME="fibula"
 
@@ -9,7 +10,7 @@ VENV_NAME="fibula"
 function configure_environment() {
   enable_virtualenv
   install_python_requirements
-  update_ansible
+  enable_ansible
 }
 
 # Ensure that a Python virtual environment exists
@@ -30,9 +31,12 @@ function install_python_requirements() {
   pip install --requirement requirements.txt --quiet
 }
 
-# Update to the latest version of Ansible
-function update_ansible() {
+# Use the latest version of Ansible
+function enable_ansible() {
   git submodule update --recursive
+
+  cd "$ROOT_DIR/$VENDOR_DIR/ansible"
+  source hacking/env-setup
 }
 
 configure_environment
