@@ -1,0 +1,7 @@
+---
+- hosts: himation
+  roles:
+    - common
+    - vagrant
+    - development
+    - himation
