@@ -15,4 +15,12 @@ module Helpers
     File.expand_path("../../ansible/#{path}")
   end
 
+  # Return the absolute path to a project
+  #
+  # @param [String] name The name of the project
+  # @return [String]
+  def self.project_directory(name)
+    File.expand_path("#{ENV['CYB_PROJECTS_DIR']}/#{name}")
+  end
+
 end
