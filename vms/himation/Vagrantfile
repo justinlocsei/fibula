@@ -1,18 +1,22 @@
 require_relative "../helpers"
 
+binding = Helpers::ADDRESSES[:himation]
+
 Vagrant.configure(2) do |config|
+  config.vm.define("himation") do |himation|
 
-  config.vm.box = "ubuntu/trusty64"
+    himation.vm.box = "centos/7"
 
-  config.vm.hostname = "himation"
+    himation.vm.hostname = "himation"
 
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "private_network", ip: "10.10.10.10"
+    himation.vm.network "private_network", ip: binding[:ip]
+    himation.vm.network "forwarded_port", guest: 8080, host: binding[:port]
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = Helpers.ansible_playbook("webservers")
-    ansible.sudo = true
-    ansible.verbose = "v"
+    himation.vm.provision "ansible" do |ansible|
+      ansible.playbook = Helpers.ansible_file("himation.yml")
+      ansible.sudo = true
+      ansible.verbose = "v"
+    end
+
   end
-
 end
