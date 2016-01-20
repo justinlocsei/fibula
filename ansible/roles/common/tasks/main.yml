@@ -1,10 +1,16 @@
 ---
 - name: ensure that ntpd is current
-  apt:
-    pkg: ntp
+  yum:
+    name: ntp
     state: latest
   notify:
     - restart ntpd
+
+- name: ensure that ntpd is running
+  service:
+    name: ntpd
+    state: running
+    enabled: yes
 
 - name: customize readline settings
   copy:
