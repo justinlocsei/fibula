@@ -1,0 +1,11 @@
+---
+- name: install cachefilesd
+  yum:
+    name: cachefilesd
+    state: present
+
+- name: enable cachefilesd
+  service:
+    name: cachefilesd
+    state: running
+    enabled: yes
