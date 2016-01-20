@@ -1,7 +1,5 @@
 ---
-- include: repo.yml
-
 - name: install Node.js version {{ nodejs_version | join(".") }}
-  apt:
-    name: nodejs={{ nodejs_version | join(".") }}*
+  yum:
+    name: https://rpm.nodesource.com/pub_{{ nodejs_version[0] }}.x/el/{{ nodejs_os_version }}/{{ nodejs_arch }}/nodejs-{{ nodejs_version | join(".") }}-1nodesource.el{{ nodejs_os_version }}.centos.{{ nodejs_arch }}.rpm
     state: present
