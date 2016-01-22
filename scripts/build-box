@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+
+ROOT_DIR = os.path.realpath(os.path.join(__file__, "..", ".."))
+PACKER_DIR = os.path.join(ROOT_DIR, "packer")
+PACKER_ISOS_DIR = os.path.join(PACKER_DIR, "build", "isos")
+
+parser = argparse.ArgumentParser(description="Build a box via Packer")
+parser.add_argument("box", metavar="BOX", type=str, help="The name of a Packer template")
+args = parser.parse_args()
+
+# Verify the box and get the path to its Packer template file
+box_name = re.sub(r".json$", "", args.box)
+box_path = os.path.join(PACKER_DIR, "%s.json" % box_name)
+if not os.path.isfile(box_path):
+    print "No box named %s was found at %s" % (box_name, box_path)
+    sys.exit(1)
+
+# Spawn a Packer build process
+packer = subprocess.Popen(
+    ['packer', 'build', box_path],
+    env=dict(os.environ, PACKER_CACHE_DIR=PACKER_ISOS_DIR),
+    cwd=PACKER_DIR
+)
+
+# Kill the Packer build in response to an interrupt
+try:
+    packer.communicate()
+except KeyboardInterrupt:
+    packer.terminate()
