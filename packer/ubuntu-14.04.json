@@ -1,0 +1,76 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic ",
+        "file=/floppy/{{ user `preseed` }} ",
+        "debian-installer={{ user `locale` }} auto locale={{ user `locale` }} kbd-chooser/method=us ",
+        "hostname={{ user `hostname` }} ",
+        "fb=false debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "passwd/user-fullname={{ user `ssh_username` }} ",
+        "passwd/user-password={{ user `ssh_password` }} ",
+        "passwd/user-password-again={{ user `ssh_password` }} ",
+        "passwd/username={{ user `ssh_username` }} ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "disk_size": "65536",
+      "floppy_files": ["http/{{ user `preseed` }}"],
+      "guest_additions_path": "VBoxGuestAdditions_{{ .Version }}.iso",
+      "guest_os_type": "Ubuntu_64",
+      "hard_drive_interface": "sata",
+      "headless": false,
+      "iso_checksum": "0501c446929f713eb162ae2088d8dc8b6426224a",
+      "iso_checksum_type": "sha1",
+      "iso_url": "http://releases.ubuntu.com/14.04/ubuntu-14.04.3-server-amd64.iso",
+      "output_directory": "build/output/{{ user `vm_name` }}",
+      "shutdown_command": "echo '{{ user `ssh_password` }}' | sudo -S shutdown -P now",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_wait_timeout": "10000s",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        ["modifyvm", "{{ .Name }}", "--memory", "1024"],
+        ["modifyvm", "{{ .Name }}", "--cpus", "1"]
+      ],
+      "vm_name": "{{ user `vm_name` }}"
+    }
+  ],
+  "post-processors": [
+    {
+      "compression_level": 9,
+      "keep_input_artifact": false,
+      "output": "build/boxes/{{ user `vm_name` }}-{{ user `version` }}.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "FIBULA_SSH_USERNAME={{ user `ssh_username` }}",
+        "FIBULA_SSH_PASSWORD={{ user `ssh_password` }}",
+        "FIBULA_VAGRANT_SSH_KEY={{ user `vagrant_ssh_public_key` }}"
+      ],
+      "execute_command": "echo '{{ user `ssh_password` }}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+      "scripts": [
+        "script/bootstrap.sh",
+        "script/vagrant.sh",
+        "script/virtualbox.sh",
+        "script/trim.sh",
+        "script/cleanup.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "hostname": "vagrant",
+    "locale": "en_US",
+    "preseed": "preseed.cfg",
+    "ssh_password": "vagrant",
+    "ssh_username": "vagrant",
+    "version": "0.1.0",
+    "vm_name": "ubuntu-14.04"
+  }
+}

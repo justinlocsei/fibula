@@ -2,3 +2,4 @@
 .vagrant/
 
 /environments/
+/packer/build/
