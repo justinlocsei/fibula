@@ -1,4 +1,3 @@
-ansible-lint
 httplib2
 Jinja2
 paramiko
