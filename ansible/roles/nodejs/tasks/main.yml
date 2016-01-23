@@ -1,5 +1,19 @@
 ---
-- name: install Node.js version {{ nodejs_version | join(".") }}
-  yum:
-    name: https://rpm.nodesource.com/pub_{{ nodejs_version[0] }}.x/el/{{ nodejs_os_version }}/{{ nodejs_arch }}/nodejs-{{ nodejs_version | join(".") }}-1nodesource.el{{ nodejs_os_version }}.centos.{{ nodejs_arch }}.rpm
+- set_fact:
+    nodejs_version_string: "{{ nodejs_version | join('.') }}"
+
+- name: install the NodeSource APT key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: download the Node.js version {{ nodejs_version_string }} package
+  get_url:
+    url: https://deb.nodesource.com/node_{{ nodejs_version[0] }}.x/pool/main/n/nodejs/nodejs_{{ nodejs_version_string }}-1nodesource1~{{ nodejs_distro }}1_{{ nodejs_arch | replace("x86_", "amd") }}.deb
+    dest: /tmp/nodejs-{{ nodejs_version_string }}.deb
+  register: nodejs_package
+
+- name: install Node.js version {{ nodejs_version_string }}
+  apt:
+    deb: "{{ nodejs_package.dest }}"
     state: present
