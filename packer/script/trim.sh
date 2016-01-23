@@ -23,13 +23,6 @@ apt-get -y autoclean
 apt-get -y clean
 find /var/lib/apt -type f -print0 | xargs rm -f
 
-# Clean up orphaned packages
-apt-get -y install deborphan
-while [ -n "$(deborphan --guess-all --libdevel)" ]; do
-  deborphan --guess-all --libdevel | xargs apt-get -y purge
-done
-apt-get -y purge deborphan dialog
-
 # Remove documentation
 rm -rf /usr/share/man/*
 rm -rf /usr/share/doc/*
