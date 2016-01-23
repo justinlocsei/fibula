@@ -5,7 +5,7 @@ echo "UseDNS no" >> /etc/ssh/sshd_config
 echo "GSSAPIAuthentication no" >> /etc/ssh/sshd_config
 
 # Disable the release upgrader
-sed -i.bak "s/^Prompt=.*$/Prompt=never/" /etc/update-manager/release-upgrades
+sed -i "s/^Prompt=.*$/Prompt=never/" /etc/update-manager/release-upgrades
 
 # Update the repository
 apt-get -y update
