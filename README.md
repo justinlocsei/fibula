@@ -18,6 +18,8 @@ Before running any code, configure your environment to set the following
 variables:
 
 * `CYB_PROJECTS_DIR`: The absolute path to the directory containing Cover Your Basics projects
+* `CYB_VAGRANT_KEY_PRIVATE`: The absolute path to the private key used to access Vagrant machines
+* `CYB_VAGRANT_KEY_PUBLIC`: The absolute path to the public key used to access Vagrant machines
 
 To work with the infrastructure code, run the following from the root of this
 repository:
