@@ -10,6 +10,7 @@ ROOT_DIR = os.path.realpath(os.path.join(__file__, "..", ".."))
 PACKER_DIR = os.path.join(ROOT_DIR, "packer")
 PACKER_ISOS_DIR = os.path.join(PACKER_DIR, "build", "isos")
 
+# Determine the requested box
 parser = argparse.ArgumentParser(description="Build a box via Packer")
 parser.add_argument("box", metavar="BOX", type=str, help="The name of a Packer template")
 args = parser.parse_args()
