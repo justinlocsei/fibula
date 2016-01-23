@@ -1,6 +1,6 @@
 ---
 - name: install cachefilesd
-  yum:
+  apt:
     name: cachefilesd
     state: present
 

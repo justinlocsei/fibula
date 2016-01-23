@@ -1,14 +1,14 @@
 ---
-- name: ensure that ntpd is current
-  yum:
+- name: ensure that ntp is current
+  apt:
     name: ntp
     state: latest
   notify:
-    - restart ntpd
+    - restart ntp
 
-- name: ensure that ntpd is running
+- name: ensure that ntp is running
   service:
-    name: ntpd
+    name: ntp
     state: running
     enabled: yes
 
