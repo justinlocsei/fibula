@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-USER=$FIBULA_SSH_USERNAME
+USER=$CYB_SSH_USERNAME
 SSH_DIR=/home/$USER/.ssh
 
 # Grant the Vagrant user passwordless sudo

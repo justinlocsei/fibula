@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-USER=$FIBULA_SSH_USERNAME
+USER=$CYB_SSH_USERNAME
 HOME_DIR=/home/$USER
 
 # Install the VirtualBox guest additions

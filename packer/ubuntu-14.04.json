@@ -49,9 +49,8 @@
   "provisioners": [
     {
       "environment_vars": [
-        "FIBULA_SSH_USERNAME={{ user `ssh_username` }}",
-        "FIBULA_SSH_PASSWORD={{ user `ssh_password` }}",
-        "FIBULA_VAGRANT_SSH_KEY={{ user `vagrant_ssh_public_key` }}"
+        "CYB_SSH_PASSWORD={{ user `ssh_password` }}",
+        "CYB_SSH_USERNAME={{ user `ssh_username` }}"
       ],
       "execute_command": "echo '{{ user `ssh_password` }}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
       "scripts": [
