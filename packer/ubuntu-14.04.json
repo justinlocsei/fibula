@@ -48,8 +48,14 @@
   ],
   "provisioners": [
     {
+      "destination": "{{ user `cyb_key_target` }}",
+      "source": "{{ user `cyb_key_source` }}",
+      "type": "file"
+    },
+    {
       "environment_vars": [
         "CYB_GUEST_ADDITIONS_PATH={{ user `guest_additions_path` }}",
+        "CYB_SSH_KEY_PATH={{ user `cyb_key_target` }}",
         "CYB_SSH_PASSWORD={{ user `ssh_password` }}",
         "CYB_SSH_USERNAME={{ user `ssh_username` }}"
       ],
@@ -65,6 +71,8 @@
     }
   ],
   "variables": {
+    "cyb_key_target": "/tmp/cyb-key.pub",
+    "cyb_key_source": "{{ env `CYB_VAGRANT_KEY_PUBLIC` }}",
     "guest_additions_path": "VBoxGuestAdditions.iso",
     "hostname": "vagrant",
     "locale": "en_US",
