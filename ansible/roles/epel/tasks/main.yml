@@ -1,7 +1,0 @@
----
-- name: add the EPEL repository
-  yumrepo:
-    name: epel
-    description: EPEL YUM repository
-    baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
-    state: present
