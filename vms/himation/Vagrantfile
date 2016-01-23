@@ -1,20 +1,19 @@
-require_relative "../helpers"
-
-binding = Helpers::ADDRESSES[:himation]
+require_relative "../fibula"
 
 Vagrant.configure(2) do |config|
   config.vm.define("himation") do |himation|
 
-    himation.vm.box = Helpers.box_path("ubuntu-14.04-0.1.0")
+    himation.vm.box = Fibula.box_path("ubuntu-14.04-0.1.0")
     himation.vm.hostname = "himation"
 
-    himation.vm.network "private_network", ip: binding[:ip]
-    himation.vm.network "forwarded_port", guest: 8080, host: binding[:port]
+    himation.vm.network "private_network", ip: Fibula.ip(:himation)
+    himation.vm.network "forwarded_port", guest: 8080, host: Fibula.port(:himation)
 
     himation.ssh.insert_key = false
-    himation.ssh.private_key_path = Helpers.private_key_path
+    himation.ssh.private_key_path = Fibula.private_key_path
+
     himation.vm.provision "ansible" do |ansible|
-      ansible.playbook = Helpers.ansible_file("himation.yml")
+      ansible.playbook = Fibula.ansible_file("himation.yml")
       ansible.sudo = true
       ansible.verbose = "v"
     end
