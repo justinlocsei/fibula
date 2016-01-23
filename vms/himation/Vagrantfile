@@ -12,6 +12,8 @@ Vagrant.configure(2) do |config|
     himation.vm.network "private_network", ip: binding[:ip]
     himation.vm.network "forwarded_port", guest: 8080, host: binding[:port]
 
+    himation.ssh.insert_key = false
+    himation.ssh.private_key_path = Helpers.private_key_path
     himation.vm.provision "ansible" do |ansible|
       ansible.playbook = Helpers.ansible_file("himation.yml")
       ansible.sudo = true
