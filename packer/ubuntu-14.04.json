@@ -18,7 +18,7 @@
       ],
       "disk_size": "65536",
       "floppy_files": ["http/{{ user `preseed` }}"],
-      "guest_additions_path": "VBoxGuestAdditions_{{ .Version }}.iso",
+      "guest_additions_path": "{{ user `guest_additions_path` }}",
       "guest_os_type": "Ubuntu_64",
       "hard_drive_interface": "sata",
       "headless": false,
@@ -49,6 +49,7 @@
   "provisioners": [
     {
       "environment_vars": [
+        "CYB_GUEST_ADDITIONS_PATH={{ user `guest_additions_path` }}",
         "CYB_SSH_PASSWORD={{ user `ssh_password` }}",
         "CYB_SSH_USERNAME={{ user `ssh_username` }}"
       ],
@@ -64,6 +65,7 @@
     }
   ],
   "variables": {
+    "guest_additions_path": "VBoxGuestAdditions.iso",
     "hostname": "vagrant",
     "locale": "en_US",
     "preseed": "preseed.cfg",
