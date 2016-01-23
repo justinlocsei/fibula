@@ -5,8 +5,7 @@ binding = Helpers::ADDRESSES[:himation]
 Vagrant.configure(2) do |config|
   config.vm.define("himation") do |himation|
 
-    himation.vm.box = "centos/7"
-
+    himation.vm.box = Helpers.box_path("ubuntu-14.04-0.1.0")
     himation.vm.hostname = "himation"
 
     himation.vm.network "private_network", ip: binding[:ip]
