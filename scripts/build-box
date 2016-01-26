@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import json
 import os
 import re
 import subprocess
@@ -8,29 +9,76 @@ import sys
 
 ROOT_DIR = os.path.realpath(os.path.join(__file__, "..", ".."))
 PACKER_DIR = os.path.join(ROOT_DIR, "packer")
+PACKER_BOXES_DIR = os.path.join(PACKER_DIR, "build", "boxes")
 PACKER_ISOS_DIR = os.path.join(PACKER_DIR, "build", "isos")
+VM_PREFIX = "fibula"
 
-# Determine the requested box
-parser = argparse.ArgumentParser(description="Build a box via Packer")
-parser.add_argument("box", metavar="BOX", type=str, help="The name of a Packer template")
-args = parser.parse_args()
 
-# Verify the box and get the path to its Packer template file
-box_name = re.sub(r".json$", "", args.box)
-box_path = os.path.join(PACKER_DIR, "%s.json" % box_name)
-if not os.path.isfile(box_path):
-    print "No box named %s was found at %s" % (box_name, box_path)
-    sys.exit(1)
+def run():
+    """Build a box based on user input."""
+    args = parse_args()
+    template_path = find_box_template(args.box)
+    vm_name = create_vm_name(VM_PREFIX, template_path)
 
-# Spawn a Packer build process
-packer = subprocess.Popen(
-    ['packer', 'build', box_path],
-    env=dict(os.environ, PACKER_CACHE_DIR=PACKER_ISOS_DIR),
-    cwd=PACKER_DIR
-)
+    box_path = build_box(template_path, vm_name)
+    add_box_to_vagrant(box_path, vm_name)
 
-# Kill the Packer build in response to an interrupt
-try:
-    packer.communicate()
-except KeyboardInterrupt:
-    packer.terminate()
+
+def parse_args():
+    """Parse the command-line arguments."""
+    parser = argparse.ArgumentParser(description="Build a box via Packer")
+    parser.add_argument("box", metavar="BOX", type=str, help="The name of a Packer template for a box")
+    return parser.parse_args()
+
+
+def find_box_template(name):
+    """Locate the template that defines a named box."""
+    box = re.sub(r".json$", "", name)
+    template = os.path.join(PACKER_DIR, "%s.json" % box)
+
+    if not os.path.isfile(template):
+        sys.stderr.write("No box named %s was found at %s\n" % (name, template))
+        sys.exit(1)
+
+    return template
+
+
+def create_vm_name(prefix, template_path):
+    """Create the VM name from a prefix and a Packer template."""
+    with open(template_path, "r") as template_file:
+        template = json.load(template_file)
+
+    return "%s/%s" % (prefix, template["variables"]["vm_name"])
+
+
+def build_box(template_path, vm_name):
+    """Create a packer build process for a template."""
+    box_path = os.path.join(PACKER_BOXES_DIR, vm_name)
+
+    packer = subprocess.Popen(
+        ["packer", "build", "-var", "box_path=%s" % box_path , template_path],
+        env=dict(os.environ, PACKER_CACHE_DIR=PACKER_ISOS_DIR),
+        cwd=PACKER_DIR
+    )
+
+    try:
+        packer.wait()
+    except KeyboardInterrupt:
+        packer.terminate()
+        sys.exit(1)
+
+    if packer.returncode != 0:
+        sys.stderr.write("Packer build failed with status %d\n" % packer.returncode)
+        sys.exit(1)
+
+    return box_path
+
+
+def add_box_to_vagrant(box_path, vm_name):
+    """Add a box to Vagrant, removing it first if it already exists."""
+    subprocess.call(["vagrant", "box", "remove", vm_name, "--force"])
+    subprocess.call(["vagrant", "box", "add", box_path, "--name", vm_name])
+
+
+if __name__ == "__main__":
+    run()
