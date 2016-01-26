@@ -2,5 +2,4 @@
 - hosts: himation
   roles:
     - common
-    - vagrant
     - himation
