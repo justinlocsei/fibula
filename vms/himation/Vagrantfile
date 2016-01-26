@@ -3,7 +3,7 @@ require_relative "../fibula"
 Vagrant.configure(2) do |config|
   config.vm.define("himation") do |himation|
 
-    himation.vm.box = Fibula.box_path("ubuntu-14.04-0.1.0")
+    himation.vm.box = "fibula/ubuntu-14.04"
     himation.vm.hostname = "himation"
 
     himation.vm.network "private_network", ip: Fibula.ip(:himation)

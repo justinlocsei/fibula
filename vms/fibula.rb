@@ -19,14 +19,6 @@ module Fibula
       File.expand_path("../../ansible/#{path}")
     end
 
-    # Return the absolute path to a VM box
-    #
-    # @param [String] box The name of a box
-    # @return [String]
-    def box_path(box)
-      File.expand_path("../../packer/build/boxes/#{box}.box")
-    end
-
     # Return the IP address for a given VM
     #
     # @param [Symbol] vm The ID of a VM
