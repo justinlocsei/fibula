@@ -42,7 +42,7 @@
     {
       "compression_level": 9,
       "keep_input_artifact": false,
-      "output": "build/boxes/{{ user `vm_name` }}-{{ user `version` }}.box",
+      "output": "{{ user `box_path` }}",
       "type": "vagrant"
     }
   ],
@@ -71,6 +71,7 @@
     }
   ],
   "variables": {
+    "box_path": null,
     "cyb_key_target": "/tmp/cyb-key.pub",
     "cyb_key_source": "{{ env `CYB_VAGRANT_KEY_PUBLIC` }}",
     "guest_additions_path": "VBoxGuestAdditions.iso",
