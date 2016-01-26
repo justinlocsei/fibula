@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROOT_DIR="$( cd "$( dirname "$BASH_SOURCE" )/.." && pwd )"
+ROOT_DIR="$(cd "$(dirname "$BASH_SOURCE")/.." && pwd)"
 
 VENDOR_DIR="vendor"
 VENV_DIR="environments"
@@ -16,7 +16,7 @@ function configure_environment() {
 # Ensure that a Python virtual environment exists
 function enable_virtualenv() {
   mkdir -p "$ROOT_DIR/$VENV_DIR"
-  cd "$ROOT_DIR/$VENV_DIR"
+  cd "$ROOT_DIR/$VENV_DIR" || exit
 
   if [[ ! -d $VENV_NAME  ]]; then
     virtualenv $VENV_NAME
@@ -27,7 +27,7 @@ function enable_virtualenv() {
 
 # Install the project's Python requirements via pip
 function install_python_requirements() {
-  cd "$ROOT_DIR"
+  cd "$ROOT_DIR" || exit
   pip install --requirement requirements.txt --quiet
 }
 
@@ -35,9 +35,9 @@ function install_python_requirements() {
 function enable_ansible() {
   git submodule update --recursive
 
-  cd "$ROOT_DIR/$VENDOR_DIR/ansible"
+  cd "$ROOT_DIR/$VENDOR_DIR/ansible" || exit
   source hacking/env-setup
 }
 
 configure_environment
-cd "$ROOT_DIR"
+cd "$ROOT_DIR" || exit
