@@ -126,6 +126,9 @@ def add_box_to_vagrant(box_path, box_ids):
     Args:
         box_path (str): The path to the built box
         box_ids: (List[str]): All components of the box's ID
+
+    Returns:
+        bool: Whether the box was added to Vagrant
     """
     box_name = "/".join(box_ids)
 
@@ -136,7 +139,8 @@ def add_box_to_vagrant(box_path, box_ids):
             stderr=subprocess.STDOUT
         )
 
-    subprocess.call(["vagrant", "box", "add", box_path, "--name", box_name])
+    status = subprocess.call(["vagrant", "box", "add", box_path, "--name", box_name])
+    return status == 0
 
 
 if __name__ == "__main__":
