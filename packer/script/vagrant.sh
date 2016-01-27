@@ -12,6 +12,9 @@ cat "$CYB_SSH_KEY_PATH" > "$SSH_DIR/authorized_keys"
 chmod 0600 "$SSH_DIR/authorized_keys"
 chown -R "$USER:$USER" "$SSH_DIR"
 
+# Install NFS and bindfs in order to use NFS synced folders
+apt-get -y install bindfs nfs-common
+
 # Use cachefilesd to improve synced-folder performance over NFS
 apt-get -y install cachefilesd
 sed -i "s/^#RUN=yes/RUN=yes/" /etc/default/cachefilesd
