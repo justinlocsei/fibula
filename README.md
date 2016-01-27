@@ -27,3 +27,17 @@ repository:
 ```sh
 $ source scripts/develop
 ```
+
+## Box Management
+
+The VMs used for development are managed by Packer, and their templates can be
+found in the `packer` directory.  To build a box and add it to the local Vagrant
+box list, run the following:
+
+```sh
+$ ./scripts/build_box BOX_NAME
+```
+
+Provided the `BOX_NAME` matches the basename of a JSON file in the `packer`
+directory, this will build the box and add it to Vagrant under the `fibula`
+namespace.
