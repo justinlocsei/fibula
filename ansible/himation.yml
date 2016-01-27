@@ -2,4 +2,5 @@
 - hosts: himation
   roles:
     - common
+    - git
     - himation
