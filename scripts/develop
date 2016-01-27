@@ -10,6 +10,7 @@ VENV_NAME="fibula"
 function configure_environment() {
   enable_virtualenv
   install_python_requirements
+  install_vagrant_plugins
   enable_ansible
 }
 
@@ -37,6 +38,17 @@ function enable_ansible() {
 
   cd "$ROOT_DIR/$VENDOR_DIR/ansible" || exit
   source hacking/env-setup
+}
+
+# Install all required Vagrant plugins
+function install_vagrant_plugins() {
+  local plugin
+
+  for plugin in "vagrant-nfs_guest"; do
+    if ! vagrant plugin list | grep "$plugin" --quiet; then
+      vagrant plugin install "$plugin"
+    fi
+  done
 }
 
 configure_environment
