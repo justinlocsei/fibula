@@ -19,6 +19,16 @@ module Fibula
       File.expand_path("../../ansible/#{path}")
     end
 
+    # Return the options passed to bindfs when mounting an NFS share
+    #
+    # @return [Hash]
+    def bindfs_options
+      {
+        :group => "vagrant",
+        :owner => "vagrant"
+      }
+    end
+
     # Return the IP address for a given VM
     #
     # @param [Symbol] vm The ID of a VM
