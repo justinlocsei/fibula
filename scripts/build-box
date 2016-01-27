@@ -21,21 +21,32 @@ def run():
     """Build a box based on user input."""
     args = parse_args()
     template_path = find_box_template(args.box)
-    vm_ids = create_vm_ids(VM_PREFIX, template_path)
+    box_ids = create_box_ids(VM_PREFIX, template_path)
 
-    box_path = build_box(template_path, vm_ids)
-    add_box_to_vagrant(box_path, vm_ids)
+    box_path = build_box(template_path, box_ids)
+    add_box_to_vagrant(box_path, box_ids)
 
 
 def parse_args():
-    """Parse the command-line arguments."""
+    """Parse the command-line arguments.
+
+    Returns:
+        argparse.Namespace: The parsed arguments
+    """
     parser = argparse.ArgumentParser(description="Build a box via Packer")
     parser.add_argument("box", metavar="BOX", type=str, help="The name of a Packer template for a box")
     return parser.parse_args()
 
 
 def find_box_template(name):
-    """Locate the template that defines a named box."""
+    """Locate the template that defines a named box.
+
+    Args:
+        name (str): The name of a Packer box
+
+    Returns:
+        str: The path to the box's template file
+    """
     box = re.sub(r".json$", "", name)
     template = os.path.join(PACKER_DIR, "%s.json" % box)
 
@@ -46,19 +57,35 @@ def find_box_template(name):
     return template
 
 
-def create_vm_ids(prefix, template_path):
-    """Create a list of VM IDs from a prefix and a Packer template."""
+def create_box_ids(prefix, template_path):
+    """Create a list of VM IDs from a prefix and a Packer template.
+
+    Args:
+        prefix (str): The prefix to use for the IDs
+        template_path (str): The path to the VM's template
+
+    Returns:
+        List[str]: All components of a box ID
+    """
     with open(template_path, "r") as template_file:
         template = json.load(template_file)
 
     return [prefix, template["variables"]["vm_name"]]
 
 
-def build_box(template_path, vm_ids):
-    """Create a packer build process for a template."""
-    vm_path = "-".join(vm_ids)
-    box_path = os.path.join(PACKER_BOXES_DIR, "%s.box" % vm_path)
-    output_directory = os.path.join(PACKER_TEMP_DIR, vm_path)
+def build_box(template_path, box_ids):
+    """Create a packer build process for a template.
+
+    Args:
+        template_path (str): The path to the box's template file
+        box_ids (List[str]): All components of the box's ID
+
+    Returns:
+        str: The path to the built box
+    """
+    box_id = "-".join(box_ids)
+    box_path = os.path.join(PACKER_BOXES_DIR, "%s.box" % box_id)
+    output_directory = os.path.join(PACKER_TEMP_DIR, box_id)
 
     for packer_dir in [PACKER_TEMP_DIR, PACKER_BOXES_DIR]:
         if not os.path.isdir(packer_dir):
@@ -93,9 +120,14 @@ def build_box(template_path, vm_ids):
     return box_path
 
 
-def add_box_to_vagrant(box_path, vm_ids):
-    """Add a box to Vagrant, removing it first if it already exists."""
-    box_name = "/".join(vm_ids)
+def add_box_to_vagrant(box_path, box_ids):
+    """Add a box to Vagrant, removing it first if it already exists.
+
+    Args:
+        box_path (str): The path to the built box
+        box_ids: (List[str]): All components of the box's ID
+    """
+    box_name = "/".join(box_ids)
 
     with open(os.devnull, "w") as devnull:
         subprocess.call(
