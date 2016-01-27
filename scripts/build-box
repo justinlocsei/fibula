@@ -4,13 +4,16 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 
 ROOT_DIR = os.path.realpath(os.path.join(__file__, "..", ".."))
 PACKER_DIR = os.path.join(ROOT_DIR, "packer")
-PACKER_BOXES_DIR = os.path.join(PACKER_DIR, "build", "boxes")
-PACKER_ISOS_DIR = os.path.join(PACKER_DIR, "build", "isos")
+PACKER_BUILD_DIR = os.path.join(PACKER_DIR, "build")
+PACKER_BOXES_DIR = os.path.join(PACKER_BUILD_DIR, "boxes")
+PACKER_ISOS_DIR = os.path.join(PACKER_BUILD_DIR, "isos")
+PACKER_TEMP_DIR = os.path.join(PACKER_BUILD_DIR, "temp")
 VM_PREFIX = "fibula"
 
 
@@ -18,10 +21,10 @@ def run():
     """Build a box based on user input."""
     args = parse_args()
     template_path = find_box_template(args.box)
-    vm_name = create_vm_name(VM_PREFIX, template_path)
+    vm_ids = create_vm_ids(VM_PREFIX, template_path)
 
-    box_path = build_box(template_path, vm_name)
-    add_box_to_vagrant(box_path, vm_name)
+    box_path = build_box(template_path, vm_ids)
+    add_box_to_vagrant(box_path, vm_ids)
 
 
 def parse_args():
@@ -43,20 +46,29 @@ def find_box_template(name):
     return template
 
 
-def create_vm_name(prefix, template_path):
-    """Create the VM name from a prefix and a Packer template."""
+def create_vm_ids(prefix, template_path):
+    """Create a list of VM IDs from a prefix and a Packer template."""
     with open(template_path, "r") as template_file:
         template = json.load(template_file)
 
-    return "%s/%s" % (prefix, template["variables"]["vm_name"])
+    return [prefix, template["variables"]["vm_name"]]
 
 
-def build_box(template_path, vm_name):
+def build_box(template_path, vm_ids):
     """Create a packer build process for a template."""
-    box_path = os.path.join(PACKER_BOXES_DIR, vm_name)
+    vm_path = "-".join(vm_ids)
+    box_path = os.path.join(PACKER_BOXES_DIR, "%s.box" % vm_path)
+    output_directory = os.path.join(PACKER_TEMP_DIR, vm_path)
+
+    packer_args = [
+        "packer", "build",
+        "-var", "box_path=%s" % box_path,
+        "-var", "output_directory=%s" % output_directory,
+        template_path
+    ]
 
     packer = subprocess.Popen(
-        ["packer", "build", "-var", "box_path=%s" % box_path , template_path],
+        packer_args,
         env=dict(os.environ, PACKER_CACHE_DIR=PACKER_ISOS_DIR),
         cwd=PACKER_DIR
     )
@@ -74,10 +86,18 @@ def build_box(template_path, vm_name):
     return box_path
 
 
-def add_box_to_vagrant(box_path, vm_name):
+def add_box_to_vagrant(box_path, vm_ids):
     """Add a box to Vagrant, removing it first if it already exists."""
-    subprocess.call(["vagrant", "box", "remove", vm_name, "--force"])
-    subprocess.call(["vagrant", "box", "add", box_path, "--name", vm_name])
+    box_name = "/".join(vm_ids)
+
+    with open(os.devnull, "w") as devnull:
+        subprocess.call(
+            ["vagrant", "box", "remove", box_name, "--force"],
+            stdout=devnull,
+            stderr=subprocess.STDOUT
+        )
+
+    subprocess.call(["vagrant", "box", "add", box_path, "--name", box_name])
 
 
 if __name__ == "__main__":
