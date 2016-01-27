@@ -13,10 +13,5 @@ rm "$CYB_SSH_KEY_PATH"
 chmod 0600 "$SSH_DIR/authorized_keys"
 chown -R "$USER:$USER" "$SSH_DIR"
 
-# Install NFS and bindfs in order to use NFS synced folders
-apt-get -y install bindfs nfs-common
-
-# Use cachefilesd to improve synced-folder performance over NFS
-apt-get -y install cachefilesd
-sed -i "s/^#RUN=yes/RUN=yes/" /etc/default/cachefilesd
-update-rc.d cachefilesd enable
+# Install NFS packages to use NFS on the guest or host for synced folders
+apt-get -y install bindfs nfs-common nfs-kernel-server
