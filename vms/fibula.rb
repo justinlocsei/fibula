@@ -50,14 +50,14 @@ module Fibula
     # @param [String] name The name of the project
     # @return [String]
     def project_directory(name)
-      File.expand_path("#{ENV['CYB_PROJECTS_DIR']}/#{name}")
+      File.expand_path("#{ENV.fetch('CYB_PROJECTS_DIR')}/#{name}")
     end
 
     # Return the path to the private key file for the Vagrant user
     #
     # @return [String]
     def private_key_path
-      ENV["CYB_VAGRANT_KEY_PRIVATE"]
+      ENV.fetch("CYB_VAGRANT_KEY_PRIVATE")
     end
 
   end
