@@ -11,6 +11,7 @@
   get_url:
     url: https://deb.nodesource.com/node_{{ nodejs_version[0] }}.x/pool/main/n/nodejs/nodejs_{{ nodejs_version_string }}-1nodesource1~{{ nodejs_distro }}1_{{ nodejs_arch | replace("x86_", "amd") }}.deb
     dest: /tmp/nodejs-{{ nodejs_version_string }}.deb
+    force: no
   register: nodejs_package
 
 - name: install Node.js version {{ nodejs_version_string }}
