@@ -60,6 +60,13 @@ def build_box(template_path, vm_ids):
     box_path = os.path.join(PACKER_BOXES_DIR, "%s.box" % vm_path)
     output_directory = os.path.join(PACKER_TEMP_DIR, vm_path)
 
+    for packer_dir in [PACKER_TEMP_DIR, PACKER_BOXES_DIR]:
+        if not os.path.isdir(packer_dir):
+            os.mkdir(packer_dir, 0755)
+
+    if os.path.isdir(output_directory):
+        shutil.rmtree(output_directory)
+
     packer_args = [
         "packer", "build",
         "-var", "box_path=%s" % box_path,
