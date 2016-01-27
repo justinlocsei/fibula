@@ -11,6 +11,7 @@ Vagrant.configure(2) do |config|
 
     himation.ssh.insert_key = false
     himation.ssh.private_key_path = Fibula.private_key_path
+    himation.ssh.forward_agent = true
 
     himation.vm.synced_folder Fibula.project_directory("himation"), "/var/himation-nfs", Fibula.nfs_options
     himation.bindfs.bind_folder "/var/himation-nfs", "/var/himation", Fibula.bindfs_options
