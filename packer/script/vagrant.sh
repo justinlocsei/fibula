@@ -15,3 +15,6 @@ chown -R "$USER:$USER" "$SSH_DIR"
 
 # Install NFS packages to use NFS on the guest or host for synced folders
 apt-get -y install bindfs nfs-common nfs-kernel-server
+
+# Enable SSH agent forwarding for the root user
+echo "Defaults>root  env_keep+=SSH_AUTH_SOCK" >> /etc/sudoers
