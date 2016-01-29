@@ -19,3 +19,8 @@
     repo: git@github.com:justinlocsei/himation.git
     update: yes
     version: "{{ himation_git_branch }}"
+
+- name: install dependencies
+  npm:
+    path: "{{ himation_source_dir }}"
+    state: present
