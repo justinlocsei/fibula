@@ -37,6 +37,19 @@ module Fibula
       BINDINGS.fetch(vm).fetch(:ip)
     end
 
+    # Optimize the network configuration for a VM's VirtualBox provider
+    #
+    # This uses the host for DNS resolution, and uses the `virtio` network
+    # virtualization available on newer versions of the Linux kernel.
+    #
+    # @param [] vbox A VirtualBox configuration instance
+    def optimize_virtualbox_networking(vbox)
+      vbox.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      vbox.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+      vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
+      vbox.customize ["modifyvm", :id, "--nictype2", "virtio"]
+    end
+
     # Return the port on which a VM listens for traffic
     #
     # @param [Symbol] vm The ID of a VM
