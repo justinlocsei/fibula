@@ -37,16 +37,6 @@ module Fibula
       BINDINGS.fetch(vm).fetch(:ip)
     end
 
-    # Return a hash of options for mounting a synced folder over NFS
-    #
-    # @return [Hash]
-    def nfs_options
-      {
-        :mount_options => %w[actimeo=1 fsc tcp vers=3],
-        :type => "nfs"
-      }
-    end
-
     # Return the port on which a VM listens for traffic
     #
     # @param [Symbol] vm The ID of a VM
