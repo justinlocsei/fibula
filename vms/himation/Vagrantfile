@@ -22,5 +22,10 @@ Vagrant.configure(2) do |config|
       ansible.verbose = "v"
     end
 
+    himation.vm.provider "virtualbox" do |vbox|
+      vbox.cpus = 2
+      Fibula.optimize_virtualbox_networking(vbox)
+    end
+
   end
 end
