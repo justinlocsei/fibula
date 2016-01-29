@@ -1,0 +1,12 @@
+---
+- name: sync user configuration files
+  file:
+    src: "{{ vagrant_user_home }}/{{ item }}"
+    dest: "/home/vagrant/{{ item }}"
+    owner: vagrant
+    group: vagrant
+    force: yes
+    state: link
+  with_items:
+    - .gitconfig
+    - .tmux.conf

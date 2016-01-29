@@ -60,5 +60,20 @@ module Fibula
       ENV.fetch("CYB_VAGRANT_KEY_PRIVATE")
     end
 
+    # Options to pass to a synced folder to sync the home directory
+    #
+    # @return [Array]
+    def sync_home_options
+      [
+        File.expand_path("~"),
+        "/vagrant-user-home",
+        {
+          :rsync__auto => false,
+          :rsync__exclude => "*/",
+          :type => "rsync"
+        }
+      ]
+    end
+
   end
 end
