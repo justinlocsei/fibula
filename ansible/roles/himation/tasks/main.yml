@@ -1,17 +1,17 @@
 ---
-- name: create the Himation group
+- name: create the application group
   group:
     name: "{{ himation_group }}"
     state: present
 
-- name: create the Himation user
+- name: create the application user
   user:
     name: "{{ himation_user }}"
     group: "{{ himation_group }}"
     comment: "Himation application user"
     state: present
 
-- name: fetch the Himation source code
+- name: fetch the source code
   git:
     accept_hostkey: yes
     clone: yes
