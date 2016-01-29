@@ -18,3 +18,20 @@
   apt:
     deb: "{{ nodejs_package.dest }}"
     state: present
+
+- name: create the directory for the global npm configuration
+  file:
+    path: /usr/etc
+    owner: root
+    group: root
+    state: directory
+  register: nodejs_config_dir
+
+- name: update the global npm configuration file
+  copy:
+    src: npmrc
+    dest: "{{ nodejs_config_dir.path }}/npmrc"
+    owner: root
+    group: root
+    mode: 0644
+
