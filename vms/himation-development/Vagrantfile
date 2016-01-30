@@ -1,10 +1,10 @@
 require_relative "../fibula"
 
 Vagrant.configure(2) do |config|
-  config.vm.define("himation") do |himation|
+  config.vm.define("himation-development") do |himation|
 
     himation.vm.box = "fibula/ubuntu-14.04"
-    himation.vm.hostname = "himation"
+    himation.vm.hostname = "himation-development"
 
     himation.vm.network "private_network", ip: Fibula.ip(:himation)
     himation.vm.network "forwarded_port", guest: 8080, host: Fibula.port(:himation)
