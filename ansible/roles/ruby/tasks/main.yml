@@ -1,0 +1,21 @@
+---
+- set_fact:
+    ruby_bundler_version_string: "{{ ruby_bundler_version | join('.') }}"
+    ruby_version_string: "{{ ruby_version | join('.') }}"
+
+- name: add the Brightbox Ruby repository
+  apt_repository:
+    repo: ppa:brightbox/ruby-ng
+    state: present
+
+- name: install Ruby v{{ ruby_version_string }}
+  apt:
+    name: ruby{{ ruby_version_string }}
+    state: present
+
+- name: install Bundler v{{ ruby_bundler_version_string }}
+  gem:
+    name: bundler
+    version: "{{ ruby_bundler_version_string }}"
+    user_install: no
+    state: present
