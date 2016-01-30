@@ -11,16 +11,5 @@
     comment: "Himation application user"
     state: present
 
-- name: fetch the source code
-  git:
-    accept_hostkey: yes
-    clone: yes
-    dest: "{{ himation_source_dir }}"
-    repo: git@github.com:justinlocsei/himation.git
-    update: yes
-    version: "{{ himation_git_branch }}"
-
-- name: install dependencies
-  npm:
-    path: "{{ himation_source_dir }}"
-    state: present
+- include: development.yml
+  when: himation_is_development

@@ -1,7 +1,0 @@
----
-- hosts: himation
-  roles:
-    - common
-    - vagrant
-    - git
-    - himation

@@ -1,5 +1,6 @@
 ---
 himation_git_branch: master
 himation_group: himation
+himation_is_development: yes
 himation_source_dir: /var/cyb-himation
 himation_user: himation
