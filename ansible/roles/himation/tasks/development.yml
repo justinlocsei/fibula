@@ -8,7 +8,14 @@
     update: yes
     version: "{{ himation_git_branch }}"
 
-- name: install dependencies
+- name: install Ruby dependencies
+  bundler:
+    gemfile: "{{ himation_source_dir }}/Gemfile"
+    deployment_mode: no
+    user_install: no
+    state: present
+
+- name: install Node dependencies
   npm:
     path: "{{ himation_source_dir }}"
     production: no
