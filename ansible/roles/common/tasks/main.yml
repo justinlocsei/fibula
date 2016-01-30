@@ -19,3 +19,8 @@
     owner: root
     group: root
     mode: 0644
+
+- name: install tmux
+  apt:
+    name: tmux
+    state: latest
