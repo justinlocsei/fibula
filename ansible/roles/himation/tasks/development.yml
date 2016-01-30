@@ -26,3 +26,8 @@
   args:
     chdir: "{{ himation_source_dir }}"
 
+- name: create the configuration file
+  template:
+    src: settings-development.json.j2
+    dest: "{{ himation_source_dir }}/config/settings.json"
+    mode: 0644
