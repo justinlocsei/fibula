@@ -1,5 +1,6 @@
 #!/bin/bash
 
+PREVIOUS_DIR=$(pwd)
 ROOT_DIR="$(cd "$(dirname "$BASH_SOURCE")/.." && pwd)"
 
 VENDOR_DIR="vendor"
@@ -52,4 +53,4 @@ function install_vagrant_plugins() {
 }
 
 configure_environment
-cd "$ROOT_DIR" || exit
+cd "$PREVIOUS_DIR" || exit
