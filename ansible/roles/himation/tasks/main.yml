@@ -11,7 +11,21 @@
     group: "{{ himation_group }}"
     comment: "Himation application user"
     uid: "{{ himation_user_id or omit }}"
+    generate_ssh_key: yes
     state: present
+  register: himation_user_details
+
+- name: add the GitHub deploy keys for the application user
+  copy:
+    dest: "{{ himation_user_details.home }}/.ssh/{{ item.dest }}"
+    content: "{{ item.content }}"
+    mode: 0600
+  no_log: yes
+  with_items:
+    - content: "{{ himation_deploy_ssh_key }}"
+      dest: "id_rsa"
+    - content: "{{ himation_deploy_ssh_key_public }}"
+      dest: "id_rsa.pub"
 
 - include: development.yml
   when: himation_is_development
