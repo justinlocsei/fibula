@@ -12,6 +12,7 @@ Vagrant.configure(2) do |config|
     himation.ssh.insert_key = false
     himation.ssh.private_key_path = Fibula.private_key_path
     himation.ssh.forward_agent = true
+    himation.ssh.username = ENV["HIMATION_SSH_USER"]
 
     himation.vm.synced_folder *Fibula.sync_home_options
 

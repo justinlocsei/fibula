@@ -1,0 +1,3 @@
+#!/bin/bash
+
+HIMATION_SSH_USER=himation vagrant ssh
