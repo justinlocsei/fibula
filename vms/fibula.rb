@@ -40,8 +40,8 @@ module Fibula
         stats = File.stat(password_file)
         mode = sprintf("%o", stats.mode)
 
-        if mode != "100400"
-          raise "The Ansible vault-password file must have 0400 permissions"
+        if mode[-2..-1] != "00"
+          raise "The Ansible vault-password file must not be group- or world-readable"
         else
           ansible.vault_password_file = password_file
         end
