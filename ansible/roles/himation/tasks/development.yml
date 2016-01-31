@@ -8,11 +8,18 @@
     update: yes
     version: "{{ himation_git_branch }}"
 
+- name: create a vendor directory
+  file:
+    path: "{{ himation_source_dir }}/vendor"
+    mode: 0755
+    state: directory
+  register: himation_vendor_dir
+
 - name: install Ruby dependencies
   bundler:
-    gemfile: "{{ himation_source_dir }}/Gemfile"
+    chdir: "{{ himation_source_dir }}"
+    gem_path: "{{ himation_vendor_dir.path }}/bundle"
     deployment_mode: no
-    user_install: no
     state: present
 
 - name: install Node dependencies
