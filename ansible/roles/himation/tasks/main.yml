@@ -2,6 +2,7 @@
 - name: create the application group
   group:
     name: "{{ himation_group }}"
+    gid: "{{ himation_group_id or omit }}"
     state: present
 
 - name: create the application user
@@ -9,6 +10,7 @@
     name: "{{ himation_user }}"
     group: "{{ himation_group }}"
     comment: "Himation application user"
+    uid: "{{ himation_user_id or omit }}"
     state: present
 
 - include: development.yml
