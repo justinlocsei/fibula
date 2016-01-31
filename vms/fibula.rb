@@ -29,6 +29,26 @@ module Fibula
       }
     end
 
+    # Configure Ansible to prompt for a vault password or use a password file
+    #
+    # @param [] ansible An Ansible provisioner instance
+    def configure_ansible_vault(ansible)
+      password_file = ENV["CYB_ANSIBLE_VAULT_PASSWORD_FILE"]
+
+      if password_file && File.exist?(password_file)
+        stats = File.stat(password_file)
+        mode = sprintf("%o", stats.mode)
+
+        if mode != "100400"
+          raise "The Ansible vault-password file must have 0400 permissions"
+        else
+          ansible.vault_password_file = password_file
+        end
+      else
+        ansible.ask_vault_pass = true
+      end
+    end
+
     # Return the IP address for a given VM
     #
     # @param [Symbol] vm The ID of a VM

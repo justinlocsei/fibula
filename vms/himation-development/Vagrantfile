@@ -17,6 +17,7 @@ Vagrant.configure(2) do |config|
     himation.vm.synced_folder *Fibula.sync_home_options
 
     himation.vm.provision "ansible" do |ansible|
+      Fibula.configure_ansible_vault(ansible)
       ansible.playbook = Fibula.ansible_file("himation-development.yml")
       ansible.sudo = true
       ansible.verbose = "v"

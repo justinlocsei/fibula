@@ -20,6 +20,7 @@ variables:
 * `CYB_NFS_DIR_HIMATION`: The absolute path to the directory for the shared Himation source
 * `CYB_VAGRANT_KEY_PRIVATE`: The absolute path to the private key used to access Vagrant machines
 * `CYB_VAGRANT_KEY_PUBLIC`: The absolute path to the public key used to access Vagrant machines
+* `CYB_ANSIBLE_VAULT_PASSWORD_FILE`: An optional path to a file containing the password for the Ansible vault
 
 To work with the infrastructure code, run the following from the root of this
 repository:
