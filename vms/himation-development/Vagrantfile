@@ -20,7 +20,8 @@ Vagrant.configure(2) do |config|
       owner: Fibula.uid("himation"),
       group: Fibula.gid("himation"),
       map_uid: Fibula.uid("himation"),
-      map_gid: Fibula.gid("himation")
+      map_gid: Fibula.gid("himation"),
+      unmount_options: ["-f"]
 
     himation.vm.provision "ansible" do |ansible|
       Fibula.configure_ansible_vault(ansible)
