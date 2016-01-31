@@ -15,3 +15,5 @@
 
 - include: development.yml
   when: himation_is_development
+  become: yes
+  become_user: "{{ himation_user }}"
