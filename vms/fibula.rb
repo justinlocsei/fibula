@@ -9,7 +9,18 @@ module Fibula
       }
     }
 
+    # A mapping of application user and group names to IDs
+    IDS = {
+      :groups => {
+        "himation" => 2000
+      },
+      :users => {
+        "himation" => 2000
+      }
+    }
+
     private_constant :BINDINGS
+    private_constant :IDS
 
     # Return the absolute path to an Ansible file
     #
@@ -17,16 +28,6 @@ module Fibula
     # @return [String]
     def ansible_file(path)
       File.expand_path("../../ansible/#{path}")
-    end
-
-    # Return the options passed to bindfs when mounting an NFS share
-    #
-    # @return [Hash]
-    def bindfs_options
-      {
-        :group => "vagrant",
-        :owner => "vagrant"
-      }
     end
 
     # Configure Ansible to prompt for a vault password or use a password file
@@ -47,6 +48,14 @@ module Fibula
       else
         ansible.ask_vault_pass = true
       end
+    end
+
+    # Return the ID for an application group
+    #
+    # @param [String] name The name of the group
+    # @return [Integer]
+    def gid(name)
+      IDS[:groups].fetch(name)
     end
 
     # Return the IP address for a given VM
@@ -106,6 +115,14 @@ module Fibula
           :type => "rsync"
         }
       ]
+    end
+
+    # Return the ID for an application user
+    #
+    # @param [String] name The name of the user
+    # @return [Integer]
+    def uid(name)
+      IDS[:users].fetch(name)
     end
 
   end
