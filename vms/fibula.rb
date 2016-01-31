@@ -87,14 +87,6 @@ module Fibula
       BINDINGS.fetch(vm).fetch(:port)
     end
 
-    # Return the absolute path to a project
-    #
-    # @param [String] name The name of the project
-    # @return [String]
-    def project_directory(name)
-      File.expand_path("#{ENV.fetch('CYB_PROJECTS_DIR')}/#{name}")
-    end
-
     # Return the path to the private key file for the Vagrant user
     #
     # @return [String]
