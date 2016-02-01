@@ -39,6 +39,12 @@
     - content: "{{ himation_deploy_ssh_key_public }}"
       dest: "id_rsa.pub"
 
+- name: make the source directory the default directory for the application user
+  lineinfile:
+    dest: "{{ himation_user_details.home }}/.profile"
+    line: "cd \"{{ himation_source_dir }}\""
+    state: present
+
 - include: development.yml
   when: himation_is_development
   become: yes
