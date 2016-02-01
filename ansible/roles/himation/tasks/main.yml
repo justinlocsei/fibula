@@ -11,6 +11,7 @@
     group: "{{ himation_group }}"
     comment: "Himation application user"
     uid: "{{ himation_user_id or omit }}"
+    password: "*"
     state: present
   register: himation_user_details
 
