@@ -20,6 +20,8 @@
   file:
     path: "{{ himation_user_details.home }}/.ssh"
     mode: 0700
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
     state: directory
   register: himation_user_ssh_dir
 
@@ -28,6 +30,8 @@
     dest: "{{ himation_user_ssh_dir.path }}/{{ item.dest }}"
     content: "{{ item.content }}"
     mode: 0600
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
   no_log: yes
   with_items:
     - content: "{{ himation_deploy_ssh_key }}"
