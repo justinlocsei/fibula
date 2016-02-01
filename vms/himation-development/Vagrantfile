@@ -32,7 +32,8 @@ Vagrant.configure(2) do |config|
 
       ansible.extra_vars = {
         himation_group_id: Fibula.gid("himation"),
-        himation_user_id: Fibula.uid("himation")
+        himation_user_id: Fibula.uid("himation"),
+        himation_vagrant_ssh_key: File.read(ENV.fetch("CYB_VAGRANT_KEY_PUBLIC"))
       }
     end
 
