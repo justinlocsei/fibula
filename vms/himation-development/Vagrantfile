@@ -1,28 +1,42 @@
 require_relative "../fibula"
 
+HIMATION = {
+  group: "himation",
+  group_id: 2000,
+  host_home_dir: "/vagrant-host-home",
+  ip: "10.10.10.10",
+  ports: {
+    assets: 9090,
+    site: 8080
+  },
+  source_dir: "/var/cyb-himation",
+  user: "himation",
+  user_id: 2000
+}
+
 Vagrant.configure(2) do |config|
   config.vm.define("himation-development") do |himation|
 
     himation.vm.box = "fibula/ubuntu-14.04"
     himation.vm.hostname = "himation-development"
 
-    himation.vm.network "private_network", ip: Fibula.ip(:himation)
-    himation.vm.network "forwarded_port", guest: Fibula.port(:himation, :assets), host: Fibula.port(:himation, :assets)
-    himation.vm.network "forwarded_port", guest: Fibula.port(:himation, :site), host: Fibula.port(:himation, :site)
+    himation.vm.network "private_network", ip: HIMATION[:ip]
+    himation.vm.network "forwarded_port", guest: HIMATION[:ports][:assets], host: HIMATION[:ports][:assets]
+    himation.vm.network "forwarded_port", guest: HIMATION[:ports][:site], host: HIMATION[:ports][:site]
 
     himation.ssh.insert_key = false
     himation.ssh.private_key_path = Fibula.private_key_path
     himation.ssh.forward_agent = true
     himation.ssh.username = ENV["HIMATION_SSH_USER"]
 
-    himation.vm.synced_folder *Fibula.sync_home_options
+    himation.vm.synced_folder *Fibula.sync_home_options(HIMATION[:host_home_dir])
 
-    himation.vm.synced_folder ENV.fetch("CYB_NFS_DIR_HIMATION"), "/var/cyb-himation",
+    himation.vm.synced_folder ENV.fetch("CYB_NFS_DIR_HIMATION"), HIMATION[:source_dir],
       type: "nfs_guest",
-      owner: Fibula.uid("himation"),
-      group: Fibula.gid("himation"),
-      map_uid: Fibula.uid("himation"),
-      map_gid: Fibula.gid("himation"),
+      owner: HIMATION[:user_id],
+      group: HIMATION[:group_id],
+      map_uid: HIMATION[:user_id],
+      map_gid: HIMATION[:group_id],
       unmount_options: ["-f"]
 
     himation.vm.provision "ansible" do |ansible|
@@ -33,16 +47,22 @@ Vagrant.configure(2) do |config|
 
       ansible.extra_vars = {
         himation_app_server: {
-          host: Fibula.ip(:himation),
-          port: Fibula.port(:himation, :site)
+          host: HIMATION[:ip],
+          port: HIMATION[:ports][:site]
         },
         himation_asset_server: {
-          host: Fibula.ip(:himation),
-          port: Fibula.port(:himation, :assets)
+          host: HIMATION[:ip],
+          port: HIMATION[:ports][:assets]
         },
-        himation_group_id: Fibula.gid("himation"),
-        himation_user_id: Fibula.uid("himation"),
-        himation_vagrant_ssh_key: File.read(ENV.fetch("CYB_VAGRANT_KEY_PUBLIC"))
+        himation_group: HIMATION[:group],
+        himation_group_id: HIMATION[:group_id],
+        himation_source_dir: HIMATION[:source_dir],
+        himation_user: HIMATION[:user],
+        himation_user_id: HIMATION[:user_id],
+        himation_vagrant_ssh_key: File.read(ENV.fetch("CYB_VAGRANT_KEY_PUBLIC")),
+        vagrant_host_group: HIMATION[:group],
+        vagrant_host_home_dir: HIMATION[:host_home_dir],
+        vagrant_host_user: HIMATION[:user]
       }
     end
 

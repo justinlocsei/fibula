@@ -1,30 +1,6 @@
 module Fibula
   class << self
 
-    # A hash defining network information for named VMs
-    BINDINGS = {
-      :himation => {
-        :ip => "10.10.10.10",
-        :ports => {
-          :assets => 9090,
-          :site => 8080
-        }
-      }
-    }
-
-    # A mapping of application user and group names to IDs
-    IDS = {
-      :groups => {
-        "himation" => 2000
-      },
-      :users => {
-        "himation" => 2000
-      }
-    }
-
-    private_constant :BINDINGS
-    private_constant :IDS
-
     # Return the absolute path to an Ansible file
     #
     # @param [String] path The path to the file, relative to the Ansible root
@@ -53,22 +29,6 @@ module Fibula
       end
     end
 
-    # Return the ID for an application group
-    #
-    # @param [String] name The name of the group
-    # @return [Integer]
-    def gid(name)
-      IDS[:groups].fetch(name)
-    end
-
-    # Return the IP address for a given VM
-    #
-    # @param [Symbol] vm The ID of a VM
-    # @return [String]
-    def ip(vm)
-      BINDINGS.fetch(vm).fetch(:ip)
-    end
-
     # Optimize the network configuration for a VM's VirtualBox provider
     #
     # This uses the host for DNS resolution, and uses the `virtio` network
@@ -80,15 +40,6 @@ module Fibula
       vbox.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
       vbox.customize ["modifyvm", :id, "--nictype2", "virtio"]
-    end
-
-    # Return the port on which a VM listens for traffic
-    #
-    # @param [Symbol] vm The ID of a VM
-    # @param [Symbol] kind The type of port
-    # @return [Number]
-    def port(vm, kind)
-      BINDINGS.fetch(vm).fetch(:ports).fetch(kind)
     end
 
     # Return the path to the private key file for the Vagrant user
@@ -112,14 +63,6 @@ module Fibula
           :type => "rsync"
         }
       ]
-    end
-
-    # Return the ID for an application user
-    #
-    # @param [String] name The name of the user
-    # @return [Integer]
-    def uid(name)
-      IDS[:users].fetch(name)
     end
 
   end
