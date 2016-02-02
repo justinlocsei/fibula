@@ -2,7 +2,7 @@
 - hosts: himation-development
   roles:
     - role: common
-    - role: vagrant
     - role: git
     - role: himation
       himation_is_development: yes
+    - role: vagrant
