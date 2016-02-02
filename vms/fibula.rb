@@ -4,8 +4,11 @@ module Fibula
     # A hash defining network information for named VMs
     BINDINGS = {
       :himation => {
-        :ip => "10.2.1.6",
-        :port => 8080
+        :ip => "10.10.10.10",
+        :ports => {
+          :assets => 9090,
+          :site => 8080
+        }
       }
     }
 
@@ -82,9 +85,10 @@ module Fibula
     # Return the port on which a VM listens for traffic
     #
     # @param [Symbol] vm The ID of a VM
+    # @param [Symbol] kind The type of port
     # @return [Number]
-    def port(vm)
-      BINDINGS.fetch(vm).fetch(:port)
+    def port(vm, kind)
+      BINDINGS.fetch(vm).fetch(:ports).fetch(kind)
     end
 
     # Return the path to the private key file for the Vagrant user

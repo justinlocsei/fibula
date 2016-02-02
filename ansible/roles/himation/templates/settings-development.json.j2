@@ -7,15 +7,7 @@
     "debugLogging": true
   },
   "servers": {
-    "app": {
-      "host": "localhost",
-      "port": 8080,
-      "protocol": "http"
-    },
-    "assets": {
-      "host": "localhost",
-      "port": 9090,
-      "protocol": "http"
-    }
+    "app": {{ himation_app_server | to_json }},
+    "assets": {{ himation_asset_server | to_json }}
   }
 }

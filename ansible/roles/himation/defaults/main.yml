@@ -1,4 +1,6 @@
 ---
+himation_app_server: null
+himation_asset_server: null
 himation_git_branch: master
 himation_group: himation
 himation_group_id: null
