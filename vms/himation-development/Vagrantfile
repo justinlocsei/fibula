@@ -6,8 +6,8 @@ HIMATION = {
   host_home_dir: "/vagrant-host-home",
   ip: "10.10.10.10",
   ports: {
-    assets: 9090,
-    site: 8080
+    assets: 9001,
+    site: 9000
   },
   source_dir: "/var/cyb-himation",
   user: "himation",
