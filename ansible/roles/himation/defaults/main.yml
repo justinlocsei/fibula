@@ -2,7 +2,10 @@
 himation_app_server: null
 himation_asset_server: null
 himation_git_branch: master
+himation_group: himation
 himation_group_id: null
 himation_is_development: yes
+himation_source_dir: /var/cyb-himation
+himation_user: himation
 himation_user_id: null
 himation_vagrant_ssh_key: null
