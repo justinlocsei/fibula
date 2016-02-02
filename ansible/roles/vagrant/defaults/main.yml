@@ -1,2 +1,4 @@
 ---
-vagrant_user_home: /vagrant-user-home
+vagrant_host_group: vagrant
+vagrant_host_home_dir: /vagrant-host-home
+vagrant_host_user: vagrant

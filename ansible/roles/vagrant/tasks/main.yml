@@ -1,10 +1,10 @@
 ---
 - name: sync user configuration files
   file:
-    src: "{{ vagrant_user_home }}/{{ item }}"
-    dest: "/home/vagrant/{{ item }}"
-    owner: vagrant
-    group: vagrant
+    src: "{{ vagrant_host_home_dir }}/{{ item }}"
+    dest: "/home/{{ vagrant_host_user }}/{{ item }}"
+    owner: "{{ vagrant_host_user }}"
+    group: "{{ vagrant_host_group }}"
     force: yes
     state: link
   with_items:

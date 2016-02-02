@@ -100,11 +100,12 @@ module Fibula
 
     # Options to pass to a synced folder to sync the home directory
     #
+    # @param [String] path The guest path to the home directory
     # @return [Array]
-    def sync_home_options
+    def sync_home_options(path)
       [
         File.expand_path("~"),
-        "/vagrant-user-home",
+        path,
         {
           :rsync__auto => false,
           :rsync__exclude => "*/",
