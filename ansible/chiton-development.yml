@@ -1,0 +1,5 @@
+---
+- hosts: chiton-development
+  roles:
+    - role: common
+    - role: git
