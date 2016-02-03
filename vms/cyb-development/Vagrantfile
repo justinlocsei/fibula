@@ -1,5 +1,18 @@
 require_relative "../fibula"
 
+CHITON = {
+  group: "chiton",
+  group_id: 3000,
+  host_home_dir: "/vagrant-host-home",
+  ip: "10.10.10.20",
+  ports: {
+    api: 9002
+  },
+  source_dir: "/var/cyb-chiton",
+  user: "chiton",
+  user_id: 3000
+}
+
 HIMATION = {
   group: "himation",
   group_id: 2000,
@@ -15,6 +28,7 @@ HIMATION = {
 }
 
 Vagrant.configure(2) do |config|
+
   config.vm.define("himation-development") do |himation|
 
     himation.vm.box = "fibula/ubuntu-14.04"
@@ -72,4 +86,48 @@ Vagrant.configure(2) do |config|
     end
 
   end
+
+  config.vm.define("chiton-development") do |chiton|
+
+    chiton.vm.box = "fibula/ubuntu-14.04"
+    chiton.vm.hostname = "chiton-development"
+
+    chiton.vm.network "private_network", ip: CHITON[:ip]
+    chiton.vm.network "forwarded_port", guest: CHITON[:ports][:api], host: CHITON[:ports][:api]
+
+    chiton.ssh.insert_key = false
+    chiton.ssh.private_key_path = Fibula.private_key_path
+    chiton.ssh.forward_agent = true
+    chiton.ssh.username = ENV["CHITON_SSH_USER"]
+
+    chiton.vm.synced_folder *Fibula.sync_home_options(CHITON[:host_home_dir])
+
+    chiton.vm.synced_folder ENV.fetch("CYB_NFS_DIR_CHITON"), CHITON[:source_dir],
+      type: "nfs_guest",
+      owner: CHITON[:user_id],
+      group: CHITON[:group_id],
+      map_uid: CHITON[:user_id],
+      map_gid: CHITON[:group_id],
+      unmount_options: ["-f"]
+
+    chiton.vm.provision "ansible" do |ansible|
+      Fibula.configure_ansible_vault(ansible)
+      ansible.playbook = Fibula.ansible_file("chiton-development.yml")
+      ansible.sudo = true
+      ansible.verbose = "v"
+
+      ansible.extra_vars = {
+        vagrant_host_group: CHITON[:group],
+        vagrant_host_home_dir: CHITON[:host_home_dir],
+        vagrant_host_user: CHITON[:user]
+      }
+    end
+
+    chiton.vm.provider "virtualbox" do |vbox|
+      vbox.cpus = 2
+      Fibula.optimize_virtualbox_networking(vbox)
+    end
+
+  end
+
 end

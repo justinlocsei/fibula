@@ -1,0 +1,18 @@
+#!/bin/bash
+
+VMS=(chiton himation)
+
+case $1 in
+"chiton")
+  CHITON_SSH_USER=chiton vagrant ssh chiton-development
+  ;;
+"himation")
+  HIMATION_SSH_USER=himation vagrant ssh himation-development
+  ;;
+*)
+  echo "Usage: develop VM"
+  echo
+  echo "       VM: The ID of a virtual machine (${VMS[*]})"
+  exit 1
+  ;;
+esac
