@@ -117,6 +117,12 @@ Vagrant.configure(2) do |config|
       ansible.verbose = "v"
 
       ansible.extra_vars = {
+        chiton_group: CHITON[:group],
+        chiton_group_id: CHITON[:group_id],
+        chiton_source_dir: CHITON[:source_dir],
+        chiton_user: CHITON[:user],
+        chiton_user_id: CHITON[:user_id],
+        chiton_vagrant_ssh_key: File.read(ENV.fetch("CYB_VAGRANT_KEY_PUBLIC")),
         vagrant_host_group: CHITON[:group],
         vagrant_host_home_dir: CHITON[:host_home_dir],
         vagrant_host_user: CHITON[:user]

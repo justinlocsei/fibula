@@ -1,0 +1,15 @@
+---
+- name: add the custom Vagrant key to the application user's authorized keys
+  copy:
+    dest: "{{ chiton_user_ssh_dir.path }}/authorized_keys"
+    content: "{{ chiton_vagrant_ssh_key }}"
+    mode: 0600
+
+- name: fetch the source code
+  git:
+    accept_hostkey: yes
+    clone: yes
+    dest: "{{ chiton_source_dir }}"
+    repo: git@github.com:justinlocsei/chiton.git
+    update: yes
+    version: "{{ chiton_git_branch }}"
