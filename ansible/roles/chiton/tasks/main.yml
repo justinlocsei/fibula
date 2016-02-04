@@ -2,6 +2,10 @@
 - include_vars: keys.yml
   no_log: yes
 
+- set_fact:
+    chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
+    chiton_virtualenv_dir: "{{ chiton_source_dir }}/virtualenv"
+
 - name: create the application group
   group:
     name: "{{ chiton_group }}"
@@ -41,12 +45,6 @@
       dest: "id_rsa"
     - content: "{{ chiton_deploy_ssh_key_public }}"
       dest: "id_rsa.pub"
-
-- name: make the source directory the default directory for the application user
-  lineinfile:
-    dest: "{{ chiton_user_details.home }}/.profile"
-    line: "cd \"{{ chiton_source_dir }}\""
-    state: present
 
 - include: development.yml
   when: chiton_is_development

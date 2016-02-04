@@ -13,3 +13,21 @@
     repo: git@github.com:justinlocsei/chiton.git
     update: yes
     version: "{{ chiton_git_branch }}"
+
+- name: install all dependencies in a virtualenv
+  pip:
+    requirements: "{{ chiton_requirements_dir }}/{{ item }}"
+    executable: "{{ python_pip_executable }}"
+    virtualenv: "{{ chiton_virtualenv_dir }}"
+    virtualenv_python: "{{ python_executable }}"
+    virtualenv_site_packages: no
+    state: present
+  with_items:
+    - core.txt
+    - development.txt
+
+- name: activate the virtualenv for the application user at login
+  lineinfile:
+    dest: "{{ chiton_user_details.home }}/.profile"
+    line: "cd \"{{ chiton_source_dir }}\" && source {{ chiton_virtualenv_dir }}/bin/activate"
+    state: present
