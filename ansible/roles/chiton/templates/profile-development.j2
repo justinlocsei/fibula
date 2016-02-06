@@ -1,5 +1,13 @@
 #!/bin/bash
 
+{% if chiton_server_address %}
+export CHITON_SERVER_ADDRESS="{{ chiton_server_address }}"
+{% endif %}
+
+{% if chiton_server_port %}
+export CHITON_SERVER_PORT="{{ chiton_server_port }}"
+{% endif %}
+
 export CHITON_CONFIG_FILE="{{ chiton_config_file }}"
 
 cd "{{ chiton_source_dir }}" && . "{{ chiton_virtualenv_dir }}/bin/activate"

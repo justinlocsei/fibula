@@ -119,6 +119,8 @@ Vagrant.configure(2) do |config|
       ansible.extra_vars = {
         chiton_group: CHITON[:group],
         chiton_group_id: CHITON[:group_id],
+        chiton_server_address: CHITON[:ip],
+        chiton_server_port: CHITON[:ports][:api],
         chiton_source_dir: CHITON[:source_dir],
         chiton_user: CHITON[:user],
         chiton_user_id: CHITON[:user_id],
