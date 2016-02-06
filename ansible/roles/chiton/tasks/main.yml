@@ -3,6 +3,7 @@
   no_log: yes
 
 - set_fact:
+    chiton_config_dir: "{{ chiton_source_dir }}/config"
     chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
     chiton_virtualenv_dir: "{{ chiton_source_dir }}/virtualenv"
 
