@@ -2,10 +2,8 @@
 chiton_git_branch: master
 chiton_group: chiton
 chiton_group_id: null
-chiton_is_development: yes
 chiton_server_address: null
 chiton_server_port: null
 chiton_source_dir: /var/cyb-chiton
 chiton_user: chiton
 chiton_user_id: null
-chiton_vagrant_ssh_key: null

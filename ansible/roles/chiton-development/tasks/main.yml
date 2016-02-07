@@ -1,5 +1,5 @@
 ---
-- include_vars: environment-development.yml
+- include_vars: environment.yml
   no_log: yes
 
 - set_fact:
@@ -35,13 +35,13 @@
 
 - name: create an application configuration file
   template:
-    src: config-development.json.j2
+    src: config.json.j2
     dest: "{{ chiton_config_file }}"
     mode: 0600
 
 - name: create a profile script to customize the application user's environment
   template:
-    src: profile-development.j2
+    src: profile.j2
     dest: "{{ chiton_user_custom_profile }}"
     mode: 0644
 
@@ -50,3 +50,4 @@
     dest: "{{ chiton_user_details.home }}/.profile"
     line: ". {{ chiton_user_custom_profile }}"
     state: present
+

@@ -46,8 +46,3 @@
       dest: "id_rsa"
     - content: "{{ chiton_deploy_ssh_key_public }}"
       dest: "id_rsa.pub"
-
-- include: development.yml
-  when: chiton_is_development
-  become: yes
-  become_user: "{{ chiton_user }}"

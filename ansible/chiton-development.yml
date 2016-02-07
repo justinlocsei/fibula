@@ -3,6 +3,5 @@
   roles:
     - role: common
     - role: git
-    - role: chiton
-      chiton_is_development: yes
+    - role: chiton-development
     - role: vagrant
