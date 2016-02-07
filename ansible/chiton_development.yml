@@ -2,5 +2,5 @@
 - hosts: chiton-development
   roles:
     - role: common
-    - role: chiton-development
+    - role: chiton_development
     - role: vagrant
