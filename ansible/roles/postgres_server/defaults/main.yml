@@ -1,0 +1,4 @@
+---
+postgres_server_use_docker: no
+postgres_server_port: 5432
+postgres_server_version: 9.4.0

@@ -1,0 +1,8 @@
+---
+- name: create the Docker container
+  docker:
+    name: cyb-postgres
+    image: postgres:{{ postgres_server_version }}
+    pull: always
+    ports: "{{ postgres_server_port }}:5432"
+    state: reloaded

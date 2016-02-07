@@ -1,0 +1,4 @@
+---
+- name: run Postgres in Docker
+  include: docker.yml
+  when: postgres_server_use_docker
