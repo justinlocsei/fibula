@@ -1,4 +1,10 @@
 ---
 dependencies:
   - role: git
+  - role: docker
+  - role: postgres_server
+    postgres_server_use_docker: yes
+    postgres_server_version: 9.4.5
+  - role: postgres_client
+    postgres_client_version: 9.4
   - role: chiton
