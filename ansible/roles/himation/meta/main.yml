@@ -4,4 +4,4 @@ dependencies:
     ruby_bundler_version: 1.11.0
     ruby_version: 2.2
   - role: nodejs
-    nodejs_version: [4, 2, 4]
+    nodejs_version: 4.2.4

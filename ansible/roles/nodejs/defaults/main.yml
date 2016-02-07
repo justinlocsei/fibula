@@ -1,4 +1,4 @@
 ---
 nodejs_arch: "{{ ansible_machine }}"
 nodejs_distro: "{{ ansible_distribution_release }}"
-nodejs_version: [4, 0, 0]
+nodejs_version: 4.0.0
