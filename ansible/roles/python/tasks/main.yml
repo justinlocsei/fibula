@@ -1,22 +1,24 @@
 ---
 - set_fact:
-    python_executable: "python{{ python_version | join('.') }}"
-    python_pip_executable: "pip{{ python_version[0] }}"
-    python_version_string: "{{ python_version | join('.') }}"
+    python_version_major: "{{ python_version | regex_replace('\\..*', '') }}"
+
+- set_fact:
+    python_executable: "python{{ python_version }}"
+    python_pip_executable: "pip{{ python_version_major }}"
 
 - name: add the deadsnakes Python repository
   apt_repository:
     repo: ppa:fkrull/deadsnakes
     state: present
 
-- name: install Python v{{ python_version_string }}
+- name: install Python v{{ python_version }}
   apt:
-    name: python{{ python_version_string }}
+    name: python{{ python_version }}
     state: present
 
 - name: install pip
   apt:
-    name: "python{{ (python_version[0] == 3) | ternary(3, '') }}-pip"
+    name: "python{{ (python_version_major == 3) | ternary(3, '') }}-pip"
     state: present
 
 - name: install virtualenv
