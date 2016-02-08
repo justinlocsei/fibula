@@ -13,8 +13,11 @@
 
 - name: install Python v{{ python_version }}
   apt:
-    name: python{{ python_version }}
+    name: "{{ item }}"
     state: present
+  with_items:
+    - python{{ python_version }}
+    - python{{ python_version }}-dev
 
 - name: install pip
   apt:
