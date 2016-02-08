@@ -1,0 +1,12 @@
+---
+- name: install all Python dependencies in a virtualenv
+  pip:
+    requirements: "{{ chiton_requirements_dir }}/{{ item }}"
+    executable: "{{ python_pip_executable }}"
+    virtualenv: "{{ chiton_virtualenv_dir }}"
+    virtualenv_python: "{{ python_executable }}"
+    virtualenv_site_packages: no
+    state: present
+  with_items:
+    - core.txt
+    - development.txt

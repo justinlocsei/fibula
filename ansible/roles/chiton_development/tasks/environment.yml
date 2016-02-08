@@ -1,0 +1,37 @@
+---
+- set_fact:
+    chiton_config_file: "{{ chiton_config_dir }}/development.json"
+    chiton_user_custom_profile: "{{ chiton_user_details.home }}/.profile.chiton"
+
+- name: add the custom Vagrant key to the application user's authorized keys
+  copy:
+    dest: "{{ chiton_user_ssh_dir.path }}/authorized_keys"
+    content: "{{ chiton_development_vagrant_ssh_key }}"
+    mode: 0600
+
+- name: fetch the source code
+  git:
+    accept_hostkey: yes
+    clone: yes
+    dest: "{{ chiton_source_dir }}"
+    repo: git@github.com:justinlocsei/chiton.git
+    update: yes
+    version: "{{ chiton_git_branch }}"
+
+- name: create an application configuration file
+  template:
+    src: config.json.j2
+    dest: "{{ chiton_config_file }}"
+    mode: 0600
+
+- name: create a profile script to customize the application user's environment
+  template:
+    src: profile.j2
+    dest: "{{ chiton_user_custom_profile }}"
+    mode: 0644
+
+- name: ensure that the application user loads the custom profile
+  lineinfile:
+    dest: "{{ chiton_user_details.home }}/.profile"
+    line: ". {{ chiton_user_custom_profile }}"
+    state: present
