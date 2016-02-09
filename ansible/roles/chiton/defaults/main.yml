@@ -1,4 +1,7 @@
 ---
+chiton_db_name: chiton
+chiton_db_password: null
+chiton_db_user: chiton
 chiton_git_branch: master
 chiton_group: chiton
 chiton_group_id: null

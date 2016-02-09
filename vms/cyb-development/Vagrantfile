@@ -6,7 +6,8 @@ CHITON = {
   host_home_dir: "/vagrant-host-home",
   ip: "10.10.10.20",
   ports: {
-    api: 9002
+    api: 9002,
+    db: 9003
   },
   source_dir: "/var/cyb-chiton",
   user: "chiton",
@@ -94,6 +95,7 @@ Vagrant.configure(2) do |config|
 
     chiton.vm.network "private_network", ip: CHITON[:ip]
     chiton.vm.network "forwarded_port", guest: CHITON[:ports][:api], host: CHITON[:ports][:api]
+    chiton.vm.network "forwarded_port", guest: CHITON[:ports][:db], host: CHITON[:ports][:db]
 
     chiton.ssh.insert_key = false
     chiton.ssh.private_key_path = Fibula.private_key_path
@@ -125,6 +127,7 @@ Vagrant.configure(2) do |config|
         chiton_source_dir: CHITON[:source_dir],
         chiton_user: CHITON[:user],
         chiton_user_id: CHITON[:user_id],
+        postgres_server_port: CHITON[:ports][:db],
         vagrant_host_group: CHITON[:group],
         vagrant_host_home_dir: CHITON[:host_home_dir],
         vagrant_host_user: CHITON[:user]

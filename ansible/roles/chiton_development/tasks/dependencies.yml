@@ -10,3 +10,27 @@
   with_items:
     - core.txt
     - development.txt
+
+- name: create the application database
+  postgresql_db:
+    name: "{{ chiton_db_name }}"
+    login_host: "{{ postgres_server_address }}"
+    login_password: "{{ postgres_server_root_password }}"
+    login_user: "{{ postgres_server_root_user }}"
+    port: "{{ postgres_server_port }}"
+    state: present
+  no_log: yes
+
+- name: create the application database user
+  postgresql_user:
+    name: "{{ chiton_db_user }}"
+    password: "{{ chiton_db_password }}"
+    db: "{{ chiton_db_name }}"
+    priv: ALL
+    role_attr_flags: LOGIN
+    login_host: "{{ postgres_server_address }}"
+    login_password: "{{ postgres_server_root_password }}"
+    login_user: "{{ postgres_server_root_user }}"
+    port: "{{ postgres_server_port }}"
+    state: present
+  no_log: yes
