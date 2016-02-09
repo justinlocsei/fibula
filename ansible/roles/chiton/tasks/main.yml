@@ -1,5 +1,6 @@
 ---
-- include_vars: keys.yml
+- name: load the application user keys
+  include_vars: keys.yml
   no_log: yes
 
 - set_fact:
