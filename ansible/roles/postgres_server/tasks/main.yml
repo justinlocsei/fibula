@@ -1,4 +1,9 @@
 ---
+- name: load the Postgres root password
+  include_vars: passwords.yml
+  no_log: yes
+  when: postgres_server_root_password is none
+
 - name: run Postgres in Docker
   include: docker.yml
   when: postgres_server_use_docker
