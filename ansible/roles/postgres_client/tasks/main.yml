@@ -14,3 +14,8 @@
   apt:
     name: postgresql-client-{{ postgres_client_version }}
     state: present
+
+- name: install a Postgres library for the system Python
+  apt:
+    name: python-psycopg2
+    state: present
