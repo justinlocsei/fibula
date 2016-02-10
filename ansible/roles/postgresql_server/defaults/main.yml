@@ -1,5 +1,7 @@
 ---
 postgresql_server_address: 127.0.0.1
+postgresql_server_data_dir: null
+postgresql_server_docker_volumes: []
 postgresql_server_port: 5432
 postgresql_server_root_password: null
 postgresql_server_root_user: postgres
