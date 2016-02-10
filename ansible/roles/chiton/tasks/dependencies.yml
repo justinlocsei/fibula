@@ -19,7 +19,6 @@
     login_user: "{{ postgresql_server_root_user }}"
     port: "{{ postgresql_server_port }}"
     state: present
-  no_log: yes
 
 - name: create the application database user
   postgresql_user:
@@ -33,4 +32,3 @@
     login_user: "{{ postgresql_server_root_user }}"
     port: "{{ postgresql_server_port }}"
     state: present
-  no_log: yes
