@@ -1,4 +1,13 @@
 ---
+- set_fact:
+    chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
+    chiton_virtualenv_dir: "{{ chiton_source_dir }}/virtualenv"
+    chiton_config_dir: "{{ chiton_source_dir }}/config"
+
+- set_fact:
+    chiton_config_file: "{{ chiton_config_dir }}/{{ chiton_env_name | require_value }}.json"
+    chiton_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
+
 - name: configure the application user
   include: user.yml
 
