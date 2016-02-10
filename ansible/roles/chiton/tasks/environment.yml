@@ -1,6 +1,6 @@
 ---
 - set_fact:
-    chiton_config_file: "{{ chiton_config_dir }}/development.json"
+    chiton_config_file: "{{ chiton_config_dir }}/{{ chiton_env_name | require_value }}.json"
     chiton_user_custom_profile: "{{ chiton_user_details.home }}/.profile.chiton"
 
 - name: add all known keys to the application user's authorized keys

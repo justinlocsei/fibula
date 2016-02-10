@@ -24,7 +24,7 @@
 - name: create the application database user
   postgresql_user:
     name: "{{ chiton_db_user }}"
-    password: "{{ chiton_db_password }}"
+    password: "{{ chiton_db_password | require_value }}"
     db: "{{ chiton_db_name }}"
     priv: ALL
     role_attr_flags: LOGIN
