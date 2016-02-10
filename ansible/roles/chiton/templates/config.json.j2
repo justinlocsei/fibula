@@ -1,4 +1,4 @@
 {
-    "debug": "{{ chiton_config_debug }}",
+    "debug": {{ chiton_config_debug | lower }},
     "secret_key": "{{ chiton_config_secret_key | require_value }}"
 }
