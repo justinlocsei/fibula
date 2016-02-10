@@ -60,6 +60,10 @@ Vagrant.configure(2) do |config|
       ansible.sudo = true
       ansible.verbose = "v"
 
+      ansible.groups = {
+        "himation_development" => "himation-development"
+      }
+
       ansible.extra_vars = {
         himation_app_server: {
           host: HIMATION[:ip],
@@ -117,6 +121,10 @@ Vagrant.configure(2) do |config|
       ansible.playbook = Fibula.ansible_file("chiton_development.yml")
       ansible.sudo = true
       ansible.verbose = "v"
+
+      ansible.groups = {
+        "chiton_development" => "chiton-development"
+      }
 
       ansible.extra_vars = {
         chiton_group: CHITON[:group],
