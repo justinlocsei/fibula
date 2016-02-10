@@ -14,21 +14,21 @@
 - name: create the application database
   postgresql_db:
     name: "{{ chiton_db_name }}"
-    login_host: "{{ postgresql_server_address }}"
-    login_password: "{{ postgresql_server_root_password }}"
-    login_user: "{{ postgresql_server_root_user }}"
-    port: "{{ postgresql_server_port }}"
+    login_host: "{{ chiton_db_host | require_value }}"
+    login_password: "{{ chiton_db_root_password | require_value }}"
+    login_user: "{{ chiton_db_root_name }}"
+    port: "{{ chiton_db_port | require_value }}"
     state: present
 
 - name: create the application database user
   postgresql_user:
-    name: "{{ chiton_db_user }}"
-    password: "{{ chiton_db_password | require_value }}"
+    name: "{{ chiton_db_user_name }}"
+    password: "{{ chiton_db_user_password | require_value }}"
     db: "{{ chiton_db_name }}"
     priv: ALL
     role_attr_flags: LOGIN
-    login_host: "{{ postgresql_server_address }}"
-    login_password: "{{ postgresql_server_root_password }}"
-    login_user: "{{ postgresql_server_root_user }}"
-    port: "{{ postgresql_server_port }}"
+    login_host: "{{ chiton_db_host | require_value }}"
+    login_password: "{{ chiton_db_root_password | require_value }}"
+    login_user: "{{ chiton_db_root_name }}"
+    port: "{{ chiton_db_port | require_value }}"
     state: present

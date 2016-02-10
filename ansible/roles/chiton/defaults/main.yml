@@ -2,10 +2,14 @@
 chiton_activate_venv: false
 chiton_config_debug: false
 chiton_config_secret_key: null
-chiton_env_name: null
+chiton_db_host: null
 chiton_db_name: chiton
-chiton_db_password: null
-chiton_db_user: chiton
+chiton_db_port: null
+chiton_db_root_name: postgres
+chiton_db_root_password: null
+chiton_db_user_name: chiton
+chiton_db_user_password: null
+chiton_env_name: null
 chiton_git_branch: master
 chiton_group: chiton
 chiton_group_id: null
