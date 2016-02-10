@@ -9,3 +9,4 @@
       POSTGRES_PASSWORD: "{{ postgres_server_root_password }}"
       POSTGRES_USER: "{{ postgres_server_root_user }}"
     state: reloaded
+  no_log: yes
