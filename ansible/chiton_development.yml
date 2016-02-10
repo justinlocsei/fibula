@@ -2,5 +2,12 @@
 - hosts: chiton-development
   roles:
     - role: common
-    - role: chiton_development
+    - role: docker
+    - role: postgres_server
+      postgres_server_use_docker: yes
+      postgres_server_version: "{{ chiton_postgresql_server_version }}"
+    - role: chiton
+      chiton_activate_venv: true
+      chiton_config_debug: true
+      chiton_env_name: development
     - role: vagrant

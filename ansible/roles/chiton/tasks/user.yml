@@ -1,0 +1,49 @@
+---
+- name: load the application user keys
+  include_vars: keys.yml
+  no_log: yes
+
+- set_fact:
+    chiton_config_dir: "{{ chiton_source_dir }}/config"
+    chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
+    chiton_virtualenv_dir: "{{ chiton_source_dir }}/virtualenv"
+
+- name: create the application group
+  group:
+    name: "{{ chiton_group }}"
+    gid: "{{ chiton_group_id or omit }}"
+    state: present
+
+- name: create the application user
+  user:
+    name: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    comment: "Chiton application user"
+    uid: "{{ chiton_user_id or omit }}"
+    shell: /bin/bash
+    password: "*"
+    state: present
+  register: chiton_user_details
+
+- name: create the application user's SSH directory
+  file:
+    path: "{{ chiton_user_details.home }}/.ssh"
+    mode: 0700
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    state: directory
+  register: chiton_user_ssh_dir
+
+- name: add the GitHub deploy keys for the application user
+  copy:
+    dest: "{{ chiton_user_ssh_dir.path }}/{{ item.dest }}"
+    content: "{{ item.content }}"
+    mode: 0600
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+  no_log: yes
+  with_items:
+    - content: "{{ chiton_deploy_ssh_key }}"
+      dest: "id_rsa"
+    - content: "{{ chiton_deploy_ssh_key_public }}"
+      dest: "id_rsa.pub"

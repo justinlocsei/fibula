@@ -1,12 +1,16 @@
 ---
+- name: "load the {{ chiton_env_name }} environment's settings"
+  include_vars: "env-{{ chiton_env_name }}.yml"
+  no_log: yes
+
 - set_fact:
     chiton_config_file: "{{ chiton_config_dir }}/development.json"
     chiton_user_custom_profile: "{{ chiton_user_details.home }}/.profile.chiton"
 
-- name: add the custom Vagrant key to the application user's authorized keys
+- name: add all known keys to the application user's authorized keys
   copy:
     dest: "{{ chiton_user_ssh_dir.path }}/authorized_keys"
-    content: "{{ chiton_development_vagrant_ssh_key }}"
+    content: "{{ chiton_user_authorized_keys | join('\n') }}"
     mode: 0600
 
 - name: fetch the source code

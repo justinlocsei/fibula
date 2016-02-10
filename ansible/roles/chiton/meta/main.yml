@@ -1,4 +1,7 @@
 ---
 dependencies:
+  - role: git
   - role: python
-    python_version: 3.5
+    python_version: "{{ chiton_python_version }}"
+  - role: postgres_client
+    postgres_client_version: "{{ chiton_postgresql_client_version }}"
