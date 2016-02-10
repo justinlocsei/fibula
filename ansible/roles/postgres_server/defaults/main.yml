@@ -1,7 +1,0 @@
----
-postgres_server_address: 127.0.0.1
-postgres_server_use_docker: no
-postgres_server_port: 5432
-postgres_server_root_user: postgres
-postgres_server_root_password: null
-postgres_server_version: 9.4.0

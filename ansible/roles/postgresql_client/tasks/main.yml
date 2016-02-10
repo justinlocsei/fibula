@@ -1,8 +1,8 @@
 ---
 - name: add the PostgreSQL package repository's key
   apt_key:
-    url: https://www.postgresql.org/media/keys/{{ postgres_client_apt_key_id }}.asc
-    id: "{{ postgres_client_apt_key_id }}"
+    url: https://www.postgresql.org/media/keys/{{ postgresql_client_apt_key_id }}.asc
+    id: "{{ postgresql_client_apt_key_id }}"
     state: present
 
 - name: add the PostgreSQL package repository
@@ -10,12 +10,12 @@
     repo: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
     state: present
 
-- name: install the Postgres client
+- name: install the PostgreSQL client
   apt:
-    name: postgresql-client-{{ postgres_client_version }}
+    name: postgresql-client-{{ postgresql_client_version }}
     state: present
 
-- name: install a Postgres library for the system Python
+- name: install a PostgreSQL library for the system Python
   apt:
     name: python-psycopg2
     state: present

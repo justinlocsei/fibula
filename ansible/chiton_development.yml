@@ -3,9 +3,9 @@
   roles:
     - role: common
     - role: docker
-    - role: postgres_server
-      postgres_server_use_docker: yes
-      postgres_server_version: "{{ chiton_postgresql_server_version }}"
+    - role: postgresql_server
+      postgresql_server_use_docker: yes
+      postgresql_server_version: "{{ chiton_postgresql_server_version }}"
     - role: chiton
       chiton_activate_venv: true
       chiton_config_debug: true
