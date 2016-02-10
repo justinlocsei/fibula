@@ -1,6 +1,7 @@
 require_relative "../fibula"
 
 CHITON = {
+  db_data_dir: "/var/cyb-chiton-data",
   group: "chiton",
   group_id: 3000,
   host_home_dir: "/vagrant-host-home",
@@ -136,6 +137,7 @@ Vagrant.configure(2) do |config|
         chiton_user: CHITON[:user],
         chiton_user_authorized_keys: [File.read(ENV.fetch("CYB_VAGRANT_KEY_PUBLIC"))],
         chiton_user_id: CHITON[:user_id],
+        postgresql_server_data_dir: CHITON[:db_data_dir],
         vagrant_host_group: CHITON[:group],
         vagrant_host_home_dir: CHITON[:host_home_dir],
         vagrant_host_user: CHITON[:user]
