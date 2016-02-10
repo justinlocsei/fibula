@@ -1,8 +1,4 @@
 ---
-- name: "load the {{ chiton_env_name }} environment's settings"
-  include_vars: "env-{{ chiton_env_name }}.yml"
-  no_log: yes
-
 - set_fact:
     chiton_config_file: "{{ chiton_config_dir }}/development.json"
     chiton_user_custom_profile: "{{ chiton_user_details.home }}/.profile.chiton"
