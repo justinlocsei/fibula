@@ -11,6 +11,9 @@
 - name: configure the application user
   include: user.yml
 
+- name: configure the application database
+  include: database.yml
+
 - name: configure the application environment
   include: environment.yml
   become: yes

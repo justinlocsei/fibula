@@ -3,6 +3,7 @@ chiton_activate_venv: false
 chiton_admin_email: noreply@coveryourbasics.com
 chiton_admin_name: chiton
 chiton_admin_password: false
+chiton_allow_tests: no
 chiton_config_debug: false
 chiton_config_secret_key: null
 chiton_db_host: null
