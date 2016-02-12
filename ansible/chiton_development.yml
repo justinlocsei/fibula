@@ -10,7 +10,7 @@
       postgresql_server_use_docker: yes
       postgresql_server_version: "{{ chiton_postgresql_server_version }}"
     - role: chiton
-      chiton_activate_venv: true
-      chiton_config_debug: true
+      chiton_activate_venv: yes
+      chiton_config_debug: yes
       chiton_env_name: development
     - role: vagrant
