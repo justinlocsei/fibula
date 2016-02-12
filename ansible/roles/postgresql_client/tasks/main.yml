@@ -15,6 +15,11 @@
     name: postgresql-client-{{ postgresql_client_version }}
     state: present
 
+- name: install the PostgreSQL development files
+  apt:
+    name: postgresql-server-dev-{{ postgresql_client_version }}
+    state: present
+
 - name: install a PostgreSQL library for the system Python
   apt:
     name: python-psycopg2
