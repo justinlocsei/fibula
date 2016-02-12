@@ -1,4 +1,8 @@
 ---
+- name: update the APT cache
+  apt:
+    update_cache: yes
+
 - name: ensure that ntp is current
   apt:
     name: ntp
