@@ -1,4 +1,11 @@
 {
+    "database": {
+        "engine": "postgresql",
+        "host": "{{ chiton_db_host }}",
+        "name": "{{ chiton_db_user_name }}",
+        "password": "{{ chiton_db_user_password }}",
+        "port": {{ chiton_db_port }}
+    },
     "debug": {{ chiton_config_debug | lower }},
     "secret_key": "{{ chiton_config_secret_key | require_value }}"
 }
