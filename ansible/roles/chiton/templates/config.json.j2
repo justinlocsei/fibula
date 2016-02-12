@@ -7,5 +7,6 @@
         "port": {{ chiton_db_port }}
     },
     "debug": {{ chiton_config_debug | lower }},
-    "secret_key": "{{ chiton_config_secret_key | require_value }}"
+    "secret_key": "{{ chiton_config_secret_key | require_value }}",
+    "use_https": {{ chiton_use_https | ternary("true", "false") }}
 }
