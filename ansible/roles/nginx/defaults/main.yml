@@ -1,0 +1,3 @@
+---
+nginx_group: nginx
+nginx_user: nginx

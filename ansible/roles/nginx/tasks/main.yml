@@ -1,0 +1,47 @@
+---
+- name: create the nginx worker group
+  group:
+    name: "{{ nginx_group }}"
+    state: present
+
+- name: create the nginx worker user
+  user:
+    name: "{{ nginx_user }}"
+    group: "{{ nginx_group }}"
+    comment: "nginx worker user"
+    system: yes
+    state: present
+
+- name: add the nginx package repository's key
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
+
+- name: add the nginx package repository
+  apt_repository:
+    repo: deb http://nginx.org/packages/ubuntu/ {{ ansible_distribution_release }}  nginx
+    state: present
+
+- name: install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: remove default site configurations
+  file:
+    path: "{{ nginx_sites_dir }}/{{ item }}"
+    state: absent
+  with_items:
+    - default.conf
+    - example_ssl.conf
+
+- name: use a custom configuration file
+  template:
+    src: templates/nginx.conf.j2
+    dest: "{{ nginx_config_dir }}/nginx.conf"
+    owner: root
+    group: root
+    mode: 0644
+    validate: nginx -t -c %s
+  notify:
+    - reload nginx
