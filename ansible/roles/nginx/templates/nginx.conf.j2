@@ -1,11 +1,11 @@
 user {{ nginx_user }} {{ nginx_group }};
 
 worker_processes {{ ansible_processor_cores }};
-worker_rlimit_nofile 4096;
+worker_rlimit_nofile {{ nginx_nofile_limit }};
 
 events {
     use epoll;
-    worker_connections 4096;
+    worker_connections {{ nginx_nofile_limit }};
 }
 
 http {

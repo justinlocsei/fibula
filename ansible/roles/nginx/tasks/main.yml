@@ -12,6 +12,16 @@
     system: yes
     state: present
 
+- name: update the default environment for the nginx worker user
+  template:
+    src: templates/default.j2
+    dest: /etc/default/nginx
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart nginx
+
 - name: add the nginx package repository's key
   apt_key:
     url: http://nginx.org/keys/nginx_signing.key
