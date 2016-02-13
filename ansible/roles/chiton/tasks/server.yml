@@ -1,0 +1,10 @@
+---
+- name: create the nginx site config
+  template:
+    src: site.conf.j2
+    dest: "{{ nginx_sites_dir }}/chiton.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload nginx

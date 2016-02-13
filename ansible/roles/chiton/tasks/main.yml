@@ -23,3 +23,6 @@
   include: dependencies.yml
   become: yes
   become_user: "{{ chiton_user }}"
+
+- name: configure the application server
+  include: server.yml
