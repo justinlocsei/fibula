@@ -18,7 +18,9 @@ chiton_git_branch: master
 chiton_group: chiton
 chiton_group_id: null
 chiton_server_address: null
+chiton_server_address_local: 127.0.0.1
 chiton_server_port: null
+chiton_server_port_local: 8080
 chiton_source_dir: /var/cyb-chiton
 chiton_use_https: false
 chiton_user: chiton
