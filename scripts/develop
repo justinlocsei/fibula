@@ -1,56 +1,10 @@
 #!/bin/bash
 
 PREVIOUS_DIR=$(pwd)
-ROOT_DIR="$(cd "$(dirname "$BASH_SOURCE")/.." && pwd)"
 
-VENDOR_DIR="vendor"
-VENV_DIR="environments"
-VENV_NAME="fibula"
+source .functions
 
-# Configure the environment using the task-specific functions
-function configure_environment() {
-  enable_virtualenv
-  install_python_requirements
-  install_vagrant_plugins
-  enable_ansible
-}
+enable_virtualenv
+enable_ansible
 
-# Ensure that a Python virtual environment exists
-function enable_virtualenv() {
-  mkdir -p "$ROOT_DIR/$VENV_DIR"
-  cd "$ROOT_DIR/$VENV_DIR" || exit
-
-  if [[ ! -d $VENV_NAME  ]]; then
-    virtualenv $VENV_NAME
-  fi
-
-  VIRTUAL_ENV_DISABLE_PROMPT="true" source $VENV_NAME/bin/activate
-}
-
-# Install the project's Python requirements via pip
-function install_python_requirements() {
-  cd "$ROOT_DIR" || exit
-  pip install --requirement requirements.txt --quiet
-}
-
-# Use the latest version of Ansible
-function enable_ansible() {
-  git submodule update --recursive
-
-  cd "$ROOT_DIR/$VENDOR_DIR/ansible" || exit
-  source hacking/env-setup
-}
-
-# Install all required Vagrant plugins
-function install_vagrant_plugins() {
-  local plugin
-
-  for plugin in "vagrant-nfs_guest" "vagrant-hostsupdater"; do
-    if ! vagrant plugin list | grep "$plugin" --quiet; then
-      vagrant plugin install "$plugin"
-    fi
-  done
-}
-
-configure_environment
 cd "$PREVIOUS_DIR" || exit

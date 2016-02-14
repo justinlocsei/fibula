@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source .functions
+
+create_virtualenv
+install_python_requirements
+install_vagrant_plugins
+install_ansible

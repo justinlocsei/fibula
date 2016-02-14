@@ -27,8 +27,13 @@ To work with the infrastructure code, run the following from the root of this
 repository:
 
 ```sh
+$ ./scripts/setup
 $ source scripts/develop
 ```
+
+The `setup` script installs all dependencies, and should only need to be run
+during initial setup, or when project requirements are updated.  The `develop`
+script should be run every time you need to interact with the source.
 
 ## Box Management
 

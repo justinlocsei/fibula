@@ -1,0 +1,51 @@
+#!/bin/bash
+
+ROOT_DIR="$(cd "$(dirname "$BASH_SOURCE")/.." && pwd)"
+
+VENDOR_DIR="vendor"
+VENV_DIR="environments"
+VENV_NAME="fibula"
+
+# Create the Python virtual environment if it does not exist
+function create_virtualenv() {
+  mkdir -p "$ROOT_DIR/$VENV_DIR"
+  cd "$ROOT_DIR/$VENV_DIR" || exit
+
+  if [[ ! -d $VENV_NAME  ]]; then
+    virtualenv $VENV_NAME
+  fi
+}
+
+# Enable the Python virtual environment
+function enable_virtualenv() {
+  cd "$ROOT_DIR/$VENV_DIR" || exit
+  VIRTUAL_ENV_DISABLE_PROMPT="true" source $VENV_NAME/bin/activate
+}
+
+# Install the latest version of Ansible
+function install_ansible() {
+  git submodule update --recursive
+}
+
+# Enable the Ansible development environment
+function enable_ansible() {
+  cd "$ROOT_DIR/$VENDOR_DIR/ansible" || exit
+  source hacking/env-setup
+}
+
+# Install the project's Python requirements via pip
+function install_python_requirements() {
+  cd "$ROOT_DIR" || exit
+  "$VENV_DIR/$VENV_NAME/bin/pip" install --requirement requirements.txt
+}
+
+# Install all required Vagrant plugins
+function install_vagrant_plugins() {
+  local plugin
+
+  for plugin in "vagrant-nfs_guest" "vagrant-hostsupdater"; do
+    if ! vagrant plugin list | grep "$plugin" --quiet; then
+      vagrant plugin install "$plugin"
+    fi
+  done
+}
