@@ -8,7 +8,8 @@ CHITON = {
   ip: "10.10.10.20",
   ports: {
     api: 9002,
-    db: 9003
+    api_https: 9003,
+    db: 9004
   },
   source_dir: "/var/cyb-chiton",
   user: "chiton",
@@ -100,6 +101,7 @@ Vagrant.configure(2) do |config|
 
     chiton.vm.network "private_network", ip: CHITON[:ip]
     chiton.vm.network "forwarded_port", guest: CHITON[:ports][:api], host: CHITON[:ports][:api]
+    chiton.vm.network "forwarded_port", guest: CHITON[:ports][:api_https], host: CHITON[:ports][:api_https]
     chiton.vm.network "forwarded_port", guest: CHITON[:ports][:db], host: CHITON[:ports][:db]
 
     chiton.ssh.insert_key = false
@@ -133,6 +135,7 @@ Vagrant.configure(2) do |config|
         chiton_group_id: CHITON[:group_id],
         chiton_server_address: CHITON[:ip],
         chiton_server_port: CHITON[:ports][:api],
+        chiton_server_port_https: CHITON[:ports][:api_https],
         chiton_source_dir: CHITON[:source_dir],
         chiton_user: CHITON[:user],
         chiton_user_authorized_keys: [File.read(ENV.fetch("CYB_VAGRANT_KEY_PUBLIC"))],
