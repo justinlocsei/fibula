@@ -35,7 +35,7 @@ Vagrant.configure(2) do |config|
   config.vm.define("himation-development") do |himation|
 
     himation.vm.box = "fibula/ubuntu-14.04"
-    himation.vm.hostname = "himation-development"
+    himation.vm.hostname = "himation.coveryourbasics.dev"
 
     himation.vm.network "private_network", ip: HIMATION[:ip]
     himation.vm.network "forwarded_port", guest: HIMATION[:ports][:assets], host: HIMATION[:ports][:assets]
@@ -97,7 +97,7 @@ Vagrant.configure(2) do |config|
   config.vm.define("chiton-development") do |chiton|
 
     chiton.vm.box = "fibula/ubuntu-14.04"
-    chiton.vm.hostname = "chiton-development"
+    chiton.vm.hostname = "chiton.coveryourbasics.dev"
 
     chiton.vm.network "private_network", ip: CHITON[:ip]
     chiton.vm.network "forwarded_port", guest: CHITON[:ports][:api], host: CHITON[:ports][:api]
