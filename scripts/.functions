@@ -49,3 +49,40 @@ function install_vagrant_plugins() {
     fi
   done
 }
+
+# Update the SSH config file to relax settings for the development machines
+function update_ssh_config() {
+  local begin_flag
+  local end_flag
+  local line
+  local valid_config
+  local ssh_config
+  local ssh_config_temp
+
+  ssh_config="$HOME/.ssh/config"
+  ssh_config_temp="/tmp/ssh-config-fibula"
+  valid_config=1
+
+  begin_flag="# Begin fibula customization"
+  end_flag="# End fibula customization"
+
+  IFS=""
+  while read -r line; do
+    if [[ "$line" == "$begin_flag" ]]; then valid_config=0; fi
+    if [[ $valid_config -eq 1 ]]; then echo "$line" >> "$ssh_config_temp"; fi
+    if [[ "$line" == "$end_flag" ]]; then valid_config=1; fi
+  done < "$ssh_config"
+
+  mv "$ssh_config_temp" "$ssh_config"
+
+  cat >> "$ssh_config" <<CONFIG
+$begin_flag
+
+Host *.coveryourbasics.dev
+  StrictHostKeyChecking no
+  UserKnownHostsFile=/dev/null
+  LogLevel ERROR
+
+$end_flag
+CONFIG
+}

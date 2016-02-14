@@ -6,3 +6,4 @@ create_virtualenv
 install_python_requirements
 install_vagrant_plugins
 install_ansible
+update_ssh_config
