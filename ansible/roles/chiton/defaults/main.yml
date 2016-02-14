@@ -23,6 +23,10 @@ chiton_server_port: null
 chiton_server_port_https: 443
 chiton_server_port_local: 8080
 chiton_server_upstream_name: chiton
+chiton_ssl_certificate: null
+chiton_ssl_certificate_path: null
+chiton_ssl_certificate_key: null
+chiton_ssl_certificate_key_path: null
 chiton_source_dir: /var/cyb-chiton
 chiton_use_https: false
 chiton_user: chiton

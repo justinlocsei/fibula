@@ -6,7 +6,10 @@ server {
   listen {{ chiton_server_address }}:{{ chiton_server_port }};
 
   {% if chiton_use_https %}
-    listen {{ chiton_server_address }}:{{ chiton_server_port_ssl }} ssl;
+    listen {{ chiton_server_address }}:{{ chiton_server_port_https }} ssl;
+
+    ssl_certificate {{ chiton_ssl_certificate_path | require_value }};
+    ssl_certificate_key {{ chiton_ssl_certificate_key_path | require_value }};
   {% endif %}
 
   try_files $uri $uri/ @{{ chiton_server_upstream_name }};
