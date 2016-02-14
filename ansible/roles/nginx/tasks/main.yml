@@ -37,6 +37,14 @@
     name: nginx
     state: present
 
+- name: create a directory for storing SSL certificates
+  file:
+    path: "{{ nginx_certs_dir }}"
+    owner: root
+    group: root
+    mode: 0700
+    state: directory
+
 - name: remove default site configurations
   file:
     path: "{{ nginx_sites_dir }}/{{ item }}"
