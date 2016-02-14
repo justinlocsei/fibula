@@ -82,6 +82,7 @@ Host *.coveryourbasics.dev
   StrictHostKeyChecking no
   UserKnownHostsFile=/dev/null
   LogLevel ERROR
+  User vagrant
 
 $end_flag
 CONFIG
