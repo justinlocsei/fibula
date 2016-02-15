@@ -59,10 +59,9 @@ outside of Vagrant.
 
 ### SSH Access
 
-Each machine can be accessed either using `vagrant ssh VM_NAME` to go through
-Vagrant, or via `ssh VM_SUBDOMAIN.coveryourbasics.dev`, to bypass Vagrant.  The
-names for each machine are as follows.  Inspect the contents of each Vagrantfile
-to determine the appropriate VM name or subdomain.
+Each machine can be accessed using `ssh VM_NAME.coveryourbasics.dev`, which
+bypasses Vagrant and relies on the partially managed `/etc/hosts` file to
+provide the correct SSH parameters.
 
 ### Provisioning
 

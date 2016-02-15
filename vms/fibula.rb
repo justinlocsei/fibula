@@ -46,6 +46,14 @@ module Fibula
       end
     end
 
+    # Return the local hostname for the machine
+    #
+    # @param [String] subdomain The subdomain for the machine
+    # @return [String]
+    def hostname(subdomain)
+      "#{subdomain}.coveryourbasics.dev"
+    end
+
     # Optimize the network configuration for a VM's VirtualBox provider
     #
     # This uses the host for DNS resolution, and uses the `virtio` network
