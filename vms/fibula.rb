@@ -1,3 +1,5 @@
+require "yaml"
+
 module Fibula
   class << self
 
@@ -7,6 +9,21 @@ module Fibula
     # @return [String]
     def ansible_file(path)
       File.expand_path("../../ansible/#{path}")
+    end
+
+    # Return the host-specific Ansible variables
+    #
+    # @param [String] host A known Ansible hostname
+    # @return [Hash]
+    def ansible_host_vars(host)
+      vars_file = ansible_file("host_vars/#{host}")
+      vars_file = "#{vars_file}/main.yml" if File.directory?(vars_file)
+
+      begin
+        YAML.load_file(vars_file)
+      rescue Errno::ENOENT
+        raise "No host variables defined for #{host}"
+      end
     end
 
     # Configure Ansible to prompt for a vault password or use a password file
