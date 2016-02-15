@@ -1,8 +1,9 @@
 #!/bin/bash
 
 PREVIOUS_DIR=$(pwd)
+SCRIPTS_DIR="$(dirname "$BASH_SOURCE")"
 
-source .functions
+source "$SCRIPTS_DIR/.functions"
 
 enable_virtualenv
 enable_ansible
