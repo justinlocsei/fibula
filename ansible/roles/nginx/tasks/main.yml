@@ -34,7 +34,7 @@
 
 - name: install nginx
   apt:
-    name: nginx
+    name: "nginx={{ nginx_version }}*"
     state: present
 
 - name: create a directory for storing SSL certificates
