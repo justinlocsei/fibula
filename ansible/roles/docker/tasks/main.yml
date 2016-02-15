@@ -2,7 +2,7 @@
 - name: install Docker dependencies
   apt:
     name: "{{ item }}"
-    state: present
+    state: latest
   with_items:
     - apt-transport-https
     - ca-certificates
@@ -22,7 +22,7 @@
 - name: install Docker
   apt:
     name: docker-engine
-    state: present
+    state: latest
 
 - name: install the Python docker module
   pip:

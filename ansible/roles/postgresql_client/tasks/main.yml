@@ -23,4 +23,4 @@
 - name: install a PostgreSQL library for the system Python
   apt:
     name: python-psycopg2
-    state: present
+    state: latest

@@ -27,4 +27,4 @@
 - name: install virtualenv
   apt:
     name: python-virtualenv
-    state: present
+    state: latest
