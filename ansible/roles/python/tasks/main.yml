@@ -14,7 +14,7 @@
 - name: install Python v{{ python_version }}
   apt:
     name: "{{ item }}"
-    state: present
+    state: latest
   with_items:
     - python{{ python_version }}
     - python{{ python_version }}-dev
@@ -22,7 +22,7 @@
 - name: install pip
   apt:
     name: "python{{ (python_version_major == 3) | ternary(3, '') }}-pip"
-    state: present
+    state: latest
 
 - name: install virtualenv
   apt:

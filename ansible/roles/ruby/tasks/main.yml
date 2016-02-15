@@ -7,7 +7,7 @@
 - name: install Ruby v{{ ruby_version }}
   apt:
     name: ruby{{ ruby_version }}
-    state: present
+    state: latest
 
 - name: install Bundler v{{ ruby_bundler_version }}
   gem:
