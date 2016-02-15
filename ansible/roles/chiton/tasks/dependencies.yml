@@ -17,6 +17,8 @@
     chdir: "{{ chiton_source_dir }}"
   environment:
     CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
+  register: chiton_migrate_result
+  changed_when: "'No migrations to apply.' not in chiton_migrate_result.stdout"
 
 - name: create the in-app administrator account
   shell: "{{ chiton_python_bin | quote }} manage.py ensuresuperuser --username {{ chiton_admin_name | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | quote }}"
@@ -25,3 +27,5 @@
   environment:
     CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
   no_log: yes
+  register: chiton_ensuresuperuser_result
+  changed_when: "'User modified' in chiton_ensuresuperuser_result.stdout"
