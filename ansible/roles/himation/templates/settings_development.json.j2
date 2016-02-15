@@ -7,7 +7,7 @@
     "debugLogging": true
   },
   "servers": {
-    "app": {{ himation_app_server | to_json }},
-    "assets": {{ himation_asset_server | to_json }}
+    "app": {{ himation_app_server | require_value | to_json }},
+    "assets": {{ himation_asset_server | require_value | to_json }}
   }
 }
