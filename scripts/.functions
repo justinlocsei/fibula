@@ -80,10 +80,10 @@ $begin_flag
 
 Host *.coveryourbasics.dev
   IdentityFile "$CYB_VAGRANT_KEY_PRIVATE"
-  StrictHostKeyChecking no
-  UserKnownHostsFile=/dev/null
   LogLevel ERROR
+  StrictHostKeyChecking no
   User vagrant
+  UserKnownHostsFile=/dev/null
 
 $end_flag
 CONFIG
