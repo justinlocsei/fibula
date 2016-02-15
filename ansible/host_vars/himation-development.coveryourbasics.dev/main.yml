@@ -1,0 +1,16 @@
+---
+himation_app_server:
+  host: 10.10.10.10
+  port: 8080
+himation_asset_server:
+  host: 10.10.10.10
+  port: 8081
+himation_group: himation
+himation_group_id: 2000
+himation_source_dir: /var/cyb-himation
+himation_user: himation
+himation_user_id: 2000
+himation_vagrant_ssh_key: "{{ lookup('file', lookup('env', 'CYB_VAGRANT_KEY_PUBLIC')) }}"
+vagrant_host_group: himation
+vagrant_host_home_dir: /vagrant-host-home
+vagrant_host_user: himation

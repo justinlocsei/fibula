@@ -1,75 +1,30 @@
 require_relative "../fibula"
 
-HIMATION = {
-  group: "himation",
-  group_id: 2000,
-  host_home_dir: "/vagrant-host-home",
-  ip: "10.10.10.10",
-  ports: {
-    assets: 9001,
-    site: 9000
-  },
-  source_dir: "/var/cyb-himation",
-  user: "himation",
-  user_id: 2000
-}
-
 Vagrant.configure(2) do |config|
 
   config.vm.define("himation-development") do |himation|
+    hostname = Fibula.hostname("himation-development")
+    host_vars = Fibula.ansible_host_vars(hostname)
 
     himation.vm.box = "fibula/ubuntu-14.04"
-    himation.vm.hostname = Fibula.hostname("himation-development")
+    himation.vm.hostname = hostname
 
-    himation.vm.network "private_network", ip: HIMATION[:ip]
-    himation.vm.network "forwarded_port", guest: HIMATION[:ports][:assets], host: HIMATION[:ports][:assets]
-    himation.vm.network "forwarded_port", guest: HIMATION[:ports][:site], host: HIMATION[:ports][:site]
+    himation.vm.network "private_network", ip: host_vars.fetch("himation_app_server").fetch("host")
 
     himation.ssh.insert_key = false
     himation.ssh.private_key_path = Fibula.private_key_path
     himation.ssh.forward_agent = true
     himation.ssh.username = ENV["HIMATION_SSH_USER"]
 
-    himation.vm.synced_folder *Fibula.sync_home_options(HIMATION[:host_home_dir])
+    himation.vm.synced_folder *Fibula.sync_home_options(host_vars.fetch("vagrant_host_home_dir"))
 
-    himation.vm.synced_folder ENV.fetch("CYB_NFS_DIR_HIMATION"), HIMATION[:source_dir],
+    himation.vm.synced_folder ENV.fetch("CYB_NFS_DIR_HIMATION"), host_vars.fetch("himation_source_dir"),
       type: "nfs_guest",
-      owner: HIMATION[:user_id],
-      group: HIMATION[:group_id],
-      map_uid: HIMATION[:user_id],
-      map_gid: HIMATION[:group_id],
+      owner: host_vars.fetch("himation_user_id"),
+      group: host_vars.fetch("himation_group_id"),
+      map_uid: host_vars.fetch("himation_user_id"),
+      map_gid: host_vars.fetch("himation_group_id"),
       unmount_options: ["-f"]
-
-    himation.vm.provision "ansible" do |ansible|
-      Fibula.configure_ansible_vault(ansible)
-      ansible.playbook = Fibula.ansible_file("himation_development.yml")
-      ansible.sudo = true
-      ansible.verbose = "v"
-
-      ansible.groups = {
-        "himation_development" => "himation-development"
-      }
-
-      ansible.extra_vars = {
-        himation_app_server: {
-          host: HIMATION[:ip],
-          port: HIMATION[:ports][:site]
-        },
-        himation_asset_server: {
-          host: HIMATION[:ip],
-          port: HIMATION[:ports][:assets]
-        },
-        himation_group: HIMATION[:group],
-        himation_group_id: HIMATION[:group_id],
-        himation_source_dir: HIMATION[:source_dir],
-        himation_user: HIMATION[:user],
-        himation_user_id: HIMATION[:user_id],
-        himation_vagrant_ssh_key: File.read(ENV.fetch("CYB_VAGRANT_KEY_PUBLIC")),
-        vagrant_host_group: HIMATION[:group],
-        vagrant_host_home_dir: HIMATION[:host_home_dir],
-        vagrant_host_user: HIMATION[:user]
-      }
-    end
 
     himation.vm.provider "virtualbox" do |vbox|
       vbox.cpus = 2
