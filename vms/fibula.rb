@@ -54,19 +54,6 @@ module Fibula
       "#{subdomain}.coveryourbasics.dev"
     end
 
-    # Optimize the network configuration for a VM's VirtualBox provider
-    #
-    # This uses the host for DNS resolution, and uses the `virtio` network
-    # virtualization available on newer versions of the Linux kernel.
-    #
-    # @param [] vbox A VirtualBox configuration instance
-    def optimize_virtualbox_networking(vbox)
-      vbox.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-      vbox.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-      vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
-      vbox.customize ["modifyvm", :id, "--nictype2", "virtio"]
-    end
-
     # Return the path to the private key file for the Vagrant user
     #
     # @return [String]
@@ -87,6 +74,21 @@ module Fibula
           :rsync__exclude => "*/",
           :type => "rsync"
         }
+      ]
+    end
+
+    # Return VirtualBox options for optimizing network performance
+    #
+    # This uses the host for DNS resolution, and uses the `virtio` network
+    # virtualization available on newer versions of the Linux kernel.
+    #
+    # @return [Array<Array>] Network optimization options
+    def virtualbox_networking_optimizations
+      [
+        ["modifyvm", :id, "--natdnshostresolver1", "on"],
+        ["modifyvm", :id, "--natdnsproxy1", "on"],
+        ["modifyvm", :id, "--nictype1", "virtio"],
+        ["modifyvm", :id, "--nictype2", "virtio"]
       ]
     end
 
