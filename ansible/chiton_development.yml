@@ -1,5 +1,5 @@
 ---
-- hosts: chiton.coveryourbasics.dev
+- hosts: chiton-development.coveryourbasics.dev
   roles:
     - role: common
     - role: docker
