@@ -9,7 +9,6 @@
       postgresql_server_root_password: "{{ chiton_db_root_password }}"
       postgresql_server_use_docker: yes
       postgresql_server_version: "{{ chiton_postgresql_server_version }}"
-    - role: nginx
     - role: chiton
       chiton_activate_venv: yes
       chiton_config_debug: yes
