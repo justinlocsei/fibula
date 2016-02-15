@@ -10,19 +10,29 @@
 
 - name: configure the application user
   include: user.yml
+  tags:
+    - user
 
 - name: configure the application database
   include: database.yml
+  tags:
+    - database
 
 - name: configure the application environment
   include: environment.yml
   become: yes
   become_user: "{{ chiton_user }}"
+  tags:
+    - application
 
 - name: install dependencies
   include: dependencies.yml
   become: yes
   become_user: "{{ chiton_user }}"
+  tags:
+    - dependencies
 
 - name: configure the application server
   include: server.yml
+  tags:
+      - server
