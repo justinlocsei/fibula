@@ -17,14 +17,12 @@ Vagrant.configure(2) do |config|
     himation.ssh.username = ENV["HIMATION_SSH_USER"]
 
     himation.vm.synced_folder *Fibula.sync_home_options(host_vars.fetch("vagrant_host_home_dir"))
-
-    himation.vm.synced_folder ENV.fetch("CYB_NFS_DIR_HIMATION"), host_vars.fetch("himation_source_dir"),
-      type: "nfs_guest",
-      owner: host_vars.fetch("himation_user_id"),
-      group: host_vars.fetch("himation_group_id"),
-      map_uid: host_vars.fetch("himation_user_id"),
-      map_gid: host_vars.fetch("himation_group_id"),
-      unmount_options: ["-f"]
+    himation.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
+      group_id: host_vars.fetch("himation_group_id"),
+      guest: host_vars.fetch("himation_source_dir"),
+      host: ENV.fetch("CYB_NFS_DIR_HIMATION"),
+      user_id: host_vars.fetch("himation_user_id")
+    })
 
     himation.vm.provider "virtualbox" do |vbox|
       vbox.cpus = 2
@@ -50,14 +48,12 @@ Vagrant.configure(2) do |config|
     chiton.ssh.username = ENV["CHITON_SSH_USER"]
 
     chiton.vm.synced_folder *Fibula.sync_home_options(host_vars.fetch("vagrant_host_home_dir"))
-
-    chiton.vm.synced_folder ENV.fetch("CYB_NFS_DIR_CHITON"), host_vars.fetch("chiton_source_dir"),
-      type: "nfs_guest",
-      owner: host_vars.fetch("chiton_user_id"),
-      group: host_vars.fetch("chiton_group_id"),
-      map_uid: host_vars.fetch("chiton_user_id"),
-      map_gid: host_vars.fetch("chiton_group_id"),
-      unmount_options: ["-f"]
+    chiton.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
+      group_id: host_vars.fetch("chiton_group_id"),
+      guest: host_vars.fetch("chiton_source_dir"),
+      host: ENV.fetch("CYB_NFS_DIR_CHITON"),
+      user_id: host_vars.fetch("chiton_user_id")
+    })
 
     chiton.vm.provider "virtualbox" do |vbox|
       vbox.cpus = 2

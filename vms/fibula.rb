@@ -61,6 +61,28 @@ module Fibula
       ENV.fetch("CYB_VAGRANT_KEY_PRIVATE")
     end
 
+    # Options to sync a volume on the guest with the host over NFS
+    #
+    # @option options [String] :group_id The ID of the owning user
+    # @option options [String] :guest The path to the guest directory
+    # @option options [String] :host The path to the host directory
+    # @option options [String] :user_id The ID of the owning user
+    # @return [Array]
+    def sync_guest_nfs_dir_options(options={})
+      [
+        options.fetch(:host),
+        options.fetch(:guest),
+        {
+          type: "nfs_guest",
+          owner: options.fetch(:user_id),
+          group: options.fetch(:group_id),
+          map_uid: options.fetch(:user_id),
+          map_gid: options.fetch(:group_id),
+          unmount_options: ["-f"]
+        }
+      ]
+    end
+
     # Options to pass to a synced folder to sync the home directory
     #
     # @param [String] path The guest path to the home directory
