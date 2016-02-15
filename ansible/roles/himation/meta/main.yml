@@ -1,5 +1,7 @@
 ---
 dependencies:
+  - role: ssh
+  - role: git
   - role: ruby
     ruby_bundler_version: 1.11.0
     ruby_version: 2.2

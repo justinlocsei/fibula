@@ -2,7 +2,6 @@
 - hosts: himation-development.coveryourbasics.dev
   roles:
     - role: common
-    - role: git
     - role: himation
       himation_is_development: yes
     - role: vagrant
