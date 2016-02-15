@@ -79,6 +79,7 @@ function update_ssh_config() {
 $begin_flag
 
 Host *.coveryourbasics.dev
+  ForwardAgent yes
   IdentityFile "$CYB_VAGRANT_KEY_PRIVATE"
   LogLevel ERROR
   StrictHostKeyChecking no
