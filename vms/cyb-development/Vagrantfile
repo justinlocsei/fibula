@@ -1,6 +1,6 @@
-require_relative "../fibula"
-
 Vagrant.configure(2) do |config|
+
+  require_relative "../fibula"
 
   config.vm.define("himation-development") do |himation|
     hostname = Fibula.hostname("himation-development")
