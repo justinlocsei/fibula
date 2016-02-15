@@ -13,3 +13,6 @@ indent_size = 4
 
 [scripts/build-box]
 indent_size = 4
+
+[scripts/ansible-vault-password]
+indent_size = 4
