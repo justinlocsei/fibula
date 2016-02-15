@@ -33,3 +33,22 @@
     port: "{{ chiton_db_port | require_value }}"
     state: present
   when: chiton_allow_tests
+
+- name: sync the database user settings with Django's recommendations
+  postgresql_user_setting:
+    user: "{{ chiton_db_user_name }}"
+    password: "{{ chiton_db_user_password | require_value }}"
+    setting: "{{ item.setting }}"
+    value: "{{ item.value }}"
+    login_host: "{{ chiton_db_host | require_value }}"
+    admin_user: "{{ chiton_db_root_name }}"
+    admin_password: "{{ chiton_db_root_password | require_value }}"
+    port: "{{ chiton_db_port | require_value }}"
+  no_log: no
+  with_items:
+    - setting: client_encoding
+      value: UTF8
+    - setting: default_transaction_isolation
+      value: read committed
+    - setting: timezone
+      value: UTC
