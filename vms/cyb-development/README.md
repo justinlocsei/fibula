@@ -19,5 +19,5 @@ allowing you to interact with the application and its source code.
 ## Provisioning
 
 To provision these VMs, use the `VM_development.yml` Ansible playbooks, which
-only target the VM named in `VM`.  Alternatively, you can use Ansible patterns
-to target the `development` group and provision all machines in this cluster.
+only target the VM named in `VM`.  Alternatively, you can use the
+`development.yml` playbook to provision all machines in this cluster.
