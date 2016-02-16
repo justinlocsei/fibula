@@ -1,0 +1,15 @@
+---
+- name: create the directory for collected assets
+  file:
+    path: "{{ chiton_assets_dir }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+    state: directory
+
+- name: collect the assets
+  shell: "{{ chiton_python_bin | quote }} manage.py collectstatic --clear --noinput"
+  args:
+    chdir: "{{ chiton_source_dir }}"
+  environment:
+    CHITON_CONFIG_FILE: "{{ chiton_config_file }}"

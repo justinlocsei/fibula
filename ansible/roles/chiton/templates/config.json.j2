@@ -9,5 +9,7 @@
     },
     "debug": {{ chiton_config_debug | lower }},
     "secret_key": "{{ chiton_config_secret_key | require_value }}",
+    "static_root": "{{ chiton_assets_dir }}",
+    "static_url": "{{ chiton_assets_url | trailing_slash_url }}",
     "use_https": {{ chiton_use_https | ternary("true", "false") }}
 }

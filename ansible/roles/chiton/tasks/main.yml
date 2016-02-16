@@ -32,6 +32,11 @@
   tags:
     - dependencies
 
+- name: configure the application's assets
+  include: assets.yml
+  tags:
+    - assets
+
 - name: configure the application server
   include: server.yml
   tags:

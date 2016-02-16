@@ -12,6 +12,11 @@ server {
     ssl_certificate_key {{ chiton_ssl_certificate_key_path | require_value }};
   {% endif %}
 
+  location {{ chiton_assets_url | trailing_slash_url }} {
+    alias {{ chiton_assets_dir | trailing_slash_fs }};
+    autoindex off;
+  }
+
   try_files $uri $uri/ @{{ chiton_server_upstream_name }};
   location @{{ chiton_server_upstream_name }} {
     proxy_pass http://{{ chiton_server_upstream_name }};
