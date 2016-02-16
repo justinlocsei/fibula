@@ -35,4 +35,4 @@
 - name: configure the application server
   include: server.yml
   tags:
-      - server
+    - server
