@@ -12,7 +12,7 @@ def require_value(value):
 
 
 class FilterModule(object):
-    """Custom Jinja2 filters for Ansible"""
+    """Custom Jinja2 filters for Ansible variables"""
 
     def filters(self):
         return {
