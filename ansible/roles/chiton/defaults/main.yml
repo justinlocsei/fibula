@@ -6,6 +6,8 @@ chiton_admin_password: no
 chiton_allow_tests: no
 chiton_assets_dir: /var/cyb-chiton-assets
 chiton_assets_url: /assets/
+chiton_aws_advertising_access_key_id: null
+chiton_aws_advertising_secret_access_key: null
 chiton_config_debug: no
 chiton_config_secret_key: null
 chiton_db_host: null

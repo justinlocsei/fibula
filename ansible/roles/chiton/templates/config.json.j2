@@ -1,4 +1,6 @@
 {
+    "aws_advertising_access_key_id": "{{ chiton_aws_advertising_access_key_id | require_value }}",
+    "aws_advertising_secret_access_key": "{{ chiton_aws_advertising_secret_access_key | require_value }}",
     "database": {
         "engine": "postgresql",
         "host": "{{ chiton_db_host }}",
