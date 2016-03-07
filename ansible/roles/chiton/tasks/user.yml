@@ -1,6 +1,6 @@
 ---
 - name: load the application user keys
-  include_vars: keys.yml
+  include_vars: user_keys.yml
   no_log: yes
 
 - name: create the application group
