@@ -1,4 +1,11 @@
 ---
+- name: install requirements for building Python dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - libyaml-dev
+
 - name: install all Python dependencies in a virtualenv
   pip:
     requirements: "{{ chiton_requirements_dir }}/{{ item }}"
