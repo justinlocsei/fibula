@@ -1,0 +1,12 @@
+#!/bin/bash
+# {{ ansible_managed}}
+
+backup="$1"
+if [[ -z "$backup" ]]; then
+  echo "$0 BACKUP_FILE"
+  exit 1
+fi
+
+echo "Enter the password for the \"{{ chiton_db_root_name }}\" Postgres user"
+pg_restore --clean --format=c --host="{{ chiton_db_host }}" --port="{{ chiton_db_port }}" --username="{{ chiton_db_root_name }}" --dbname="{{ chiton_db_name }}" "$backup"
+echo "The \"{{ chiton_db_name }}\" database was restored from the backup at \"$backup\""

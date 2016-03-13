@@ -41,3 +41,10 @@
   include: server.yml
   tags:
     - server
+
+- name: configure the application's scripts
+  include: scripts.yml
+  become: yes
+  become_user: "{{ chiton_user }}"
+  tags:
+    - scripts
