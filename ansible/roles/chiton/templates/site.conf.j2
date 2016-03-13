@@ -12,6 +12,10 @@ server {
     ssl_certificate_key {{ chiton_ssl_certificate_key_path | require_value }};
   {% endif %}
 
+  gzip on;
+  gzip_types application/javascript text/css text/html;
+  gzip_vary on;
+
   location {{ chiton_assets_url | trailing_slash_url }} {
     alias {{ chiton_assets_dir | trailing_slash_fs }};
     autoindex off;
