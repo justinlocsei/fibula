@@ -28,6 +28,7 @@ chiton_server_port: null
 chiton_server_port_https: 443
 chiton_server_port_local: 8080
 chiton_server_upstream_name: chiton
+chiton_shopstyle_uid: null
 chiton_ssl_certificate: null
 chiton_ssl_certificate_path: null
 chiton_ssl_certificate_key: null
