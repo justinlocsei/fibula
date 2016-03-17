@@ -21,5 +21,6 @@
       POSTGRES_PASSWORD: "{{ postgresql_server_root_password | require_value }}"
       POSTGRES_USER: "{{ postgresql_server_root_user }}"
     volumes: "{{ postgresql_server_docker_volumes }}"
+    restart_policy: always
     state: reloaded
   no_log: yes
