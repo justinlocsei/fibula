@@ -39,7 +39,7 @@ Vagrant.configure(2) do |config|
     chiton.vm.box = "fibula/ubuntu-14.04"
     chiton.vm.hostname = hostname
 
-    chiton.vm.network "private_network", ip: host_vars.fetch("chiton_server_address")
+    chiton.vm.network "private_network", ip: "10.10.10.20"
 
     chiton.ssh.insert_key = false
     chiton.ssh.private_key_path = Fibula.private_key_path
