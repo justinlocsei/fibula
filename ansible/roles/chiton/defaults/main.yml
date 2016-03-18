@@ -22,7 +22,7 @@ chiton_env_name: null
 chiton_git_branch: master
 chiton_group: chiton
 chiton_group_id: null
-chiton_server_address: null
+chiton_server_address: 0.0.0.0
 chiton_server_address_local: 127.0.0.1
 chiton_server_port: null
 chiton_server_port_https: 443

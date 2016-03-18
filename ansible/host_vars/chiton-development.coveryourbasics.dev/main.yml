@@ -6,7 +6,6 @@ chiton_db_port: 5432
 chiton_db_root_name: postgres
 chiton_group: chiton
 chiton_group_id: 3000
-chiton_server_address: 10.10.10.20
 chiton_server_port: 80
 chiton_server_port_https: 443
 chiton_source_dir: /var/cyb-chiton
