@@ -7,3 +7,7 @@ dependencies:
   - role: postgresql_client
     postgresql_client_version: "{{ chiton_postgresql_client_version }}"
   - role: nginx
+  - role: firewall
+    firewall_ports:
+      - "{{ chiton_server_port }}"
+      - "{{ chiton_server_port_https }}"
