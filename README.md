@@ -53,15 +53,16 @@ namespace.
 
 Each directory underneath the `vms` directory defines a cluster of VMs used for
 Cover Your Basics.  Each machine's IP address is dynamically added to the
-`/etc/hosts` file on the host as a subdomain of `coveryourbasics.dev`, which
+`/etc/hosts` file on the host as a subdomain of `coveryourbasics.com`, which
 allows each VM to be treated as a normal, external host, and be largely managed
 outside of Vagrant.
 
 ### SSH Access
 
-Each machine can be accessed using `ssh VM_NAME.coveryourbasics.dev`, which
-bypasses Vagrant and relies on the partially managed `/etc/hosts` file to
-provide the correct SSH parameters.
+Each machine can be accessed using
+`ssh development-SUBDOMAIN.coveryourbasics.com`, which bypasses Vagrant and
+relies on the partially managed `/etc/hosts` file to provide the correct SSH
+parameters.
 
 ### Provisioning
 

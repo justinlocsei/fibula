@@ -4,10 +4,10 @@ VMS=(chiton himation)
 
 case $1 in
 "chiton")
-  ssh chiton@chiton-development.coveryourbasics.dev
+  ssh chiton@development-data.coveryourbasics.com
   ;;
 "himation")
-  ssh himation@himation-development.coveryourbasics.dev
+  ssh himation@development-www.coveryourbasics.com
   ;;
 *)
   echo "Usage: develop VM"

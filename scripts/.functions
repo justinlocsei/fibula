@@ -78,7 +78,7 @@ function update_ssh_config() {
   cat >> "$ssh_config" <<CONFIG
 $begin_flag
 
-Host *.coveryourbasics.dev
+Host development-*.coveryourbasics.com
   ForwardAgent yes
   IdentityFile "$CYB_VAGRANT_KEY_PRIVATE"
   LogLevel ERROR

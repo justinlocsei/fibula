@@ -1,5 +1,5 @@
 ---
-- hosts: himation-development.coveryourbasics.dev
+- hosts: development-data.coveryourbasics.com
   roles:
     - role: common
     - role: himation
