@@ -29,3 +29,10 @@
   no_log: yes
   register: chiton_ensuresuperuser_result
   changed_when: "'User modified' in chiton_ensuresuperuser_result.stdout"
+
+- name: load core fixtures
+  shell: "{{ chiton_python_bin | quote }} manage.py chiton_loadfixtures"
+  args:
+    chdir: "{{ chiton_source_dir }}"
+  environment:
+    CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
