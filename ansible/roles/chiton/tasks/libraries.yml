@@ -1,0 +1,7 @@
+---
+- name: install requirements for building Python dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - libyaml-dev

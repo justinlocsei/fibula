@@ -25,7 +25,12 @@
   tags:
     - application
 
-- name: install dependencies
+- name: install dependency libraries
+  include: libraries.yml
+  tags:
+    - libraries
+
+- name: install application dependencies
   include: dependencies.yml
   become: yes
   become_user: "{{ chiton_user }}"
