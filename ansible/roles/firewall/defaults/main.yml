@@ -1,3 +1,4 @@
 ---
-firewall_ports: []
 firewall_ssh_port: 22
+firewall_tcp_ports: []
+firewall_udp_ports: []

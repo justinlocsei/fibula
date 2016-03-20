@@ -10,10 +10,16 @@
     port: "{{ firewall_ssh_port }}"
     proto: tcp
 
-- name: expose custom ports
+- name: expose custom TCP ports
   ufw:
     rule: allow
     port: "{{ item }}"
     proto: tcp
-  with_items: "{{ firewall_ports }}"
+  with_items: "{{ firewall_tcp_ports }}"
 
+- name: expose custom UDP ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: udp
+  with_items: "{{ firewall_udp_ports }}"
