@@ -24,6 +24,11 @@
     name: docker-engine
     state: latest
 
+- name: ensure that pip is available
+  apt:
+    name: "python{{ ansible_python_version | version_compare('3.0', '>=') | ternary(3, '') }}-pip"
+    state: present
+
 - name: install the Python docker module
   pip:
     name: docker-py
