@@ -13,9 +13,20 @@
       chiton_activate_venv: yes
       chiton_config_debug: yes
       chiton_env_name: development
+    - role: nfs_server
     - role: vagrant
     - role: firewall
-      firewall_ports:
+      firewall_tcp_ports:
         - "{{ chiton_server_port }}"
         - "{{ chiton_server_port_https }}"
-      firewall_use_nfs: yes
+        - "{{ nfs_server_lockd_port }}"
+        - "{{ nfs_server_mountd_port }}"
+        - "{{ nfs_server_nfs_port }}"
+        - "{{ nfs_server_portmap_port }}"
+        - "{{ nfs_server_statd_port }}"
+      firewall_udp_ports:
+        - "{{ nfs_server_lockd_port }}"
+        - "{{ nfs_server_mountd_port }}"
+        - "{{ nfs_server_nfs_port }}"
+        - "{{ nfs_server_portmap_port }}"
+        - "{{ nfs_server_statd_port }}"
