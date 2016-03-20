@@ -1,0 +1,34 @@
+---
+- name: create NFS common defaults
+  template:
+    src: nfs-common.j2
+    dest: "/etc/default/nfs-common"
+    mode: 0644
+    owner: root
+    group: root
+  notify:
+    - restart nfs
+
+- name: create NFS server defaults
+  template:
+    src: nfs-kernel-server.j2
+    dest: "/etc/default/nfs-kernel-server"
+    mode: 0644
+    owner: root
+    group: root
+  notify:
+    - restart nfs
+
+- name: set options for lockd
+  template:
+    src: options.conf.j2
+    dest: "/etc/modprobe.d/options.conf"
+    mode: 0644
+    owner: root
+    group: root
+
+- name: ensure that lockd is loaded
+  lineinfile:
+    dest: /etc/modules
+    line: lockd
+    state: present

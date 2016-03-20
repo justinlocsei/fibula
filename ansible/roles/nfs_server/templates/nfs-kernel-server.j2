@@ -1,0 +1,8 @@
+# Number of servers to run
+RPCNFSDCOUNT=8
+
+# Server priority
+RPCNFSDPRIORITY=0
+
+# Use an explicit port for mountd
+RPCMOUNTDOPTS="--manage-gids -p {{ nfs_server_mountd_port }}"
