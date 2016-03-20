@@ -1,18 +1,18 @@
 ---
 - set_fact:
     chiton_ssl_certificate_path: "{{ nginx_certs_dir }}/chiton.crt"
-    when: chiton_ssl_certificate is not none
+    when: cyb_wildcard_ssl_certificate is not none
     no_log: yes
 
 - set_fact:
     chiton_ssl_certificate_key_path: "{{ nginx_certs_dir }}/chiton.key"
-    when: chiton_ssl_certificate_key is not none
+    when: cyb_wildcard_ssl_certificate_key is not none
     no_log: yes
 
 - name: create a file for the SSL certificate
   copy:
     dest: "{{ chiton_ssl_certificate_path }}"
-    content: "{{ chiton_ssl_certificate }}"
+    content: "{{ cyb_wildcard_ssl_certificate }}"
     owner: root
     group: root
     mode: 0600
@@ -24,7 +24,7 @@
 - name: create a file for the SSL private key
   copy:
     dest: "{{ chiton_ssl_certificate_key_path }}"
-    content: "{{ chiton_ssl_certificate_key }}"
+    content: "{{ cyb_wildcard_ssl_certificate_key }}"
     owner: root
     group: root
     mode: 0600
