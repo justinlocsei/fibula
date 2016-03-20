@@ -1,5 +1,5 @@
 ---
-- hosts: development-chiton.coveryourbasics.com
+- hosts: development-data.coveryourbasics.com
   roles:
     - role: common
     - role: docker
@@ -14,3 +14,8 @@
       chiton_config_debug: yes
       chiton_env_name: development
     - role: vagrant
+    - role: firewall
+      firewall_ports:
+        - "{{ chiton_server_port }}"
+        - "{{ chiton_server_port_https }}"
+      firewall_use_nfs: yes

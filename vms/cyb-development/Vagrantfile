@@ -4,7 +4,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define("himation") do |himation|
     hostname = Fibula.hostname("www")
-    host_vars = Fibula.ansible_host_vars(hostname)
+    host_vars = Fibula.ansible_group_vars("development_www")
 
     himation.vm.box = "fibula/ubuntu-14.04"
     himation.vm.hostname = hostname
@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define("chiton") do |chiton|
     hostname = Fibula.hostname("data")
-    host_vars = Fibula.ansible_host_vars(hostname)
+    host_vars = Fibula.ansible_group_vars("development_data")
 
     chiton.vm.box = "fibula/ubuntu-14.04"
     chiton.vm.hostname = hostname

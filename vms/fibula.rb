@@ -11,18 +11,18 @@ module Fibula
       File.expand_path("../../ansible/#{path}")
     end
 
-    # Return the host-specific Ansible variables
+    # Return Ansible variables for a group
     #
-    # @param [String] host A known Ansible hostname
+    # @param [String] group A known Ansible group name
     # @return [Hash]
-    def ansible_host_vars(host)
-      vars_file = ansible_file("host_vars/#{host}")
+    def ansible_group_vars(group)
+      vars_file = ansible_file("group_vars/#{group}")
       vars_file = "#{vars_file}/main.yml" if File.directory?(vars_file)
 
       begin
         YAML.load_file(vars_file)
       rescue Errno::ENOENT
-        raise "No host variables defined for #{host}"
+        raise "No group variables defined for #{group}"
       end
     end
 

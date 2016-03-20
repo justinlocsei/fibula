@@ -1,6 +1,6 @@
 ---
 chiton_allow_tests: yes
-chiton_amazon_associates_associate_tag: covyoubas-dev-20
+chiton_amazon_associates_tracking_id: covyoubas-dev-20
 chiton_db_host: 127.0.0.1
 chiton_db_port: 5432
 chiton_db_root_name: postgres
