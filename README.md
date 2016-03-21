@@ -8,9 +8,9 @@ Your Basics.
 Before working with fibula, you will need to manually install its dependencies.
 These are:
 
-1. [Packer v0.8.6](https://releases.hashicorp.com/packer/0.8.6/)
-2. [Vagrant v1.8.1](https://releases.hashicorp.com/vagrant/1.8.1/)
-3. [VirtualBox v4.3.4](https://www.virtualbox.org/wiki/Download_Old_Builds_4_3)
+1. [Packer](https://www.packer.io/downloads.html)
+2. [Vagrant](https://www.vagrantup.com/downloads.html)
+3. [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 ## Configuration
 
