@@ -2,3 +2,4 @@
 nfs_server_lockd_port: 4000
 nfs_server_mountd_port: 4001
 nfs_server_statd_port: 4002
+nfs_server_statd_outgoing_port: 4003

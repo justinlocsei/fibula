@@ -5,4 +5,4 @@ RPCNFSDCOUNT=8
 RPCNFSDPRIORITY=0
 
 # Use an explicit port for mountd
-RPCMOUNTDOPTS="--manage-gids -p {{ nfs_server_mountd_port }}"
+RPCMOUNTDOPTS="-p {{ nfs_server_mountd_port }}"
