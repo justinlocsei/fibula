@@ -50,6 +50,21 @@ function install_vagrant_plugins() {
   done
 }
 
+# Set AWS environment variables
+function set_aws_variables() {
+  if [[ -z "$CYB_AWS_ACCESS_KEY_ID" ]]; then
+    echo "You must set an AWS access key ID via the CYB_AWS_ACCESS_KEY_ID environment variable!"
+  else
+    export AWS_ACCESS_KEY_ID="$CYB_AWS_ACCESS_KEY_ID"
+  fi
+
+  if [[ -z "$CYB_AWS_SECRET_ACCESS_KEY" ]]; then
+    echo "You must set an AWS secret access key via CYB_AWS_SECRET_ACCESS_KEY environment variable!"
+  else
+    export AWS_SECRET_ACCESS_KEY="$CYB_AWS_SECRET_ACCESS_KEY"
+  fi
+}
+
 # Update the SSH config file to relax settings for the development machines
 function update_ssh_config() {
   local begin_flag

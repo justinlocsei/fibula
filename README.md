@@ -18,6 +18,8 @@ Before running any code, configure your environment to set the following
 variables:
 
 * `CYB_ANSIBLE_VAULT_PASSWORD_FILE`: An optional path to a file containing the password for the Ansible vault
+* `CYB_AWS_ACCESS_KEY_ID`: The access key ID for the AWS management account
+* `CYB_AWS_SECRET_ACCESS_KEY`: The secret access key for the AWS management account
 * `CYB_NFS_DIR_CHITON`: The absolute path to the directory for the shared Chiton source
 * `CYB_NFS_DIR_HIMATION`: The absolute path to the directory for the shared Himation source
 * `CYB_VAGRANT_KEY_PRIVATE`: The absolute path to the private key used to access Vagrant machines
