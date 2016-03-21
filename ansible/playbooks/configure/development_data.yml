@@ -24,9 +24,11 @@
         - "{{ nfs_server_nfs_port }}"
         - "{{ nfs_server_portmap_port }}"
         - "{{ nfs_server_statd_port }}"
+        - "{{ nfs_server_statd_outgoing_port }}"
       firewall_udp_ports:
         - "{{ nfs_server_lockd_port }}"
         - "{{ nfs_server_mountd_port }}"
         - "{{ nfs_server_nfs_port }}"
         - "{{ nfs_server_portmap_port }}"
         - "{{ nfs_server_statd_port }}"
+        - "{{ nfs_server_statd_outgoing_port }}"
