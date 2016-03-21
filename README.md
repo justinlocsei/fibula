@@ -75,7 +75,7 @@ provision a machine, run the following commands from the root directory:
 ```bash
 $ source scripts/develop
 $ cd ansible
-$ ansible-playbook playbooks/configure/PLAYBOOOK.yml
+$ ansible-playbook playbooks/applications/PLAYBOOOK.yml
 ```
 
 This enables the development version of Ansible and then uses the
