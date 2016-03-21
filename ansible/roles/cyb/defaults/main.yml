@@ -1,3 +1,4 @@
 ---
 cyb_wildcard_ssl_certificate: null
+cyb_wildcard_ssl_certificate_ca_bundle: null
 cyb_wildcard_ssl_certificate_key: null
