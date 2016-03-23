@@ -3,14 +3,17 @@
   roles:
     - role: common
     - role: postgresql_server
-      postgresql_server_address: "{{ chiton_db_host }}"
-      postgresql_server_port: "{{ chiton_db_port }}"
+      postgresql_server_allow_external_connections: yes
+      postgresql_server_remote_users:
+        - "{{ chiton_db_user_name }}"
       postgresql_server_root_password: "{{ chiton_db_root_password }}"
-      postgresql_server_use_docker: yes
-      postgresql_server_version: "{{ chiton_postgresql_server_version }}"
+      postgresql_server_version: "{{ chiton_postgresql_version }}"
     - role: chiton
       chiton_activate_venv: yes
       chiton_config_debug: yes
+      chiton_db_host: "{{ postgresql_server_address }}"
+      chiton_db_port: "{{ postgresql_server_port }}"
+      chiton_db_root_name: "{{ postgresql_server_root_user }}"
       chiton_env_name: development
     - role: nfs_server
     - role: vagrant
@@ -24,6 +27,7 @@
         - "{{ nfs_server_portmap_port }}"
         - "{{ nfs_server_statd_port }}"
         - "{{ nfs_server_statd_outgoing_port }}"
+        - "{{ postgresql_server_port }}"
       firewall_udp_ports:
         - "{{ nfs_server_lockd_port }}"
         - "{{ nfs_server_mountd_port }}"

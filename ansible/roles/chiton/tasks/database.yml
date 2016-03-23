@@ -6,7 +6,7 @@
     role_attr_flags: "{{ chiton_allow_tests | ternary('CREATEDB,', '') }}NOSUPERUSER"
     login_host: "{{ chiton_db_host | require_value }}"
     login_password: "{{ chiton_db_root_password | require_value }}"
-    login_user: "{{ chiton_db_root_name }}"
+    login_user: "{{ chiton_db_root_name | require_value }}"
     port: "{{ chiton_db_port | require_value }}"
     state: present
 
@@ -16,7 +16,7 @@
     owner: "{{ chiton_db_user_name }}"
     login_host: "{{ chiton_db_host | require_value }}"
     login_password: "{{ chiton_db_root_password | require_value }}"
-    login_user: "{{ chiton_db_root_name }}"
+    login_user: "{{ chiton_db_root_name | require_value }}"
     port: "{{ chiton_db_port | require_value }}"
     state: present
 
@@ -29,7 +29,7 @@
     grant_option: no
     login_host: "{{ chiton_db_host | require_value }}"
     login_password: "{{ chiton_db_root_password | require_value }}"
-    login_user: "{{ chiton_db_root_name }}"
+    login_user: "{{ chiton_db_root_name | require_value }}"
     port: "{{ chiton_db_port | require_value }}"
     state: present
   when: chiton_allow_tests
@@ -41,7 +41,7 @@
     setting: "{{ item.setting }}"
     value: "{{ item.value }}"
     login_host: "{{ chiton_db_host | require_value }}"
-    admin_user: "{{ chiton_db_root_name }}"
+    admin_user: "{{ chiton_db_root_name | require_value }}"
     admin_password: "{{ chiton_db_root_password | require_value }}"
     port: "{{ chiton_db_port | require_value }}"
   no_log: no

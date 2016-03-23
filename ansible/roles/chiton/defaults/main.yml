@@ -14,7 +14,7 @@ chiton_config_secret_key: null
 chiton_db_host: null
 chiton_db_name: chiton
 chiton_db_port: null
-chiton_db_root_name: postgres
+chiton_db_root_name: null
 chiton_db_root_password: null
 chiton_db_user_name: chiton
 chiton_db_user_password: null
