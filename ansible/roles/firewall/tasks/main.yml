@@ -7,7 +7,7 @@
 - name: ensure SSH is available
   ufw:
     rule: allow
-    port: "{{ firewall_ssh_port }}"
+    port: 22
     proto: tcp
 
 - name: expose custom TCP ports

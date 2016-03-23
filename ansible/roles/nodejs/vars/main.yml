@@ -1,0 +1,3 @@
+---
+nodejs_arch: "{{ ansible_machine }}"
+nodejs_distro: "{{ ansible_distribution_release }}"
