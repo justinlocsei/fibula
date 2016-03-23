@@ -2,7 +2,6 @@
 - hosts: development-data.coveryourbasics.com
   roles:
     - role: common
-    - role: docker
     - role: postgresql_server
       postgresql_server_address: "{{ chiton_db_host }}"
       postgresql_server_port: "{{ chiton_db_port }}"
