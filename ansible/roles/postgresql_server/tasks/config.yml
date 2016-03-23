@@ -1,0 +1,51 @@
+---
+- set_fact:
+    postgresql_server_conf_dir: /etc/postgresql/{{ postgresql_server_version }}/main
+
+- set_fact:
+    postgresql_server_pg_hba: "{{ postgresql_server_conf_dir }}/pg_hba.conf"
+    postgresql_server_pg_ident: "{{ postgresql_server_conf_dir }}/pg_ident.conf"
+    postgresql_server_config: "{{ postgresql_server_conf_dir }}/postgresql.conf"
+
+- name: install a PostgreSQL library for the system Python
+  apt:
+    name: python-psycopg2
+    state: latest
+
+- name: set the root user's password
+  become: yes
+  become_user: "{{ postgresql_server_root_user }}"
+  postgresql_user:
+    name: "{{ postgresql_server_root_user }}"
+    password: "{{ postgresql_server_root_password | require_value }}"
+    state: present
+
+- name: create the server configuration file
+  template:
+    src: postgresql.conf.j2
+    dest: "{{ postgresql_server_config }}"
+    owner: "{{ postgresql_server_root_user }}"
+    group: "{{ postgresql_server_root_user }}"
+    mode: 0644
+  register: postgresql_server_config_update
+
+- name: apply the updated config
+  service:
+    name: postgresql
+    state: restarted
+  when: postgresql_server_config_update | changed
+
+- name: allow remote users to authenticate using passwords
+  template:
+    src: pg_hba.conf.j2
+    dest: "{{ postgresql_server_pg_hba }}"
+    owner: "{{ postgresql_server_root_user }}"
+    group: "{{ postgresql_server_root_user }}"
+    mode: 0640
+  register: postgresql_server_pg_hba_update
+
+- name: apply updated HBA settings
+  service:
+    name: postgresql
+    state: reloaded
+  when: postgresql_server_pg_hba_update | changed

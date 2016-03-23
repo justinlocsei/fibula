@@ -1,0 +1,50 @@
+#------------------------------------------------------------------------------
+# FILE LOCATIONS
+#------------------------------------------------------------------------------
+
+data_directory = '{{ postgresql_server_lib_dir }}/{{ postgresql_server_version }}/main'
+external_pid_file = '{{ postgresql_server_socket_dir }}/{{ postgresql_server_version }}-main.pid'
+hba_file = '{{ postgresql_server_pg_hba }}'
+ident_file = '{{ postgresql_server_pg_ident }}'
+
+#------------------------------------------------------------------------------
+# CONNECTIONS AND AUTHENTICATION
+#------------------------------------------------------------------------------
+
+listen_addresses = '{{ postgresql_server_allow_external_connections | ternary("*", "localhost") }}'
+max_connections = 100
+port = {{ postgresql_server_port }}
+ssl = false
+unix_socket_directories = '{{ postgresql_server_socket_dir }}'
+
+#------------------------------------------------------------------------------
+# RESOURCE USAGE
+#------------------------------------------------------------------------------
+
+dynamic_shared_memory_type = posix
+shared_buffers = 128MB
+
+#------------------------------------------------------------------------------
+# ERROR REPORTING AND LOGGING
+#------------------------------------------------------------------------------
+
+log_line_prefix = '%t [%p-%l] %q%u@%d '
+log_timezone = 'UTC'
+
+#------------------------------------------------------------------------------
+# RUNTIME STATISTICS
+#------------------------------------------------------------------------------
+
+stats_temp_directory = '{{ postgresql_server_socket_dir }}/{{ postgresql_server_version }}-main.pg_stat_tmp'
+
+#------------------------------------------------------------------------------
+# CLIENT CONNECTION DEFAULTS
+#------------------------------------------------------------------------------
+
+datestyle = 'iso, mdy'
+default_text_search_config = 'pg_catalog.english'
+lc_messages = 'en_US.UTF-8'
+lc_monetary = 'en_US.UTF-8'
+lc_numeric = 'en_US.UTF-8'
+lc_time = 'en_US.UTF-8'
+timezone = 'UTC'

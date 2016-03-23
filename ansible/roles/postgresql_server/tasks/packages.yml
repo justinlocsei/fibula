@@ -1,0 +1,21 @@
+---
+- name: add the PostgreSQL package repository's key
+  apt_key:
+    url: https://www.postgresql.org/media/keys/{{ postgresql_server_apt_key_id }}.asc
+    id: "{{ postgresql_server_apt_key_id }}"
+    state: present
+
+- name: add the PostgreSQL package repository
+  apt_repository:
+    repo: deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main
+    state: present
+
+- name: install PostgreSQL server
+  apt:
+    name: postgresql-{{ postgresql_server_version }}
+    state: latest
+
+- name: install the PostgreSQL development files
+  apt:
+    name: postgresql-server-dev-{{ postgresql_server_version }}
+    state: latest

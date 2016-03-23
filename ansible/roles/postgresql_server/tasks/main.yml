@@ -1,4 +1,6 @@
 ---
-- name: run PostgreSQL in Docker
-  include: docker.yml
-  when: postgresql_server_use_docker
+- name: install the PostgreSQL server packages
+  include: packages.yml
+
+- name: configure the server
+  include: config.yml
