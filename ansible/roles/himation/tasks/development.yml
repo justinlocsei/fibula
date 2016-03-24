@@ -1,8 +1,8 @@
 ---
-- name: add the custom Vagrant key to the application user's authorized keys
+- name: add all known keys to the application user's authorized keys
   copy:
     dest: "{{ himation_user_ssh_dir.path }}/authorized_keys"
-    content: "{{ himation_vagrant_ssh_key }}"
+    content: "{{ himation_user_authorized_keys | join('\n') }}"
     mode: 0600
 
 - name: fetch the source code
