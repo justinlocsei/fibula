@@ -1,0 +1,18 @@
+---
+- hosts: staging
+  roles:
+    - role: common
+    - role: postgresql_server
+      postgresql_server_remote_users:
+        - "{{ chiton_db_user_name }}"
+      postgresql_server_version: "{{ chiton_postgresql_version }}"
+    - role: chiton
+      chiton_db_host: "{{ postgresql_server_address }}"
+      chiton_db_port: "{{ postgresql_server_port }}"
+      chiton_db_root_name: "{{ postgresql_server_root_user }}"
+      chiton_db_root_password: "{{ postgresql_server_root_password }}"
+      chiton_env_name: staging
+    - role: firewall
+      firewall_tcp_ports:
+        - "{{ chiton_server_port }}"
+        - "{{ chiton_server_port_https }}"
