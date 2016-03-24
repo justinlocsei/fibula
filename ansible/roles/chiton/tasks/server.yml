@@ -9,6 +9,9 @@
     when: cyb_wildcard_ssl_certificate_key is not none
     no_log: yes
 
+- set_fact:
+    chiton_nginx_site_config: "{{ nginx_sites_dir }}/chiton.conf"
+
 - name: create a file for the SSL certificate
   copy:
     dest: "{{ chiton_ssl_certificate_path }}"
@@ -33,12 +36,23 @@
   notify:
     - reload nginx
 
+- name: check if the site config exists
+  stat:
+    path: "{{ chiton_nginx_site_config }}"
+  register: chiton_nginx_site_config_check
+
 - name: create the nginx site config
   template:
     src: site.conf.j2
-    dest: "{{ nginx_sites_dir }}/chiton.conf"
+    dest: "{{ chiton_nginx_site_config }}"
     owner: root
     group: root
     mode: 0644
   notify:
     - reload nginx
+
+- name: apply a new site config
+  service:
+    name: nginx
+    state: restarted
+  when: chiton_nginx_site_config_check.stat.isreg is not defined
