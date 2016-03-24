@@ -13,7 +13,7 @@ server {
   {% endif %}
 
   gzip on;
-  gzip_types application/javascript text/css text/html;
+  gzip_types application/javascript text/css;
   gzip_vary on;
 
   location {{ chiton_assets_url | trailing_slash_url }} {
