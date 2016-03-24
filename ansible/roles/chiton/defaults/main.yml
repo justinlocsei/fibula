@@ -1,5 +1,7 @@
 ---
 chiton_activate_venv: no
+chiton_admin_email: noreply@coveryourbasics.com
+chiton_admin_name: chiton
 chiton_admin_password: null
 chiton_allow_tests: no
 chiton_amazon_associates_aws_access_key_id: null

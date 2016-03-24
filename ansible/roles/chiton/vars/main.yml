@@ -1,6 +1,4 @@
 ---
-chiton_admin_email: noreply@coveryourbasics.com
-chiton_admin_name: chiton
 chiton_db_name: chiton
 chiton_db_user_name: chiton
 chiton_postgresql_version: 9.4
