@@ -4,10 +4,10 @@ APPS=(chiton himation)
 
 case $1 in
 "chiton")
-  ssh chiton@development-www.coveryourbasics.com
+  ssh chiton@development-www.coveryourbasics.dev
   ;;
 "himation")
-  ssh himation@development-www.coveryourbasics.com
+  ssh himation@development-www.coveryourbasics.dev
   ;;
 *)
   echo "Usage: develop APP"

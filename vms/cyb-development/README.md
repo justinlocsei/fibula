@@ -5,7 +5,7 @@ the back-end and front-end servers used for Cover Your Basics.
 
 ## SSH Access
 
-Using `ssh development-www.coveryourbasics.com` command will access this machine
+Using `ssh development-www.coveryourbasics.dev` command will access this machine
 as the `vagrant` user, which is suitable for inspecting the state of the
 provisioned VM.  However, for development, you will want to run the `develop`
 script in this directory.  Calling this script with the name of an application

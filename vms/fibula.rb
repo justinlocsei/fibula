@@ -51,7 +51,7 @@ module Fibula
     # @param [String] subdomain The subdomain for the machine
     # @return [String]
     def hostname(subdomain)
-      "#{subdomain}.coveryourbasics.com"
+      "#{subdomain}.coveryourbasics.dev"
     end
 
     # Return the path to the private key file for the Vagrant user
