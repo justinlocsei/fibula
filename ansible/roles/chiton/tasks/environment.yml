@@ -9,6 +9,14 @@
     exclusive: yes
     state: present
 
+- name: create the source directory
+  file:
+    path: "{{ chiton_source_dir }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+    state: directory
+
 - name: fetch the source code
   git:
     accept_hostkey: yes
@@ -17,17 +25,23 @@
     repo: git@github.com:justinlocsei/chiton.git
     update: yes
     version: "{{ chiton_git_branch }}"
+  become: yes
+  become_user: "{{ chiton_user }}"
 
 - name: create an application configuration file
   template:
     src: config.json.j2
     dest: "{{ chiton_config_file }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
     mode: 0600
 
 - name: create a profile script to customize the application user's environment
   template:
     src: profile.j2
     dest: "{{ chiton_user_custom_profile }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
     mode: 0644
 
 - name: ensure that the application user loads the custom profile
@@ -35,3 +49,6 @@
     dest: "{{ chiton_user_details.home }}/.profile"
     line: ". {{ chiton_user_custom_profile }}"
     state: present
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0600

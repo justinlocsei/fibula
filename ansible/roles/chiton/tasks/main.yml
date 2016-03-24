@@ -20,8 +20,6 @@
 
 - name: configure the application environment
   include: environment.yml
-  become: yes
-  become_user: "{{ chiton_user }}"
   tags:
     - application
 
