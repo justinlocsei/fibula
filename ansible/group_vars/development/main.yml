@@ -1,8 +1,9 @@
 ---
 chiton_allow_tests: yes
+chiton_activate_venv: yes
 chiton_amazon_associates_tracking_id: covyoubas-dev-20
 chiton_group: chiton
-chiton_group_id: 3000
+chiton_group_id: 2000
 chiton_server_port: 80
 chiton_server_port_https: 443
 chiton_source_dir: /var/cyb-chiton
@@ -10,7 +11,5 @@ chiton_use_https: true
 chiton_user: chiton
 chiton_user_authorized_keys:
   - "{{ lookup('file', lookup('env', 'CYB_VAGRANT_KEY_PUBLIC')) }}"
-chiton_user_id: 3000
-vagrant_host_group: chiton
+chiton_user_id: 2000
 vagrant_host_home_dir: /vagrant-host-home
-vagrant_host_user: chiton

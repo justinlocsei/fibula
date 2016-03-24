@@ -1,9 +1,2 @@
-[development_data]
-development-data.coveryourbasics.com
-
-[development_www]
+[development]
 development-www.coveryourbasics.com
-
-[development:children]
-development_data
-development_www

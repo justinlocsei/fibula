@@ -1,5 +1,5 @@
 ---
-- hosts: development-data.coveryourbasics.com
+- hosts: development-www.coveryourbasics.com
   roles:
     - role: common
     - role: postgresql_server
@@ -9,7 +9,6 @@
       postgresql_server_root_password: "{{ chiton_db_root_password }}"
       postgresql_server_version: "{{ chiton_postgresql_version }}"
     - role: chiton
-      chiton_activate_venv: yes
       chiton_config_debug: yes
       chiton_db_host: "{{ postgresql_server_address }}"
       chiton_db_port: "{{ postgresql_server_port }}"
@@ -17,6 +16,8 @@
       chiton_env_name: development
     - role: nfs_server
     - role: vagrant
+      vagrant_host_group: "{{ chiton_group }}"
+      vagrant_host_user: "{{ chiton_user }}"
     - role: firewall
       firewall_tcp_ports:
         - "{{ chiton_server_port }}"

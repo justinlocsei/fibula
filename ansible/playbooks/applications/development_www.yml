@@ -1,7 +1,0 @@
----
-- hosts: development-www.coveryourbasics.com
-  roles:
-    - role: common
-    - role: himation
-      himation_is_development: yes
-    - role: vagrant
