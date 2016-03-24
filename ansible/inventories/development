@@ -1,2 +1,5 @@
 [development]
 development-www.coveryourbasics.dev
+
+[staging]
+staging-www.coveryourbasics.dev
