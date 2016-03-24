@@ -1,18 +1,18 @@
 #!/bin/bash
 
-VMS=(chiton himation)
+APPS=(chiton himation)
 
 case $1 in
 "chiton")
-  ssh chiton@development-data.coveryourbasics.com
+  ssh chiton@development-www.coveryourbasics.com
   ;;
 "himation")
   ssh himation@development-www.coveryourbasics.com
   ;;
 *)
-  echo "Usage: develop VM"
+  echo "Usage: develop APP"
   echo
-  echo "       VM: The ID of a virtual machine (${VMS[*]})"
+  echo "       APP: The name of an application (${APPS[*]})"
   exit 1
   ;;
 esac

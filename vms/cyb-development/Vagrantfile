@@ -2,58 +2,36 @@ Vagrant.configure(2) do |config|
 
   require_relative "../fibula"
 
-  config.vm.define("himation") do |himation|
-    hostname = Fibula.hostname("www")
-    host_vars = Fibula.ansible_group_vars("development_www")
+  config.vm.define("development", primary: true) do |config|
+    hostname = Fibula.hostname("development-www")
+    host_vars = Fibula.ansible_group_vars("development")
 
-    himation.vm.box = "fibula/ubuntu-14.04"
-    himation.vm.hostname = hostname
+    config.vm.box = "fibula/ubuntu-14.04"
+    config.vm.hostname = hostname
 
-    himation.vm.network "private_network", ip: host_vars.fetch("himation_app_server").fetch("host")
+    config.vm.network "private_network", ip: "10.10.10.10"
 
-    himation.ssh.insert_key = false
-    himation.ssh.private_key_path = Fibula.private_key_path
-    himation.ssh.forward_agent = true
+    config.ssh.insert_key = false
+    config.ssh.private_key_path = Fibula.private_key_path
+    config.ssh.forward_agent = true
 
-    himation.vm.synced_folder *Fibula.sync_home_options(host_vars.fetch("vagrant_host_home_dir"))
-    himation.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
+    config.vm.synced_folder *Fibula.sync_home_options(host_vars.fetch("vagrant_host_home_dir"))
+
+    config.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
       group_id: host_vars.fetch("himation_group_id"),
       guest: host_vars.fetch("himation_source_dir"),
       host: ENV.fetch("CYB_NFS_DIR_HIMATION"),
       user_id: host_vars.fetch("himation_user_id")
     })
 
-    himation.vm.provider "virtualbox" do |vbox|
-      vbox.cpus = 2
-      Fibula.virtualbox_networking_optimizations.each do |optimization|
-        vbox.customize optimization
-      end
-    end
-
-  end
-
-  config.vm.define("chiton") do |chiton|
-    hostname = Fibula.hostname("data")
-    host_vars = Fibula.ansible_group_vars("development_data")
-
-    chiton.vm.box = "fibula/ubuntu-14.04"
-    chiton.vm.hostname = hostname
-
-    chiton.vm.network "private_network", ip: "10.10.10.20"
-
-    chiton.ssh.insert_key = false
-    chiton.ssh.private_key_path = Fibula.private_key_path
-    chiton.ssh.forward_agent = true
-
-    chiton.vm.synced_folder *Fibula.sync_home_options(host_vars.fetch("vagrant_host_home_dir"))
-    chiton.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
+    config.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
       group_id: host_vars.fetch("chiton_group_id"),
       guest: host_vars.fetch("chiton_source_dir"),
       host: ENV.fetch("CYB_NFS_DIR_CHITON"),
       user_id: host_vars.fetch("chiton_user_id")
     })
 
-    chiton.vm.provider "virtualbox" do |vbox|
+    config.vm.provider "virtualbox" do |vbox|
       vbox.cpus = 2
       Fibula.virtualbox_networking_optimizations.each do |optimization|
         vbox.customize optimization
