@@ -3,10 +3,11 @@
     chiton_user_custom_profile: "{{ chiton_user_details.home }}/.profile.chiton"
 
 - name: add all known keys to the application user's authorized keys
-  copy:
-    dest: "{{ chiton_user_ssh_dir.path }}/authorized_keys"
-    content: "{{ chiton_user_authorized_keys | join('\n') }}"
-    mode: 0600
+  authorized_key:
+    user: "{{ chiton_user }}"
+    key: "{{ chiton_user_authorized_keys | join('\n') }}"
+    exclusive: yes
+    state: present
 
 - name: fetch the source code
   git:
