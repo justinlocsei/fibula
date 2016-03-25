@@ -1,3 +1,5 @@
+import sys
+
 import click
 
 
@@ -61,6 +63,11 @@ class Communicator:
         """Show a warning."""
         output = self._format(message, '!')
         click.echo(click.style(output, fg='black', bg='yellow'))
+
+    def abort(self, message):
+        """Display a message and abort."""
+        self.error(message)
+        sys.exit(1)
 
     def confirm(self, prompt, destructive=True):
         """Request confirmation from the user for an action.
