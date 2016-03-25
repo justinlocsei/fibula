@@ -1,13 +1,8 @@
 import os
 import yaml
 
-# The path to the data directory
-DATA_DIR = os.path.join(
-    os.path.dirname(
-        os.path.abspath(os.path.join(__file__, '..'))
-    ),
-    'data'
-)
+INFRA_DIR = os.path.dirname(os.path.abspath(os.path.join(__file__, '..')))
+DATA_DIR = os.path.join(INFRA_DIR, 'data')
 
 def load_data(path):
     """Load a named YAML data file.
