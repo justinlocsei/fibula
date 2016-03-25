@@ -1,0 +1,37 @@
+---
+- name: create an admin group
+  group:
+    name: "{{ users_admin_group }}"
+    state: present
+
+- name: create per-admin groups
+  group:
+    name: "{{ item.login }}"
+    state: present
+  with_items: "{{ users_admins }}"
+
+- name: create admin users
+  user:
+    name: "{{ item.login }}"
+    comment: "{{ item.name }}"
+    group: "{{ item.login }}"
+    groups: "{{ users_admin_group }}"
+    state: present
+  with_items: "{{ users_admins }}"
+
+- name: set each admin's authorized SSH keys
+  authorized_key:
+    user: "{{ item.login }}"
+    key: "{{ item.public_keys | join('\n') }}"
+    exclusive: yes
+    state: present
+  with_items: "{{ users_admins }}"
+
+- name: grant passwordless sudo to admins
+  template:
+    src: templates/admin_sudoers.j2
+    dest: /etc/sudoers.d/{{ users_admin_group }}
+    mode: 0440
+    owner: root
+    group: root
+    validate: visudo -cf %s
