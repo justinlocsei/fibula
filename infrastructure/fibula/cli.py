@@ -17,8 +17,7 @@ def keys():
 @keys.command()
 def sync():
     """Sync remote SSH keys with the key manifest."""
-    ssh_keys = actions.SSHKeys()
-    ssh_keys.sync()
+    actions.SSHKeys().sync()
 
 
 @cli.group()
@@ -30,19 +29,16 @@ def servers():
 @servers.command()
 def create():
     """Create remote servers to match the server manifest."""
-    servers = actions.Servers()
-    servers.create()
+    actions.Servers().create()
 
 
 @servers.command()
 def sync():
     """Sync the configuration of existing remote servers with the manifest."""
-    servers = actions.Servers()
-    servers.sync()
+    actions.Servers().sync()
 
 
 @servers.command()
 def prune():
     """Remove any remote servers that do not appear in the manifest."""
-    servers = actions.Servers()
-    servers.prune()
+    actions.Servers().prune()
