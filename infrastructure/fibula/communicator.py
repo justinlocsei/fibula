@@ -14,21 +14,18 @@ class Communicator:
         """
         self.label = label
 
-    def group(self, name):
+    def group(self, *names):
         """Create a new communicator with a group label.
 
         Args:
-            name (str): The label for the subgroup
+            names (list): The names for the subgroup
 
         Returns:
             fibula.communicator.Communicator
         """
         if self.label:
-            label = '%s/%s' % (self.label, name)
-        else:
-            label = name
-
-        return Communicator(label=label)
+            names = (self.label,) + names
+        return Communicator(label='/'.join(names))
 
     def info(self, message):
         """Show an informational message."""
