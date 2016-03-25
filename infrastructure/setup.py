@@ -9,6 +9,6 @@ setup(
     ],
     entry_points="""
         [console_scripts]
-        fibula=fibula.cli:cli
+        fib=fibula.cli:cli
     """
 )
