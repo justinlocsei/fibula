@@ -14,8 +14,8 @@ def keys():
     pass
 
 
-@keys.command()
-def sync():
+@keys.command('sync')
+def keys_sync():
     """Sync remote SSH keys with the key manifest."""
     actions.SSHKeys().sync()
 
@@ -26,26 +26,26 @@ def servers():
     pass
 
 
-@servers.command()
-def create():
+@servers.command('create')
+def servers_create():
     """Create remote servers to match the server manifest."""
     actions.Servers().create()
 
 
-@servers.command()
-def sync():
+@servers.command('sync')
+def servers_sync():
     """Sync the configuration of existing remote servers with the manifest."""
     actions.Servers().sync()
 
 
-@servers.command()
-def prune():
+@servers.command('prune')
+def servers_prune():
     """Remove any remote servers that do not appear in the manifest."""
     actions.Servers().prune()
 
 
-@servers.command()
+@servers.command('destroy')
 @click.argument('name', type=str)
-def destroy(name):
+def servers_destroy(name):
     """Destroy a single remote server."""
     actions.Servers().destroy(name)
