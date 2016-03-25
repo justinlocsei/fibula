@@ -49,3 +49,15 @@ def servers_prune():
 def servers_destroy(name):
     """Destroy a single remote server."""
     actions.Servers().destroy(name)
+
+
+@cli.group()
+def domains():
+    """Manage network domains."""
+    pass
+
+
+@domains.command('sync')
+def domains_sync():
+    """Sync domains with the manifest."""
+    actions.Domains().sync()

@@ -1,4 +1,8 @@
 ---
+domains:
+  - fqdn: coveryourbasics.com
+    root_server: production
+
 servers:
   - name: staging
     config:
