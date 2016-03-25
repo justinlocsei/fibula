@@ -9,14 +9,12 @@ chiton_server_port_https: 443
 chiton_source_dir: /var/cyb-chiton
 chiton_use_https: yes
 chiton_user: chiton
-chiton_user_authorized_keys:
-  - "{{ vagrant_public_key }}"
+chiton_user_authorized_keys: "{{ ssh_developer_public_keys }}"
 chiton_user_id: 2000
 himation_group: himation
 himation_group_id: 3000
 himation_source_dir: /var/cyb-himation
 himation_user: himation
 himation_user_id: 3000
-himation_user_authorized_keys:
-  - "{{ vagrant_public_key }}"
+himation_user_authorized_keys: "{{ ssh_developer_public_keys }}"
 vagrant_host_home_dir: /vagrant-host-home
