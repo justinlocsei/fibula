@@ -3,11 +3,11 @@ Vagrant.configure(2) do |config|
   require_relative "../fibula"
 
   config.vm.define("development", primary: true) do |config|
-    hostname = Fibula.hostname("development-www")
     host_vars = Fibula.ansible_group_vars("development")
 
     config.vm.box = "fibula/ubuntu-14.04"
-    config.vm.hostname = hostname
+    config.vm.hostname = Fibula.hostname("development-www")
+    config.hostsupdater.aliases = [Fibula.hostname("development-data")]
 
     config.vm.network "private_network", ip: "10.10.10.10"
 
