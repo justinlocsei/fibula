@@ -1,5 +1,8 @@
+from contextlib import contextmanager
+import time
+
 import click
-from digitalocean import DataReadError, Droplet
+from digitalocean import DataReadError, Droplet, FloatingIP
 
 from fibula.actions.base import BaseAction
 from fibula.data import load_data
@@ -36,6 +39,12 @@ class Servers(BaseAction):
             )
             droplet.create()
             self.ui.create('Created a "%s" droplet' % server['name'])
+
+            # Create a floating IP for the droplet
+            with self._wait_for_droplet(droplet, ui):
+                ip = FloatingIP(droplet_id=droplet.id, token=self.token)
+                ip.create()
+                ui.create('Added a floating IP of %s' % ip.ip)
 
         for droplet_name in droplet_names:
             self.ui.info('A "%s" droplet already exists' % droplet_name)
@@ -147,3 +156,25 @@ class Servers(BaseAction):
             self.ui.delete('Destroyed the "%s" droplet' % droplet.name)
         else:
             self.ui.skip('Not destroying the "%s" droplet' % droplet.name)
+
+    @contextmanager
+    def _wait_for_droplet(self, droplet, ui):
+        """Run code once a droplet has been created.
+
+        Args:
+            droplet (digitalocean.Droplet): A droplet
+            ui (fibula.communicator.Communicator): A communicator instance for logging
+        """
+        is_available = False
+        while not is_available:
+            actions = droplet.get_actions()
+            for action in actions:
+                action.load()
+                if action.type == 'create' and action.status == 'completed':
+                    is_available = True
+
+            if not is_available:
+                ui.info('Waiting for droplet...')
+                time.sleep(5)
+
+        yield
