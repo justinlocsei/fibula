@@ -10,7 +10,7 @@ chiton_source_dir: /var/cyb-chiton
 chiton_use_https: yes
 chiton_user: chiton
 chiton_user_authorized_keys:
-  - "{{ lookup('file', lookup('env', 'CYB_VAGRANT_KEY_PUBLIC')) }}"
+  - "{{ vagrant_public_key }}"
 chiton_user_id: 2000
 himation_group: himation
 himation_group_id: 3000
@@ -18,5 +18,5 @@ himation_source_dir: /var/cyb-himation
 himation_user: himation
 himation_user_id: 3000
 himation_user_authorized_keys:
-  - "{{ lookup('file', lookup('env', 'CYB_VAGRANT_KEY_PUBLIC')) }}"
+  - "{{ vagrant_public_key }}"
 vagrant_host_home_dir: /vagrant-host-home
