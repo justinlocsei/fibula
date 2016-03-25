@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 import time
 
-import click
 from digitalocean import DataReadError, Droplet, FloatingIP
 
 from fibula.actions.base import BaseAction
