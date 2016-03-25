@@ -41,19 +41,19 @@ class BaseAction:
             deleted (bool): Whether the change deleted an object
             updated (bool): Whether the change updated an object
         """
-        icon = u"\u00b7"
+        icon = u'\u00b7'
         formatting = {
             'bold': created or deleted or updated
         }
 
         if created:
             formatting['fg'] = 'green'
-            icon = u"\u2713"
+            icon = u'\u2713'
         elif deleted:
             formatting['fg'] = 'red'
-            icon = u"\u2717"
+            icon = u'\u2717'
         elif updated:
             formatting['fg'] = 'yellow'
-            icon = "-"
+            icon = '-'
 
         click.echo(click.style('%s %s' % (icon, message), **formatting))
