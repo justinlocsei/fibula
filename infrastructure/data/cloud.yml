@@ -7,3 +7,9 @@ servers:
       region: nyc3
       size: 1gb
 
+  - name: production
+    config:
+      backups: no
+      image: 15943679
+      region: nyc3
+      size: 512mb
