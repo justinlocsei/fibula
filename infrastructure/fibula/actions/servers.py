@@ -65,7 +65,7 @@ class Servers(BaseAction):
                     droplet.enable_backups()
                     ui.create('Enabled backups')
                 else:
-                    if ui.confirm('Are you sure you want to disable backups on this droplet?', destructive=True):
+                    if ui.confirm('Are you sure you want to disable backups on this droplet?'):
                         droplet.disable_backups()
                         ui.delete('Disabled backups')
                     else:
@@ -74,7 +74,7 @@ class Servers(BaseAction):
             # Sync droplet size
             if droplet.size_slug != server['size']:
                 divergent = True
-                if ui.confirm('Are you sure you want to change this droplet\'s size from %s to %s?' % (droplet.size_slug, server['size']), destructive=True):
+                if ui.confirm('Are you sure you want to change this droplet\'s size from %s to %s?' % (droplet.size_slug, server['size'])):
                     try:
                         resize = droplet.resize(server['size'])
                     except DataReadError as e:

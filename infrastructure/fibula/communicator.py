@@ -62,7 +62,7 @@ class Communicator:
         output = self._format(message, '!')
         click.echo(click.style(output, fg='black', bg='yellow'))
 
-    def confirm(self, prompt, destructive=False):
+    def confirm(self, prompt, destructive=True):
         """Request confirmation from the user for an action.
 
         Args:
