@@ -10,39 +10,39 @@ def cli():
 
 @cli.group()
 def keys():
-    """Modify remote SSH keys."""
+    """Manage remote SSH keys."""
     pass
 
 
 @keys.command()
 def sync():
-    """Sync remote SSH keys with the local list."""
+    """Sync remote SSH keys with the key manifest."""
     ssh_keys = actions.SSHKeys()
     ssh_keys.sync()
 
 
 @cli.group()
 def servers():
-    """Modify remote servers."""
+    """Manage remote servers."""
     pass
 
 
 @servers.command()
 def create():
-    """Create servers to match the local list."""
+    """Create remote servers to match the server manifest."""
     servers = actions.Servers()
     servers.create()
 
 
 @servers.command()
 def sync():
-    """Sync the remote servers with the local configuration."""
+    """Sync the configuration of existing remote servers with the manifest."""
     servers = actions.Servers()
     servers.sync()
 
 
 @servers.command()
 def prune():
-    """Remove any remote servers that do not appear locally."""
+    """Remove any remote servers that do not appear in the manifest."""
     servers = actions.Servers()
     servers.prune()
