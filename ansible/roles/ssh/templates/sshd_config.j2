@@ -1,0 +1,40 @@
+# Binding
+Port 22
+
+# Protocol
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Logging
+SyslogFacility AUTH
+LogLevel INFO
+
+# Authentication
+ChallengeResponseAuthentication no
+GSSAPIAuthentication no
+LoginGraceTime 120
+PasswordAuthentication no
+PermitRootLogin no
+PubkeyAuthentication yes
+RSAAuthentication yes
+UsePAM no
+
+# Security
+HostbasedAuthentication no
+PermitEmptyPasswords no
+StrictModes yes
+UsePrivilegeSeparation yes
+
+# Display
+X11Forwarding no
+PrintMotd no
+PrintLastLog yes
+
+# Connection
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+TCPKeepAlive yes
+UseDNS no
