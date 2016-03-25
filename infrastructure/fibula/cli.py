@@ -62,7 +62,19 @@ def domains():
     pass
 
 
+@domains.command('create')
+def domains_create():
+    """Add missing remote domains from the manifest."""
+    actions.Domains().create()
+
+
 @domains.command('sync')
 def domains_sync():
-    """Sync domains with the manifest."""
+    """Sync domain configuration with the manifest."""
     actions.Domains().sync()
+
+
+@domains.command('prune')
+def domains_prune():
+    """Remove unused remote domains."""
+    actions.Domains().prune()
