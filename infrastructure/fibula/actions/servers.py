@@ -21,24 +21,27 @@ class Servers(BaseAction):
         """Create droplets that appear in the manifest but not on Digital Ocean."""
         ssh_keys = self.do.get_all_sshkeys()
         droplets = self.do.get_all_droplets()
-        servers = load_data('servers')
+
+        servers = load_data('cloud')['servers']
 
         droplet_names = [d.name for d in droplets]
         to_create = [s for s in servers if s['name'] not in droplet_names]
 
         # Create all missing droplets
         for server in to_create:
+            ui = self.ui.group(server['name'])
+            config = server['config']
             droplet = Droplet(
-                backups=server['backups'],
-                image=server['image'],
+                backups=config['backups'],
+                image=config['image'],
                 name=server['name'],
-                region=server['region'],
-                size_slug=server['size'],
+                region=config['region'],
+                size_slug=config['size'],
                 ssh_keys=[k.id for k in ssh_keys],
                 token=self.token
             )
             droplet.create()
-            self.ui.create('Created a "%s" droplet' % server['name'])
+            ui.create('Created droplet %s' % droplet.id)
 
             # Create a floating IP for the droplet
             with self._wait_for_droplet(droplet, ui):
@@ -47,12 +50,12 @@ class Servers(BaseAction):
                 ui.create('Added a floating IP of %s' % ip.ip)
 
         for droplet_name in droplet_names:
-            self.ui.info('A "%s" droplet already exists' % droplet_name)
+            self.ui.skip('A "%s" droplet already exists' % droplet_name)
 
     def sync(self):
         """Update all droplets to match the manifest."""
         droplets = self.do.get_all_droplets()
-        servers = load_data('servers')
+        servers = load_data('cloud')['servers']
 
         server_names = [s['name'] for s in servers]
         to_skip = [d.name for d in droplets if d.name not in server_names]
@@ -64,13 +67,14 @@ class Servers(BaseAction):
                     to_edit.append((droplet, server))
 
         for droplet, server in to_edit:
+            config = server['config']
             ui = self.ui.group(droplet.name)
             divergent = False
 
             # Sync backups
-            if droplet.backups != server['backups']:
+            if droplet.backups != config['backups']:
                 divergent = True
-                if server['backups']:
+                if config['backups']:
                     droplet.enable_backups()
                     ui.create('Enabled backups')
                 else:
@@ -81,11 +85,11 @@ class Servers(BaseAction):
                         ui.skip('Not disabling backups')
 
             # Sync droplet size
-            if droplet.size_slug != server['size']:
+            if droplet.size_slug != config['size']:
                 divergent = True
-                if ui.confirm('Are you sure you want to change this droplet\'s size from %s to %s?' % (droplet.size_slug, server['size'])):
+                if ui.confirm('Are you sure you want to change this droplet\'s size from %s to %s?' % (droplet.size_slug, config['size'])):
                     try:
-                        resize = droplet.resize(server['size'])
+                        resize = droplet.resize(config['size'])
                     except DataReadError as e:
                         ui.error('Could not resize the droplet: %s' % e)
                     else:
@@ -94,19 +98,19 @@ class Servers(BaseAction):
                     ui.skip('Not resizing the droplet')
 
             # Warn about different regions
-            if droplet.region['slug'] != server['region']:
+            if droplet.region['slug'] != config['region']:
                 divergent = True
-                ui.warn('This droplet is in the "%s" region, but it should be in "%s"' % (droplet.region['slug'], server['region']))
+                ui.warn('This droplet is in the "%s" region, but it should be in "%s"' % (droplet.region['slug'], config['region']))
                 ui.warn('To change regions, you must spin up a new droplet')
 
             # Warn about different images
-            if droplet.image['id'] != server['image']:
+            if droplet.image['id'] != config['image']:
                 divergent = True
-                ui.warn('This droplet uses the "%s" image, but it should use "%s"' % (droplet.image['id'], server['image']))
+                ui.warn('This droplet uses the "%s" image, but it should use "%s"' % (droplet.image['id'], config['image']))
                 ui.warn('To change the image, you must spin up a new droplet')
 
             if not divergent:
-                ui.info('Droplet configuration matches the manifest')
+                ui.skip('Droplet configuration matches the manifest')
 
         for droplet_name in to_skip:
             self.ui.warn('The "%s" droplet is absent from the manifest' % droplet_name)
@@ -114,7 +118,7 @@ class Servers(BaseAction):
     def prune(self):
         """Remove any remote servers that do not appear in the manifest."""
         droplets = self.do.get_all_droplets()
-        servers = load_data('servers')
+        servers = load_data('cloud')['servers']
 
         server_names = [s['name'] for s in servers]
         to_prune = [d for d in droplets if d.name not in server_names]

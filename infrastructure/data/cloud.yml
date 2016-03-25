@@ -1,0 +1,9 @@
+---
+servers:
+  - name: staging
+    config:
+      backups: yes
+      image: 15943679
+      region: nyc3
+      size: 1gb
+
