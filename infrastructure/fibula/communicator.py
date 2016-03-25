@@ -60,18 +60,25 @@ class Communicator:
     def warn(self, message):
         """Show a warning."""
         output = self._format(message, '!')
-        click.echo(click.style(output, fg='white', bg='yellow'))
+        click.echo(click.style(output, fg='black', bg='yellow'))
 
-    def confirm(self, prompt):
+    def confirm(self, prompt, destructive=False):
         """Request confirmation from the user for an action.
 
         Args:
             prompt (str): The confirmation prompt
 
+        Keyword Args:
+            destructive (bool): Whether the action is destructive
+
         Returns:
             bool: Whether the user accepted
         """
-        return click.confirm(self._format(prompt))
+        message = self._format(prompt, '?')
+        if destructive:
+            message = click.style(message, fg='red', bold=True)
+
+        return click.confirm(message)
 
     def _format(self, message, icon=' '):
         """Return a message formatted for display.
