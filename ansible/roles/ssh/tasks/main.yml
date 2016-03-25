@@ -1,7 +1,7 @@
 ---
 - name: update the global list of known hosts
   template:
-    src: "templates/ssh_known_hosts.j2"
+    src: templates/ssh_known_hosts.j2
     dest: /etc/ssh/ssh_known_hosts
     owner: root
     group: root
