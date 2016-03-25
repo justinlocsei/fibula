@@ -22,12 +22,10 @@ class Servers(BaseAction):
         droplets = self.do.get_all_droplets()
 
         servers = load_data('cloud')['servers']
-
         droplet_names = [d.name for d in droplets]
-        to_create = [s for s in servers if s['name'] not in droplet_names]
+        missing_servers = [s for s in servers if s['name'] not in droplet_names]
 
-        # Create all missing droplets
-        for server in to_create:
+        for server in missing_servers:
             ui = self.ui.group(server['name'])
             config = server['config']
             droplet = Droplet(
@@ -42,14 +40,15 @@ class Servers(BaseAction):
             droplet.create()
             ui.create('Created droplet %s' % droplet.id)
 
-            # Create a floating IP for the droplet
+            # Attach a floating IP to the droplet
             with self._wait_for_droplet(droplet, ui):
                 ip = FloatingIP(droplet_id=droplet.id, token=self.token)
                 ip.create()
                 ui.create('Added a floating IP of %s' % ip.ip)
 
         for droplet_name in droplet_names:
-            self.ui.skip('A "%s" droplet already exists' % droplet_name)
+            ui = self.ui.group(droplet_name)
+            ui.skip('A droplet already exists')
 
     def sync(self):
         """Update all droplets to match the manifest.
@@ -60,9 +59,6 @@ class Servers(BaseAction):
         """
         droplets = self.do.get_all_droplets()
         servers = load_data('cloud')['servers']
-
-        server_names = [s['name'] for s in servers]
-        to_skip = [d.name for d in droplets if d.name not in server_names]
 
         to_edit = []
         for droplet in droplets:
@@ -82,7 +78,7 @@ class Servers(BaseAction):
                     droplet.enable_backups()
                     ui.create('Enabled backups')
                 else:
-                    if ui.confirm('Are you sure you want to disable backups on this droplet?'):
+                    if ui.confirm('Are you sure you want to disable backups on the "%s" droplet?' % droplet.name):
                         droplet.disable_backups()
                         ui.delete('Disabled backups')
                     else:
@@ -91,7 +87,7 @@ class Servers(BaseAction):
             # Sync droplet size
             if droplet.size_slug != config['size']:
                 divergent = True
-                if ui.confirm('Are you sure you want to change this droplet\'s size from %s to %s?' % (droplet.size_slug, config['size'])):
+                if ui.confirm('Are you sure you want to change the "%s" droplet\'s size from %s to %s?' % (droplet.name, droplet.size_slug, config['size'])):
                     try:
                         resize = droplet.resize(config['size'])
                     except DataReadError as e:
@@ -116,8 +112,12 @@ class Servers(BaseAction):
             if not divergent:
                 ui.skip('Droplet configuration matches the manifest')
 
-        for droplet_name in to_skip:
-            self.ui.warn('The "%s" droplet is absent from the manifest' % droplet_name)
+        server_names = [s['name'] for s in servers]
+        missing_servers = [d.name for d in droplets if d.name not in server_names]
+
+        for droplet_name in missing_servers:
+            ui = self.ui.group(droplet_name)
+            ui.warn('Droplet not present in the manifest')
 
     def prune(self):
         """Remove any remote servers that do not appear in the manifest."""
@@ -125,19 +125,20 @@ class Servers(BaseAction):
         servers = load_data('cloud')['servers']
 
         server_names = [s['name'] for s in servers]
-        to_prune = [d for d in droplets if d.name not in server_names]
-        to_skip = [d.name for d in droplets if d.name in server_names]
+        orphan_servers = [d for d in droplets if d.name not in server_names]
+        local_servers = [d.name for d in droplets if d.name in server_names]
 
-        # Remove unused droplets
-        for droplet in to_prune:
-            if self.ui.confirm('Are you sure you want to destroy the "%s" droplet?' % droplet.name):
+        for droplet in orphan_servers:
+            ui = self.ui.group(droplet.name)
+            if ui.confirm('Are you sure you want to destroy the "%s" droplet?' % droplet.name):
                 droplet.destroy()
-                self.ui.delete('Destroyed the "%s" droplet' % droplet.name)
+                ui.delete('Droplet destroyed')
             else:
-                self.ui.skip('Not destroying the "%s" droplet' % droplet.name)
+                ui.skip('Droplet not destroyed')
 
-        for droplet_name in to_skip:
-            self.ui.skip('This droplet is present in the manifest')
+        for droplet_name in local_servers:
+            ui = self.ui.group(droplet_name)
+            ui.skip('Droplet present in the manifest')
 
     @contextmanager
     def _wait_for_droplet(self, droplet, ui):
@@ -150,10 +151,8 @@ class Servers(BaseAction):
         is_available = False
         while not is_available:
             actions = droplet.get_actions()
-            for action in actions:
-                action.load()
-                if action.type == 'create' and action.status == 'completed':
-                    is_available = True
+            [a.load() for a in actions]
+            is_available = any([a.type == 'create' and a.status == 'completed' for a in actions])
 
             if not is_available:
                 ui.info('Waiting for droplet...')
