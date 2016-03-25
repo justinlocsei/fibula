@@ -1,0 +1,7 @@
+---
+- name: staging
+  hostname: staging-www.coveryourbasics.com
+  region: nyc3
+  image: 15943679 # Ubuntu 14.04.4 x64
+  size: 1gb
+  backups: yes
