@@ -18,11 +18,11 @@ class SSHKeys(BaseAction):
         Each local key is associated with a Digital Ocean account, so all keys
         associated with another email address will be ignored.
         """
+        server_keys = self.do.get_all_sshkeys()
         account_email = self.do.get_account().email
 
         all_keys = load_data('ssh_keys')
         local_keys = [key for key in all_keys if key['email'] == account_email]
-        server_keys = self.do.get_all_sshkeys()
 
         for local_key in local_keys:
             on_server = False
