@@ -57,3 +57,11 @@ class BaseAction:
             icon = '-'
 
         click.echo(click.style('%s %s' % (icon, message), **formatting))
+
+    def warn(self, message):
+        """Show a warning message.
+
+        Args:
+            message (str): The warning message to display
+        """
+        click.echo(click.style(u'\u26a0 %s' % message, fg='yellow', bold=True))
