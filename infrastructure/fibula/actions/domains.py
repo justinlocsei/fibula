@@ -13,16 +13,14 @@ class Domains(BaseAction):
         """Create domains on Digital Ocean from the manifest."""
         local_domains = load_data('cloud')['domains']
         remote_domains = self.do.get_all_domains()
-        droplets = self.do.get_all_droplets()
-        floating_ips = self.do.get_all_floating_ips()
 
         remote_domain_names = [d.name for d in remote_domains]
         missing_domains = [d for d in local_domains if d['fqdn'] not in remote_domain_names]
 
         for domain in missing_domains:
             ui = self.ui.group(domain['fqdn'])
-            droplet = self._get_named_droplet(domain['root_server'], droplets)
-            floating_ip = self._get_floating_ip_for_droplet(droplet, floating_ips)
+            droplet = self.get_named_droplet(domain['root_server'])
+            floating_ip = self.get_droplet_floating_ip(droplet)
 
             remote_domain = Domain(
                 name=domain['fqdn'],
@@ -45,8 +43,6 @@ class Domains(BaseAction):
         """
         local_domains = load_data('cloud')['domains']
         remote_domains = self.do.get_all_domains()
-        droplets = self.do.get_all_droplets()
-        floating_ips = self.do.get_all_floating_ips()
 
         existing_domains = []
         for local_domain in local_domains:
@@ -57,8 +53,8 @@ class Domains(BaseAction):
         for local_domain, remote_domain in existing_domains:
             ui = self.ui.group(remote_domain.name)
             a_record = [r for r in remote_domain.get_records() if r.type == 'A'][0]
-            droplet = self._get_named_droplet(local_domain['root_server'], droplets)
-            floating_ip = self._get_floating_ip_for_droplet(droplet, floating_ips)
+            droplet = self.get_named_droplet(local_domain['root_server'])
+            floating_ip = self.get_droplet_floating_ip(droplet)
 
             if a_record.data != floating_ip.ip:
                 previous_ip = a_record.data
@@ -94,37 +90,3 @@ class Domains(BaseAction):
         for domain in existing_domains:
             ui = self.ui.group(domain['fqdn'])
             ui.skip('Domain present in the manifest')
-
-    def _get_named_droplet(self, name, droplets):
-        """Get a named droplet from a collection of droplets.
-
-        Args:
-            name (str): The name of a droplet
-            droplets (list): A collection of `digitalocean.Droplet` instances
-
-        Returns:
-            digitalocean.Droplet: The named droplet
-        """
-        matches = [d for d in droplets if d.name == name]
-        if len(matches) > 1:
-            self.ui.abort('Multiple servers named "%s" exist' % name)
-        elif not len(matches):
-            self.ui.abort('No server found named "%s"' % name)
-        return matches[0]
-
-    def _get_floating_ip_for_droplet(self, droplet, floating_ips):
-        """Get the floating IP for a droplet from a collection of IPs.
-
-        Args:
-            droplet (digitalocean.Droplet): A single droplet
-            floating_ips (list): A collection of `digitalocean.FloatingIP` instances
-
-        Returns:
-            digitalocean.FloatingIP: The droplet's floating IP
-        """
-        matches = [f for f in floating_ips if f.droplet['id'] == droplet.id]
-        if len(matches) > 1:
-            self.ui.abort('Multiple floating IPs bound to the "%s" server exist' % droplet.name)
-        elif not len(matches):
-            self.ui.abort('No floating IP is bound to the "%s" server' % droplet.name)
-        return matches[0]
