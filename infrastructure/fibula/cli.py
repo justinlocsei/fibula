@@ -42,3 +42,10 @@ def sync():
 def prune():
     """Remove any remote servers that do not appear in the manifest."""
     actions.Servers().prune()
+
+
+@servers.command()
+@click.argument('name', type=str)
+def destroy(name):
+    """Destroy a single remote server."""
+    actions.Servers().destroy(name)
