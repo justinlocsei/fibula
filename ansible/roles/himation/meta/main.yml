@@ -1,5 +1,6 @@
 ---
 dependencies:
+  - role: users
   - role: ssh
   - role: git
   - role: ruby
