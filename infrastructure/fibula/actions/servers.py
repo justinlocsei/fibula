@@ -53,7 +53,12 @@ class Servers(BaseAction):
             self.ui.skip('A "%s" droplet already exists' % droplet_name)
 
     def sync(self):
-        """Update all droplets to match the manifest."""
+        """Update all droplets to match the manifest.
+
+        This changes any mutable server properties, and emits a warning when
+        differences are detected for properties that cannot be changed for an
+        existing instance, such as the region.
+        """
         droplets = self.do.get_all_droplets()
         servers = load_data('cloud')['servers']
 
