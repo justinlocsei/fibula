@@ -56,13 +56,6 @@ def servers_prune():
     actions.Servers().prune()
 
 
-@servers.command('destroy')
-@click.argument('name', type=str)
-def servers_destroy(name):
-    """Destroy a single remote server."""
-    actions.Servers().destroy(name)
-
-
 @cli.group()
 def domains():
     """Manage network domains."""

@@ -130,40 +130,14 @@ class Servers(BaseAction):
 
         # Remove unused droplets
         for droplet in to_prune:
-            self._destroy_droplet(droplet)
+            if self.ui.confirm('Are you sure you want to destroy the "%s" droplet?' % droplet.name):
+                droplet.destroy()
+                self.ui.delete('Destroyed the "%s" droplet' % droplet.name)
+            else:
+                self.ui.skip('Not destroying the "%s" droplet' % droplet.name)
 
         for droplet_name in to_skip:
             self.ui.skip('This droplet is present in the manifest')
-
-    def destroy(self, name):
-        """Destroy a single server.
-
-        Args:
-            name (str): The name of the server
-        """
-        droplets = self.do.get_all_droplets()
-        matches = [d for d in droplets if d.name == name]
-
-        if len(matches) > 1:
-            self.ui.error('Multiple droplets share the name "%s"' % name)
-            return
-        elif not len(matches):
-            self.ui.error('No droplets have the name "%s"' % name)
-            return
-
-        self._destroy_droplet(matches[0])
-
-    def _destroy_droplet(self, droplet):
-        """Destroy a single droplet instance.
-
-        Args:
-            droplet (digitalocean.Droplet): A droplet
-        """
-        if self.ui.confirm('Are you sure you want to destroy the "%s" droplet?' % droplet.name):
-            droplet.destroy()
-            self.ui.delete('Destroyed the "%s" droplet' % droplet.name)
-        else:
-            self.ui.skip('Not destroying the "%s" droplet' % droplet.name)
 
     @contextmanager
     def _wait_for_droplet(self, droplet, ui):
