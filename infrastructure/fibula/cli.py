@@ -14,10 +14,22 @@ def keys():
     pass
 
 
+@keys.command('add')
+def keys_add():
+    """Add missing SSH keys to the remote."""
+    actions.SSHKeys().add()
+
+
 @keys.command('sync')
 def keys_sync():
-    """Sync remote SSH keys with the key manifest."""
+    """Sync the configuration of remote SSH keys with the manifest."""
     actions.SSHKeys().sync()
+
+
+@keys.command('prune')
+def keys_prune():
+    """Remove remote SSH keys not present in the manifest."""
+    actions.SSHKeys().prune()
 
 
 @cli.group()

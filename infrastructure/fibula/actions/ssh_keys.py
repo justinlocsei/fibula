@@ -5,72 +5,102 @@ from fibula.data import load_data
 
 
 class SSHKeys(BaseAction):
-    """A collection of actions for SSH keys."""
+    """A collection of actions for SSH keys.
+
+    Each of these actions only operates on the set of keys associated with the
+    current user account.
+    """
 
     log_prefix = 'ssh'
 
-    def sync(self):
-        """Ensure that the Digital Ocean SSH keys match the local keys.
-
-        This adds any local keys that are not registered with Digital Ocean, and
-        updates the name and public key of any matching remote keys to match
-        the local values.  If a key is found on Digital Ocean that does not
-        exist in the local list, it will be removed.
-
-        Each local key is associated with a Digital Ocean account, so all keys
-        associated with another email address will be ignored.
-        """
-        server_keys = self.do.get_all_sshkeys()
-        account_email = self.do.get_account().email
-
-        all_keys = load_data('ssh_keys')
-        local_keys = [key for key in all_keys if key['email'] == account_email]
+    def add(self):
+        """Add all SSH keys that are present in the manifest to Digital Ocean."""
+        remote_keys = self.do.get_all_sshkeys()
+        local_keys = self._get_local_keys()
 
         for local_key in local_keys:
             ui = self.ui.group(local_key['name'])
-            on_server = False
-            updated = False
+            on_server = any([self._match_keys(local_key, r) for r in remote_keys])
 
-            for server_key in server_keys:
-
-                # Sync the remote name with the local one for identical keys
-                if server_key.public_key == local_key['key']:
-                    on_server = True
-                    if server_key.name != local_key['name']:
-                        server_key.name = local_key['name']
-                        server_key.edit()
-                        ui.update('Updated the remote name to "%s"' % server_key.name)
-                        updated = True
-
-                # Sync the remote key with the local one when the name has changed
-                elif server_key.name == local_key['name']:
-                    on_server = True
-                    if server_key.public_key != local_key['key']:
-                        server_key.public_key = local_key['key']
-                        server_key.edit()
-                        ui.update('Updated the remote key "%s"' % server_key.public_key)
-                        updated = True
-
-            # Create a new remote key if the local key is not on the server
-            if not on_server:
+            if on_server:
+                ui.skip('Remote key already exists')
+            else:
                 ssh_key = SSHKey(
                     name=local_key['name'],
                     public_key=local_key['key'],
                     token=self.token
                 )
                 ssh_key.create()
-                ui.create('Created a remote key')
-            elif not updated:
-                ui.skip('Not modifying the remote key')
+                ui.create('Created remote key %s' % ssh_key.id)
 
-        # Remove any remote keys that no longer appear locally
-        server_keys = self.do.get_all_sshkeys()
-        for server_key in server_keys:
-            matches_name = False
-            matches_key = False
+
+    def sync(self):
+        """Ensure that the values for Digital Ocean SSH keys match the manifest."""
+        remote_keys = self.do.get_all_sshkeys()
+        local_keys = self._get_local_keys()
+
+        for remote_key in remote_keys:
+            ui = self.ui.group(remote_key.name)
+            updated = False
+            is_local = False
+
             for local_key in local_keys:
-                matches_name = matches_name or local_key['name'] == server_key.name
-                matches_key = matches_key or local_key['key'] == server_key.public_key
-            if not matches_name and not matches_key:
-                server_key.destroy()
-                self.ui.delete('Removed remote SSH key "%s"' % server_key.name)
+                if remote_key.public_key == local_key['key']:
+                    is_local = True
+                    if remote_key.name != local_key['name']:
+                        remote_key.name = local_key['name']
+                        remote_key.edit()
+                        ui.update('Updated the remote name to "%s"' % remote_key.name)
+                        updated = True
+                elif remote_key.name == local_key['name']:
+                    is_local = True
+                    if remote_key.public_key != local_key['key']:
+                        remote_key.public_key = local_key['key']
+                        remote_key.edit()
+                        ui.update('Updated the remote key "%s"' % remote_key.public_key)
+                        updated = True
+
+            if not is_local:
+                ui.warn('Key not present in the local manifest')
+            elif not updated:
+                ui.skip('Remote and local configurations match')
+
+    def prune(self):
+        """Remove any Digital Ocean SSH keys that are not present in the manifest."""
+        remote_keys = self.do.get_all_sshkeys()
+        local_keys = self._get_local_keys()
+
+        for remote_key in remote_keys:
+            ui = self.ui.group(remote_key.name)
+            on_server = any([self._match_keys(l, remote_key) for l in local_keys])
+
+            if on_server:
+                ui.skip('Remote key is present in the manifest')
+            else:
+                if ui.confirm('Are you sure you want to delete the "%s" key?' % remote_key.name):
+                    remote_key.destroy()
+                    ui.delete('Removed remote key')
+                else:
+                    ui.skip('Not removing remote key')
+
+    def _get_local_keys(self):
+        """Get all local SSH keys for the current Digital Ocean user.
+
+        Returns:
+            list: A list of dicts describing SSH keys
+        """
+        email = self.do.get_account().email
+        ssh_keys = load_data('ssh_keys')
+        return [k for k in ssh_keys if k['email'] == email]
+
+    def _match_keys(self, local, remote):
+        """Determine if a local key describes a remote key's data.
+
+        Args:
+            local (dict): A local SSH key
+            remote (digitalocean.SSHKey): A remote SSH key
+
+        Returns:
+            bool: Whether the keys describe the same data
+        """
+        return local['name'] == remote.name or local['key'] == remote.public_key
