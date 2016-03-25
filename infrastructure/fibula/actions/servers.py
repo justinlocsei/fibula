@@ -8,17 +8,18 @@ from fibula.data import load_data
 class Servers(BaseAction):
     """A collection of actions for servers.
 
-    These actions work off of a local manifest of servers that uses a unique
-    name for each server.  This name is used to compare the local servers to the
-    list of created droplets.
+    These actions use a local server manifest as the source of truth, with each
+    server being assigned a unique name that will match the name of a droplet.
     """
 
+    log_prefix = 'servers'
+
     def create(self):
-        """Create droplets that appear in the local list but not in Digital Ocean."""
+        """Create droplets that appear in the manifest but not on Digital Ocean."""
         ssh_keys = self.do.get_all_sshkeys()
         droplets = self.do.get_all_droplets()
-
         servers = load_data('servers')
+
         droplet_names = [d.name for d in droplets]
         to_create = [s for s in servers if s['name'] not in droplet_names]
 
@@ -34,18 +35,17 @@ class Servers(BaseAction):
                 token=self.token
             )
             droplet.create()
-            self.log('Created droplet %s for the "%s" server' % (droplet.id, server['name']), created=True)
+            self.ui.create('Created a "%s" droplet' % server['name'])
 
         for droplet_name in droplet_names:
-            self.log('A droplet already exists for the "%s" server' % droplet_name)
+            self.ui.info('A "%s" droplet already exists' % droplet_name)
 
     def sync(self):
-        """Update all droplets to match the local server configuration."""
+        """Update all droplets to match the manifest."""
         droplets = self.do.get_all_droplets()
-
         servers = load_data('servers')
-        server_names = [s['name'] for s in servers]
 
+        server_names = [s['name'] for s in servers]
         to_skip = [d.name for d in droplets if d.name not in server_names]
 
         to_edit = []
@@ -55,60 +55,69 @@ class Servers(BaseAction):
                     to_edit.append((droplet, server))
 
         for droplet, server in to_edit:
+            ui = self.ui.group(droplet.name)
+            divergent = False
 
             # Sync backups
             if droplet.backups != server['backups']:
+                divergent = True
                 if server['backups']:
                     droplet.enable_backups()
-                    self.log('Enabled backups for the "%s" server' % droplet.name, created=True)
+                    ui.create('Enabled backups')
                 else:
-                    if click.confirm('Are you sure you want to disable backups for the "%s" server?' % droplet.name):
+                    if ui.confirm('Are you sure you want to disable backups on this droplet?', destructive=True):
                         droplet.disable_backups()
-                        self.log('Disabled backups for the "%s" server' % droplet.name, deleted=True)
+                        ui.delete('Disabled backups')
                     else:
-                        self.log('Not disabling backups for the "%s" server' % droplet.name)
+                        ui.skip('Not disabling backups')
 
             # Sync droplet size
             if droplet.size_slug != server['size']:
-                if click.confirm('Are you sure you want to change the "%s" server from %s to %s?' % (droplet.name, droplet.size_slug, server['size'])):
+                divergent = True
+                if ui.confirm('Are you sure you want to change this droplet\'s size from %s to %s?' % (droplet.size_slug, server['size']), destructive=True):
                     try:
                         resize = droplet.resize(server['size'])
                     except DataReadError as e:
-                        self.log('Could not resize the "%s" server: %s' % (droplet.name, e), deleted=True)
+                        ui.error('Could not resize the droplet: %s' % e)
                     else:
-                        self.log('Started the resize process for the "%s" server' % droplet.name, created=True)
+                        ui.create('Started the resize process')
                 else:
-                    self.log('Not resizing the "%s" server' % droplet.name)
+                    ui.skip('Not resizing the droplet')
 
             # Warn about different regions
             if droplet.region['slug'] != server['region']:
-                self.warn('The "%s" droplet is in the "%s" region, but it should be in "%s"' % (droplet.name, droplet.region['slug'], server['region']))
-                self.warn('To relocate this droplet, you must spin up a new droplet')
+                divergent = True
+                ui.warn('This droplet is in the "%s" region, but it should be in "%s"' % (droplet.region['slug'], server['region']))
+                ui.warn('To change regions, you must spin up a new droplet')
 
             # Warn about different images
             if droplet.image['id'] != server['image']:
-                self.warn('The "%s" droplet uses the "%s" image, but it should use "%s"' % (droplet.name, droplet.image['id'], server['image']))
-                self.warn('To change the image for this droplet, you must spin up a new droplet')
+                divergent = True
+                ui.warn('This droplet uses the "%s" image, but it should use "%s"' % (droplet.image['id'], server['image']))
+                ui.warn('To change the image, you must spin up a new droplet')
+
+            if not divergent:
+                ui.info('Droplet configuration matches the manifest')
 
         for droplet_name in to_skip:
-            self.log('The droplet for the "%s" server does not exist locally' % droplet_name)
+            self.ui.warn('The "%s" droplet is absent from the manifest' % droplet_name)
 
     def prune(self):
-        """Remove any remote servers that do not appear in the local list."""
+        """Remove any remote servers that do not appear in the manifest."""
         droplets = self.do.get_all_droplets()
-
         servers = load_data('servers')
-        server_names = [s['name'] for s in servers]
 
+        server_names = [s['name'] for s in servers]
         to_prune = [d for d in droplets if d.name not in server_names]
         to_skip = [d.name for d in droplets if d.name in server_names]
 
+        # Remove unused droplets
         for droplet in to_prune:
-            if click.confirm('Are you sure you want to destroy the "%s" droplet?' % droplet.name):
+            if self.ui.confirm('Are you sure you want to destroy the "%s" droplet?' % droplet.name, destructive=True):
                 droplet.destroy()
-                self.log('Destroyed the "%s" droplet' % droplet.name, deleted=True)
+                self.ui.delete('Destroyed the "%s" droplet' % droplet.name)
             else:
-                self.log('Not destroying the "%s" droplet' % droplet.name)
+                self.ui.skip('Not destroying the "%s" droplet' % droplet.name)
 
         for droplet_name in to_skip:
-            self.log('Not removing the "%s" droplet' % droplet_name)
+            self.ui.skip('This droplet is present in the manifest')
