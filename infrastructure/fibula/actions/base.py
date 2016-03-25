@@ -15,6 +15,9 @@ class BaseAction:
         """Create a new action."""
         self.ui = Communicator(label=self.log_prefix)
 
+        self._do = None
+        self._token = None
+
     @property
     def do(self):
         """The connection to Digital Ocean.
@@ -22,7 +25,7 @@ class BaseAction:
         Returns:
             digitalocean.Manager
         """
-        if not hasattr(self, '_do'):
+        if self._do is None:
             self._do = digitalocean.Manager(token=self.token)
         return self._do
 
@@ -36,6 +39,6 @@ class BaseAction:
         Raises:
             KeyError: When the token is not specified
         """
-        if not hasattr(self, '_token'):
+        if self._token is None:
             self._token = os.environ['CYB_DO_API_TOKEN']
         return self._token
