@@ -39,6 +39,11 @@ function install_python_requirements() {
   "$VENV_DIR/$VENV_NAME/bin/pip" install --requirement requirements.txt
 }
 
+# Allow the infrastructure scripts to run
+function configure_infrastructure_scripts() {
+  pip install --editable "$ROOT_DIR/infrastructure"
+}
+
 # Install all required Vagrant plugins
 function install_vagrant_plugins() {
   local plugin
