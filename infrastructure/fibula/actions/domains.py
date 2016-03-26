@@ -30,6 +30,13 @@ class Domains(BaseAction):
             remote_domain.create()
             ui.create('Bound domain to the "%s" server' % domain['root_server'])
 
+            remote_domain.create_new_domain_record(
+                type='CNAME',
+                name='*',
+                data='@'
+            )
+            ui.create('Created a root CNAME record')
+
         for domain in remote_domains:
             ui = self.ui.group(domain.name)
             ui.skip('Domain already exists')
