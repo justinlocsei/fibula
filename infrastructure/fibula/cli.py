@@ -96,3 +96,15 @@ def domains_add():
 def domains_sync():
     """Sync the DNS configuration with the manifest."""
     actions.DNS().sync()
+
+
+@cli.group()
+def ips():
+    """Manage IP addresses."""
+    pass
+
+
+@ips.command('prune')
+def ips_prune():
+    """Remove unbound floating IPs."""
+    actions.IPs().prune()
