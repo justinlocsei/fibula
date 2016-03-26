@@ -30,7 +30,7 @@ class Servers(BaseAction):
             config = server['config']
             droplet = Droplet(
                 backups=config['backups'],
-                image=config['image'],
+                image=self._get_image_by_slug(config['image']).id,
                 name=server['name'],
                 region=config['region'],
                 size_slug=config['size'],
@@ -104,9 +104,9 @@ class Servers(BaseAction):
                 ui.warn('To change regions, you must spin up a new droplet')
 
             # Warn about different images
-            if droplet.image['id'] != config['image']:
+            if droplet.image['slug'] != config['image']:
                 divergent = True
-                ui.warn('This droplet uses the "%s" image, but it should use "%s"' % (droplet.image['id'], config['image']))
+                ui.warn('This droplet uses the "%s" image, but it should use "%s"' % (droplet.image['slug'], config['image']))
                 ui.warn('To change the image, you must spin up a new droplet')
 
             if not divergent:
@@ -159,3 +159,20 @@ class Servers(BaseAction):
                 time.sleep(5)
 
         yield
+
+    def _get_image_by_slug(self, slug):
+        """Return the image associated with a slug.
+
+        Args:
+            slug (str): The slug for an image
+
+        Returns:
+            digitalocean.Image: The image matching the slug
+        """
+        images = self.do.get_distro_images()
+        matches = [i for i in images if i.slug == slug]
+
+        if len(matches):
+            return matches[0]
+        else:
+            self.ui.abort('No image found with the slug "%s"' % slug)

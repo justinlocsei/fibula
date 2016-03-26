@@ -7,7 +7,7 @@ servers:
   - name: staging
     config:
       backups: yes
-      image: 15943679
+      image: ubuntu-14-04-x64
       region: nyc3
       size: 1gb
     fqdns:
@@ -17,7 +17,7 @@ servers:
   - name: production
     config:
       backups: no
-      image: 15943679
+      image: ubuntu-14-04-x64
       region: nyc3
       size: 512mb
     fqdns:
