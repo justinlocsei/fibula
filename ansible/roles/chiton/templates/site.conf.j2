@@ -4,17 +4,14 @@ upstream {{ chiton_server_upstream_name }} {
 
 server {
   listen {{ chiton_server_address }}:{{ chiton_server_port }};
+  listen {{ chiton_server_address }}:{{ chiton_server_port_https }} ssl;
 
   {% if chiton_server_name %}
     server_name {{ chiton_server_name }};
   {% endif %}
 
-  {% if chiton_use_https %}
-    listen {{ chiton_server_address }}:{{ chiton_server_port_https }} ssl;
-
-    ssl_certificate {{ chiton_ssl_certificate_path | require_value }};
-    ssl_certificate_key {{ chiton_ssl_certificate_key_path | require_value }};
-  {% endif %}
+  ssl_certificate {{ chiton_ssl_certificate_path | require_value }};
+  ssl_certificate_key {{ chiton_ssl_certificate_key_path | require_value }};
 
   gzip on;
   gzip_types application/javascript text/css;

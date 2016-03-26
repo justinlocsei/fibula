@@ -2,5 +2,4 @@
 chiton_admin_email: operations@coveryourbasics.com
 chiton_admin_name: coveryourbasics
 chiton_amazon_associates_tracking_id: coveryourbasics-staging-20
-chiton_use_https: yes
 chiton_user_authorized_keys: "{{ ssh_developer_public_keys }}"

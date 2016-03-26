@@ -14,6 +14,5 @@
     "secret_key": "{{ chiton_config_secret_key | require_value }}",
     "shopstyle_uid": "{{ chiton_shopstyle_uid | require_value }}",
     "static_root": "{{ chiton_assets_dir }}",
-    "static_url": "{{ chiton_assets_url | trailing_slash_url }}",
-    "use_https": {{ chiton_use_https | ternary("true", "false") }}
+    "static_url": "{{ chiton_assets_url | trailing_slash_url }}"
 }
