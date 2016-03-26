@@ -10,7 +10,7 @@ servers:
       image: 15943679
       region: nyc3
       size: 1gb
-    hostnames:
+    fqdns:
         - staging-data.coveryourbasics.com
         - staging-www.coveryourbasics.com
 
@@ -20,6 +20,6 @@ servers:
       image: 15943679
       region: nyc3
       size: 512mb
-    hostnames:
+    fqdns:
         - data.coveryourbasics.com
         - www.coveryourbasics.com
