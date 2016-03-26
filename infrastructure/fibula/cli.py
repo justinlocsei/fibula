@@ -118,3 +118,15 @@ def ips():
 def ips_prune():
     """Remove unbound floating IPs."""
     actions.IPs().prune()
+
+
+@cli.group()
+def images():
+    """Manage IP addresses."""
+    pass
+
+
+@images.command('list')
+def images_list():
+    """List all available images."""
+    actions.Images().list()
