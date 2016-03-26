@@ -35,12 +35,7 @@ class Domains(BaseAction):
             ui.skip('Domain already exists')
 
     def sync(self):
-        """Ensure that the Digital Ocean domains match the manifest.
-
-        This ensures that Digital Ocean has an IP address bound to each
-        top-level domain, and then ensures that any server subdomains are
-        properly associated with an IP address.
-        """
+        """Ensure that the Digital Ocean domains match the manifest."""
         local_domains = load_data('cloud')['domains']
         remote_domains = self.do.get_all_domains()
 
