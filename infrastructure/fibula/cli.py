@@ -8,6 +8,16 @@ def cli():
     pass
 
 
+@cli.command()
+@click.pass_context
+def build(ctx):
+    """Build out all infrastructure components."""
+    ctx.forward(keys_add)
+    ctx.forward(servers_create)
+    ctx.forward(domains_create)
+    ctx.forward(dns_add)
+
+
 @cli.group()
 def keys():
     """Manage remote SSH keys."""
