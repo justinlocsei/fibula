@@ -78,3 +78,21 @@ def domains_sync():
 def domains_prune():
     """Remove unused remote domains."""
     actions.Domains().prune()
+
+
+@cli.group()
+def dns():
+    """Manage DNS records."""
+    pass
+
+
+@dns.command('add')
+def domains_add():
+    """Add missing DNS records from the manifest."""
+    actions.DNS().add()
+
+
+@dns.command('sync')
+def domains_sync():
+    """Sync the DNS configuration with the manifest."""
+    actions.DNS().sync()
