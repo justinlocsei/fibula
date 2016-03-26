@@ -5,3 +5,11 @@
     state: latest
   with_items:
     - libyaml-dev
+
+- name: install requirements for building uWSGI extensions
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - libpcre3
+    - libpcre3-dev
