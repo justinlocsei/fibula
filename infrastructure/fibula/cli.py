@@ -87,13 +87,13 @@ def dns():
 
 
 @dns.command('add')
-def domains_add():
+def dns_add():
     """Add missing DNS records from the manifest."""
     actions.DNS().add()
 
 
 @dns.command('sync')
-def domains_sync():
+def dns_sync():
     """Sync the DNS configuration with the manifest."""
     actions.DNS().sync()
 
