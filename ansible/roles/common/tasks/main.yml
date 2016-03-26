@@ -31,3 +31,8 @@
   apt:
     name: tmux
     state: latest
+
+- name: add build tools
+  apt:
+    name: build-essential
+    state: latest
