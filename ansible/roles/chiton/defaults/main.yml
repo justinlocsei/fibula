@@ -22,12 +22,9 @@ chiton_group: chiton
 chiton_group_id: null
 chiton_log_dir: null
 chiton_pidfile_dir: null
-chiton_server_address: 0.0.0.0
-chiton_server_address_local: 127.0.0.1
 chiton_server_name: null
 chiton_server_port: 80
 chiton_server_port_https: 443
-chiton_server_port_local: 8080
 chiton_server_upstream_name: chiton
 chiton_shopstyle_uid: null
 chiton_source_dir: /var/cyb-chiton
