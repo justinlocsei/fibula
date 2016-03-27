@@ -11,6 +11,7 @@ chiton_assets_dir: /var/cyb-chiton-assets
 chiton_assets_url: /assets/
 chiton_config_debug: no
 chiton_config_secret_key: null
+chiton_daemonize: yes
 chiton_db_host: null
 chiton_db_port: null
 chiton_db_root_name: null

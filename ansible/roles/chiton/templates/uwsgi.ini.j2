@@ -1,12 +1,10 @@
 [uwsgi]
 chdir = {{ chiton_source_dir }}
-daemonize2 = {{ chiton_log_path }}
 env = DJANGO_SETTINGS_MODULE=chiton.settings
 gid = {{ chiton_group }}
 harakiri = {{ chiton_uwsgi_harakiri }}
 master = true
 module = chiton.wsgi:application
-pidfile2 = {{ chiton_pidfile_path }}
 processes = {{ chiton_uwsgi_processes }}
 socket = {{ chiton_uwsgi_socket }}
 stats = {{ chiton_uwsgi_stats }}
@@ -15,3 +13,8 @@ thunder-lock = true
 uid = {{ chiton_user }}
 vacuum = true
 virtualenv = {{ chiton_virtualenv_dir }}
+
+{% if chiton_daemonize %}
+daemonize2 = {{ chiton_log_path }}
+pidfile2 = {{ chiton_pidfile_path }}
+{% endif %}
