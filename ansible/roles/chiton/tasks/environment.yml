@@ -36,6 +36,14 @@
     group: "{{ chiton_group }}"
     mode: 0600
 
+- name: create a uWSGI configuration file
+  template:
+    src: uwsgi.ini.j2
+    dest: "{{ chiton_uwsgi_file }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0600
+
 - name: create a profile script to customize the application user's environment
   template:
     src: profile.j2

@@ -1,5 +1,5 @@
 upstream {{ chiton_server_upstream_name }} {
-  server {{ chiton_server_address_local }}:{{ chiton_server_port_local }} fail_timeout=0;
+  server {{ chiton_uwsgi_socket }};
 }
 
 server {
@@ -24,12 +24,8 @@ server {
 
   try_files $uri $uri/ @{{ chiton_server_upstream_name }};
   location @{{ chiton_server_upstream_name }} {
-    proxy_pass http://{{ chiton_server_upstream_name }};
-
-    proxy_set_header Client-IP $remote_addr;
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Real-IP $remote_addr;
+    include uwsgi_params;
+    uwsgi_pass {{ chiton_server_upstream_name }};
   }
 
   client_max_body_size 10M;
