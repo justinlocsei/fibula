@@ -8,7 +8,6 @@
         - "{{ chiton_db_user_name }}"
       postgresql_server_version: "{{ chiton_postgresql_version }}"
     - role: chiton
-      chiton_config_debug: yes
       chiton_db_host: "{{ postgresql_server_address }}"
       chiton_db_port: "{{ postgresql_server_port }}"
       chiton_db_root_name: "{{ postgresql_server_root_user }}"
