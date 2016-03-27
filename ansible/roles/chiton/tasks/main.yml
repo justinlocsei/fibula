@@ -1,12 +1,20 @@
 ---
 - set_fact:
-    chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
-    chiton_virtualenv_dir: "{{ chiton_source_dir }}/virtualenv"
+    chiton_app_dir: "{{ chiton_source_dir }}/chiton"
     chiton_config_dir: "{{ chiton_source_dir }}/config"
+    chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
+    chiton_var_dir: "{{ chiton_source_dir }}/var"
+    chiton_virtualenv_dir: "{{ chiton_source_dir }}/virtualenv"
 
 - set_fact:
     chiton_config_file: "{{ chiton_config_dir }}/{{ chiton_env_name | require_value }}.json"
+    chiton_log_dir_app: "{{ chiton_var_dir }}/log"
+    chiton_pidfile_dir_app: "{{ chiton_var_dir }}/run"
     chiton_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
+
+- set_fact:
+    chiton_log_path:  "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name }}.log"
+    chiton_pidfile_path:  "{{ chiton_pidfile_dir or chiton_pidfile_dir_app }}/{{ chiton_env_name }}.pid"
 
 - name: configure the application user
   include: user.yml

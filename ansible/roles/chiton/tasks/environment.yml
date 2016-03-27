@@ -52,3 +52,19 @@
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600
+
+- name: create a pidfile directory
+  file:
+    path: "{{ chiton_pidfile_path | dirname }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+    state: directory
+
+- name: create a log directory
+  file:
+    path: "{{ chiton_log_path | dirname }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+    state: directory
