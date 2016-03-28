@@ -1,0 +1,14 @@
+---
+whitelabels:
+  - domain: coveryourbasics.com
+    cnames:
+      - host: mail.coveryourbasics.com
+        data: u2544857.wl108.sendgrid.net
+      - host: s1._domainkey.coveryourbasics.com
+        data: s1.domainkey.u2544857.wl108.sendgrid.net
+      - host: s2._domainkey.coveryourbasics.com
+        data: s2.domainkey.u2544857.wl108.sendgrid.net
+      - host: email.coveryourbasics.com
+        data: sendgrid.net
+      - host: 2544857.coveryourbasics.com
+        data: sendgrid.net

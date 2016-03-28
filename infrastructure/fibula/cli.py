@@ -130,3 +130,15 @@ def images():
 def images_list():
     """List all available images."""
     actions.Images().list()
+
+
+@cli.group()
+def email():
+    """Manage email settings."""
+    pass
+
+
+@email.command('whitelabel')
+def email_whitelabel():
+    """Add DNS records to whitelabel email domains."""
+    actions.Email().whitelabel()
