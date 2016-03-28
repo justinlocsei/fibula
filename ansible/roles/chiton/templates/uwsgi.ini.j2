@@ -1,5 +1,6 @@
 [uwsgi]
 chdir = {{ chiton_source_dir }}
+env = CHITON_CONFIG_FILE={{ chiton_config_file }}
 env = DJANGO_SETTINGS_MODULE=chiton.settings
 gid = {{ chiton_group }}
 harakiri = {{ chiton_uwsgi_harakiri }}
