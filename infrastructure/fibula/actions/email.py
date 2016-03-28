@@ -21,21 +21,22 @@ class Email(BaseAction):
 
                 ui = self.ui.group(remote_domain.name)
                 for cname in whitelabel['cnames']:
-                    target = '%s.' % cname['data']
-                    match = [r for r in domain_records if r.name == cname['host']]
+                    final_name = str(cname['name'])
+                    final_data = '%s.' % cname['data']
+                    match = [r for r in domain_records if r.name == final_name]
 
                     if not len(match):
                         remote_domain.create_new_domain_record(
                             type='CNAME',
-                            name=cname['host'],
-                            data=target
+                            name=final_name,
+                            data=final_data
                         )
-                        ui.create('Added CNAME for "%s" pointing to "%s"' % (cname['host'], cname['data']))
+                        ui.create('Added CNAME "%s" pointing to "%s"' % (cname['name'], cname['data']))
                     else:
                         remote_record = match[0]
                         if remote_record.data == cname['data']:
-                            ui.skip('CNAME for "%s" has accurate data' % cname['host'])
+                            ui.skip('CNAME "%s" has accurate data' % cname['name'])
                         else:
-                            remote_record.data = target
+                            remote_record.data = final_data
                             remote_record.save()
-                            ui.update('Updated CNAME for "%s" to point to "%s"' % (cname['host'], cname['data']))
+                            ui.update('Updated CNAME "%s" to point to "%s"' % (cname['name'], cname['data']))
