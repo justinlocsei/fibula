@@ -66,7 +66,7 @@
     group: "{{ chiton_group }}"
     mode: 0600
 
-- name: create a pidfile directory
+- name: create a run directory
   file:
     path: "{{ chiton_pidfile_path | dirname }}"
     owner: "{{ chiton_user }}"
