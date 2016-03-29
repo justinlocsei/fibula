@@ -1,0 +1,24 @@
+- name: install monit
+  apt:
+    package: monit
+    state: present
+
+- name: configure monit
+  template:
+    src: monitrc.j2
+    dest: "{{ monit_config_dir }}/monitrc"
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - reload monit
+
+- name: ensure that monit is running
+  service:
+    name: monit
+    state: started
+
+- name: run monit at load
+  service:
+    name: monit
+    enabled: yes

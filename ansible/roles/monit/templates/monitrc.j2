@@ -1,0 +1,16 @@
+# Execution
+set daemon {{ monit_interval }}
+set idfile /var/lib/monit/id
+set init
+set statefile /var/lib/monit/state
+
+# Logging
+set logfile /var/log/monit.log
+
+# Events
+set eventqueue
+  basedir /var/lib/monit/events
+  slots 100
+
+# Configuration
+include {{ monit_configs_dir }}/*

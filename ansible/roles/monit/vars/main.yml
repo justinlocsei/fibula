@@ -1,0 +1,5 @@
+---
+monit_config_dir: /etc/monit/
+monit_configs_dir: /etc/monit/conf.d
+monit_group: root
+monit_user: root
