@@ -11,7 +11,6 @@
       chiton_db_port: "{{ postgresql_server_port }}"
       chiton_db_root_name: "{{ postgresql_server_root_user }}"
       chiton_db_root_password: "{{ postgresql_server_root_password }}"
-      chiton_env_name: staging
     - role: firewall
       firewall_tcp_ports:
         - "{{ chiton_server_port }}"
