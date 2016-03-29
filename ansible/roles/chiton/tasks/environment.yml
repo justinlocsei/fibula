@@ -48,6 +48,8 @@
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600
+  notify:
+    - reload chiton
 
 - name: create a profile script to customize the application user's environment
   template:
