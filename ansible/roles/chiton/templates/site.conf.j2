@@ -1,5 +1,5 @@
 upstream {{ chiton_server_upstream_name }} {
-  server {{ chiton_uwsgi_socket }};
+  server unix://{{ chiton_socket_path }};
 }
 
 server {

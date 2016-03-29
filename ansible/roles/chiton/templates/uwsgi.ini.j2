@@ -1,5 +1,6 @@
 [uwsgi]
 chdir = {{ chiton_source_dir }}
+chmod-socket = 660
 env = CHITON_CONFIG_FILE={{ chiton_config_file }}
 env = DJANGO_SETTINGS_MODULE=chiton.settings
 gid = {{ chiton_group }}
@@ -7,7 +8,7 @@ harakiri = {{ chiton_uwsgi_harakiri }}
 master = true
 module = chiton.wsgi:application
 processes = {{ chiton_uwsgi_processes }}
-socket = {{ chiton_uwsgi_socket }}
+socket = {{ chiton_socket_path }}
 stats = {{ chiton_uwsgi_stats_address }}
 threads = {{ chiton_uwsgi_threads }}
 thunder-lock = true

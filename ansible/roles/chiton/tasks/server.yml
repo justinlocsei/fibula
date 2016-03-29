@@ -12,6 +12,12 @@
 - set_fact:
     chiton_nginx_site_config: "{{ nginx_sites_dir }}/chiton.conf"
 
+- name: grant nginx access to the chiton socket
+  user:
+    name: "{{ nginx_user }}"
+    groups: "{{ chiton_group }}"
+    append: yes
+
 - name: create a file for the SSL certificate
   copy:
     dest: "{{ chiton_ssl_certificate_path }}"
