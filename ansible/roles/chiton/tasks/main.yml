@@ -14,8 +14,8 @@
     chiton_uwsgi_ini_file: "{{ chiton_config_dir }}/uwsgi-{{ chiton_env_name | require_value }}.ini"
 
 - set_fact:
-    chiton_log_path:  "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name }}.log"
-    chiton_pidfile_path:  "{{ chiton_run_dir or chiton_run_dir_app }}/{{ chiton_env_name }}.pid"
+    chiton_log_path: "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name }}.log"
+    chiton_pidfile_path: "{{ chiton_run_dir or chiton_run_dir_app }}/{{ chiton_env_name }}.pid"
 
 - name: configure the application user
   include: user.yml
