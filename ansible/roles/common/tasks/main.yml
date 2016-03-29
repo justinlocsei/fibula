@@ -1,10 +1,8 @@
 ---
-- name: clear the APT cache
-  command: apt-get clean
-
 - name: update the APT cache
   apt:
     update_cache: yes
+  ignore_errors: yes
 
 - name: ensure that ntp is current
   apt:
