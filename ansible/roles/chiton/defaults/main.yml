@@ -38,5 +38,5 @@ chiton_user_id: null
 chiton_uwsgi_processes: 1
 chiton_uwsgi_harakiri: 30
 chiton_uwsgi_socket: 127.0.0.1:3031
-chiton_uwsgi_stats: 127.0.0.1:9191
+chiton_uwsgi_stats_address: 127.0.0.1:9191
 chiton_uwsgi_threads: 2

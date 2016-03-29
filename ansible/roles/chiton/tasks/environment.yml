@@ -44,7 +44,7 @@
 - name: create a uWSGI configuration file
   template:
     src: uwsgi.ini.j2
-    dest: "{{ chiton_uwsgi_file }}"
+    dest: "{{ chiton_uwsgi_ini_file }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600
