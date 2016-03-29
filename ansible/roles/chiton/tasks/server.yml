@@ -11,6 +11,7 @@
 
 - set_fact:
     chiton_nginx_site_config: "{{ nginx_sites_dir }}/chiton.conf"
+    chiton_monit_config: "{{ monit_configs_dir }}/chiton.conf"
 
 - name: grant nginx access to the chiton socket
   user:
@@ -62,3 +63,24 @@
     name: nginx
     state: restarted
   when: chiton_nginx_site_config_check.stat.isreg is not defined
+
+- name: create a monit config
+  template:
+    src: monit.conf.j2
+    dest: "{{ chiton_monit_config }}"
+    mode: 0600
+    owner: "{{ monit_user }}"
+    group: "{{ monit_group }}"
+  register: chiton_create_monit_config
+  when: chiton_daemonize
+  notify:
+    - reload monit
+
+- name: delete the monit config
+  file:
+    path: "{{ chiton_monit_config }}"
+    state: absent
+  register: chiton_delete_monit_config
+  when: not chiton_daemonize
+  notify:
+    - reload monit

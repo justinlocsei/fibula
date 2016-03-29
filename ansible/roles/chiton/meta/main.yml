@@ -9,3 +9,4 @@ dependencies:
     postgresql_client_version: "{{ chiton_postgresql_version }}"
   - role: cyb
   - role: nginx
+  - role: monit

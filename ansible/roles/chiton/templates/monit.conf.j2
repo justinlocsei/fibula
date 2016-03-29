@@ -1,0 +1,5 @@
+check process chiton with pidfile {{ chiton_pidfile_path }}
+  start "{{ chiton_uwsgi_bin}} --ini {{ chiton_uwsgi_ini_file }}"
+    as uid {{ chiton_user }} and gid {{ chiton_group }}
+  stop "{{ chiton_uwsgi_bin}} --ini {{ chiton_uwsgi_ini_file }} --stop {{ chiton_pidfile_path }}"
+    as uid {{ chiton_user }} and gid {{ chiton_group }}
