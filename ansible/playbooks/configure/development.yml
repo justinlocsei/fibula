@@ -12,7 +12,8 @@
       chiton_db_port: "{{ postgresql_server_port }}"
       chiton_db_root_name: "{{ postgresql_server_root_user }}"
       chiton_db_root_password: "{{ postgresql_server_root_password }}"
-      chiton_env_name: development
+      chiton_user_authorized_keys:
+        - "{{ vagrant_public_key }}"
     - role: nfs_server
     - role: vagrant
       vagrant_host_group: "{{ chiton_group }}"

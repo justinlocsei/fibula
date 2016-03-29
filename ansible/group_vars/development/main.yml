@@ -4,20 +4,17 @@ chiton_activate_venv: yes
 chiton_amazon_associates_tracking_id: covyoubas-dev-20
 chiton_config_debug: yes
 chiton_daemonize: no
+chiton_env_name: development
 chiton_group: chiton
 chiton_group_id: 2000
 chiton_server_port: 80
 chiton_server_port_https: 443
 chiton_source_dir: /var/cyb-chiton
 chiton_user: chiton
-chiton_user_authorized_keys:
-  - "{{ vagrant_public_key }}"
 chiton_user_id: 2000
 himation_group: himation
 himation_group_id: 3000
 himation_source_dir: /var/cyb-himation
 himation_user: himation
 himation_user_id: 3000
-himation_user_authorized_keys:
-  - "{{ vagrant_public_key }}"
 vagrant_host_home_dir: /vagrant-host-home
