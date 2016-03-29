@@ -11,7 +11,7 @@
     chiton_log_dir_app: "{{ chiton_var_dir }}/log"
     chiton_pidfile_dir_app: "{{ chiton_var_dir }}/run"
     chiton_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
-    chiton_uwsgi_file: "{{ chiton_config_dir }}/{{ chiton_env_name | require_value }}-uwsgi.ini"
+    chiton_uwsgi_file: "{{ chiton_config_dir }}/uwsgi-{{ chiton_env_name | require_value }}.ini"
 
 - set_fact:
     chiton_log_path:  "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name }}.log"
