@@ -7,6 +7,11 @@ set statefile {{ monit_lib_dir }}/state
 set logfile /var/log/monit.log
 set mailserver localhost
 
+{% if monit_alert_recipient %}
+# Alerts
+set alert {{ monit_alert_recipient }}
+{% endif %}
+
 # Interface
 set httpd port {{ monit_httpd_port }}
   use address localhost
