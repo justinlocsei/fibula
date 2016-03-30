@@ -1,0 +1,24 @@
+- set_fact:
+    monit_installer: /tmp/install-monit.sh
+
+- name: create a monit installer script
+  template:
+    src: installer.sh.j2
+    dest: "{{ monit_installer }}"
+    mode: 0755
+
+- name: install monit
+  command: "{{ monit_installer }}"
+  args:
+    chdir: "{{ monit_installer | dirname }}"
+
+- name: create configuration directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+  with_items:
+    - "{{ monit_configs_dir }}"
+    - "{{ monit_lib_dir }}"

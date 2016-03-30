@@ -1,16 +1,16 @@
 # Execution
 set daemon {{ monit_interval }}
-set idfile /var/lib/monit/id
-set init
-set statefile /var/lib/monit/state
+set idfile {{ monit_lib_dir }}/id
+set statefile {{ monit_lib_dir }}/state
 
 # Logging
 set logfile /var/log/monit.log
+set mailserver localhost
 
-# Events
-set eventqueue
-  basedir /var/lib/monit/events
-  slots 100
+# Interface
+set httpd port {{ monit_httpd_port }}
+  use address localhost
+  allow localhost
 
 # Configuration
 include {{ monit_configs_dir }}/*

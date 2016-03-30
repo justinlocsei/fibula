@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+BINARY="{{ monit_bin }}"
+VERSION="{{ monit_version_string }}"
+ARCHIVE="monit-$VERSION.tar.gz"
+TARGET="monit-$VERSION"
+
+if [[ ! -f "$ARCHIVE" ]]; then
+  wget "https://mmonit.com/monit/dist/binary/$VERSION/monit-$VERSION-{{ monit_dist_platform }}.tar.gz" -O "$ARCHIVE"
+fi
+
+tar -zxvf "$ARCHIVE"
+cd "$TARGET" || exit 1
+cp bin/monit "$BINARY"
+
+$BINARY -V

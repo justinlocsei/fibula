@@ -1,24 +1,44 @@
+- name: get the installed version of monit
+  shell: monit -V | grep "version" | grep -Eow "[0-9]+\.[0-9]+"
+  register: monit_current_version
+  ignore_errors: yes
+
 - name: install monit
-  apt:
-    package: monit
-    state: present
+  include: install.yml
+  when: monit_current_version.stdout != monit_version_string
+
+- name: update the init script
+  template:
+    src: init.j2
+    dest: /etc/init.d/monit
+    mode: 0755
+    owner: root
+    group: root
 
 - name: configure monit
   template:
     src: monitrc.j2
-    dest: "{{ monit_config_dir }}/monitrc"
+    dest: "{{ monit_config_file }}"
     owner: root
     group: root
     mode: 0600
   notify:
     - reload monit
 
-- name: ensure that monit is running
-  service:
-    name: monit
-    state: started
+- name: allow monit to run
+  template:
+    src: default.j2
+    dest: /etc/default/monit
+    mode: 0644
+    owner: root
+    group: root
 
 - name: run monit at load
   service:
     name: monit
     enabled: yes
+
+- name: ensure that monit is running
+  service:
+    name: monit
+    state: started
