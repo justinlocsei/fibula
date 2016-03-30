@@ -1,0 +1,29 @@
+- name: install postfix
+  apt:
+    package: postfix
+    state: present
+
+- name: update the postfix configuration file
+  template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart postfix
+
+- name: set the relay user's password
+  template:
+    src: sasl_passwd.j2
+    dest: "{{ postfix_sasl_passwd }}"
+    owner: root
+    group: root
+    mode: 0600
+  register: postfix_set_sasl_passwd
+
+- name: hash the user's password
+  command: postmap hash:{{ postfix_sasl_passwd }}
+  when: postfix_set_sasl_passwd | changed
+  notify:
+    - restart postfix

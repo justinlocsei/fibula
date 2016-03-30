@@ -1,0 +1,19 @@
+# General
+alias_database = hash:/etc/aliases
+alias_maps = hash:/etc/aliases
+
+# Null-client configuration
+inet_interfaces = loopback-only
+mydestination =
+myhostname = {{ ansible_fqdn }}
+myorigin = {{ ansible_domain }}
+relayhost = [{{ postfix_relay_host }}]:{{ postfix_relay_port }}
+
+# Relay options
+header_size_limit = 4096000
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:{{ postfix_sasl_passwd }}
+smtp_sasl_security_options = noanonymous
+smtp_tls_security_level = encrypt
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated reject_unauth_destination
