@@ -6,3 +6,6 @@ chiton_env_name: staging
 chiton_log_dir: /var/log/chiton
 chiton_run_dir: /var/run/chiton
 monit_alert_recipient: operations@coveryourbasics.com
+postfix_relay_host: smtp.sendgrid.net
+postfix_relay_port: 587
+postfix_relay_user: cyb-staging
