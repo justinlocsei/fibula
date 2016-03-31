@@ -1,2 +1,3 @@
 ---
 postfix_sasl_passwd: /etc/postfix/sasl_passwd
+postfix_virtual_regexp: /etc/postfix/virtual_regexp

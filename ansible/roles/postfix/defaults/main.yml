@@ -3,3 +3,4 @@ postfix_relay_host: null
 postfix_relay_password: null
 postfix_relay_port: null
 postfix_relay_user: null
+postfix_universal_redirect: null
