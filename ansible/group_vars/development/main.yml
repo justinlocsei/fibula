@@ -20,4 +20,5 @@ himation_user_id: 3000
 postfix_relay_host: smtp.sendgrid.net
 postfix_relay_port: 587
 postfix_relay_user: cyb-development
+postfix_universal_redirect: development@coveryourbasics.com
 vagrant_host_home_dir: /vagrant-host-home
