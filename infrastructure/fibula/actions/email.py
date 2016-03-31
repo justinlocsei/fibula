@@ -23,7 +23,7 @@ class Email(BaseAction):
                 for cname in email_domain['whitelabels']:
                     final_name = str(cname['name'])
                     final_data = '%s.' % cname['data']
-                    match = [r for r in domain_records if r.name == final_name]
+                    match = [r for r in domain_records if r.name == final_name and r.type == 'CNAME']
 
                     if not len(match):
                         remote_domain.create_new_domain_record(
