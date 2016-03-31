@@ -9,18 +9,18 @@ class Email(BaseAction):
 
     def whitelabel(self):
         """Create DNS entries to whitelabel all email-sending domains."""
-        whitelabels = load_data('email')['whitelabels']
+        email_domains = load_data('email')
         remote_domains = self.do.get_all_domains()
 
         for remote_domain in remote_domains:
             domain_records = remote_domain.get_records()
 
-            for whitelabel in whitelabels:
-                if whitelabel['domain'] != remote_domain.name:
+            for email_domain in email_domains:
+                if email_domain['domain'] != remote_domain.name:
                     continue
 
                 ui = self.ui.group(remote_domain.name)
-                for cname in whitelabel['cnames']:
+                for cname in email_domain['whitelabels']:
                     final_name = str(cname['name'])
                     final_data = '%s.' % cname['data']
                     match = [r for r in domain_records if r.name == final_name]
