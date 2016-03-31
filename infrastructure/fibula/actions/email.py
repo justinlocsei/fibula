@@ -40,3 +40,49 @@ class Email(BaseAction):
                             remote_record.data = final_data
                             remote_record.save()
                             ui.update('Updated CNAME "%s" to point to "%s"' % (cname['name'], cname['data']))
+
+    def forward(self):
+        """Set up MX records to forward email."""
+        email_domains = load_data('email')
+        remote_domains = self.do.get_all_domains()
+
+        for remote_domain in remote_domains:
+            domain_records = remote_domain.get_records()
+
+            for email_domain in email_domains:
+                if email_domain['domain'] != remote_domain.name:
+                    continue
+
+                ui = self.ui.group(remote_domain.name)
+                mx = email_domain['mx']
+                final_data = '%s.' % mx['data']
+
+                match = [
+                    r for r in domain_records
+                    if r.name == mx['hostname'] and r.type == 'MX'
+                ]
+
+                if not len(match):
+                    remote_domain.create_new_domain_record(
+                        type='MX',
+                        name=mx['hostname'],
+                        priority=mx['priority'],
+                        data=final_data
+                    )
+                    ui.create('Added MX record "%s" pointing to "%s"' % (mx['hostname'], mx['data']))
+                else:
+                    remote_mx = match[0]
+
+                    if remote_mx.data == mx['data']:
+                        ui.skip('MX record "%s" has accurate data' % mx['hostname'])
+                    else:
+                        remote_mx.data = final_data
+                        remote_mx.save()
+                        ui.update('Updated MX record "%s" to point to "%s"' % (mx['hostname'], mx['data']))
+
+                    if remote_mx.priority == mx['priority']:
+                        ui.skip('MX record "%s" has accurate priority' % mx['hostname'])
+                    else:
+                        remote_mx.priority = mx['priority']
+                        remote_mx.save()
+                        ui.update('Updated the priority of MX record "%s" to %d' % (mx['hostname'], mx['priority']))

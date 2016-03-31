@@ -138,6 +138,12 @@ def email():
     pass
 
 
+@email.command('forward')
+def email_forward():
+    """Add DNS records to forward email."""
+    actions.Email().forward()
+
+
 @email.command('whitelabel')
 def email_whitelabel():
     """Add DNS records to whitelabel email domains."""

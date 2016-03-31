@@ -1,5 +1,9 @@
 ---
 - domain: coveryourbasics.com
+  mx:
+    hostname: "@"
+    priority: 10
+    data: mx.hover.com.cust.hostedemail.com
   whitelabels:
     - name: mail
       data: u2544857.wl108.sendgrid.net
