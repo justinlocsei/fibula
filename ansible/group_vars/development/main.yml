@@ -17,6 +17,7 @@ himation_group_id: 3000
 himation_source_dir: /var/cyb-himation
 himation_user: himation
 himation_user_id: 3000
+monit_alert_recipient: development@coveryourbasics.com
 postfix_relay_host: smtp.sendgrid.net
 postfix_relay_port: 587
 postfix_relay_user: cyb-development
