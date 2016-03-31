@@ -26,4 +26,4 @@
   command: postmap hash:{{ postfix_sasl_passwd }}
   when: postfix_set_sasl_passwd | changed
   notify:
-    - restart postfix
+    - reload postfix
