@@ -19,6 +19,7 @@
     },
     "debug": {{ chiton_config_debug | lower }},
     "secret_key": "{{ chiton_config_secret_key | require_value }}",
+    "server_email": "{{ chiton_server_email }}",
     "shopstyle_uid": "{{ chiton_shopstyle_uid | require_value }}",
     "static_root": "{{ chiton_assets_dir }}",
     "static_url": "{{ chiton_assets_url | trailing_slash_url }}"
