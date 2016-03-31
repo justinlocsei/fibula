@@ -21,7 +21,7 @@
   changed_when: "'No migrations to apply.' not in chiton_migrate_result.stdout"
 
 - name: create the in-app administrator account
-  shell: "{{ chiton_python_bin | quote }} manage.py chiton_ensuresuperuser --username {{ chiton_admin_name | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
+  shell: "{{ chiton_python_bin | quote }} manage.py chiton_ensuresuperuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
   args:
     chdir: "{{ chiton_source_dir }}"
   environment:
