@@ -1,3 +1,4 @@
 ---
+postfix_pidfile: /var/spool/postfix/pid/master.pid
 postfix_sasl_passwd: /etc/postfix/sasl_passwd
 postfix_virtual_regexp: /etc/postfix/virtual_regexp
