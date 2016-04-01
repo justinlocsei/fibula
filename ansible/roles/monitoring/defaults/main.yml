@@ -1,0 +1,7 @@
+---
+monitoring_nginx_pidfile: null
+monitoring_postfix_pidfile: null
+monitoring_postgres_pidfile: null
+monitoring_track_nginx: no
+monitoring_track_postfix: no
+monitoring_track_postgres: no
