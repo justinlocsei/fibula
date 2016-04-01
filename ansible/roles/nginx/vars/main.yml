@@ -2,4 +2,5 @@
 nginx_config_dir: /etc/nginx
 nginx_nofile_limit: 4096
 nginx_certs_dir: /etc/nginx/certs
+nginx_pidfile: /var/run/nginx.pid
 nginx_sites_dir: /etc/nginx/conf.d
