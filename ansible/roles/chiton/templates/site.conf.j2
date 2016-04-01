@@ -4,7 +4,7 @@ upstream {{ chiton_server_upstream_name }} {
 
 server {
   listen {{ chiton_server_port }};
-  listen {{ chiton_server_port_https }} ssl;
+  listen {{ chiton_server_port_https }} ssl http2;
 
   {% if chiton_server_name %}
     server_name {{ chiton_server_name }};
