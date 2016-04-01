@@ -29,7 +29,7 @@
 
 - name: add the nginx package repository
   apt_repository:
-    repo: deb http://nginx.org/packages/ubuntu/ {{ ansible_distribution_release }} nginx
+    repo: deb http://nginx.org/packages/mainline/ubuntu/ {{ ansible_distribution_release }} nginx
     state: present
 
 - name: install nginx
