@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 
 data_directory = '{{ postgresql_server_lib_dir }}/{{ postgresql_server_version }}/main'
-external_pid_file = '{{ postgresql_server_socket_dir }}/{{ postgresql_server_version }}-main.pid'
+external_pid_file = '{{ postgresql_server_pidfile }}'
 hba_file = '{{ postgresql_server_pg_hba }}'
 ident_file = '{{ postgresql_server_pg_ident }}'
 
