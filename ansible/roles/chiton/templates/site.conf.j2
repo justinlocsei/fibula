@@ -6,8 +6,8 @@ server {
   listen {{ chiton_server_port }};
   listen {{ chiton_server_port_https }} ssl http2;
 
-  {% if chiton_server_name %}
-    server_name {{ chiton_server_name }};
+  {% if chiton_server_names %}
+    server_name {{ chiton_server_names | join(' ') }};
   {% endif %}
 
   ssl_certificate {{ chiton_ssl_certificate_path | require_value }};
