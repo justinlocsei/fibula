@@ -1,7 +1,7 @@
 # Development VMs
 
-The `Vagrantfile` in this directory defines a cluster of virtual machines for
-the back-end and front-end servers used for Cover Your Basics.
+The `Vagrantfile` in this directory defines a virtual machine for working on
+the back-end and front-end code for Cover Your Basics.
 
 ## SSH Access
 
@@ -14,10 +14,13 @@ allowing you to interact with the application and its source code.
 
 ## Provisioning
 
-To provision these VMs, run the following commands from the root of this repo:
+To provision this VM, run the following commands from the root of this repo:
 
 ```sh
 $ source scripts/develop
 $ cd ansible
-$ ansible-playbook playbooks/configure/development.yml
+$ ansible-playbook playbooks/configure/app_servers.yml -l development
 ```
+
+This runs the app-server playbook, but restricts it to just the machines in the
+development inventory that belong to the `development` group.
