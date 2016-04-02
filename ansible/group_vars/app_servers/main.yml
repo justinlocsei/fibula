@@ -1,0 +1,3 @@
+---
+postfix_relay_host: smtp.sendgrid.net
+postfix_relay_port: 587

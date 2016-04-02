@@ -1,0 +1,7 @@
+---
+chiton_admin_email: operations@coveryourbasics.com
+chiton_admin_name: Cover Your Basics
+chiton_admin_username: coveryourbasics
+chiton_log_dir: /var/log/chiton
+chiton_run_dir: /var/run/chiton
+monit_alert_recipient: operations@coveryourbasics.com

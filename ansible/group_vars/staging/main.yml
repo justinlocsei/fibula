@@ -1,12 +1,4 @@
 ---
-chiton_admin_email: operations@coveryourbasics.com
-chiton_admin_name: Cover Your Basics
-chiton_admin_username: coveryourbasics
 chiton_amazon_associates_tracking_id: coveryourbasics-staging-20
 chiton_env_name: staging
-chiton_log_dir: /var/log/chiton
-chiton_run_dir: /var/run/chiton
-monit_alert_recipient: operations@coveryourbasics.com
-postfix_relay_host: smtp.sendgrid.net
-postfix_relay_port: 587
 postfix_relay_user: cyb-staging
