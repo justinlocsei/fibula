@@ -2,6 +2,6 @@
 nginx_config_dir: /etc/nginx
 nginx_nofile_limit: 4096
 nginx_dhparam_pem: "{{ nginx_certs_dir }}/dhparam.pem"
-nginx_certs_dir: /etc/nginx/certs
+nginx_certs_dir: "{{ nginx_config_dir }}/certs"
 nginx_pidfile: /var/run/nginx.pid
-nginx_sites_dir: /etc/nginx/conf.d
+nginx_sites_dir: "{{ nginx_config_dir }}/conf.d"
