@@ -1,15 +1,11 @@
 ---
-- set_fact:
-    chiton_db_scripts_dir: "{{ chiton_source_dir }}/scripts/db"
-
-- name: create the database dumper script
+- name: create the database scripts
   template:
-    src: db-dump.j2
-    dest: "{{ chiton_db_scripts_dir }}/dump"
+    src: "{{ item.src }}"
+    dest: "{{ chiton_source_dir }}/scripts/db/{{ item.dest }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
     mode: 0700
-
-- name: create the database restore script
-  template:
-    src: db-restore.j2
-    dest: "{{ chiton_db_scripts_dir }}/restore"
-    mode: 0700
+  with_items:
+    - { src: "db-dump.j2", dest: "dump" }
+    - { src: "db-restore.j2", dest: "restore" }
