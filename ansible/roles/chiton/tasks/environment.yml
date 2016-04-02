@@ -3,7 +3,8 @@
     chiton_user_custom_profile: "{{ chiton_user_details.home }}/.profile.chiton"
 
 - set_fact:
-    chiton_allowed_hosts: "{{ chiton_server_names }}"
+    chiton_allowed_hosts:
+      - "{{ chiton_server_name }}"
     when: chiton_allowed_hosts is undefined
 
 - name: add all known keys to the application user's authorized keys
