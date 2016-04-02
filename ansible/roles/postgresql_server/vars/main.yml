@@ -2,11 +2,12 @@
 postgresql_server_address: 127.0.0.1
 postgresql_server_apt_key_id: ACCC4CF8
 postgresql_server_conf_dir: /etc/postgresql/{{ postgresql_server_version }}/main
-postgresql_server_config: "{{ postgresql_server_conf_dir }}/postgresql.conf"
 postgresql_server_lib_dir: /var/lib/postgresql
-postgresql_server_pg_hba: "{{ postgresql_server_conf_dir }}/pg_hba.conf"
-postgresql_server_pg_ident: "{{ postgresql_server_conf_dir }}/pg_ident.conf"
-postgresql_server_pidfile: "{{ postgresql_server_socket_dir }}/{{ postgresql_server_version }}-main.pid"
 postgresql_server_port: 5432
 postgresql_server_root_user: postgres
 postgresql_server_socket_dir: /var/run/postgresql
+
+postgresql_server_config: "{{ postgresql_server_conf_dir }}/postgresql.conf"
+postgresql_server_pg_hba: "{{ postgresql_server_conf_dir }}/pg_hba.conf"
+postgresql_server_pg_ident: "{{ postgresql_server_conf_dir }}/pg_ident.conf"
+postgresql_server_pidfile: "{{ postgresql_server_socket_dir }}/{{ postgresql_server_version }}-main.pid"
