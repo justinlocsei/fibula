@@ -1,18 +1,4 @@
 ---
-- set_fact:
-    chiton_ssl_certificate_path: "{{ nginx_certs_dir }}/chiton.crt"
-    when: cyb_wildcard_ssl_certificate is not none
-    no_log: yes
-
-- set_fact:
-    chiton_ssl_certificate_key_path: "{{ nginx_certs_dir }}/chiton.key"
-    when: cyb_wildcard_ssl_certificate_key is not none
-    no_log: yes
-
-- set_fact:
-    chiton_nginx_site_config: "{{ nginx_sites_dir }}/chiton.conf"
-    chiton_monit_config: "{{ monit_configs_dir }}/chiton.conf"
-
 - name: grant nginx access to the chiton socket
   user:
     name: "{{ nginx_user }}"
