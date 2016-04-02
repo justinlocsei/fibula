@@ -3,3 +3,5 @@ chiton_db_name: chiton
 chiton_db_user_name: chiton
 chiton_postgresql_version: 9.4
 chiton_python_version: 3.5
+chiton_user_custom_profile: "{{ chiton_user_home }}/.profile.chiton"
+chiton_user_home: "/home/{{ chiton_user }}"

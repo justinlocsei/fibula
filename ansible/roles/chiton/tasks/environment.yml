@@ -1,7 +1,4 @@
 ---
-- set_fact:
-    chiton_user_custom_profile: "{{ chiton_user_details.home }}/.profile.chiton"
-
 - name: add all known keys to the application user's authorized keys
   authorized_key:
     user: "{{ chiton_user }}"
@@ -56,7 +53,7 @@
 
 - name: ensure that the application user loads the custom profile
   lineinfile:
-    dest: "{{ chiton_user_details.home }}/.profile"
+    dest: "{{ chiton_user_home }}/.profile"
     line: ". {{ chiton_user_custom_profile }}"
     state: present
     owner: "{{ chiton_user }}"

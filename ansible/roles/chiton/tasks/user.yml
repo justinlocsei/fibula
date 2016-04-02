@@ -13,16 +13,16 @@
   user:
     name: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
+    home: "{{ chiton_user_home }}"
     comment: "Chiton application user"
     uid: "{{ chiton_user_id or omit }}"
     shell: /bin/bash
     password: "*"
     state: present
-  register: chiton_user_details
 
 - name: create the application user's SSH directory
   file:
-    path: "{{ chiton_user_details.home }}/.ssh"
+    path: "{{ chiton_user_home }}/.ssh"
     mode: 0700
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
