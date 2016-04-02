@@ -44,7 +44,6 @@
     admin_user: "{{ chiton_db_root_name | require_value }}"
     admin_password: "{{ chiton_db_root_password | require_value }}"
     port: "{{ chiton_db_port | require_value }}"
-  no_log: no
   with_items:
     - setting: client_encoding
       value: UTF8
