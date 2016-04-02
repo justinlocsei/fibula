@@ -8,7 +8,7 @@
 - name: create a file for the SSL certificate
   copy:
     dest: "{{ chiton_ssl_certificate_path }}"
-    content: "{{ cyb_wildcard_ssl_certificate | require_value }}"
+    content: "{{ cyb_certificates_wildcard_certificate | require_value }}"
     owner: root
     group: root
     mode: 0600
@@ -19,7 +19,7 @@
 - name: create a file for the SSL private key
   copy:
     dest: "{{ chiton_ssl_certificate_key_path }}"
-    content: "{{ cyb_wildcard_ssl_certificate_key | require_value }}"
+    content: "{{ cyb_certificates_wildcard_key | require_value }}"
     owner: root
     group: root
     mode: 0600
