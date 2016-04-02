@@ -45,6 +45,13 @@
     mode: 0700
     state: directory
 
+- name: create a strong Diffie-Hellman parameter
+  command: openssl dhparam -out {{ nginx_dhparam_pem | quote }} 2048
+  args:
+    creates: "{{ nginx_dhparam_pem }}"
+  become: yes
+  become_user: root
+
 - name: remove default site configurations
   file:
     path: "{{ nginx_sites_dir }}/{{ item }}"
