@@ -1,6 +1,6 @@
 ---
-chiton_allow_tests: yes
 chiton_activate_venv: yes
+chiton_allow_tests: yes
 chiton_amazon_associates_tracking_id: covyoubas-dev-20
 chiton_config_debug: yes
 chiton_daemonize: no
