@@ -13,6 +13,9 @@ server {
   ssl_certificate {{ chiton_ssl_certificate_path | require_value }};
   ssl_certificate_key {{ chiton_ssl_certificate_key_path | require_value }};
 
+  add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
+  add_header X-Frame-Options "DENY";
+
   gzip on;
   gzip_types application/javascript text/css;
   gzip_vary on;
