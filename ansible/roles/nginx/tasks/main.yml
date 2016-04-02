@@ -67,6 +67,5 @@
     owner: root
     group: root
     mode: 0644
-    validate: nginx -t -c %s
   notify:
     - reload nginx
