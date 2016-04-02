@@ -17,5 +17,7 @@ http {
     tcp_nodelay on;
     tcp_nopush on;
 
+    server_tokens off;
+
     include /etc/nginx/conf.d/*.conf;
 }
