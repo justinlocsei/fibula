@@ -1,0 +1,4 @@
+---
+python_executable: "python{{ python_version }}"
+python_pip_executable: "pip{{ python_version_major }}"
+python_version_major: "{{ python_version | regex_replace('\\..*', '') }}"

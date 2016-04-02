@@ -1,6 +1,3 @@
-- set_fact:
-    monit_installer: /tmp/install-monit.sh
-
 - name: create a monit installer script
   template:
     src: installer.sh.j2

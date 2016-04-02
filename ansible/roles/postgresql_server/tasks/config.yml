@@ -1,12 +1,4 @@
 ---
-- set_fact:
-    postgresql_server_conf_dir: /etc/postgresql/{{ postgresql_server_version }}/main
-
-- set_fact:
-    postgresql_server_pg_hba: "{{ postgresql_server_conf_dir }}/pg_hba.conf"
-    postgresql_server_pg_ident: "{{ postgresql_server_conf_dir }}/pg_ident.conf"
-    postgresql_server_config: "{{ postgresql_server_conf_dir }}/postgresql.conf"
-
 - name: install a PostgreSQL library for the system Python
   apt:
     name: python-psycopg2

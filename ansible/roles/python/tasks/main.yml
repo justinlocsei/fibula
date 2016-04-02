@@ -1,11 +1,4 @@
 ---
-- set_fact:
-    python_version_major: "{{ python_version | regex_replace('\\..*', '') }}"
-
-- set_fact:
-    python_executable: "python{{ python_version }}"
-    python_pip_executable: "pip{{ python_version_major }}"
-
 - name: add the deadsnakes Python repository
   apt_repository:
     repo: ppa:fkrull/deadsnakes

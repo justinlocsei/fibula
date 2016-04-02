@@ -3,5 +3,6 @@ monit_bin: /usr/local/bin/monit
 monit_config_file: /etc/monitrc
 monit_configs_dir: /etc/monitrc.d
 monit_group: root
+monit_installer: /tmp/install-monit.sh
 monit_lib_dir: /var/lib/monit
 monit_user: root
