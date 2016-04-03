@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if ! which -s ansible-playbook; then
+  echo "You must source the development script to provision this VM"
+  exit 1
+fi
+
+cd ../../ansible || exit 1
+ansible-playbook playbooks/configure/cloud.yml -l staging "$@"
