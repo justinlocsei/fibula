@@ -1,0 +1,6 @@
+---
+users_admins:
+  - login: jlocsei
+    name: Justin Locsei
+    public_keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvoboNeDq2vb/3SyqHHQOKMqXOGrS3imyYxmYnCvx287uq74q4r7knAvR4kKb3GtEy8aKFc7OEHpexF6wv/NqbTl6ZilmKxEqVwlEd+iKfu9bm9Jfm91hZDDtS4qGW6NF2hxR7UDdf6eddxixC+NE43c/+Z7p1Ld5RllTGaImpF6JayNQ+0IeWoO8y9U3WnJBaxEbnDLO8+yFq/NtDSTEO5b3lA/OMVcp//cq1JDF6Ol2smC7Q6pAwUIZ14eAF6gmPTVBv1mgePFKvXObQ8Hl7IMqG65HQ4C1539HhO7FQCgUiyeUZYqbTW/8CY2cmy58Q+v92klRwOzsvsJvylawj justin.locsei@gmail.com"
