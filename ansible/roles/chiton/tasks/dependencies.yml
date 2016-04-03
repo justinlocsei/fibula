@@ -2,9 +2,9 @@
 - name: install all Python dependencies in a virtualenv
   pip:
     requirements: "{{ chiton_requirements_dir }}/{{ item }}"
-    executable: "{{ python_pip_executable }}"
+    executable: "{{ chiton_pip_bin }}"
     virtualenv: "{{ chiton_virtualenv_dir }}"
-    virtualenv_python: "{{ python_executable }}"
+    virtualenv_python: "{{ chiton_python_bin }}"
     virtualenv_site_packages: no
     state: present
   with_items:
