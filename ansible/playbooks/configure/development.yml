@@ -1,20 +1,6 @@
 ---
 - hosts: development
   roles:
-    - role: common
-    - role: postgresql_server
-      postgresql_server_allow_external_connections: yes
-      postgresql_server_remote_users:
-        - "{{ chiton_db_user_name }}"
-      postgresql_server_version: "{{ chiton_postgresql_version }}"
-    - role: postfix
-    - role: chiton
-      chiton_db_host: "{{ postgresql_server_address }}"
-      chiton_db_port: "{{ postgresql_server_port }}"
-      chiton_db_root_name: "{{ postgresql_server_root_user }}"
-      chiton_db_root_password: "{{ postgresql_server_root_password }}"
-      chiton_user_authorized_keys:
-        - "{{ vagrant_public_key }}"
     - role: nfs_server
     - role: vagrant
       vagrant_host_group: "{{ chiton_group }}"
