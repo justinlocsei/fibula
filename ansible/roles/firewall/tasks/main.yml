@@ -4,22 +4,15 @@
     policy: deny
     state: enabled
 
-- name: ensure SSH is available
+- name: ensure that SSH is allowed
   ufw:
     rule: allow
     port: 22
     proto: tcp
 
-- name: expose custom TCP ports
+- name: update ports
   ufw:
-    rule: allow
-    port: "{{ item }}"
-    proto: tcp
-  with_items: "{{ firewall_tcp_ports }}"
-
-- name: expose custom UDP ports
-  ufw:
-    rule: allow
-    port: "{{ item }}"
-    proto: udp
-  with_items: "{{ firewall_udp_ports }}"
+    rule: "{{ item.allow | default(true) | ternary('allow', 'deny') }}"
+    port: "{{ item.port }}"
+    proto: "{{ item.protocol | default('tcp') }}"
+  with_items: "{{ firewall_ports }}"

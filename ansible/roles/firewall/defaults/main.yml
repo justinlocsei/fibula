@@ -1,3 +1,2 @@
 ---
-firewall_tcp_ports: []
-firewall_udp_ports: []
+firewall_ports: []

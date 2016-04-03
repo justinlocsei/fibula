@@ -20,6 +20,9 @@ dependencies:
   - role: postfix
   - role: monit
   - role: firewall
-    firewall_tcp_ports:
-      - "{{ chiton_server_port }}"
-      - "{{ chiton_server_port_https }}"
+    firewall_ports:
+      - port: "{{ chiton_server_port }}"
+      - port: "{{ chiton_server_port_https }}"
+      - port: "{{ postgresql_server_port }}"
+        protocol: tcp
+        allow: "{{ postgresql_server_allow_external_connections }}"

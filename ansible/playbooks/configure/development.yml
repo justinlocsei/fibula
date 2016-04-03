@@ -20,20 +20,16 @@
       vagrant_host_group: "{{ chiton_group }}"
       vagrant_host_user: "{{ chiton_user }}"
     - role: firewall
-      firewall_tcp_ports:
-        - "{{ chiton_server_port }}"
-        - "{{ chiton_server_port_https }}"
-        - "{{ nfs_server_lockd_port }}"
-        - "{{ nfs_server_mountd_port }}"
-        - "{{ nfs_server_nfs_port }}"
-        - "{{ nfs_server_portmap_port }}"
-        - "{{ nfs_server_statd_port }}"
-        - "{{ nfs_server_statd_outgoing_port }}"
-        - "{{ postgresql_server_port }}"
-      firewall_udp_ports:
-        - "{{ nfs_server_lockd_port }}"
-        - "{{ nfs_server_mountd_port }}"
-        - "{{ nfs_server_nfs_port }}"
-        - "{{ nfs_server_portmap_port }}"
-        - "{{ nfs_server_statd_port }}"
-        - "{{ nfs_server_statd_outgoing_port }}"
+      firewall_ports:
+        - port: "{{ nfs_server_lockd_port }}"
+          protocol: any
+        - port: "{{ nfs_server_mountd_port }}"
+          protocol: any
+        - port: "{{ nfs_server_nfs_port }}"
+          protocol: any
+        - port: "{{ nfs_server_portmap_port }}"
+          protocol: any
+        - port: "{{ nfs_server_statd_port }}"
+          protocol: any
+        - port: "{{ nfs_server_statd_outgoing_port }}"
+          protocol: any
