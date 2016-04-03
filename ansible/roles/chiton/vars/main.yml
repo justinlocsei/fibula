@@ -8,7 +8,6 @@ chiton_log_path: "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name 
 chiton_monit_config: "{{ monit_configs_dir }}/chiton.conf"
 chiton_pidfile_path: "{{ chiton_run_dir or chiton_run_dir_app }}/{{ chiton_env_name }}.pid"
 chiton_postgresql_version: 9.4
-chiton_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
 chiton_python_version: 3.5
 chiton_run_dir_app: "{{ chiton_var_dir }}/run"
 chiton_socket_path: "{{ chiton_run_dir or chiton_run_dir_app }}/{{ chiton_env_name }}.sock"
@@ -16,6 +15,7 @@ chiton_user_custom_profile: "{{ chiton_user_home }}/.profile.chiton"
 chiton_user_home: "/home/{{ chiton_user }}"
 chiton_uwsgi_bin: "{{ chiton_virtualenv_dir }}/bin/uwsgi"
 chiton_uwsgi_ini_file: "{{ chiton_config_dir }}/uwsgi-{{ chiton_env_name | require_value }}.ini"
+chiton_venv_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
 
 chiton_app_dir: "{{ chiton_source_dir }}/chiton"
 chiton_config_dir: "{{ chiton_source_dir }}/config"
