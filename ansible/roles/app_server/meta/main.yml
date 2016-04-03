@@ -1,5 +1,6 @@
 ---
 dependencies:
+  - role: common
   - role: cyb_certificates
   - role: users
   - role: ssh

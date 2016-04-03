@@ -1,6 +1,8 @@
 ---
-- hosts: development
+- hosts: development:&app_servers
   roles:
+    - role: app_server
+      chiton_user_authorized_keys: "{{ users_admins | map(attribute='public_keys') | flatten | list }}"
     - role: nfs_server
     - role: vagrant
       vagrant_host_group: "{{ chiton_group }}"
