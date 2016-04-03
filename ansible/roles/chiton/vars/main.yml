@@ -1,14 +1,15 @@
 ---
-chiton_app_log_path: "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name }}-app.log"
-chiton_config_file: "{{ chiton_config_dir }}/{{ chiton_env_name | require_value }}.json"
 chiton_db_name: chiton
 chiton_db_user_name: chiton
+chiton_postgresql_version: 9.4
+chiton_python_version: 3.5
+
+chiton_app_log_path: "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name }}-app.log"
+chiton_config_file: "{{ chiton_config_dir }}/{{ chiton_env_name | require_value }}.json"
 chiton_log_dir_app: "{{ chiton_var_dir }}/log"
 chiton_log_path: "{{ chiton_log_dir or chiton_log_dir_app }}/{{ chiton_env_name }}.log"
 chiton_monit_config: "{{ monit_configs_dir }}/chiton.conf"
 chiton_pidfile_path: "{{ chiton_run_dir or chiton_run_dir_app }}/{{ chiton_env_name }}.pid"
-chiton_postgresql_version: 9.4
-chiton_python_version: 3.5
 chiton_run_dir_app: "{{ chiton_var_dir }}/run"
 chiton_socket_path: "{{ chiton_run_dir or chiton_run_dir_app }}/{{ chiton_env_name }}.sock"
 chiton_user_custom_profile: "{{ chiton_user_home }}/.profile.chiton"
