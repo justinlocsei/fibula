@@ -21,8 +21,6 @@
 
 - name: install application dependencies
   include: dependencies.yml
-  become: yes
-  become_user: "{{ chiton_user }}"
   tags:
     - dependencies
 

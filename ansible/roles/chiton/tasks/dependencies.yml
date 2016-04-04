@@ -1,38 +1,42 @@
 ---
-- name: install all Python dependencies in a virtualenv
-  pip:
-    requirements: "{{ chiton_requirements_dir }}/{{ item }}"
-    executable: "{{ chiton_pip_bin }}"
-    virtualenv: "{{ chiton_virtualenv_dir }}"
-    virtualenv_python: "{{ chiton_python_bin }}"
-    virtualenv_site_packages: no
-    state: present
-  with_items:
-    - core.txt
-    - development.txt
+- block:
+  - name: install all Python dependencies in a virtualenv
+    pip:
+      requirements: "{{ chiton_requirements_dir }}/{{ item }}"
+      executable: "{{ chiton_pip_bin }}"
+      virtualenv: "{{ chiton_virtualenv_dir }}"
+      virtualenv_python: "{{ chiton_python_bin }}"
+      virtualenv_site_packages: no
+      state: present
+    with_items:
+      - core.txt
+      - development.txt
 
-- name: run pending database migrations
-  shell: "{{ chiton_venv_python_bin | quote }} manage.py migrate"
-  args:
-    chdir: "{{ chiton_source_dir }}"
-  environment:
-    CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
-  register: chiton_migrate_result
-  changed_when: "'No migrations to apply.' not in chiton_migrate_result.stdout"
+  - name: run pending database migrations
+    shell: "{{ chiton_venv_python_bin | quote }} manage.py migrate"
+    args:
+      chdir: "{{ chiton_source_dir }}"
+    environment:
+      CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
+    register: chiton_migrate_result
+    changed_when: "'No migrations to apply.' not in chiton_migrate_result.stdout"
 
-- name: create the in-app administrator account
-  shell: "{{ chiton_venv_python_bin | quote }} manage.py chiton_ensuresuperuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
-  args:
-    chdir: "{{ chiton_source_dir }}"
-  environment:
-    CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
-  no_log: yes
-  register: chiton_ensuresuperuser_result
-  changed_when: "'User modified' in chiton_ensuresuperuser_result.stdout"
+  - name: create the in-app administrator account
+    shell: "{{ chiton_venv_python_bin | quote }} manage.py chiton_ensuresuperuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
+    args:
+      chdir: "{{ chiton_source_dir }}"
+    environment:
+      CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
+    no_log: yes
+    register: chiton_ensuresuperuser_result
+    changed_when: "'User modified' in chiton_ensuresuperuser_result.stdout"
 
-- name: load core fixtures
-  shell: "{{ chiton_venv_python_bin | quote }} manage.py chiton_loadfixtures"
-  args:
-    chdir: "{{ chiton_source_dir }}"
-  environment:
-    CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
+  - name: load core fixtures
+    shell: "{{ chiton_venv_python_bin | quote }} manage.py chiton_loadfixtures"
+    args:
+      chdir: "{{ chiton_source_dir }}"
+    environment:
+      CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
+
+  become: yes
+  become_user: "{{ chiton_user }}"
