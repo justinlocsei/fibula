@@ -31,11 +31,6 @@
   tags:
     - assets
 
-- name: configure the application server
-  include: server.yml
-  tags:
-    - server
-
 - name: configure the application's scripts
   include: scripts.yml
   tags:

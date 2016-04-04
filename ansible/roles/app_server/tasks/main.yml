@@ -1,3 +1,9 @@
 ---
+- name: configure nginx
+  include: nginx.yml
+
 - name: configure monit
   include: monit.yml
+
+- name: configure chiton
+  include: chiton.yml

@@ -12,8 +12,8 @@ server {
   listen {{ chiton_server_port_https }} ssl http2;
   server_name {{ chiton_server_name | require_value }};
 
-  ssl_certificate {{ chiton_ssl_certificate_path }};
-  ssl_certificate_key {{ chiton_ssl_certificate_key_path }};
+  ssl_certificate {{ app_server_ssl_certificate_path }};
+  ssl_certificate_key {{ app_server_ssl_certificate_key_path }};
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
 

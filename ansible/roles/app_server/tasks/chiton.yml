@@ -1,0 +1,42 @@
+---
+- name: grant nginx access to the chiton socket
+  user:
+    name: "{{ nginx_user }}"
+    groups: "{{ chiton_group }}"
+    append: yes
+
+- name: create the nginx site config
+  template:
+    src: nginx/chiton.conf.j2
+    dest: "{{ nginx_sites_dir }}/chiton.conf"
+    owner: root
+    group: root
+    mode: 0644
+  register: app_server_nginx_chiton_config
+  notify:
+    - reload nginx
+
+- name: apply a new site config
+  service:
+    name: nginx
+    state: restarted
+  when: app_server_nginx_chiton_config.diff is undefined
+
+- name: create a monit config
+  template:
+    src: monit/chiton.conf.j2
+    dest: "{{ app_server_monit_config_chiton }}"
+    mode: 0600
+    owner: "{{ monit_user }}"
+    group: "{{ monit_group }}"
+  when: chiton_daemonize
+  notify:
+    - reload monit
+
+- name: delete the monit config
+  file:
+    path: "{{ app_server_monit_config_chiton }}"
+    state: absent
+  when: not chiton_daemonize
+  notify:
+    - reload monit
