@@ -1,5 +1,5 @@
 ---
-- name: load the application user keys
+- name: load the application user's keys
   include_vars: user_keys.yml
   no_log: yes
 
@@ -39,6 +39,6 @@
   no_log: yes
   with_items:
     - content: "{{ chiton_deploy_ssh_key }}"
-      dest: "id_rsa"
+      dest: id_rsa
     - content: "{{ chiton_deploy_ssh_key_public }}"
-      dest: "id_rsa.pub"
+      dest: id_rsa.pub
