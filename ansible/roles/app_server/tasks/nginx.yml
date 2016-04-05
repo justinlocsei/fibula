@@ -1,8 +1,8 @@
 ---
 - name: create a file for the SSL certificate
-  copy:
+  template:
+    src: nginx/cyb.crt.j2
     dest: "{{ app_server_ssl_certificate_path }}"
-    content: "{{ cyb_certificates_wildcard_certificate | require_value }}"
     owner: root
     group: root
     mode: 0600
