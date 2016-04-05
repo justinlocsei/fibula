@@ -1,35 +1,21 @@
 ---
 - name: configure the application user
   include: user.yml
-  tags:
-    - user
 
 - name: configure the application database
   include: database.yml
-  tags:
-    - database
 
 - name: configure the application environment
   include: environment.yml
-  tags:
-    - application
 
 - name: install dependency libraries
   include: libraries.yml
-  tags:
-    - libraries
 
 - name: install application dependencies
   include: dependencies.yml
-  tags:
-    - dependencies
 
 - name: configure the application's assets
   include: assets.yml
-  tags:
-    - assets
 
 - name: configure the application's scripts
   include: scripts.yml
-  tags:
-    - scripts
