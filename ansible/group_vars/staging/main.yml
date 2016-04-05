@@ -1,4 +1,3 @@
 ---
 chiton_amazon_associates_tracking_id: coveryourbasics-staging-20
-chiton_env_name: staging
 postfix_relay_user: cyb-staging

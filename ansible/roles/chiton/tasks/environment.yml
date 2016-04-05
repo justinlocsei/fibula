@@ -62,7 +62,7 @@
 
 - name: create a run directory
   file:
-    path: "{{ chiton_pidfile_path | dirname }}"
+    path: "{{ chiton_run_dir_final }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0755
@@ -70,7 +70,7 @@
 
 - name: create a log directory
   file:
-    path: "{{ chiton_log_path | dirname }}"
+    path: "{{ chiton_log_dir_final }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0755

@@ -18,7 +18,6 @@ chiton_db_port: null
 chiton_db_root_name: null
 chiton_db_root_password: null
 chiton_db_user_password: null
-chiton_env_name: null
 chiton_git_branch: master
 chiton_group: chiton
 chiton_group_id: null

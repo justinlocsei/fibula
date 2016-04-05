@@ -4,7 +4,6 @@ chiton_allow_tests: yes
 chiton_amazon_associates_tracking_id: covyoubas-dev-20
 chiton_config_debug: yes
 chiton_daemonize: no
-chiton_env_name: development
 chiton_group: chiton
 chiton_group_id: 2000
 chiton_server_port: 80
