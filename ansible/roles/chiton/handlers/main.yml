@@ -1,4 +1,4 @@
 ---
 - name: reload chiton
-  shell: "{{ chiton_uwsgi_bin | quote }} --ini {{ chiton_uwsgi_ini_file | quote }} --reload {{ chiton_pidfile_path | quote }}"
+  shell: "{{ chiton_uwsgi_bin | quote }} --ini {{ chiton_uwsgi_ini_file | quote }} $(if [ -f '{{ chiton_pidfile_path | quote }}' ]; then echo '--reload {{ chiton_pidfile_path | quote }}'; fi)"
   when: chiton_daemonize
