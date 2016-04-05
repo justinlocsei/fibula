@@ -14,10 +14,10 @@
   postgresql_db:
     name: "{{ chiton_db_name }}"
     owner: "{{ chiton_db_user_name }}"
-    login_host: "{{ chiton_db_host | require_value }}"
-    login_password: "{{ chiton_db_root_password | require_value }}"
-    login_user: "{{ chiton_db_root_name | require_value }}"
-    port: "{{ chiton_db_port | require_value }}"
+    login_host: "{{ chiton_db_host }}"
+    login_password: "{{ chiton_db_root_password }}"
+    login_user: "{{ chiton_db_root_name }}"
+    port: "{{ chiton_db_port }}"
     state: present
 
 - name: grant read privileges on the postgres database to the application user
@@ -27,23 +27,23 @@
     roles: "{{ chiton_db_user_name }}"
     privs: SELECT
     grant_option: no
-    login_host: "{{ chiton_db_host | require_value }}"
-    login_password: "{{ chiton_db_root_password | require_value }}"
-    login_user: "{{ chiton_db_root_name | require_value }}"
-    port: "{{ chiton_db_port | require_value }}"
+    login_host: "{{ chiton_db_host }}"
+    login_password: "{{ chiton_db_root_password }}"
+    login_user: "{{ chiton_db_root_name }}"
+    port: "{{ chiton_db_port }}"
     state: present
   when: chiton_allow_tests
 
 - name: sync the database user settings with Django's recommendations
   postgresql_user_setting:
     user: "{{ chiton_db_user_name }}"
-    password: "{{ chiton_db_user_password | require_value }}"
+    password: "{{ chiton_db_user_password }}"
     setting: "{{ item.setting }}"
     value: "{{ item.value }}"
-    login_host: "{{ chiton_db_host | require_value }}"
-    admin_user: "{{ chiton_db_root_name | require_value }}"
-    admin_password: "{{ chiton_db_root_password | require_value }}"
-    port: "{{ chiton_db_port | require_value }}"
+    login_host: "{{ chiton_db_host }}"
+    admin_user: "{{ chiton_db_root_name }}"
+    admin_password: "{{ chiton_db_root_password }}"
+    port: "{{ chiton_db_port }}"
   with_items:
     - setting: client_encoding
       value: UTF8
