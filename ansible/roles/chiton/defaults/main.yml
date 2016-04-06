@@ -11,6 +11,7 @@ chiton_amazon_associates_tracking_id: null
 chiton_assets_url: /assets/
 chiton_config_debug: no
 chiton_config_secret_key: null
+chiton_current_version: null
 chiton_daemonize: yes
 chiton_db_host: null
 chiton_db_port: null
@@ -36,8 +37,7 @@ chiton_source_dir: "{{ chiton_root_dir }}/source"
 chiton_user: chiton
 chiton_user_authorized_keys: []
 chiton_user_id: null
-chiton_uwsgi_processes: 1
 chiton_uwsgi_harakiri: 30
+chiton_uwsgi_processes: 1
 chiton_uwsgi_stats_address: 127.0.0.1:9191
 chiton_uwsgi_threads: 2
-chiton_current_version: null
