@@ -33,3 +33,11 @@
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600
+
+- name: create a management command
+  template:
+    src: manage.py.j2
+    dest: "{{ chiton_manage_file }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
