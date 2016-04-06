@@ -1,4 +1,31 @@
 ---
+- name: create all required application directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ chiton_root_dir }}"
+    - "{{ chiton_source_dir }}"
+    - "{{ chiton_log_dir_final }}"
+    - "{{ chiton_run_dir_final }}"
+    - "{{ chiton_versions_dir }}"
+    - "{{ chiton_var_dir }}"
+    - "{{ chiton_config_dir }}"
+    - "{{ chiton_scripts_dir }}"
+    - "{{ chiton_package_cache_dir }}"
+
+- name: install requirements for building Python dependencies and extensions
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - libpcre3
+    - libpcre3-dev
+    - libyaml-dev
+
 - name: fetch the source code
   git:
     accept_hostkey: yes
@@ -32,65 +59,68 @@
     mode: 0755
     state: directory
 
-- name: create a virtualenv for the current version with an updated pip
-  pip:
-    name: pip
-    version: "{{ chiton_pip_version }}"
-    executable: "{{ chiton_pip_bin }}"
-    virtualenv: "{{ chiton_current_version_virtualenv_dir }}"
-    virtualenv_python: "{{ chiton_python_bin }}"
-    virtualenv_site_packages: no
-    state: present
-  become: yes
+- become: yes
   become_user: "{{ chiton_user }}"
+  block:
+    - name: create a virtualenv for the current version with an updated pip
+      pip:
+        name: pip
+        version: "{{ chiton_pip_version }}"
+        executable: "{{ chiton_pip_bin }}"
+        virtualenv: "{{ chiton_current_version_virtualenv_dir }}"
+        virtualenv_python: "{{ chiton_python_bin }}"
+        virtualenv_site_packages: no
+        state: present
 
-- name: allow wheels to be built via pip
-  pip:
-    name: wheel
-    version: "{{ chiton_wheel_version }}"
-    executable: "{{ chiton_pip_bin }}"
-    virtualenv: "{{ chiton_current_version_virtualenv_dir }}"
-    state: present
-  become: yes
-  become_user: "{{ chiton_user }}"
+    - name: allow wheels to be built via pip
+      pip:
+        name: wheel
+        version: "{{ chiton_wheel_version }}"
+        executable: "{{ chiton_pip_bin }}"
+        virtualenv: "{{ chiton_current_version_virtualenv_dir }}"
+        state: present
 
-- name: build wheels for all requirements
-  command: >-
-    {{ chiton_current_pip_bin | quote }} wheel
-    --cache-dir={{ chiton_package_cache_dir | quote }}
-    --wheel-dir={{ chiton_wheel_cache_dir | quote }}
-    --find-links={{ chiton_wheel_cache_dir | quote }}
-    -r {{ chiton_requirements_dir | quote }}/{{ item }}
-  with_items: "{{ chiton_requirements_files }}"
-  register: chiton_pip_wheel
-  changed_when: "'Successfully built' in chiton_pip_wheel.stdout"
-  become: yes
-  become_user: "{{ chiton_user }}"
+    - name: build wheels for all requirements
+      command: >-
+        {{ chiton_current_pip_bin | quote }} wheel
+        --cache-dir={{ chiton_package_cache_dir | quote }}
+        --wheel-dir={{ chiton_wheel_cache_dir | quote }}
+        --find-links={{ chiton_wheel_cache_dir | quote }}
+        -r {{ chiton_requirements_dir | quote }}/{{ item }}
+      with_items: "{{ chiton_requirements_files }}"
+      register: chiton_pip_wheel
+      changed_when: "'Successfully built' in chiton_pip_wheel.stdout"
 
-- name: install requirements from the pre-built wheels
-  command: >-
-    {{ chiton_current_pip_bin | quote }} install
-    --no-index
-    --find-links={{ chiton_wheel_cache_dir | quote }}
-    -r {{ chiton_requirements_dir | quote }}/{{ item }}
-  with_items: "{{ chiton_requirements_files }}"
-  register: chiton_pip_install
-  changed_when: "'Installing collected packages' in chiton_pip_install.stdout"
-  become: yes
-  become_user: "{{ chiton_user }}"
+    - name: install requirements from the pre-built wheels
+      command: >-
+        {{ chiton_current_pip_bin | quote }} install
+        --no-index
+        --find-links={{ chiton_wheel_cache_dir | quote }}
+        -r {{ chiton_requirements_dir | quote }}/{{ item }}
+      with_items: "{{ chiton_requirements_files }}"
+      register: chiton_pip_install
+      changed_when: "'Installing collected packages' in chiton_pip_install.stdout"
 
-- name: install chiton
-  command: >-
-    {{ chiton_current_pip_bin | quote }} install
-    {{ chiton_allow_development | ternary('-e', '') }}
-    {{ chiton_source_dir | quote }}
-  register: chiton_source_install
-  changed_when: "'Installing collected packages' in chiton_source_install.stdout"
-  become: yes
-  become_user: "{{ chiton_user }}"
+    - name: install chiton
+      command: >-
+        {{ chiton_current_pip_bin | quote }} install
+        {{ chiton_allow_development | ternary('-e', '') }}
+        {{ chiton_source_dir | quote }}
+      register: chiton_source_install
+      changed_when: "'Installing collected packages' in chiton_source_install.stdout"
+
+- name: create the assets directory
+  file:
+    path: "{{ chiton_current_version_assets_dir }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+    state: directory
 
 - name: create a symlink to the current version
   file:
     src: "{{ chiton_current_version_dir }}"
     dest: "{{ chiton_current_dir }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
     state: link

@@ -5,25 +5,14 @@
 - name: configure the application database
   include: database.yml
 
-- name: establish the application's file structure
-  include: structure.yml
-
-- name: install dependency libraries
-  include: libraries.yml
-
 - name: install the application
   include: install.yml
 
-- name: configure the application's environment
-  include: environment.yml
+- name: configure the application
+  include: configuration.yml
 
-- name: run initialization scripts
-  include: initialization.yml
-  become: yes
-  become_user: "{{ chiton_user }}"
-
-- name: configure the application's assets
-  include: assets.yml
+- name: run management commands
+  include: management.yml
 
 - name: configure the application's scripts
   include: scripts.yml
