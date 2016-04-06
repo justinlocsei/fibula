@@ -3,5 +3,5 @@
 export CHITON_CONFIG_FILE="{{ chiton_config_file }}"
 
 {% if chiton_activate_venv %}
-cd "{{ chiton_source_dir }}" && . "{{ chiton_virtualenv_dir }}/bin/activate"
+cd "{{ chiton_root_dir }}" && . "{{ chiton_virtualenv_dir }}/bin/activate"
 {% endif %}
