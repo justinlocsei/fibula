@@ -1,8 +1,20 @@
 ---
+chiton_assets_dir_name: assets
 chiton_db_name: chiton
 chiton_db_user_name: chiton
 chiton_postgresql_version: 9.4
 chiton_python_version: 3.5
+chiton_virtualenv_dir_name: venv
+
+chiton_assets_dir: "{{ chiton_current_dir }}/{{ chiton_assets_dir_name }}"
+chiton_current_dir: "{{ chiton_root_dir }}/current"
+chiton_config_dir: "{{ chiton_root_dir }}/config"
+chiton_package_cache_dir: "{{ chiton_root_dir }}/.packages"
+chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
+chiton_var_dir: "{{ chiton_root_dir }}/var"
+chiton_versions_dir: "{{ chiton_root_dir }}/versions"
+chiton_virtualenv_dir: "{{ chiton_current_dir }}/{{ chiton_virtualenv_dir_name }}"
+chiton_wheel_cache_dir: "{{ chiton_package_cache_dir }}/wheels"
 
 chiton_app_log_path: "{{ chiton_log_dir_final }}/app.log"
 chiton_config_file: "{{ chiton_config_dir }}/environment.json"
@@ -18,9 +30,3 @@ chiton_user_home: "/home/{{ chiton_user }}"
 chiton_uwsgi_bin: "{{ chiton_virtualenv_dir }}/bin/uwsgi"
 chiton_uwsgi_ini_file: "{{ chiton_config_dir }}/uwsgi.ini"
 chiton_venv_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
-
-chiton_app_dir: "{{ chiton_source_dir }}/chiton"
-chiton_config_dir: "{{ chiton_source_dir }}/config"
-chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
-chiton_var_dir: "{{ chiton_source_dir }}/var"
-chiton_virtualenv_dir: "{{ chiton_source_dir }}/virtualenv"
