@@ -1,5 +1,5 @@
 [uwsgi]
-chdir = {{ chiton_source_dir }}
+chdir = {{ chiton_root_dir }}
 chmod-socket = 660
 env = CHITON_CONFIG_FILE={{ chiton_config_file }}
 env = DJANGO_SETTINGS_MODULE=chiton.settings
