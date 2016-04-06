@@ -9,3 +9,15 @@
   with_items:
     - db-dump
     - db-restore
+
+- name: create development scripts
+  template:
+    src: "scripts/{{ item }}.j2"
+    dest: "{{ chiton_scripts_dir }}/{{ item }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+  with_items:
+    - develop
+    - test
+  when: chiton_allow_development
