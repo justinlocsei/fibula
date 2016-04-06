@@ -6,9 +6,10 @@ chiton_config_debug: yes
 chiton_daemonize: no
 chiton_group: chiton
 chiton_group_id: 2000
+chiton_root_dir: /var/cyb-chiton
 chiton_server_port: 80
 chiton_server_port_https: 443
-chiton_source_dir: /var/cyb-chiton
+chiton_source_dir: /var/cyb-chiton/source
 chiton_user: chiton
 chiton_user_id: 2000
 himation_group: himation

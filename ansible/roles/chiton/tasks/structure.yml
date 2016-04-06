@@ -1,0 +1,17 @@
+---
+- name: create all required application directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ chiton_root_dir }}"
+    - "{{ chiton_source_dir }}"
+    - "{{ chiton_log_dir_final }}"
+    - "{{ chiton_run_dir_final }}"
+    - "{{ chiton_versions_dir }}"
+    - "{{ chiton_var_dir }}"
+    - "{{ chiton_config_dir }}"
+    - "{{ chiton_package_cache_dir }}"

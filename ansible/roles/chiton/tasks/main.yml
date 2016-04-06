@@ -5,14 +5,17 @@
 - name: configure the application database
   include: database.yml
 
-- name: configure the application environment
-  include: environment.yml
+- name: establish the application's file structure
+  include: structure.yml
 
 - name: install dependency libraries
   include: libraries.yml
 
 - name: install application dependencies
   include: dependencies.yml
+
+- name: configure the application's environment
+  include: environment.yml
 
 - name: run initialization scripts
   include: initialization.yml
