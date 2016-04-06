@@ -21,3 +21,12 @@
     - develop
     - test
   when: chiton_allow_development
+
+- name: remove unused development scripts
+  file:
+    path: "{{ chiton_scripts_dir }}/{{ item }}"
+    state: absent
+  with_items:
+    - develop
+    - test
+  when: not chiton_allow_development
