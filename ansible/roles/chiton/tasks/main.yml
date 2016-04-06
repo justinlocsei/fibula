@@ -11,8 +11,8 @@
 - name: install dependency libraries
   include: libraries.yml
 
-- name: install application dependencies
-  include: dependencies.yml
+- name: install the application
+  include: install.yml
 
 - name: configure the application's environment
   include: environment.yml

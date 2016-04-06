@@ -3,8 +3,10 @@ chiton_assets_dir_name: assets
 chiton_db_name: chiton
 chiton_db_user_name: chiton
 chiton_postgresql_version: 9.4
+chiton_pip_version: 8.1.1
 chiton_python_version: 3.5
 chiton_virtualenv_dir_name: venv
+chiton_wheel_version: 0.29.0
 
 chiton_assets_dir: "{{ chiton_current_dir }}/{{ chiton_assets_dir_name }}"
 chiton_current_dir: "{{ chiton_root_dir }}/current"

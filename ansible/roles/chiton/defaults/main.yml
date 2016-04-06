@@ -40,3 +40,4 @@ chiton_uwsgi_processes: 1
 chiton_uwsgi_harakiri: 30
 chiton_uwsgi_stats_address: 127.0.0.1:9191
 chiton_uwsgi_threads: 2
+chiton_current_version: null

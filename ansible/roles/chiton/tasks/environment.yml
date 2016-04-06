@@ -1,23 +1,4 @@
 ---
-- name: create the source directory
-  file:
-    path: "{{ chiton_source_dir }}"
-    owner: "{{ chiton_user }}"
-    group: "{{ chiton_group }}"
-    mode: 0755
-    state: directory
-
-- name: fetch the source code
-  git:
-    accept_hostkey: yes
-    clone: yes
-    dest: "{{ chiton_source_dir }}"
-    repo: git@github.com:justinlocsei/chiton.git
-    update: yes
-    version: "{{ chiton_git_branch }}"
-  become: yes
-  become_user: "{{ chiton_user }}"
-
 - name: create an application configuration file
   template:
     src: config.json.j2
@@ -52,19 +33,3 @@
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600
-
-- name: create a run directory
-  file:
-    path: "{{ chiton_run_dir_final }}"
-    owner: "{{ chiton_user }}"
-    group: "{{ chiton_group }}"
-    mode: 0755
-    state: directory
-
-- name: create a log directory
-  file:
-    path: "{{ chiton_log_dir_final }}"
-    owner: "{{ chiton_user }}"
-    group: "{{ chiton_group }}"
-    mode: 0755
-    state: directory
