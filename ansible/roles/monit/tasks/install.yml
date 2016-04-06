@@ -5,7 +5,7 @@
     mode: 0755
 
 - name: install monit
-  command: "{{ monit_installer }}"
+  command: "{{ monit_installer | quote }}"
   args:
     chdir: "{{ monit_installer | dirname }}"
 

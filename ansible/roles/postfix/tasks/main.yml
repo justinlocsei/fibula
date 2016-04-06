@@ -23,7 +23,7 @@
   register: postfix_set_sasl_passwd
 
 - name: hash the user's password
-  command: postmap hash:{{ postfix_sasl_passwd }}
+  command: postmap hash:{{ postfix_sasl_passwd | quote }}
   when: postfix_set_sasl_passwd | changed
   notify:
     - reload postfix

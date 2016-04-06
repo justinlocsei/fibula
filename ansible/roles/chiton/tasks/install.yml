@@ -56,11 +56,11 @@
 
 - name: build wheels for all requirements
   command: >-
-    {{ chiton_current_pip_bin }} wheel
-    --cache-dir={{ chiton_package_cache_dir }}
-    --wheel-dir={{ chiton_wheel_cache_dir }}
-    --find-links={{ chiton_wheel_cache_dir }}
-    -r {{ chiton_requirements_dir }}/{{ item }}
+    {{ chiton_current_pip_bin | quote }} wheel
+    --cache-dir={{ chiton_package_cache_dir | quote }}
+    --wheel-dir={{ chiton_wheel_cache_dir | quote }}
+    --find-links={{ chiton_wheel_cache_dir | quote }}
+    -r {{ chiton_requirements_dir | quote }}/{{ item }}
   with_items: "{{ chiton_requirements_files }}"
   register: chiton_pip_wheel
   changed_when: "'Successfully built' in chiton_pip_wheel.stdout"
@@ -69,10 +69,10 @@
 
 - name: install requirements from the pre-built wheels
   command: >-
-    {{ chiton_current_pip_bin }} install
+    {{ chiton_current_pip_bin | quote }} install
     --no-index
-    --find-links={{ chiton_wheel_cache_dir }}
-    -r {{ chiton_requirements_dir }}/{{ item }}
+    --find-links={{ chiton_wheel_cache_dir | quote }}
+    -r {{ chiton_requirements_dir | quote }}/{{ item }}
   with_items: "{{ chiton_requirements_files }}"
   register: chiton_pip_install
   changed_when: "'Installing collected packages' in chiton_pip_install.stdout"
@@ -81,9 +81,9 @@
 
 - name: install chiton
   command: >-
-    {{ chiton_current_pip_bin }} install
+    {{ chiton_current_pip_bin | quote }} install
     {{ chiton_allow_development | ternary('-e', '') }}
-    {{ chiton_source_dir }}
+    {{ chiton_source_dir | quote }}
   register: chiton_source_install
   changed_when: "'Installing collected packages' in chiton_source_install.stdout"
   become: yes
