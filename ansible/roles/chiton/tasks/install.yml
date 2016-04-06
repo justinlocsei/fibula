@@ -20,6 +20,10 @@
     chiton_current_version_assets_dir: "{{ chiton_current_version_dir }}/{{ chiton_assets_dir_name }}"
     chiton_current_version_virtualenv_dir: "{{ chiton_current_version_dir }}/{{ chiton_virtualenv_dir_name }}"
 
+- name: set the path to pip for the current version
+  set_fact:
+    chiton_current_pip_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_pip_bin }}"
+
 - name: ensure that the current version's directory exists
   file:
     path: "{{ chiton_current_version_dir }}"
@@ -51,29 +55,25 @@
   become_user: "{{ chiton_user }}"
 
 - name: build wheels for all requirements
-  shell: >-
-    {{ chiton_current_version_virtualenv_dir | quote }}/bin/{{ chiton_pip_bin }} wheel
-    --cache-dir={{ chiton_package_cache_dir | quote }}
-    --wheel-dir={{ chiton_wheel_cache_dir | quote }}
-    --find-links={{ chiton_wheel_cache_dir | quote }}
-    -r {{ chiton_requirements_dir | quote }}/{{ item }}
-  with_items:
-    - core.txt
-    - development.txt
+  command: >-
+    {{ chiton_current_pip_bin }} wheel
+    --cache-dir={{ chiton_package_cache_dir }}
+    --wheel-dir={{ chiton_wheel_cache_dir }}
+    --find-links={{ chiton_wheel_cache_dir }}
+    -r {{ chiton_requirements_dir }}/{{ item }}
+  with_items: "{{ chiton_requirements_files }}"
   register: chiton_pip_wheel
   changed_when: "'Successfully built' in chiton_pip_wheel.stdout"
   become: yes
   become_user: "{{ chiton_user }}"
 
 - name: install requirements from the pre-built wheels
-  shell: >-
-    {{ chiton_current_version_virtualenv_dir | quote }}/bin/{{ chiton_pip_bin }} install
+  command: >-
+    {{ chiton_current_pip_bin }} install
     --no-index
-    --find-links={{ chiton_wheel_cache_dir | quote }}
-    -r {{ chiton_requirements_dir | quote }}/{{ item }}
-  with_items:
-    - core.txt
-    - development.txt
+    --find-links={{ chiton_wheel_cache_dir }}
+    -r {{ chiton_requirements_dir }}/{{ item }}
+  with_items: "{{ chiton_requirements_files }}"
   register: chiton_pip_install
   changed_when: "'Installing collected packages' in chiton_pip_install.stdout"
   become: yes
