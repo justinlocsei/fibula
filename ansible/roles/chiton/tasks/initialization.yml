@@ -1,17 +1,13 @@
 ---
 - name: run pending database migrations
-  shell: "{{ chiton_virtualenv_python_bin | quote }} manage.py migrate"
-  args:
-    chdir: "{{ chiton_source_dir }}"
+  command: "{{ chiton_manage_file | quote }} migrate"
   environment:
     CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
   register: chiton_migrate_result
   changed_when: "'No migrations to apply.' not in chiton_migrate_result.stdout"
 
 - name: create the in-app administrator account
-  shell: "{{ chiton_virtualenv_python_bin | quote }} manage.py chiton_ensuresuperuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
-  args:
-    chdir: "{{ chiton_source_dir }}"
+  command: "{{ chiton_manage_file | quote }} chiton_ensuresuperuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
   environment:
     CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
   no_log: yes
@@ -19,8 +15,6 @@
   changed_when: "'User modified' in chiton_ensuresuperuser_result.stdout"
 
 - name: load core fixtures
-  shell: "{{ chiton_virtualenv_python_bin | quote }} manage.py chiton_loadfixtures"
-  args:
-    chdir: "{{ chiton_source_dir }}"
+  command: "{{ chiton_manage_file | quote }} chiton_loadfixtures"
   environment:
     CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
