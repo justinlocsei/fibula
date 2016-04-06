@@ -79,6 +79,16 @@
   become: yes
   become_user: "{{ chiton_user }}"
 
+- name: install chiton
+  command: >-
+    {{ chiton_current_pip_bin }} install
+    {{ chiton_allow_development | ternary('-e', '') }}
+    {{ chiton_source_dir }}
+  register: chiton_source_install
+  changed_when: "'Installing collected packages' in chiton_source_install.stdout"
+  become: yes
+  become_user: "{{ chiton_user }}"
+
 - name: create a symlink to the current version
   file:
     src: "{{ chiton_current_version_dir }}"
