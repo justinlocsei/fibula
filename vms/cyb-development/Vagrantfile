@@ -3,7 +3,7 @@ Vagrant.configure(2) do |config|
   require_relative "../fibula"
 
   config.vm.define("development", primary: true) do |config|
-    host_vars = Fibula.ansible_group_vars("development")
+    group_vars = Fibula.ansible_group_vars("development")
 
     config.vm.box = "fibula/ubuntu-14.04"
     config.vm.hostname = Fibula.hostname("development-www")
@@ -15,20 +15,20 @@ Vagrant.configure(2) do |config|
     config.ssh.private_key_path = Fibula.private_key_path
     config.ssh.forward_agent = true
 
-    config.vm.synced_folder *Fibula.sync_home_options(host_vars.fetch("vagrant_host_home_dir"))
+    config.vm.synced_folder *Fibula.sync_home_options(group_vars.fetch("vagrant_host_home_dir"))
 
     config.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
-      group_id: host_vars.fetch("himation_group_id"),
-      guest: host_vars.fetch("himation_source_dir"),
+      group_id: group_vars.fetch("himation_group_id"),
+      guest: group_vars.fetch("himation_source_dir"),
       host: ENV.fetch("CYB_NFS_DIR_HIMATION"),
-      user_id: host_vars.fetch("himation_user_id")
+      user_id: group_vars.fetch("himation_user_id")
     })
 
     config.vm.synced_folder *Fibula.sync_guest_nfs_dir_options({
-      group_id: host_vars.fetch("chiton_group_id"),
-      guest: host_vars.fetch("chiton_source_dir"),
+      group_id: group_vars.fetch("chiton_group_id"),
+      guest: group_vars.fetch("chiton_source_dir"),
       host: ENV.fetch("CYB_NFS_DIR_CHITON"),
-      user_id: host_vars.fetch("chiton_user_id")
+      user_id: group_vars.fetch("chiton_user_id")
     })
 
     config.vm.provider "virtualbox" do |vbox|
