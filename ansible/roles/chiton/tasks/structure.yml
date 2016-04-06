@@ -14,4 +14,5 @@
     - "{{ chiton_versions_dir }}"
     - "{{ chiton_var_dir }}"
     - "{{ chiton_config_dir }}"
+    - "{{ chiton_scripts_dir }}"
     - "{{ chiton_package_cache_dir }}"

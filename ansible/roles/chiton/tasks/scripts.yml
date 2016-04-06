@@ -2,10 +2,10 @@
 - name: create the database scripts
   template:
     src: "{{ item.src }}"
-    dest: "{{ chiton_source_dir }}/scripts/db/{{ item.dest }}"
+    dest: "{{ chiton_scripts_dir }}/{{ item.dest }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0700
   with_items:
-    - { src: "db-dump.j2", dest: "dump" }
-    - { src: "db-restore.j2", dest: "restore" }
+    - { src: "db-dump.j2", dest: "db-dump" }
+    - { src: "db-restore.j2", dest: "db-restore" }
