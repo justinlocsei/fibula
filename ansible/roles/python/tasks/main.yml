@@ -21,3 +21,9 @@
   apt:
     name: python-virtualenv
     state: latest
+
+- name: upgrade pip
+  pip:
+    name: pip
+    executable: "{{ python_pip_executable }}"
+    state: latest
