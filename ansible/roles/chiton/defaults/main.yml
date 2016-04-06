@@ -1,5 +1,5 @@
 ---
-chiton_activate_venv: no
+chiton_activate_virtualenv: no
 chiton_admin_email: noreply@coveryourbasics.com
 chiton_admin_name: Chiton
 chiton_admin_password: null

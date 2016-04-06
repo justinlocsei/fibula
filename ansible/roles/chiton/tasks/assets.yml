@@ -8,7 +8,7 @@
     state: directory
 
 - name: collect the assets
-  shell: "{{ chiton_venv_python_bin | quote }} manage.py collectstatic --clear --noinput"
+  shell: "{{ chiton_virtualenv_python_bin | quote }} manage.py collectstatic --clear --noinput"
   args:
     chdir: "{{ chiton_source_dir }}"
   environment:
