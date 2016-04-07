@@ -1,0 +1,8 @@
+[uwsgi]
+daemonize2 = {{ chiton_zerg_pool_log_path }}
+gid = {{ chiton_group }}
+master = true
+pidfile2 = {{ chiton_zerg_pool_pidfile_path }}
+uid = {{ chiton_user }}
+vacuum = true
+zerg-pool = {{ chiton_zerg_pool_socket_path }}:{{ chiton_socket_path }}

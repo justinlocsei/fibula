@@ -8,13 +8,15 @@ harakiri = {{ chiton_uwsgi_harakiri }}
 master = true
 module = chiton.wsgi:application
 processes = {{ chiton_uwsgi_processes }}
-socket = {{ chiton_socket_path }}
+socket = {{ chiton_zerg_pool_socket_path }}
 stats = {{ chiton_uwsgi_stats_address }}
 threads = {{ chiton_uwsgi_threads }}
 thunder-lock = true
 uid = {{ chiton_user }}
 vacuum = true
 virtualenv = {{ chiton_virtualenv_dir }}
+zerg = {{ chiton_zerg_pool_socket_path }}
+zerg-fallback = true
 
 {% if chiton_daemonize %}
 daemonize2 = {{ chiton_log_path }}

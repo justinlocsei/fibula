@@ -7,6 +7,16 @@
     group: "{{ chiton_group }}"
     mode: 0600
 
+- name: create a uWSGI zerg-pool configuration file
+  template:
+    src: uwsgi-zerg.ini.j2
+    dest: "{{ chiton_zerg_pool_ini_file }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0600
+  notify:
+    - restart chiton
+
 - name: create a uWSGI configuration file
   template:
     src: uwsgi.ini.j2
