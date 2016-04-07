@@ -34,12 +34,12 @@ chiton_virtualenv_uwsgi_bin: "{{ chiton_virtualenv_dir }}/bin/uwsgi"
 
 chiton_master_log_path: "{{ chiton_log_dir_final }}/chiton-master.log"
 chiton_master_pidfile_path: "{{ chiton_run_dir_final }}/chiton-master.pid"
-chiton_master_socket_path: "{{ chiton_run_dir_final }}/chiton-master.sock"
-chiton_master_uwsgi_ini_file: "{{ chiton_config_dir }}/chiton-master.ini"
+chiton_master_socket_path: "{{ chiton_run_dir_final }}/chiton.sock"
+chiton_master_uwsgi_ini_file: "{{ chiton_config_dir }}/uwsgi-master.ini"
 chiton_slave_log_path: "{{ chiton_log_dir_final }}/chiton-slave.log"
 chiton_slave_pidfile_path: "{{ chiton_run_dir_final }}/chiton-slave.pid"
 chiton_slave_socket_path: "{{ chiton_run_dir_final }}/chiton-slave.sock"
-chiton_slave_uwsgi_ini_file: "{{ chiton_config_dir }}/chiton-slave.ini"
+chiton_slave_uwsgi_ini_file: "{{ chiton_config_dir }}/uwsgi-slave.ini"
 
 chiton_requirements_files:
   - core.txt

@@ -1,6 +1,5 @@
 [uwsgi]
 chdir = {{ chiton_root_dir }}
-chmod-socket = 660
 env = CHITON_CONFIG_FILE={{ chiton_config_file }}
 env = DJANGO_SETTINGS_MODULE=chiton.settings
 gid = {{ chiton_group }}
@@ -8,15 +7,12 @@ harakiri = {{ chiton_uwsgi_harakiri }}
 master = true
 module = chiton.wsgi:application
 processes = {{ chiton_uwsgi_processes }}
-stats = {{ chiton_uwsgi_stats_address }}
-threads = {{ chiton_uwsgi_threads }}
-thunder-lock = true
 uid = {{ chiton_user }}
-vacuum = true
 virtualenv = {{ chiton_virtualenv_dir }}
-zerg = {{ chiton_master_socket_path }}
+zerg = {{ chiton_slave_socket_path }}
 
 {% if chiton_daemonize %}
 daemonize2 = {{ chiton_slave_log_path }}
 pidfile2 = {{ chiton_slave_pidfile_path }}
+vacuum = true
 {% endif %}

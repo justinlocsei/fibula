@@ -1,8 +1,11 @@
 [uwsgi]
+chmod-socket = 660
 daemonize2 = {{ chiton_master_log_path }}
+enable-threads = true
 gid = {{ chiton_group }}
 master = true
 pidfile2 = {{ chiton_master_pidfile_path }}
+stats = {{ chiton_uwsgi_stats_address }}
 uid = {{ chiton_user }}
 vacuum = true
-zerg-pool = {{ chiton_master_socket_path }}:{{ chiton_slave_socket_path }}
+zerg-pool = {{ chiton_slave_socket_path }}:{{ chiton_master_socket_path }}
