@@ -7,20 +7,20 @@
     group: "{{ chiton_group }}"
     mode: 0600
 
-- name: create a uWSGI zerg-pool configuration file
+- name: create a master uWSGI configuration file
   template:
-    src: uwsgi-zerg.ini.j2
-    dest: "{{ chiton_zerg_pool_ini_file }}"
+    src: uwsgi-master.ini.j2
+    dest: "{{ chiton_master_uwsgi_ini_file }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600
   notify:
     - restart chiton
 
-- name: create a uWSGI configuration file
+- name: create a slave uWSGI configuration file
   template:
-    src: uwsgi.ini.j2
-    dest: "{{ chiton_uwsgi_ini_file }}"
+    src: uwsgi-slave.ini.j2
+    dest: "{{ chiton_slave_uwsgi_ini_file }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600

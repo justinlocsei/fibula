@@ -1,5 +1,5 @@
 upstream {{ chiton_server_upstream_name }} {
-  server unix://{{ chiton_public_socket_path }};
+  server unix://{{ chiton_master_socket_path }};
 }
 
 server {
