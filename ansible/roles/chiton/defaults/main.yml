@@ -24,8 +24,8 @@ chiton_group: chiton
 chiton_group_id: null
 chiton_log_dir: null
 chiton_log_level: INFO
-chiton_pip_bin: pip
-chiton_python_bin: python
+chiton_pip_bin_name: pip
+chiton_python_bin_name: python
 chiton_root_dir: /var/cyb-chiton
 chiton_run_dir: null
 chiton_server_email: noreply@coveryourbasics.com

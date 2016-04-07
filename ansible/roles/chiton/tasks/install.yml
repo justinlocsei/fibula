@@ -49,7 +49,7 @@
 
 - name: set the path to pip for the current version
   set_fact:
-    chiton_current_pip_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_pip_bin }}"
+    chiton_current_pip_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_pip_bin_name }}"
 
 - name: ensure that the current version's directory exists
   file:
@@ -66,9 +66,9 @@
       pip:
         name: pip
         version: "{{ chiton_pip_version }}"
-        executable: "{{ chiton_pip_bin }}"
+        executable: "{{ chiton_pip_bin_name }}"
         virtualenv: "{{ chiton_current_version_virtualenv_dir }}"
-        virtualenv_python: "{{ chiton_python_bin }}"
+        virtualenv_python: "{{ chiton_python_bin_name }}"
         virtualenv_site_packages: no
         state: present
 
@@ -76,7 +76,7 @@
       pip:
         name: wheel
         version: "{{ chiton_wheel_version }}"
-        executable: "{{ chiton_pip_bin }}"
+        executable: "{{ chiton_pip_bin_name }}"
         virtualenv: "{{ chiton_current_version_virtualenv_dir }}"
         state: present
 
