@@ -21,3 +21,18 @@
     - develop
     - test
   when: chiton_allow_development
+
+- name: create an init script for chiton
+  template:
+    src: init.j2
+    dest: /etc/init.d/chiton
+    owner: root
+    group: root
+    mode: 0755
+  when: chiton_daemonize
+
+- name: run chiton at boot
+  service:
+    name: chiton
+    enabled: yes
+  when: chiton_daemonize

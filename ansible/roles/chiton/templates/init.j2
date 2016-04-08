@@ -1,0 +1,61 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          gunicorn
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Chiton WSGI server
+# Description:       Controls the chiton WSGI server
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+GUNICORN="{{ chiton_virtualenv_gunicorn_bin }}"
+GUNICORN_CONFIG="{{ chiton_gunicorn_config_file }}"
+PIDFILE="{{ chiton_server_pidfile_path }}"
+RAINBOW_SADDLE="{{ chiton_virtualenv_rainbow_saddle_bin }}"
+
+USER_OPTIONS="--chuid {{ chiton_user }}:{{ chiton_group }}"
+
+start() {
+  start-stop-daemon --start --pidfile "$PIDFILE" $USER_OPTIONS "$RAINBOW_SADDLE" -- --pid "$PIDFILE" "$GUNICORN" --config "$GUNICORN_CONFIG"
+}
+
+stop() {
+  start-stop-daemon --stop --pidfile "$PIDFILE" --oknodo --retry 30 $USER_OPTIONS
+}
+
+reload() {
+  start-stop-daemon --stop --pidfile "$PIDFILE" --signal HUP $USER_OPTIONS
+  if [ $? = 1 ]; then
+    start
+  fi
+}
+
+restart() {
+  stop
+  start
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  reload)
+    reload
+    ;;
+  restart)
+    restart
+    ;;
+  *)
+    echo "Usage $0 {start|stop|reload|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
