@@ -1,4 +1,4 @@
 #!/bin/bash
 # {{ ansible_managed}}
 
-"{{ chiton_virtualenv_gunicorn_bin }}" --config "{{ chiton_gunicorn_config_file }}" chiton.wsgi
+"{{ chiton_virtualenv_gunicorn_bin }}" --config "{{ chiton_gunicorn_config_file }}" {{ chiton_wsgi_module }}

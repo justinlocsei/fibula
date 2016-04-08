@@ -9,6 +9,7 @@ chiton_server_proxy_name: chiton-proxy
 chiton_server_upstream_name: chiton-upstream
 chiton_virtualenv_dir_name: venv
 chiton_wheel_version: 0.29.0
+chiton_wsgi_module: chiton.wsgi
 
 chiton_assets_dir: "{{ chiton_current_dir }}/{{ chiton_assets_dir_name }}"
 chiton_current_dir: "{{ chiton_root_dir }}/current"

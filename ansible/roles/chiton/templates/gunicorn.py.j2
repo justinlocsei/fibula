@@ -1,8 +1,7 @@
 bind = 'unix:{{ chiton_server_socket_path }}'
 chdir = '{{ chiton_root_dir }}'
-daemonize = {{ chiton_daemonize | ternary("True", "False") }}
+daemon = False
 group = '{{ chiton_group }}'
-pidfile = '{{ chiton_server_pidfile_slave_path }}'
 preload_app = {{ chiton_allow_development | ternary("False", "True") }}
 reload = {{ chiton_allow_development | ternary("True", "False") }}
 threads = {{ chiton_gunicorn_threads }}
