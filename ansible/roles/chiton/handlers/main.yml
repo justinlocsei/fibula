@@ -1,9 +1,6 @@
 ---
-- name: restart chiton
-  shell: "{{ chiton_virtualenv_uwsgi_bin | quote }} --ini {{ chiton_master_uwsgi_ini_file | quote }} $(if [ -f '{{ chiton_master_pidfile_path | quote }}' ]; then echo '--reload {{ chiton_master_pidfile_path | quote }}'; fi)"
-  notify:
-    - reload chiton
-
 - name: reload chiton
-  shell: "{{ chiton_virtualenv_uwsgi_bin | quote }} --ini {{ chiton_slave_uwsgi_ini_file | quote }} $(if [ -f '{{ chiton_slave_pidfile_path | quote }}' ]; then echo '--reload {{ chiton_slave_pidfile_path | quote }}'; fi)"
+  service:
+    name: chiton
+    state: reloaded
   when: chiton_daemonize

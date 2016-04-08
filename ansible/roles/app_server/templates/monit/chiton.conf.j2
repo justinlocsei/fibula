@@ -1,12 +1,5 @@
-check process chiton-master with pidfile {{ chiton_master_pidfile_path }}
-  start "{{ chiton_virtualenv_uwsgi_bin}} --ini {{ chiton_master_uwsgi_ini_file }}"
+check process chiton with pidfile {{ chiton_server_pidfile_path }}
+  start program = "/etc/init.d/chiton start"
     as uid {{ chiton_user }} and gid {{ chiton_group }}
-  stop "{{ chiton_virtualenv_uwsgi_bin}} --ini {{ chiton_master_uwsgi_ini_file }} --stop {{ chiton_master_pidfile_path }}"
-    as uid {{ chiton_user }} and gid {{ chiton_group }}
-
-check process chiton-slave with pidfile {{ chiton_slave_pidfile_path }}
-  depends on chiton-master
-  start "{{ chiton_virtualenv_uwsgi_bin}} --ini {{ chiton_slave_uwsgi_ini_file }}"
-    as uid {{ chiton_user }} and gid {{ chiton_group }}
-  stop "{{ chiton_virtualenv_uwsgi_bin}} --ini {{ chiton_slave_uwsgi_ini_file }} --stop {{ chiton_slave_pidfile_path }}"
+  stop program = "/etc/init.d/chiton stop"
     as uid {{ chiton_user }} and gid {{ chiton_group }}

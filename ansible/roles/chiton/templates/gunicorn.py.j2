@@ -1,0 +1,21 @@
+bind = 'unix:{{ chiton_server_socket_path }}'
+chdir = '{{ chiton_root_dir }}'
+daemonize = {{ chiton_daemonize | ternary("True", "False") }}
+group = '{{ chiton_group }}'
+pidfile = '{{ chiton_server_pidfile_slave_path }}'
+preload_app = {{ chiton_allow_development | ternary("False", "True") }}
+reload = {{ chiton_allow_development | ternary("True", "False") }}
+threads = {{ chiton_gunicorn_threads }}
+umask = 0o117
+user = '{{ chiton_user }}'
+workers = {{ chiton_gunicorn_workers }}
+
+accesslog = '{{ chiton_allow_development | ternary("-", chiton_server_access_log_path) }}'
+errorlog = '{{ chiton_allow_development | ternary("-", chiton_server_error_log_path) }}'
+log_level = '{{ chiton_gunicorn_log_level }}'
+syslog = False
+
+env = [
+  'CHITON_CONFIG_FILE={{ chiton_config_file }}',
+  'DJANGO_SETTINGS_MODULE=chiton.settings'
+]

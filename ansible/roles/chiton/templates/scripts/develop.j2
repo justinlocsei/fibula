@@ -1,4 +1,4 @@
 #!/bin/bash
 # {{ ansible_managed}}
 
-"{{ chiton_virtualenv_uwsgi_bin }}" --ini "{{ chiton_slave_uwsgi_ini_file }}"
+"{{ chiton_virtualenv_gunicorn_bin }}" --config "{{ chiton_gunicorn_config_file }}" chiton.wsgi

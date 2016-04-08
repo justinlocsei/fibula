@@ -1,5 +1,5 @@
 upstream {{ chiton_server_upstream_name }} {
-  server unix://{{ chiton_master_socket_path }};
+  server unix://{{ chiton_server_socket_path }};
 }
 
 server {
@@ -26,10 +26,14 @@ server {
     autoindex off;
   }
 
-  try_files $uri $uri/ @{{ chiton_server_upstream_name }};
-  location @{{ chiton_server_upstream_name }} {
-    include uwsgi_params;
-    uwsgi_pass {{ chiton_server_upstream_name }};
+  try_files $uri $uri/ @{{ chiton_server_proxy_name }};
+  location @{{ chiton_server_proxy_name }} {
+    proxy_redirect off;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+
+    proxy_pass http://{{ chiton_server_upstream_name }};
   }
 
   client_max_body_size 10M;

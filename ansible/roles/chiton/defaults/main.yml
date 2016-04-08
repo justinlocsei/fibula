@@ -22,6 +22,9 @@ chiton_db_user_password: null
 chiton_git_branch: master
 chiton_group: chiton
 chiton_group_id: null
+chiton_gunicorn_log_level: info
+chiton_gunicorn_threads: 1
+chiton_gunicorn_workers: 1
 chiton_log_dir: null
 chiton_log_level: INFO
 chiton_pip_bin_name: pip
@@ -32,12 +35,8 @@ chiton_server_email: noreply@coveryourbasics.com
 chiton_server_name: null
 chiton_server_port: 80
 chiton_server_port_https: 443
-chiton_server_upstream_name: chiton
 chiton_shopstyle_uid: null
 chiton_source_dir: "{{ chiton_root_dir }}/source"
 chiton_user: chiton
 chiton_user_authorized_keys: []
 chiton_user_id: null
-chiton_uwsgi_harakiri: 30
-chiton_uwsgi_processes: 1
-chiton_uwsgi_stats_address: 127.0.0.1:9191
