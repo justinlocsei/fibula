@@ -4,3 +4,9 @@
     name: chiton
     state: reloaded
   when: chiton_daemonize
+
+- name: restart chiton
+  service:
+    name: chiton
+    state: restarted
+  when: chiton_daemonize
