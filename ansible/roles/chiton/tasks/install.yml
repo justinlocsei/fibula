@@ -86,8 +86,9 @@
         --cache-dir={{ chiton_package_cache_dir | quote }}
         --wheel-dir={{ chiton_wheel_cache_dir | quote }}
         --find-links={{ chiton_wheel_cache_dir | quote }}
-        -r {{ chiton_requirements_dir | quote }}/{{ item }}
+        -r {{ chiton_requirements_dir | quote }}/{{ item.file }}
       with_items: "{{ chiton_requirements_files }}"
+      when: item.install
       register: chiton_pip_wheel
       changed_when: "'Successfully built' in chiton_pip_wheel.stdout"
 
@@ -96,8 +97,9 @@
         {{ chiton_current_pip_bin | quote }} install
         --no-index
         --find-links={{ chiton_wheel_cache_dir | quote }}
-        -r {{ chiton_requirements_dir | quote }}/{{ item }}
+        -r {{ chiton_requirements_dir | quote }}/{{ item.file }}
       with_items: "{{ chiton_requirements_files }}"
+      when: item.install
       register: chiton_pip_install
       changed_when: "'Installing collected packages' in chiton_pip_install.stdout"
 

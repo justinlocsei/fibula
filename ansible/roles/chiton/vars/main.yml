@@ -43,5 +43,7 @@ chiton_server_pidfile_path: "{{ chiton_run_dir_final }}/chiton-master.pid"
 chiton_server_socket_path: "{{ chiton_run_dir_final }}/chiton.sock"
 
 chiton_requirements_files:
-  - core.txt
-  - "{{ chiton_allow_tests | ternary('development.txt', omit) }}"
+  - file: core.txt
+    install: yes
+  - file: development.txt
+    install: "{{ chiton_allow_tests }}"
