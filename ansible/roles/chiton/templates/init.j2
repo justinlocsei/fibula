@@ -35,6 +35,7 @@ start() {
     --startas "$RAINBOW_SADDLE" \
     -- \
     --pid "$PIDFILE" \
+    --gunicorn-pidfile "$PIDFILE_SLAVE" \
     "$GUNICORN" --config "$GUNICORN_CONFIG" "{{ chiton_wsgi_module }}"
 }
 
