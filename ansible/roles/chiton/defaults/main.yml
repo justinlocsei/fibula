@@ -14,6 +14,8 @@ chiton_config_debug: no
 chiton_config_secret_key: null
 chiton_current_version: null
 chiton_daemonize: yes
+chiton_deploy_ssh_key: "{{ vault__chiton_deploy_ssh_key }}"
+chiton_deploy_ssh_key_public: "{{ vault__chiton_deploy_ssh_key_public }}"
 chiton_db_host: null
 chiton_db_port: null
 chiton_db_root_name: null
