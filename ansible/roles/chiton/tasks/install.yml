@@ -33,7 +33,7 @@
     dest: "{{ chiton_source_dir }}"
     repo: git@github.com:justinlocsei/chiton.git
     update: yes
-    version: "{{ chiton_git_branch }}"
+    version: "{{ chiton_git_ref }}"
   register: chiton_source_fetch
   become: yes
   become_user: "{{ chiton_user }}"
