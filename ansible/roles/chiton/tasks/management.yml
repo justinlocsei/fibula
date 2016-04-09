@@ -19,4 +19,4 @@
       command: "{{ chiton_manage_file | quote }} chiton_loadfixtures"
 
     - name: collect the assets
-      command: "{{ chiton_manage_file | quote }} collectstatic --clear --noinput"
+      command: "{{ chiton_manage_file | quote }} collectstatic --noinput"
