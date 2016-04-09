@@ -17,6 +17,8 @@
 
     - name: load core fixtures
       command: "{{ chiton_manage_file | quote }} chiton_loadfixtures"
+      register: chiton_loadfixtures_result
+      changed_when: "chiton_loadfixtures_result.stdout | search('New model count: [^0]')"
 
     - name: collect the assets
       command: "{{ chiton_manage_file | quote }} collectstatic --noinput"
