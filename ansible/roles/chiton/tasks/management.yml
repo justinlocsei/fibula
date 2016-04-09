@@ -1,5 +1,7 @@
 ---
-- environment:
+- become: yes
+  become_user: "{{ chiton_user }}"
+  environment:
     CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
   block:
     - name: run pending database migrations
