@@ -25,3 +25,7 @@ postfix_relay_user: cyb-development
 postfix_universal_redirect: development@coveryourbasics.com
 postgresql_server_allow_external_connections: yes
 vagrant_host_home_dir: /vagrant-host-home
+
+vagrant_hosts:
+  - user: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"

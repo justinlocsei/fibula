@@ -1,12 +1,12 @@
 ---
 - name: sync user configuration files
   file:
-    src: "{{ vagrant_host_home_dir }}/{{ item }}"
-    dest: "/home/{{ vagrant_host_user }}/{{ item }}"
-    owner: "{{ vagrant_host_user }}"
-    group: "{{ vagrant_host_group }}"
+    src: "{{ vagrant_host_home_dir }}/{{ item[1] }}"
+    dest: "/home/{{ item[0].user }}/{{ item[1] }}"
+    owner: "{{ item[0].user }}"
+    group: "{{ item[0].group }}"
     force: yes
     state: link
-  with_items:
-    - .gitconfig
-    - .tmux.conf
+  with_nested:
+    - "{{ vagrant_hosts }}"
+    - [".gitconfig", ".tmux.conf"]
