@@ -6,6 +6,7 @@ chiton_amazon_associates_tracking_id: covyoubas-dev-20
 chiton_config_debug: yes
 chiton_current_version: development
 chiton_daemonize: no
+chiton_git_ref: develop
 chiton_group: chiton
 chiton_group_id: 2000
 chiton_root_dir: /var/cyb-chiton
