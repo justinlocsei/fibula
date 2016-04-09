@@ -1,4 +1,0 @@
----
-- hosts: cloud:&app_servers
-  roles:
-    - role: app_server

@@ -1,0 +1,8 @@
+---
+- hosts: app_servers
+  roles:
+    - role: app_server
+
+- hosts: development
+  roles:
+    - role: development

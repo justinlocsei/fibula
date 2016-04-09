@@ -6,4 +6,4 @@ if ! which -s ansible-playbook; then
 fi
 
 cd ../../ansible || exit 1
-ansible-playbook playbooks/provision_cloud_server.yml -l staging "$@"
+ansible-playbook playbooks/provision.yml -l staging "$@"
