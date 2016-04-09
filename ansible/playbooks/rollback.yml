@@ -1,0 +1,6 @@
+---
+- hosts: app_servers
+  vars:
+    chiton_rollback_delta: 1
+  roles:
+    - app_server
