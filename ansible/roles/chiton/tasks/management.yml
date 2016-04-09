@@ -20,3 +20,5 @@
 
     - name: collect the assets
       command: "{{ chiton_manage_file | quote }} collectstatic --noinput"
+      register: chiton_collectstatic_result
+      changed_when: chiton_collectstatic_result.stdout | search("\n+[^0] static files? copied")
