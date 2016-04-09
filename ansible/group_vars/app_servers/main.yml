@@ -8,7 +8,7 @@ chiton_amazon_associates_aws_secret_access_key: "{{ vault__chiton_amazon_associa
 chiton_config_secret_key: "{{ vault__chiton_config_secret_key }}"
 chiton_db_user_password: "{{ vault__chiton_db_user_password }}"
 chiton_shopstyle_uid: "{{ vault__chiton_shopstyle_uid }}"
-cyb_certificates_wildcard_ca_bundle: "{{ vault__cyb_certificates_wildcard_ca_bundle | default(null) }}"
+cyb_certificates_wildcard_ca_bundle: "{{ vault__cyb_certificates_wildcard_ca_bundle | default('') }}"
 cyb_certificates_wildcard_certificate: "{{ vault__cyb_certificates_wildcard_certificate }}"
 cyb_certificates_wildcard_key: "{{ vault__cyb_certificates_wildcard_key }}"
 postfix_relay_password: "{{ vault__postfix_relay_password }}"
