@@ -1,0 +1,18 @@
+---
+dependencies:
+  - role: nfs_server
+  - role: vagrant
+  - role: firewall
+    firewall_ports:
+      - port: "{{ nfs_server_lockd_port }}"
+        protocol: any
+      - port: "{{ nfs_server_mountd_port }}"
+        protocol: any
+      - port: "{{ nfs_server_nfs_port }}"
+        protocol: any
+      - port: "{{ nfs_server_portmap_port }}"
+        protocol: any
+      - port: "{{ nfs_server_statd_port }}"
+        protocol: any
+      - port: "{{ nfs_server_statd_outgoing_port }}"
+        protocol: any
