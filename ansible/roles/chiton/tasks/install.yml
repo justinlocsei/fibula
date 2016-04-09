@@ -35,8 +35,19 @@
     update: yes
     version: "{{ chiton_git_ref }}"
   register: chiton_source_fetch
+  when: chiton_rollback_delta <= 0
   become: yes
   become_user: "{{ chiton_user }}"
+
+- when: chiton_rollback_delta > 0
+  block:
+    - name: determine the rollback version
+      shell: ls -t {{ chiton_versions_dir | quote }} | head -n {{ chiton_rollback_delta + 1 }} | tail -n 1
+      register: chiton_rollback_version
+
+    - name: set the current version to the rollback version
+      set_fact:
+        chiton_current_version: "{{ chiton_rollback_version.stdout }}"
 
 - name: set the directory for the current version
   set_fact:
@@ -126,3 +137,5 @@
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     state: link
+  notify:
+    - reload chiton
