@@ -9,6 +9,8 @@ chiton_allow_tests: no
 chiton_amazon_associates_aws_access_key_id: null
 chiton_amazon_associates_aws_secret_access_key: null
 chiton_amazon_associates_tracking_id: null
+chiton_backups_aws_access_key_id: null
+chiton_backups_aws_secret_access_key: null
 chiton_assets_url: /assets/
 chiton_config_debug: no
 chiton_config_secret_key: null
