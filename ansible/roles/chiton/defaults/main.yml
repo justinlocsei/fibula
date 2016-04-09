@@ -31,7 +31,7 @@ chiton_log_dir: null
 chiton_log_level: INFO
 chiton_pip_bin_name: pip
 chiton_python_bin_name: python
-chiton_rollback_delta: 0
+chiton_rollback_delta: null
 chiton_root_dir: /var/cyb-chiton
 chiton_run_dir: null
 chiton_server_email: noreply@coveryourbasics.com

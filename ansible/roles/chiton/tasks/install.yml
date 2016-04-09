@@ -35,11 +35,11 @@
     update: yes
     version: "{{ chiton_git_ref }}"
   register: chiton_source_fetch
-  when: chiton_rollback_delta <= 0
+  when: not chiton_rollback_delta
   become: yes
   become_user: "{{ chiton_user }}"
 
-- when: chiton_rollback_delta > 0
+- when: chiton_rollback_delta
   block:
     - name: determine the rollback version
       shell: ls -t {{ chiton_versions_dir | quote }} | head -n {{ chiton_rollback_delta + 1 }} | tail -n 1
