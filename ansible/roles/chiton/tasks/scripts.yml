@@ -1,13 +1,39 @@
 ---
-- name: create production scripts
-  template:
-    src: "scripts/{{ item }}.j2"
-    dest: "{{ chiton_scripts_dir }}/{{ item }}"
+- name: copy the requirements file for Python scripts
+  copy:
+    src: script-requirements.txt
+    dest: "{{ chiton_scripts_dir }}/.requirements.txt"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
-    mode: 0755
-  with_items:
-    - db
+    mode: 0644
+  register: chiton_scripts_requirements
+
+- become: yes
+  become_user: "{{ chiton_user }}"
+  block:
+    - name: create a virtualenv for Python scripts
+      pip:
+        name: pip
+        version: "{{ chiton_pip_version }}"
+        executable: "{{ chiton_pip_bin_name }}"
+        virtualenv: "{{ chiton_scripts_virtualenv_dir }}"
+        virtualenv_python: "{{ chiton_python_bin_name }}"
+        virtualenv_site_packages: no
+        state: present
+
+    - name: install requirements for Python scripts
+      pip:
+        requirements: "{{ chiton_scripts_requirements.path }}"
+        virtualenv: "{{ chiton_scripts_virtualenv_dir }}"
+        state: present
+
+- name: create the database script
+  template:
+    src: "scripts/db.j2"
+    dest: "{{ chiton_scripts_dir }}/db"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0700
 
 - name: create development scripts
   template:
