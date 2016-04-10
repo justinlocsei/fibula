@@ -70,7 +70,7 @@ class Email(BaseAction):
     def _each_domain_group(self):
         """Yield a three-tuple of a local domain, remote domain, and domain records."""
         email_domains = load_data('email')
-        remote_domains = self.do.get_all_domains()
+        remote_domains = self.do.manager.get_all_domains()
 
         for remote_domain in remote_domains:
             domain_records = remote_domain.get_records()

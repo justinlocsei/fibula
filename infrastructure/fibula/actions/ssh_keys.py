@@ -15,7 +15,7 @@ class SSHKeys(BaseAction):
 
     def add(self):
         """Add all SSH keys that are present in the manifest to Digital Ocean."""
-        remote_keys = self.do.get_all_sshkeys()
+        remote_keys = self.do.manager.get_all_sshkeys()
         local_keys = self._get_local_keys()
 
         for local_key in local_keys:
@@ -36,7 +36,7 @@ class SSHKeys(BaseAction):
 
     def sync(self):
         """Ensure that the values for Digital Ocean SSH keys match the manifest."""
-        remote_keys = self.do.get_all_sshkeys()
+        remote_keys = self.do.manager.get_all_sshkeys()
         local_keys = self._get_local_keys()
 
         for remote_key in remote_keys:
@@ -67,7 +67,7 @@ class SSHKeys(BaseAction):
 
     def prune(self):
         """Remove any Digital Ocean SSH keys that are not present in the manifest."""
-        remote_keys = self.do.get_all_sshkeys()
+        remote_keys = self.do.manager.get_all_sshkeys()
         local_keys = self._get_local_keys()
 
         for remote_key in remote_keys:
@@ -89,7 +89,7 @@ class SSHKeys(BaseAction):
         Returns:
             list: A list of dicts describing SSH keys
         """
-        email = self.do.get_account().email
+        email = self.do.manager.get_account().email
         ssh_keys = load_data('ssh_keys')
         return [k for k in ssh_keys if k['email'] == email]
 

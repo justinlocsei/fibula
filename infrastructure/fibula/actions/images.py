@@ -10,7 +10,7 @@ class Images(BaseAction):
     def list(self):
         """List all available images."""
         images = sorted(
-            self.do.get_distro_images(),
+            self.do.manager.get_distro_images(),
             key=lambda d: '%s %s' % (d.distribution, d.name)
         )
 

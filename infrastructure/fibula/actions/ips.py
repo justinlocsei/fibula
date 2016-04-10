@@ -9,7 +9,7 @@ class IPs(BaseAction):
 
     def prune(self):
         """Remove any unbound floating IPs."""
-        floating_ips = self.do.get_all_floating_ips()
+        floating_ips = self.do.manager.get_all_floating_ips()
 
         for floating_ip in floating_ips:
             ui = self.ui.group(floating_ip.ip)

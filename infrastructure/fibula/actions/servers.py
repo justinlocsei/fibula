@@ -18,8 +18,8 @@ class Servers(BaseAction):
 
     def create(self):
         """Create droplets that appear in the manifest but not on Digital Ocean."""
-        ssh_keys = self.do.get_all_sshkeys()
-        droplets = self.do.get_all_droplets()
+        ssh_keys = self.do.manager.get_all_sshkeys()
+        droplets = self.do.manager.get_all_droplets()
 
         servers = load_data('cloud')['servers']
         droplet_names = [d.name for d in droplets]
@@ -57,7 +57,7 @@ class Servers(BaseAction):
         differences are detected for properties that cannot be changed for an
         existing instance, such as the region.
         """
-        droplets = self.do.get_all_droplets()
+        droplets = self.do.manager.get_all_droplets()
         servers = load_data('cloud')['servers']
 
         to_edit = []
@@ -121,7 +121,7 @@ class Servers(BaseAction):
 
     def prune(self):
         """Remove any remote servers that do not appear in the manifest."""
-        droplets = self.do.get_all_droplets()
+        droplets = self.do.manager.get_all_droplets()
         servers = load_data('cloud')['servers']
 
         server_names = [s['name'] for s in servers]
@@ -169,7 +169,7 @@ class Servers(BaseAction):
         Returns:
             digitalocean.Image: The image matching the slug
         """
-        images = self.do.get_distro_images()
+        images = self.do.manager.get_distro_images()
         matches = [i for i in images if i.slug == slug]
 
         if len(matches):

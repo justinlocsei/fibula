@@ -12,15 +12,15 @@ class Domains(BaseAction):
     def create(self):
         """Create domains on Digital Ocean from the manifest."""
         local_domains = load_data('cloud')['domains']
-        remote_domains = self.do.get_all_domains()
+        remote_domains = self.do.manager.get_all_domains()
 
         remote_domain_names = [d.name for d in remote_domains]
         missing_domains = [d for d in local_domains if d['fqdn'] not in remote_domain_names]
 
         for domain in missing_domains:
             ui = self.ui.group(domain['fqdn'])
-            droplet = self.get_named_droplet(domain['root_server'])
-            floating_ip = self.get_droplet_floating_ip(droplet)
+            droplet = self.do.get_named_droplet(domain['root_server'])
+            floating_ip = self.do.get_droplet_floating_ip(droplet)
 
             remote_domain = Domain(
                 name=domain['fqdn'],
@@ -44,7 +44,7 @@ class Domains(BaseAction):
     def sync(self):
         """Ensure that the Digital Ocean domains match the manifest."""
         local_domains = load_data('cloud')['domains']
-        remote_domains = self.do.get_all_domains()
+        remote_domains = self.do.manager.get_all_domains()
 
         existing_domains = []
         for local_domain in local_domains:
@@ -55,8 +55,8 @@ class Domains(BaseAction):
         for local_domain, remote_domain in existing_domains:
             ui = self.ui.group(remote_domain.name)
             a_record = [r for r in remote_domain.get_records() if r.type == 'A'][0]
-            droplet = self.get_named_droplet(local_domain['root_server'])
-            floating_ip = self.get_droplet_floating_ip(droplet)
+            droplet = self.do.get_named_droplet(local_domain['root_server'])
+            floating_ip = self.do.get_droplet_floating_ip(droplet)
 
             if a_record.data != floating_ip.ip:
                 previous_ip = a_record.data
@@ -73,7 +73,7 @@ class Domains(BaseAction):
     def prune(self):
         """Remove unused remote domains."""
         local_domains = load_data('cloud')['domains']
-        remote_domains = self.do.get_all_domains()
+        remote_domains = self.do.manager.get_all_domains()
 
         local_domain_names = [d['fqdn'] for d in local_domains]
         remote_domain_names = [d.name for d in remote_domains]

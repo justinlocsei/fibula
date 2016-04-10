@@ -10,15 +10,15 @@ class DNS(BaseAction):
     def add(self):
         """Create DNS entries for each server's subdomains."""
         local_servers = load_data('cloud')['servers']
-        remote_domains = self.do.get_all_domains()
+        remote_domains = self.do.manager.get_all_domains()
 
         for domain in remote_domains:
             subdomains = [s.name for s in self._get_subdomains(domain)]
 
             for server in local_servers:
                 ui = self.ui.group(domain.name, server['name'])
-                droplet = self.get_named_droplet(server['name'])
-                floating_ip = self.get_droplet_floating_ip(droplet)
+                droplet = self.do.get_named_droplet(server['name'])
+                floating_ip = self.do.get_droplet_floating_ip(droplet)
 
                 for fqdn in server['fqdns']:
                     subdomain_name, domain_name = fqdn.split(".", 1)
@@ -38,7 +38,7 @@ class DNS(BaseAction):
     def sync(self):
         """Ensure that the subdomains for servers match the DNS records."""
         local_servers = load_data('cloud')['servers']
-        remote_domains = self.do.get_all_domains()
+        remote_domains = self.do.manager.get_all_domains()
 
         for domain in remote_domains:
             subdomains = self._get_subdomains(domain)
@@ -46,8 +46,8 @@ class DNS(BaseAction):
 
             for server in local_servers:
                 ui = self.ui.group(domain.name, server['name'])
-                droplet = self.get_named_droplet(server['name'])
-                floating_ip = self.get_droplet_floating_ip(droplet)
+                droplet = self.do.get_named_droplet(server['name'])
+                floating_ip = self.do.get_droplet_floating_ip(droplet)
 
                 for fqdn in server['fqdns']:
                     subdomain_name, domain_name = fqdn.split(".", 1)
