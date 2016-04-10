@@ -18,6 +18,8 @@ dependencies:
     chiton_db_root_name: "{{ postgresql_server_root_user }}"
     chiton_db_root_password: "{{ postgresql_server_root_password }}"
     chiton_pip_bin_name: "{{ python_pip_executable }}"
+    chiton_pg_dump_path: "{{ postgresql_server_pg_dump_path }}"
+    chiton_pg_restore_path: "{{ postgresql_server_pg_restore_path }}"
     chiton_python_bin_name: "{{ python_executable }}"
   - role: nginx
   - role: postfix

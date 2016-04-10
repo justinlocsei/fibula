@@ -31,6 +31,8 @@ chiton_gunicorn_threads: 1
 chiton_gunicorn_workers: 1
 chiton_log_dir: null
 chiton_log_level: INFO
+chiton_pg_dump_path: pg_dump
+chiton_pg_restore_path: pg_restore
 chiton_pip_bin_name: pip
 chiton_python_bin_name: python
 chiton_rollback_delta: null
