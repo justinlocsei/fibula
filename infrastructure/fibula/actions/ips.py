@@ -1,5 +1,4 @@
 from fibula.actions.base import BaseAction
-from fibula.data import load_data
 
 
 class IPs(BaseAction):
