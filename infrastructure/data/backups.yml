@@ -1,0 +1,8 @@
+---
+s3_buckets:
+  - name: chiton-backups-development
+    user: backups-development
+  - name: chiton-backups-staging
+    user: backups-staging
+  - name: chiton-backups-production
+    user: backups-production

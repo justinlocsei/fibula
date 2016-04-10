@@ -148,3 +148,15 @@ def email_forward():
 def email_whitelabel():
     """Add DNS records to whitelabel email domains."""
     actions.Email().whitelabel()
+
+
+@cli.group()
+def backups():
+    """Manage backup settings."""
+    pass
+
+
+@backups.command('configure')
+def backups_cofnigure():
+    """Configure remote resources for backups."""
+    actions.Backups().configure()
