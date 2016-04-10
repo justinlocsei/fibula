@@ -5,6 +5,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
+        'boto==2.39.0',
         'click==6.4',
         'python-digitalocean==1.8'
     ],
