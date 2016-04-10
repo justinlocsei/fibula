@@ -1,4 +1,18 @@
 #!/bin/bash
 
+refresh=0
+
+case "$1" in
+  --refresh)
+    refresh=1
+  ;;
+esac
+
 cd "{{ chiton_source_dir }}" || exit 1
-tox
+
+if [[ $refresh == 1 ]]; then
+  tox --recreate
+  py.test --create-db
+else
+  tox
+fi
