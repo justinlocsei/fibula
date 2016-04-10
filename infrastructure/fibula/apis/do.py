@@ -3,7 +3,7 @@ import os
 import digitalocean
 
 
-class DO:
+class API:
     """An interface to the Digital Ocean API."""
 
     def __init__(self):

@@ -1,4 +1,4 @@
-from fibula.apis.do import DO
+from fibula.apis.do import API as DigitalOcean
 from fibula.communicator import Communicator
 
 
@@ -11,4 +11,4 @@ class BaseAction:
         """Create a new action."""
         self.ui = Communicator(label=self.log_prefix)
 
-        self.do = DO()
+        self.do = DigitalOcean()
