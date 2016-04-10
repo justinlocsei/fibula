@@ -1,14 +1,13 @@
 ---
-- name: create the database scripts
+- name: create production scripts
   template:
     src: "scripts/{{ item }}.j2"
     dest: "{{ chiton_scripts_dir }}/{{ item }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
-    mode: 0700
+    mode: 0755
   with_items:
-    - db-dump
-    - db-restore
+    - db
 
 - name: create development scripts
   template:

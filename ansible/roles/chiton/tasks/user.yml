@@ -49,3 +49,12 @@
     key: "{{ chiton_user_authorized_keys | join('\n') }}"
     exclusive: yes
     state: present
+
+- name: manage sudo permissions for the app user
+  template:
+    src: templates/sudoers.j2
+    dest: /etc/sudoers.d/{{ chiton_user }}
+    mode: 0440
+    owner: root
+    group: root
+    validate: visudo -cf %s

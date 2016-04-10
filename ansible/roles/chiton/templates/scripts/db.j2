@@ -1,0 +1,40 @@
+#!/bin/bash
+
+ACTION="$1"
+BACKUP="$2"
+
+DB_NAME="{{ chiton_db_name }}"
+DB_USER="{{ chiton_db_root_name }}"
+
+usage() {
+  echo "$0 [dump|restore] BACKUP_FILE"
+}
+
+dump() {
+  sudo -u "$DB_USER" {{ chiton_pg_dump_path }} --format=c --dbname="$DB_NAME" > "$BACKUP"
+  chmod 600 "$BACKUP"
+  echo "A full database backup was created at \"$BACKUP\""
+}
+
+restore() {
+  sudo -u "$DB_USER" {{ chiton_pg_restore_path }} --clean --format=c --dbname="$DB_NAME" "$BACKUP"
+  echo "The \"{{ chiton_db_name }}\" database was restored from the backup at \"$BACKUP\""
+}
+
+if [[ -z "$ACTION" ]] || [[ -z "$BACKUP" ]]; then
+  usage
+  exit 1
+fi
+
+case "$ACTION" in
+  dump)
+    dump
+    ;;
+  restore)
+    restore
+    ;;
+  *)
+    usage
+    exit 1
+    ;;
+esac
