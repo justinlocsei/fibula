@@ -12,6 +12,7 @@ chiton_wheel_version: 0.29.0
 chiton_wsgi_module: chiton.wsgi
 
 chiton_assets_dir: "{{ chiton_current_dir }}/{{ chiton_assets_dir_name }}"
+chiton_backups_dir: "{{ chiton_var_dir }}/backups"
 chiton_current_dir: "{{ chiton_root_dir }}/current"
 chiton_config_dir: "{{ chiton_root_dir }}/config"
 chiton_package_cache_dir: "{{ chiton_root_dir }}/.packages"
