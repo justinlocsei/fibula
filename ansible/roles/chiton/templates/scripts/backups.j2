@@ -1,0 +1,177 @@
+#!{{ chiton_scripts_virtualenv_python_bin }}
+
+import datetime
+import os
+import subprocess
+import time
+
+import boto
+from boto.s3.key import Key
+from boto.s3.lifecycle import Expiration, Lifecycle, Transition, Rule
+import click
+
+
+AWS_ACCESS_KEY_ID = '{{ chiton_backups_aws_access_key_id }}'
+AWS_SECRET_ACCESS_KEY = '{{ chiton_backups_aws_secret_access_key }}'
+BACKUPS_DIR = '{{ chiton_backups_dir }}'
+BUCKET_NAME = '{{ chiton_backups_s3_bucket }}'
+DB_NAME = '{{ chiton_db_name }}'
+DB_USER = '{{ chiton_db_root_name }}'
+PG_DUMP = '{{ chiton_pg_dump_path }}'
+PG_RESTORE = '{{ chiton_pg_restore_path }}'
+REMOTE_PREFIX = 'db/'
+RETENTION_DAYS = {{ chiton_backups_local_retention_days }}
+
+
+def dump_db():
+    """Create a dump of the database.
+
+    Returns:
+      str: The path to the file
+    """
+    timestamp = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
+    backup_path = os.path.join(BACKUPS_DIR, timestamp)
+
+    with open(backup_path, 'wb') as backup:
+        sudo_args = ['sudo', '-u', DB_USER]
+        pg_dump_args = [PG_DUMP, '--format', 'c', '--dbname', DB_NAME]
+        pg_dump = subprocess.Popen(sudo_args + pg_dump_args, stdout=backup)
+        pg_dump.wait()
+
+    os.chmod(backup_path, 0o600)
+
+    return backup_path
+
+
+def restore_db(dump):
+    """Restore the database from a dump.
+
+    Args:
+      dump (str): The path to the dump file
+    """
+    with open(dump, 'rb') as backup:
+        sudo_args = ['sudo', '-u', DB_USER]
+        pg_restore_args = [PG_RESTORE, '--clean', '--format', 'c', '--dbname', DB_NAME]
+        pg_restore = subprocess.Popen(sudo_args + pg_restore_args, stdin=backup)
+        pg_restore.wait()
+
+
+def upload_backup(backup):
+    """Upload a backup to the remote site.
+
+    Args:
+        backup (str): The path to the local backup file
+
+    Returns:
+        str: The remote path for the backup
+    """
+    bucket = get_backups_bucket()
+    remote = Key(bucket)
+    remote.key = '%s%s' % (REMOTE_PREFIX, os.path.basename(backup))
+
+    with open(backup, 'rb') as local:
+        remote.set_contents_from_file(local)
+
+    return remote.key
+
+
+def download_backup():
+    """Allow the user to download a selected remote backup.
+
+    Returns:
+        str: The path to the downloaded backup
+    """
+    backups = []
+    index = 0
+    bucket = get_backups_bucket()
+
+    print('Available backups\n--')
+    for remote in bucket.list(prefix=REMOTE_PREFIX):
+        if remote.size > 0:
+            backups.append(remote)
+            index += 1
+            print('%d: %s (%dkb)' % (index, remote.name, remote.size / 1000))
+
+    print('--')
+    selected = click.prompt('Select the backup ID to download', type=int)
+    if selected < 1 or selected > len(backups):
+        raise ValueError('The bacup ID must be be between 1 and %d' % len(backups))
+
+    backup = backups[selected - 1]
+    local_name = backup.name.replace(REMOTE_PREFIX, '')
+    local_path = os.path.join(BACKUPS_DIR, local_name)
+    backup.get_contents_to_filename(local_path)
+
+    return local_path
+
+
+def clear_old_backups(days):
+    """Remove local backups older than a certain value.
+
+    Args:
+        days (int): The maximum age, in days, for a backup
+
+    Returns:
+        int: The number of backups cleared
+    """
+    cleared = 0
+    current_time = time.time()
+    old_file_cutoff_time = days * 24 * 60 * 60
+
+    for backup in os.listdir(BACKUPS_DIR):
+        full_path = os.path.join(BACKUPS_DIR, backup)
+        if not os.path.isfile(full_path):
+            next
+
+        file_time = os.path.getmtime(full_path)
+        if current_time - file_time > old_file_cutoff_time:
+            os.remove(full_path)
+            cleared += 1
+
+    return cleared
+
+
+def get_backups_bucket():
+    """Get the S3 bucket containing backups.
+
+    Returns:
+        boto.s3.bucket.Bucket
+    """
+    connection = boto.connect_s3(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+    return connection.get_bucket(BUCKET_NAME)
+
+
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
+def create():
+    local_path = dump_db()
+    print('Created a local backup at "%s"' % local_path)
+
+    remote_path = upload_backup(local_path)
+    print('Created a remote backup at "%s"' % remote_path)
+
+    cleared = clear_old_backups(RETENTION_DAYS)
+    if cleared > 0:
+        print('Old backups cleared: %d' % cleared)
+
+
+@cli.command()
+@click.argument('file', type=click.Path(exists=True))
+def restore(file):
+    full_path = click.format_filename(file)
+    restore_db(full_path)
+    print('Restored the database from the local backup at "%s"' % full_path)
+
+
+@cli.command()
+def download():
+    download_path = download_backup()
+    print('Backup downloaded to "%s"' % download_path)
+
+
+if __name__ == '__main__':
+    cli()

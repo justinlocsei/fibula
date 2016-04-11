@@ -27,10 +27,10 @@
         virtualenv: "{{ chiton_scripts_virtualenv_dir }}"
         state: present
 
-- name: create the database script
+- name: create the backup script
   template:
-    src: "scripts/db.j2"
-    dest: "{{ chiton_scripts_dir }}/db"
+    src: "scripts/backups.j2"
+    dest: "{{ chiton_scripts_dir }}/backups"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0700
