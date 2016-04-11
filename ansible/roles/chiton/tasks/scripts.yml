@@ -23,7 +23,7 @@
 
     - name: install requirements for Python scripts
       pip:
-        requirements: "{{ chiton_scripts_requirements.path }}"
+        requirements: "{{ chiton_scripts_requirements.dest }}"
         virtualenv: "{{ chiton_scripts_virtualenv_dir }}"
         state: present
 
