@@ -35,14 +35,14 @@ class Servers(BaseAction):
                 region=config['region'],
                 size_slug=config['size'],
                 ssh_keys=[k.id for k in ssh_keys],
-                token=self.token
+                token=self.do.token
             )
             droplet.create()
             ui.create('Created droplet %s' % droplet.id)
 
             # Attach a floating IP to the droplet
             with self._wait_for_droplet(droplet, ui):
-                ip = FloatingIP(droplet_id=droplet.id, token=self.token)
+                ip = FloatingIP(droplet_id=droplet.id, token=self.do.token)
                 ip.create()
                 ui.create('Added a floating IP of %s' % ip.ip)
 

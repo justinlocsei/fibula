@@ -28,7 +28,7 @@ class SSHKeys(BaseAction):
                 ssh_key = SSHKey(
                     name=local_key['name'],
                     public_key=local_key['key'],
-                    token=self.token
+                    token=self.do.token
                 )
                 ssh_key.create()
                 ui.create('Created remote key %s' % ssh_key.id)

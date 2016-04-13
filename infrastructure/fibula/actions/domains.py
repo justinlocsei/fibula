@@ -25,7 +25,7 @@ class Domains(BaseAction):
             remote_domain = Domain(
                 name=domain['fqdn'],
                 ip_address=floating_ip.ip,
-                token=self.token
+                token=self.do.token
             )
             remote_domain.create()
             ui.create('Bound domain to the "%s" server' % domain['root_server'])
