@@ -27,7 +27,7 @@
 
 - name: ensure that the application user loads the custom profile
   lineinfile:
-    dest: "{{ chiton_user_home }}/.profile"
+    dest: "{{ chiton_user_home_dir }}/.profile"
     line: ". {{ chiton_user_custom_profile }}"
     state: present
     owner: "{{ chiton_user }}"
