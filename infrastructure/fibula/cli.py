@@ -195,6 +195,15 @@ def deploy():
     pass
 
 
+@deploy.command('bootstrap')
+@click.argument('host', type=str)
+@click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
+@click.option('--user', type=str, default='root')
+def deploy_bootstrap(host, inventory, user):
+    """Bootstrap one or more hosts for deployment."""
+    actions.Deploy().bootstrap(host, inventory, user=user)
+
+
 @deploy.command('to')
 @click.argument('environment', type=click.Choice(ENVIRONMENTS))
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
