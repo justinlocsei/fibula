@@ -17,6 +17,7 @@
     group: "{{ item.login }}"
     groups: "{{ users_admin_group }}"
     password: "*"
+    shell: /bin/bash
     state: present
   with_items: "{{ users_admins }}"
 
