@@ -5,5 +5,4 @@ if ! which -s ansible-playbook; then
   exit 1
 fi
 
-cd ../../ansible || exit 1
-ansible-playbook playbooks/provision.yml -l development "$@"
+fib deploy to development --inventory=development --verbose
