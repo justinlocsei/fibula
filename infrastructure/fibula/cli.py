@@ -16,6 +16,9 @@ def build(ctx):
     ctx.forward(servers_create)
     ctx.forward(domains_create)
     ctx.forward(dns_add)
+    ctx.forward(email_forward)
+    ctx.forward(email_whitelabel)
+    ctx.forward(backups_configure)
 
 
 @cli.group()
