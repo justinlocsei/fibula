@@ -12,42 +12,45 @@ class Deploy(BaseAction):
 
     log_prefix = 'deploy'
 
-    def deploy(self, environment, inventory, verbose=False):
+    def deploy(self, environment, inventory):
         """Deploy code to a given environment.
 
         Args:
             environment (str): The name of an environment
             inventory (str): The name of an inventory file
-            verbose (bool): Whether to enable verbose output
         """
-        self._run_playbook('deploy.yml', environment, inventory, verbose)
+        self._run_playbook('deploy.yml', environment, inventory)
 
-    def roll_back(self, environment, inventory, verbose=False):
+    def roll_back(self, environment, inventory):
         """Roll back deploy code for a given environment.
 
         Args:
             environment (str): The name of an environment
             inventory (str): The name of an inventory file
-            verbose (bool): Whether to enable verbose output
         """
-        self._run_playbook('rollback.yml', environment, inventory, verbose)
+        self._run_playbook('rollback.yml', environment, inventory)
 
-    def _run_playbook(self, playbook, environment, inventory, verbose):
+    def _run_playbook(self, playbook, limit, inventory, user=None):
         """Run an Ansible playbook.
 
         Args:
             playbook (str): The name of an ansible playbook file
-            environment (str): The name of an environment
+            limit (str): The limit option to use
             inventory (str): The name of an inventory file
-            verbose (bool): Whether to enable verbose output
+
+        Keyword Args:
+            user (str): The SSH user to use when connecting
         """
         ansible_args = [
             'ansible-playbook', 'playbooks/%s' % playbook,
-            '--limit', environment,
-            '--inventory-file', 'inventories/%s' % inventory
+            '--limit', limit,
+            '--inventory-file', 'inventories/%s' % inventory,
+            '-v'
         ]
-        if verbose:
-            ansible_args.append('-v')
+
+        if user:
+            ansible_args.append('--user')
+            ansible_args.append(user)
 
         playbook = subprocess.Popen(ansible_args, cwd=ANSIBLE_DIR)
         playbook.wait()

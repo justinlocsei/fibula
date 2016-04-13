@@ -198,16 +198,14 @@ def deploy():
 @deploy.command('to')
 @click.argument('environment', type=click.Choice(ENVIRONMENTS))
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
-@click.option('--verbose/--no-verbose', default=False)
-def deploy_to(environment, inventory, verbose):
+def deploy_to(environment, inventory):
     """Deploy application code to an environment."""
-    actions.Deploy().deploy(environment, inventory, verbose)
+    actions.Deploy().deploy(environment, inventory)
 
 
 @deploy.command('rollback')
 @click.argument('environment', type=click.Choice(ENVIRONMENTS))
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
-@click.option('--verbose/--no-verbose', default=False)
-def deploy_rollback(environment, inventory, verbose):
+def deploy_rollback(environment, inventory):
     """Roll back deployed code in an environment."""
-    actions.Deploy().roll_back(environment, inventory, verbose)
+    actions.Deploy().roll_back(environment, inventory)
