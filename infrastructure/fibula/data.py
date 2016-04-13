@@ -1,8 +1,8 @@
 import os
 import yaml
 
-INFRA_DIR = os.path.dirname(os.path.abspath(os.path.join(__file__, '..')))
-DATA_DIR = os.path.join(INFRA_DIR, 'data')
+from fibula.paths import DATA_DIR
+
 
 def load_data(path):
     """Load a named YAML data file.
