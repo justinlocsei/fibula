@@ -1,6 +1,7 @@
 import click
 
 from fibula import actions
+from fibula.actions.deploy import ENVIRONMENTS
 
 
 @click.group()
@@ -186,3 +187,27 @@ def backups():
 def backups_configure():
     """Configure remote resources for backups."""
     actions.Backups().configure()
+
+
+@cli.group()
+def deploy():
+    """Manage deployments."""
+    pass
+
+
+@deploy.command('to')
+@click.argument('environment', type=click.Choice(ENVIRONMENTS))
+@click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
+@click.option('--verbose/--no-verbose', default=False)
+def deploy_to(environment, inventory, verbose):
+    """Deploy application code to an environment."""
+    actions.Deploy().deploy(environment, inventory, verbose)
+
+
+@deploy.command('rollback')
+@click.argument('environment', type=click.Choice(ENVIRONMENTS))
+@click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
+@click.option('--verbose/--no-verbose', default=False)
+def deploy_rollback(environment, inventory, verbose):
+    """Roll back deployed code in an environment."""
+    actions.Deploy().roll_back(environment, inventory, verbose)

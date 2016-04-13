@@ -1,4 +1,5 @@
 from fibula.actions.backups import Backups
+from fibula.actions.deploy import Deploy
 from fibula.actions.dns import DNS
 from fibula.actions.domains import Domains
 from fibula.actions.email import Email
