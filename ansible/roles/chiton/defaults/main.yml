@@ -9,6 +9,7 @@ chiton_allow_tests: no
 chiton_amazon_associates_aws_access_key_id: null
 chiton_amazon_associates_aws_secret_access_key: null
 chiton_amazon_associates_tracking_id: null
+chiton_automate_backups: yes
 chiton_backups_aws_access_key_id: null
 chiton_backups_aws_secret_access_key: null
 chiton_backups_local_retention_days: 30
