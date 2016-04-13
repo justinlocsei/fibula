@@ -3,7 +3,17 @@ from jinja2.runtime import Undefined
 
 
 def require_value(value):
-    """Require a non-empty value for a variable"""
+    """Require a non-empty value for a variable.
+
+    Args:
+        value: Any valid Jinja2 value
+
+    Returns:
+        value: The original value
+
+    Raises:
+        ansible.errors.AnsibleFilterError: When the variable lacks a value
+    """
     if isinstance(value, Undefined):
         raise errors.AnsibleFilterError('Variable must be defined.')
     if value is None:
@@ -12,7 +22,7 @@ def require_value(value):
 
 
 class FilterModule(object):
-    """Custom Jinja2 filters for Ansible variables"""
+    """Custom Jinja2 filters for working with variables."""
 
     def filters(self):
         return {
