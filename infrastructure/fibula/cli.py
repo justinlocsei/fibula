@@ -122,7 +122,7 @@ def ips_prune():
 
 @cli.group()
 def images():
-    """Manage IP addresses."""
+    """Manage images."""
     pass
 
 
@@ -157,6 +157,6 @@ def backups():
 
 
 @backups.command('configure')
-def backups_cofnigure():
+def backups_configure():
     """Configure remote resources for backups."""
     actions.Backups().configure()
