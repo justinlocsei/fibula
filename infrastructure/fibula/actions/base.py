@@ -1,4 +1,4 @@
-from fibula.apis import DigitalOcean, S3
+from fibula.apis import DigitalOcean, IAM, S3
 from fibula.communicator import Communicator
 
 
@@ -12,4 +12,5 @@ class BaseAction:
         self.ui = Communicator(label=self.log_prefix)
 
         self.do = DigitalOcean()
+        self.iam = IAM()
         self.s3 = S3()
