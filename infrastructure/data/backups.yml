@@ -1,4 +1,7 @@
 ---
+lifecycle:
+  expiration: 60
+  name: limited-retention
 s3_buckets:
   - name: chiton-backups-development
     user: backups-development
