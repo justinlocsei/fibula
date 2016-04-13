@@ -34,6 +34,7 @@ chiton_run_dir_final: "{{ chiton_run_dir or chiton_run_dir_app }}"
 chiton_user_custom_profile: "{{ chiton_user_home }}/.profile.chiton"
 chiton_user_home: "/home/{{ chiton_user }}"
 
+chiton_backups_script: "{{ chiton_scripts_dir }}/backups"
 chiton_scripts_virtualenv_python_bin: "{{ chiton_scripts_virtualenv_dir }}/bin/python"
 chiton_virtualenv_gunicorn_bin: "{{ chiton_virtualenv_dir }}/bin/gunicorn"
 chiton_virtualenv_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"

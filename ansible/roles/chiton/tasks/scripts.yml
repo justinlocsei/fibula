@@ -30,15 +30,14 @@
 - name: create the backup script
   template:
     src: "scripts/backups.j2"
-    dest: "{{ chiton_scripts_dir }}/backups"
+    dest: "{{ chiton_backups_script }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0700
-  register: chiton_backups_script
 
 - name: automatically create backups
   cron:
-    job: "{{ chiton_backups_script.dest }} create"
+    job: "{{ chiton_backups_script }}"
     hour: 5
     minute: 0
     name: Create nightly backups
