@@ -8,7 +8,7 @@ def domain(hostname):
         str: The domain component of the hostname
     """
     parts = hostname.split('.')
-    return parts[1:-1].join('.')
+    return '.'.join(parts[1:])
 
 
 class FilterModule(object):
