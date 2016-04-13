@@ -12,8 +12,8 @@ set mailserver localhost
 set alert {{ monit_alert_recipient }}
 {% endif %}
 set mail-format {
-  from: monit@{{ ansible_domain }}
-  reply-to: noreply@{{ ansible_domain }}
+  from: monit@{{ monit_email_domain }}
+  reply-to: noreply@{{ monit_email_domain }}
   subject: [$HOST] $SERVICE: $EVENT
   message: Monit action report
     Host: $HOST

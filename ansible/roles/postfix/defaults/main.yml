@@ -1,4 +1,6 @@
 ---
+postfix_hostname: "{{ inventory_hostname }}"
+postfix_origin: "{{ inventory_hostname | domain }}"
 postfix_relay_host: null
 postfix_relay_password: null
 postfix_relay_port: null

@@ -5,8 +5,8 @@ alias_maps = hash:/etc/aliases
 # Null-client configuration
 inet_interfaces = loopback-only
 mydestination =
-myhostname = {{ ansible_fqdn }}
-myorigin = {{ ansible_domain }}
+myhostname = {{ postfix_hostname }}
+myorigin = {{ postfix_origin }}
 relayhost = [{{ postfix_relay_host }}]:{{ postfix_relay_port }}
 
 # Relay options

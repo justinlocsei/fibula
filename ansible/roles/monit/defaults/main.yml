@@ -1,6 +1,7 @@
 ---
 monit_alert_recipient: null
 monit_dist_platform: linux-x64
+monit_email_domain: "{{ inventory_hostname | domain }}"
 monit_httpd_port: 2812
 monit_interval: 120
 monit_version_string: "5.16"
