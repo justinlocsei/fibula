@@ -1,7 +1,7 @@
 ---
 - name: copy the requirements file for Python scripts
   copy:
-    src: script-requirements.txt
+    src: requirements/scripts.txt
     dest: "{{ chiton_scripts_dir }}/.requirements.txt"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
@@ -73,3 +73,11 @@
     name: chiton
     enabled: yes
   when: chiton_daemonize
+
+- name: create a management command
+  template:
+    src: scripts/manage.py.j2
+    dest: "{{ chiton_manage_file }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
