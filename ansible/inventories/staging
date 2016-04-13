@@ -1,0 +1,11 @@
+[staging]
+staging-www.coveryourbasics.com
+
+[app_servers:children]
+staging
+
+[cloud:children]
+staging
+
+[staging:vars]
+chiton_server_name=staging-data.coveryourbasics.com
