@@ -16,6 +16,7 @@
     comment: "{{ item.name }}"
     group: "{{ item.login }}"
     groups: "{{ users_admin_group }}"
+    password: "*"
     state: present
   with_items: "{{ users_admins }}"
 
