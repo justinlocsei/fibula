@@ -19,7 +19,7 @@ class API:
         Returns:
             digitalocean.FloatingIP: The droplet's floating IP
         """
-        floating_ips = self.do.manager.get_all_floating_ips()
+        floating_ips = self.manager.get_all_floating_ips()
 
         matches = [f for f in floating_ips if f.droplet['id'] == droplet.id]
         if len(matches) > 1:
@@ -38,7 +38,7 @@ class API:
         Returns:
             digitalocean.Droplet: The named droplet
         """
-        droplets = self.do.manager.get_all_droplets()
+        droplets = self.manager.get_all_droplets()
 
         matches = [d for d in droplets if d.name == name]
         if len(matches) > 1:
