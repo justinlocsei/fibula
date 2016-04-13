@@ -51,5 +51,8 @@ chiton_requirements_files:
   - file: core.txt
     install: yes
     notify: reload chiton
+  - file: server.txt
+    install: yes
+    notify: restart chiton
   - file: development.txt
     install: "{{ chiton_allow_tests }}"
