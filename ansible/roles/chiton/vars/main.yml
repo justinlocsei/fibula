@@ -50,5 +50,6 @@ chiton_server_socket_path: "{{ chiton_run_dir_final }}/chiton.sock"
 chiton_requirements_files:
   - file: core.txt
     install: yes
+    notify: reload chiton
   - file: development.txt
     install: "{{ chiton_allow_tests }}"

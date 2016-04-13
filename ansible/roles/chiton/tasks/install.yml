@@ -114,6 +114,8 @@
       when: item.install
       register: chiton_pip_install
       changed_when: "'Installing collected packages' in chiton_pip_install.stdout"
+      notify:
+        - "{{ item.notify | default(omit) }}"
 
     - name: install chiton
       command: >-
