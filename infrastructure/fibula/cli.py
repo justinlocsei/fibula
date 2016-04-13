@@ -21,6 +21,29 @@ def build(ctx):
     ctx.forward(backups_configure)
 
 
+@cli.command()
+@click.pass_context
+def sync(ctx):
+    """Update all infrastructure components."""
+    ctx.forward(keys_sync)
+    ctx.forward(servers_sync)
+    ctx.forward(domains_sync)
+    ctx.forward(dns_sync)
+    ctx.forward(email_forward)
+    ctx.forward(email_whitelabel)
+    ctx.forward(backups_configure)
+
+
+@cli.command()
+@click.pass_context
+def prune(ctx):
+    """Remove all unused infrastructure components."""
+    ctx.forward(keys_prune)
+    ctx.forward(servers_prune)
+    ctx.forward(domains_prune)
+    ctx.forward(ips_prune)
+
+
 @cli.group()
 def keys():
     """Manage remote SSH keys."""
