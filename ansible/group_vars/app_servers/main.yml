@@ -9,6 +9,7 @@ chiton_backups_aws_access_key_id: "{{ vault__chiton_backups_aws_access_key_id }}
 chiton_backups_aws_secret_access_key: "{{ vault__chiton_backups_aws_secret_access_key }}"
 chiton_config_secret_key: "{{ vault__chiton_config_secret_key }}"
 chiton_db_user_password: "{{ vault__chiton_db_user_password }}"
+chiton_sentry_dsn: "{{ vault__chiton_sentry_dsn }}"
 chiton_shopstyle_uid: "{{ vault__chiton_shopstyle_uid }}"
 cyb_certificates_wildcard_ca_bundle: "{{ vault__cyb_certificates_wildcard_ca_bundle | default('') }}"
 cyb_certificates_wildcard_certificate: "{{ vault__cyb_certificates_wildcard_certificate }}"
