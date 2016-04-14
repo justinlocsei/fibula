@@ -1,5 +1,6 @@
 ---
 chiton_amazon_associates_tracking_id: coveryourbasics-staging-20
 chiton_backups_s3_bucket: chiton-backups-staging
+chiton_environment: staging
 chiton_git_ref: staging
 postfix_relay_user: cyb-staging
