@@ -1,7 +1,6 @@
 ---
 chiton_activate_virtualenv: no
 chiton_admin_email: noreply@coveryourbasics.com
-chiton_admin_name: Chiton
 chiton_admin_password: null
 chiton_admin_username: chiton
 chiton_allow_development: no
