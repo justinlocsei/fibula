@@ -2,7 +2,7 @@
 chiton_activate_virtualenv: yes
 chiton_allow_development: yes
 chiton_allow_tests: yes
-chiton_amazon_associates_tracking_id: covyoubas-dev-20
+chiton_amazon_associates_tracking_id: coveryourbasics-development-20
 chiton_backups_s3_bucket: chiton-backups-development
 chiton_config_debug: yes
 chiton_current_version: development
