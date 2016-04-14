@@ -78,6 +78,7 @@ module Fibula
           group: options.fetch(:group_id),
           map_uid: options.fetch(:user_id),
           map_gid: options.fetch(:group_id),
+          mount_options: ["tcp", "vers=3"],
           unmount_options: ["-f"]
         }
       ]
