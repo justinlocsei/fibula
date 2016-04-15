@@ -16,3 +16,6 @@
 
 - name: run management commands
   include: management.yml
+
+- name: configure public files
+  include: public.yml
