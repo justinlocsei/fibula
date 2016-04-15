@@ -45,3 +45,11 @@
   when: not chiton_daemonize
   notify:
     - reload monit
+
+- name: configure log rotation
+  template:
+    src: logrotate/chiton.j2
+    dest: "{{ logrotate_conf_dir }}/chiton"
+    owner: root
+    group: root
+    mode: 0644

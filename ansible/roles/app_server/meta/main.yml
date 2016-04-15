@@ -24,6 +24,7 @@ dependencies:
   - role: nginx
   - role: postfix
   - role: monit
+  - role: logrotate
   - role: firewall
     firewall_ports:
       - port: "{{ chiton_server_port }}"
