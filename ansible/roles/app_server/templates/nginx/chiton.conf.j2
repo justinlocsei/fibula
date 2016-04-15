@@ -21,12 +21,15 @@ server {
   gzip_types application/javascript text/css;
   gzip_vary on;
 
+  autoindex off;
+  root {{ chiton_public_files_dir }};
+  try_files $uri $uri/ @{{ chiton_server_proxy_name }};
+
   location {{ chiton_assets_url | trailing_slash_url }} {
     alias {{ chiton_assets_dir | trailing_slash_fs }};
     autoindex off;
   }
 
-  try_files $uri $uri/ @{{ chiton_server_proxy_name }};
   location @{{ chiton_server_proxy_name }} {
     proxy_redirect off;
     proxy_set_header Host $http_host;
