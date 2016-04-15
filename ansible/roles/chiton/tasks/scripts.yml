@@ -37,7 +37,7 @@
 
 - name: configure automated backups
   cron:
-    job: "{{ chiton_backups_script }}"
+    job: "{{ chiton_backups_script }} create > {{ chiton_log_dir_final }}/backups.log"
     hour: 5
     minute: 0
     name: Create nightly backups
