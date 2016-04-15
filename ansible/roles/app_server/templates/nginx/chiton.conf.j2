@@ -26,8 +26,9 @@ server {
   try_files $uri $uri/ @{{ chiton_server_proxy_name }};
 
   location {{ chiton_assets_url | trailing_slash_url }} {
+    add_header Cache-Control "public";
     alias {{ chiton_assets_dir | trailing_slash_fs }};
-    autoindex off;
+    expires max;
   }
 
   location @{{ chiton_server_proxy_name }} {
