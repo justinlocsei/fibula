@@ -80,3 +80,49 @@ $ ansible-playbook playbooks/PLAYBOOOK.yml
 This enables the development version of Ansible and then uses the
 `ansible-playbook` command to apply the playbook provided in `PLAYBOOK` to the
 machine in question.
+
+## Servers
+
+All management of servers is done using the `fib` command, which is made
+available when running the `scripts/setup` script, and whose source code is
+located in the `infrastructure` directory of this repo.  It has many
+subcommands, all of which can be listed by running `fib --help`.
+
+### Infrastructure
+
+To automatically build out the remote resources used to serve Cover Your Basics,
+run the following commands:
+
+```bash
+$ fib build
+$ fib sync
+$ fib prune
+```
+
+This will create any missing resources, correct any drift between the current
+and desired state of resources, and remove any unused resources.
+
+### Deploying
+
+Application code can be deployed by running the following command:
+
+```bash
+$ fib deploy to <ENVIRONMENT> --inventory <INVENTORY>
+```
+
+This is a thin wrapper around `ansible-playbook` that deploys to all machines
+in the `<ENVIRONMENT>` group found in the `<INVENTORY>` inventory file. By
+default, the development inventory file is used, in order to prevent accidental
+deploys.  For example, to do a test deploy to all staging machines in the
+development inventory, you could run the following command:
+
+```bash
+$ fib deploy to staging
+```
+
+If you wished to deploy to all staging machines in the staging inventory, you
+could instead run the following command:
+
+```bash
+$ fib deploy to staging --inventory staging
+```
