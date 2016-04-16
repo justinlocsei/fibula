@@ -76,6 +76,16 @@
 - become: yes
   become_user: "{{ chiton_user }}"
   block:
+    - name: create a virtualenv for server-only Python libraries
+      pip:
+        name: pip
+        version: "{{ chiton_pip_version }}"
+        executable: "{{ chiton_pip_bin_name }}"
+        virtualenv: "{{ chiton_server_virtualenv_dir }}"
+        virtualenv_python: "{{ chiton_python_bin_name }}"
+        virtualenv_site_packages: no
+        state: present
+
     - name: create a virtualenv for the current version with an updated pip
       pip:
         name: pip
@@ -126,6 +136,17 @@
         {{ chiton_source_dir | quote }}
       register: chiton_source_install
       changed_when: "'Installing collected packages' in chiton_source_install.stdout"
+
+    - name: install server dependencies
+      pip:
+        name: "{{ item.name }}"
+        version: "{{ item.version }}"
+        executable: "{{ chiton_pip_bin_name }}"
+        virtualenv: "{{ chiton_server_virtualenv_dir }}"
+        state: present
+      with_items: "{{ chiton_server_requirements }}"
+      notify:
+        - restart chiton
 
 - name: create directories for assets
   file:

@@ -20,6 +20,7 @@ chiton_package_cache_dir: "{{ chiton_root_dir }}/.packages"
 chiton_requirements_dir: "{{ chiton_source_dir }}/requirements"
 chiton_scripts_dir: "{{ chiton_root_dir }}/scripts"
 chiton_scripts_virtualenv_dir: "{{ chiton_scripts_dir }}/.venv"
+chiton_server_virtualenv_dir: "{{ chiton_root_dir }}/.venv"
 chiton_var_dir: "{{ chiton_root_dir }}/var"
 chiton_versions_dir: "{{ chiton_root_dir }}/versions"
 chiton_virtualenv_dir: "{{ chiton_current_dir }}/{{ chiton_virtualenv_dir_name }}"
@@ -38,7 +39,7 @@ chiton_user_home_dir: "/home/{{ chiton_user }}"
 
 chiton_backups_script: "{{ chiton_scripts_dir }}/backups"
 chiton_gunicorn_bin: "{{ chiton_virtualenv_dir }}/bin/gunicorn"
-chiton_rainbow_saddle_bin: "{{ chiton_virtualenv_dir }}/bin/rainbow-saddle"
+chiton_rainbow_saddle_bin: "{{ chiton_server_virtualenv_dir }}/bin/rainbow-saddle"
 chiton_scripts_virtualenv_python_bin: "{{ chiton_scripts_virtualenv_dir }}/bin/python"
 chiton_virtualenv_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
 
@@ -53,8 +54,9 @@ chiton_requirements_files:
   - file: core.txt
     install: yes
     notify: reload chiton
-  - file: server.txt
-    install: yes
-    notify: restart chiton
   - file: development.txt
     install: "{{ chiton_allow_tests }}"
+
+chiton_server_requirements:
+  - name: rainbow-saddle
+    version: 0.3.1
