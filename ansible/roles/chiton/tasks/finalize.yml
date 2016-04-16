@@ -2,7 +2,7 @@
 - name: add a robots.txt file
   copy:
     src: public/robots.txt
-    dest: "{{ chiton_public_files_dir }}/robots.txt"
+    dest: "{{ chiton_current_version_public_dir }}/robots.txt"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0644
