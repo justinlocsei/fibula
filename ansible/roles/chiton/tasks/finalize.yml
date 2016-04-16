@@ -1,0 +1,18 @@
+---
+- name: add a robots.txt file
+  copy:
+    src: public/robots.txt
+    dest: "{{ chiton_public_files_dir }}/robots.txt"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0644
+
+- name: update the current version's symlink
+  file:
+    src: "{{ chiton_current_version_dir }}"
+    dest: "{{ chiton_current_dir }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    state: link
+  notify:
+    - reload chiton
