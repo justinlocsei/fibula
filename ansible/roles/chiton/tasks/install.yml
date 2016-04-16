@@ -60,9 +60,10 @@
     chiton_current_version_public_dir: "{{ chiton_current_version_dir }}/{{ chiton_public_files_dir_name }}"
     chiton_current_version_virtualenv_dir: "{{ chiton_current_version_dir }}/{{ chiton_virtualenv_dir_name }}"
 
-- name: set the path to pip for the current version
+- name: set the path to binaries for the current version
   set_fact:
-    chiton_current_pip_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_pip_bin_name }}"
+    chiton_current_version_pip_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_pip_bin_name }}"
+    chiton_current_version_python_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_python_bin_name }}"
 
 - name: ensure that the current version's directory exists
   file:
@@ -95,7 +96,7 @@
 
     - name: build wheels for all requirements
       command: >-
-        {{ chiton_current_pip_bin | quote }} wheel
+        {{ chiton_current_version_pip_bin | quote }} wheel
         --cache-dir={{ chiton_package_cache_dir | quote }}
         --wheel-dir={{ chiton_wheel_cache_dir | quote }}
         --find-links={{ chiton_wheel_cache_dir | quote }}
@@ -107,7 +108,7 @@
 
     - name: install requirements from the pre-built wheels
       command: >-
-        {{ chiton_current_pip_bin | quote }} install
+        {{ chiton_current_version_pip_bin | quote }} install
         --no-index
         --find-links={{ chiton_wheel_cache_dir | quote }}
         -r {{ chiton_requirements_dir | quote }}/{{ item.file }}
@@ -120,7 +121,7 @@
 
     - name: install chiton
       command: >-
-        {{ chiton_current_pip_bin | quote }} install
+        {{ chiton_current_version_pip_bin | quote }} install
         {{ chiton_allow_development | ternary('-e', '') }}
         {{ chiton_source_dir | quote }}
       register: chiton_source_install
