@@ -6,6 +6,8 @@
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
     mode: 0600
+  notify:
+    - reload chiton
 
 - name: create a gunicorn configuration file
   template:
