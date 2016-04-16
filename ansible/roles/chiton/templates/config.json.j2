@@ -23,7 +23,7 @@
     "sentry_dsn": "{{ chiton_sentry_dsn | require_value }}",
     "server_email": "{{ chiton_server_email }}",
     "shopstyle_uid": "{{ chiton_shopstyle_uid | require_value }}",
-    "static_root": "{{ chiton_assets_dir }}",
+    "static_root": "{{ chiton_current_version_assets_dir }}",
     "static_url": "{{ chiton_assets_url | trailing_slash_url }}",
     "track_errors": {{ chiton_track_errors | lower }}
 }
