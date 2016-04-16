@@ -62,6 +62,7 @@
 
 - name: set the path to binaries for the current version
   set_fact:
+    chiton_current_version_manage_file: "{{ chiton_current_version_virtualenv_dir }}/{{ chiton_current_version_manage_relative_path }}"
     chiton_current_version_pip_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_pip_bin_name }}"
     chiton_current_version_python_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_python_bin_name }}"
 
@@ -159,12 +160,10 @@
     - "{{ chiton_current_version_assets_dir }}"
     - "{{ chiton_current_version_public_dir }}"
 
-- name: create a symlink to the current version
-  file:
-    src: "{{ chiton_current_version_dir }}"
-    dest: "{{ chiton_current_dir }}"
+- name: create a management command for the current version
+  template:
+    src: manage.py.j2
+    dest: "{{ chiton_current_version_manage_file }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
-    state: link
-  notify:
-    - reload chiton
+    mode: 0755

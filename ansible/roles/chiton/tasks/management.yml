@@ -5,22 +5,22 @@
     CHITON_CONFIG_FILE: "{{ chiton_config_file }}"
   block:
     - name: run pending database migrations
-      command: "{{ chiton_manage_file | quote }} migrate"
+      command: "{{ chiton_current_version_manage_file | quote }} migrate"
       register: chiton_migrate_result
       changed_when: "'No migrations to apply.' not in chiton_migrate_result.stdout"
 
     - name: create the in-app administrator account
-      command: "{{ chiton_manage_file | quote }} chiton_ensuresuperuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
+      command: "{{ chiton_current_version_manage_file | quote }} chiton_ensuresuperuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
       no_log: yes
       register: chiton_ensuresuperuser_result
       changed_when: "'User modified' in chiton_ensuresuperuser_result.stdout"
 
     - name: load core fixtures
-      command: "{{ chiton_manage_file | quote }} chiton_loadfixtures"
+      command: "{{ chiton_current_version_manage_file | quote }} chiton_loadfixtures"
       register: chiton_loadfixtures_result
       changed_when: "chiton_loadfixtures_result.stdout | search('New model count: [^0]')"
 
     - name: collect the assets
-      command: "{{ chiton_manage_file | quote }} collectstatic --noinput"
+      command: "{{ chiton_current_version_manage_file | quote }} collectstatic --noinput"
       register: chiton_collectstatic_result
       changed_when: chiton_collectstatic_result.stdout | search("\n+[^0] static files? copied")

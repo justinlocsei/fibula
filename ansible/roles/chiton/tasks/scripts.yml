@@ -74,10 +74,11 @@
     enabled: yes
   when: chiton_daemonize
 
-- name: create a management command
-  template:
-    src: scripts/manage.py.j2
+- name: create a symlink to the current version's management command
+  file:
+    src: "{{ chiton_virtualenv_dir }}/{{ chiton_current_version_manage_relative_path }}"
     dest: "{{ chiton_manage_file }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
-    mode: 0755
+    force: yes
+    state: link
