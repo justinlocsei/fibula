@@ -82,3 +82,19 @@
     group: "{{ chiton_group }}"
     force: yes
     state: link
+
+- name: get the contents of the current version's gunicorn binary
+  slurp:
+    src: "{{ chiton_current_version_gunicorn_bin }}"
+  register: chiton_current_version_gunicorn_bin_contents
+  changed_when: False
+
+- name: copy the current version's gunicorn config file to a static location
+  copy:
+    dest: "{{ chiton_gunicorn_bin }}"
+    content: "{{ chiton_current_version_gunicorn_bin_contents.content | b64decode }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0755
+  notify:
+    - reload chiton

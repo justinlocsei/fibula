@@ -63,6 +63,7 @@
 - name: set the path to binaries for the current version
   set_fact:
     chiton_current_version_manage_file: "{{ chiton_current_version_virtualenv_dir }}/{{ chiton_current_version_manage_relative_path }}"
+    chiton_current_version_gunicorn_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/gunicorn"
     chiton_current_version_pip_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_pip_bin_name }}"
     chiton_current_version_python_bin: "{{ chiton_current_version_virtualenv_dir }}/bin/{{ chiton_python_bin_name }}"
 

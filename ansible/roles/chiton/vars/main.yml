@@ -39,7 +39,7 @@ chiton_user_home_dir: "/home/{{ chiton_user }}"
 
 chiton_backups_script: "{{ chiton_scripts_dir }}/backups"
 chiton_current_version_manage_relative_path: bin/manage.py
-chiton_gunicorn_bin: "{{ chiton_virtualenv_dir }}/bin/gunicorn"
+chiton_gunicorn_bin: "{{ chiton_scripts_dir }}/gunicorn"
 chiton_rainbow_saddle_bin: "{{ chiton_server_virtualenv_dir }}/bin/rainbow-saddle"
 chiton_scripts_virtualenv_python_bin: "{{ chiton_scripts_virtualenv_dir }}/bin/python"
 chiton_virtualenv_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"

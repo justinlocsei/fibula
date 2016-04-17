@@ -1,5 +1,5 @@
 bind = 'unix:{{ chiton_server_socket_path }}'
-chdir = '{{ chiton_root_dir }}'
+chdir = '{{ chiton_current_dir }}'
 daemon = False
 group = '{{ chiton_group }}'
 preload_app = {{ chiton_allow_development | ternary("False", "True") }}
