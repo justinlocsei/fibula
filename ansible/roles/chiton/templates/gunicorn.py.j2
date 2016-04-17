@@ -1,8 +1,36 @@
+import os
+import sys
+
+
+def find_current_version_virtualenv_dirs():
+    """Provide directory paths for the current version's virtualenv.
+
+    This examins the directories added to the path by the virtualenv in which
+    gunicorn is running, and uses those paths as a template to add similar paths
+    pointing to the current Chiton version.
+
+    This allows a static binary to be used for gunicorn, while updating its
+    paths to point to the symlinked current version whenever this configuration
+    file is read.
+
+    Returns:
+        list: Strings of all paths for the current version's virtualenv
+    """
+    gunicorn_venv_dir = '{{ chiton_server_virtualenv_dir }}'
+    current_venv_dir = '{{ chiton_virtualenv_dir }}'
+
+    added_venv_dirs = [d for d in sys.path if d.startswith(gunicorn_venv_dir)]
+    current_venv_dirs = [d.replace(gunicorn_venv_dir, current_venv_dir) for d in added_venv_dirs]
+    existing_venv_dirs = [d for d in current_venv_dirs if os.path.isdir(d)]
+
+    return existing_venv_dirs
+
+
 bind = 'unix:{{ chiton_server_socket_path }}'
-chdir = '{{ chiton_current_dir }}'
 daemon = False
 group = '{{ chiton_group }}'
 preload_app = {{ chiton_allow_development | ternary("False", "True") }}
+pythonpath = ','.join(find_current_version_virtualenv_dirs())
 reload = {{ chiton_allow_development | ternary("True", "False") }}
 threads = {{ chiton_gunicorn_threads }}
 umask = 0o117
@@ -15,6 +43,6 @@ log_level = '{{ chiton_gunicorn_log_level }}'
 syslog = False
 
 raw_env = [
-  'CHITON_CONFIG_FILE={{ chiton_config_file }}',
-  'DJANGO_SETTINGS_MODULE=chiton.settings'
+    'CHITON_CONFIG_FILE={{ chiton_config_file }}',
+    'DJANGO_SETTINGS_MODULE=chiton.settings'
 ]
