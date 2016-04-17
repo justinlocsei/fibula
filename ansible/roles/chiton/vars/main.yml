@@ -61,3 +61,4 @@ chiton_requirements_files:
 chiton_server_requirements:
   - name: rainbow-saddle
     version: 0.3.1
+    notify: restart chiton

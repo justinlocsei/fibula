@@ -148,7 +148,7 @@
         state: present
       with_items: "{{ chiton_server_requirements }}"
       notify:
-        - restart chiton
+        - "{{ item.notify }}"
 
 - name: create directories for assets
   file:
