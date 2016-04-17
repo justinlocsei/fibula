@@ -59,6 +59,9 @@ chiton_requirements_files:
     install: "{{ chiton_allow_tests }}"
 
 chiton_server_requirements:
+  - name: gunicorn
+    version: 19.4.5
+    notify: reload chiton
   - name: rainbow-saddle
     version: 0.3.1
     notify: restart chiton
