@@ -33,7 +33,6 @@ class SSHKeys(BaseAction):
                 ssh_key.create()
                 ui.create('Created remote key %s' % ssh_key.id)
 
-
     def sync(self):
         """Ensure that the values for Digital Ocean SSH keys match the manifest."""
         remote_keys = self.do.manager.get_all_sshkeys()

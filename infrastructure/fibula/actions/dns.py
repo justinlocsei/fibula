@@ -42,7 +42,6 @@ class DNS(BaseAction):
 
         for domain in remote_domains:
             subdomains = self._get_subdomains(domain)
-            subdomain_names = [s.name for s in subdomains]
 
             for server in local_servers:
                 ui = self.ui.group(domain.name, server['name'])

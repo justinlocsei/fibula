@@ -1,7 +1,14 @@
 import click
 
-from fibula import actions
-from fibula.actions.deploy import ENVIRONMENTS
+from fibula.actions.backups import Backups
+from fibula.actions.deploy import ENVIRONMENTS, Deploy
+from fibula.actions.dns import DNS
+from fibula.actions.domains import Domains
+from fibula.actions.email import Email
+from fibula.actions.images import Images
+from fibula.actions.ips import IPs
+from fibula.actions.servers import Servers
+from fibula.actions.ssh_keys import SSHKeys
 
 
 @click.group()
@@ -54,19 +61,19 @@ def keys():
 @keys.command('add')
 def keys_add():
     """Add missing SSH keys to the remote."""
-    actions.SSHKeys().add()
+    SSHKeys().add()
 
 
 @keys.command('sync')
 def keys_sync():
     """Sync the configuration of remote SSH keys with the manifest."""
-    actions.SSHKeys().sync()
+    SSHKeys().sync()
 
 
 @keys.command('prune')
 def keys_prune():
     """Remove remote SSH keys not present in the manifest."""
-    actions.SSHKeys().prune()
+    SSHKeys().prune()
 
 
 @cli.group()
@@ -78,19 +85,19 @@ def servers():
 @servers.command('create')
 def servers_create():
     """Create remote servers to match the server manifest."""
-    actions.Servers().create()
+    Servers().create()
 
 
 @servers.command('sync')
 def servers_sync():
     """Sync the configuration of existing remote servers with the manifest."""
-    actions.Servers().sync()
+    Servers().sync()
 
 
 @servers.command('prune')
 def servers_prune():
     """Remove any remote servers that do not appear in the manifest."""
-    actions.Servers().prune()
+    Servers().prune()
 
 
 @cli.group()
@@ -102,19 +109,19 @@ def domains():
 @domains.command('create')
 def domains_create():
     """Add missing remote domains from the manifest."""
-    actions.Domains().create()
+    Domains().create()
 
 
 @domains.command('sync')
 def domains_sync():
     """Sync domain configuration with the manifest."""
-    actions.Domains().sync()
+    Domains().sync()
 
 
 @domains.command('prune')
 def domains_prune():
     """Remove unused remote domains."""
-    actions.Domains().prune()
+    Domains().prune()
 
 
 @cli.group()
@@ -126,13 +133,13 @@ def dns():
 @dns.command('add')
 def dns_add():
     """Add missing DNS records from the manifest."""
-    actions.DNS().add()
+    DNS().add()
 
 
 @dns.command('sync')
 def dns_sync():
     """Sync the DNS configuration with the manifest."""
-    actions.DNS().sync()
+    DNS().sync()
 
 
 @cli.group()
@@ -144,7 +151,7 @@ def ips():
 @ips.command('prune')
 def ips_prune():
     """Remove unbound floating IPs."""
-    actions.IPs().prune()
+    IPs().prune()
 
 
 @cli.group()
@@ -156,7 +163,7 @@ def images():
 @images.command('list')
 def images_list():
     """List all available images."""
-    actions.Images().list()
+    Images().list()
 
 
 @cli.group()
@@ -168,13 +175,13 @@ def email():
 @email.command('forward')
 def email_forward():
     """Add DNS records to forward email."""
-    actions.Email().forward()
+    Email().forward()
 
 
 @email.command('whitelabel')
 def email_whitelabel():
     """Add DNS records to whitelabel email domains."""
-    actions.Email().whitelabel()
+    Email().whitelabel()
 
 
 @cli.group()
@@ -186,7 +193,7 @@ def backups():
 @backups.command('configure')
 def backups_configure():
     """Configure remote resources for backups."""
-    actions.Backups().configure()
+    Backups().configure()
 
 
 @cli.group()
@@ -201,7 +208,7 @@ def deploy():
 @click.option('--user', type=str, default='root')
 def deploy_bootstrap(host, inventory, user):
     """Bootstrap one or more hosts for deployment."""
-    actions.Deploy().bootstrap(host, inventory, user=user)
+    Deploy().bootstrap(host, inventory, user=user)
 
 
 @deploy.command('to')
@@ -209,7 +216,7 @@ def deploy_bootstrap(host, inventory, user):
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
 def deploy_to(environment, inventory):
     """Deploy application code to an environment."""
-    actions.Deploy().deploy(environment, inventory)
+    Deploy().deploy(environment, inventory)
 
 
 @deploy.command('rollback')
@@ -217,4 +224,4 @@ def deploy_to(environment, inventory):
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
 def deploy_rollback(environment, inventory):
     """Roll back deployed code in an environment."""
-    actions.Deploy().roll_back(environment, inventory)
+    Deploy().roll_back(environment, inventory)

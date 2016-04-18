@@ -1,8 +1,6 @@
 import os.path
 import re
 
-from ansible import errors
-
 
 def trailing_slash_fs(value):
     """Ensure that a value ends with a single filesystem-appropriate slash.

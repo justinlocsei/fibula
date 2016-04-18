@@ -1,6 +1,4 @@
-from ansible import errors
 from itertools import chain
-from jinja2.runtime import Undefined
 
 
 def flatten(value):

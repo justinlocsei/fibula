@@ -89,7 +89,7 @@ class Servers(BaseAction):
                 divergent = True
                 if ui.confirm('Are you sure you want to change the "%s" droplet\'s size from %s to %s?' % (droplet.name, droplet.size_slug, config['size'])):
                     try:
-                        resize = droplet.resize(config['size'])
+                        droplet.resize(config['size'])
                     except DataReadError as e:
                         ui.error('Could not resize the droplet: %s' % e)
                     else:
