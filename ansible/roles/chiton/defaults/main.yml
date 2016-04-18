@@ -33,6 +33,7 @@ chiton_group_id: null
 chiton_gunicorn_log_level: info
 chiton_gunicorn_threads: 1
 chiton_gunicorn_workers: 1
+chiton_keep_releases: 10
 chiton_log_dir: null
 chiton_log_level: INFO
 chiton_pg_dump_path: pg_dump

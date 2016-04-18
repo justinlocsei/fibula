@@ -16,3 +16,14 @@
     state: link
   notify:
     - reload chiton
+
+- name: determine old releases
+  shell: ls -dt {{ chiton_versions_dir | quote }}/* | tail -n +{{ chiton_keep_releases + 1 }}
+  register: chiton_old_releases
+  changed_when: False
+
+- name: prune old releases
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ chiton_old_releases.stdout | newline_list }}"
