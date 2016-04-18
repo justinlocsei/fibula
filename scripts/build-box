@@ -8,13 +8,14 @@ import shutil
 import subprocess
 import sys
 
-ROOT_DIR = os.path.realpath(os.path.join(__file__, "..", ".."))
-PACKER_DIR = os.path.join(ROOT_DIR, "packer")
-PACKER_BUILD_DIR = os.path.join(PACKER_DIR, "build")
-PACKER_BOXES_DIR = os.path.join(PACKER_BUILD_DIR, "boxes")
-PACKER_ISOS_DIR = os.path.join(PACKER_BUILD_DIR, "isos")
-PACKER_TEMP_DIR = os.path.join(PACKER_BUILD_DIR, "temp")
-VM_PREFIX = "fibula"
+
+ROOT_DIR = os.path.realpath(os.path.join(__file__, '..', '..'))
+PACKER_DIR = os.path.join(ROOT_DIR, 'packer')
+PACKER_BUILD_DIR = os.path.join(PACKER_DIR, 'build')
+PACKER_BOXES_DIR = os.path.join(PACKER_BUILD_DIR, 'boxes')
+PACKER_ISOS_DIR = os.path.join(PACKER_BUILD_DIR, 'isos')
+PACKER_TEMP_DIR = os.path.join(PACKER_BUILD_DIR, 'temp')
+VM_PREFIX = 'fibula'
 
 
 def run():
@@ -33,8 +34,8 @@ def parse_args():
     Returns:
         argparse.Namespace: The parsed arguments
     """
-    parser = argparse.ArgumentParser(description="Build a box via Packer")
-    parser.add_argument("box", metavar="BOX", type=str, help="The name of a Packer template for a box")
+    parser = argparse.ArgumentParser(description='Build a box via Packer')
+    parser.add_argument('box', metavar='BOX', type=str, help='The name of a Packer template for a box')
     return parser.parse_args()
 
 
@@ -47,11 +48,11 @@ def find_box_template(name):
     Returns:
         str: The path to the box's template file
     """
-    box = re.sub(r".json$", "", name)
-    template = os.path.join(PACKER_DIR, "%s.json" % box)
+    box = re.sub(r'.json$', '', name)
+    template = os.path.join(PACKER_DIR, '%s.json' % box)
 
     if not os.path.isfile(template):
-        sys.stderr.write("No box named %s was found at %s\n" % (name, template))
+        sys.stderr.write('No box named %s was found at %s\n' % (name, template))
         sys.exit(1)
 
     return template
@@ -67,10 +68,10 @@ def create_box_ids(prefix, template_path):
     Returns:
         List[str]: All components of a box ID
     """
-    with open(template_path, "r") as template_file:
+    with open(template_path, 'r') as template_file:
         template = json.load(template_file)
 
-    return [prefix, template["variables"]["vm_name"]]
+    return [prefix, template['variables']['vm_name']]
 
 
 def build_box(template_path, box_ids):
@@ -83,8 +84,8 @@ def build_box(template_path, box_ids):
     Returns:
         str: The path to the built box
     """
-    box_id = "-".join(box_ids)
-    box_path = os.path.join(PACKER_BOXES_DIR, "%s.box" % box_id)
+    box_id = '-'.join(box_ids)
+    box_path = os.path.join(PACKER_BOXES_DIR, '%s.box' % box_id)
     output_directory = os.path.join(PACKER_TEMP_DIR, box_id)
 
     for packer_dir in [PACKER_TEMP_DIR, PACKER_BOXES_DIR]:
@@ -95,9 +96,9 @@ def build_box(template_path, box_ids):
         shutil.rmtree(output_directory)
 
     packer_args = [
-        "packer", "build",
-        "-var", "box_path=%s" % box_path,
-        "-var", "output_directory=%s" % output_directory,
+        'packer', 'build',
+        '-var', 'box_path=%s' % box_path,
+        '-var', 'output_directory=%s' % output_directory,
         template_path
     ]
 
@@ -114,7 +115,7 @@ def build_box(template_path, box_ids):
         sys.exit(1)
 
     if packer.returncode != 0:
-        sys.stderr.write("Packer build failed with status %d\n" % packer.returncode)
+        sys.stderr.write('Packer build failed with status %d\n' % packer.returncode)
         sys.exit(1)
 
     return box_path
@@ -130,18 +131,18 @@ def add_box_to_vagrant(box_path, box_ids):
     Returns:
         bool: Whether the box was added to Vagrant
     """
-    box_name = "/".join(box_ids)
+    box_name = '/'.join(box_ids)
 
-    with open(os.devnull, "w") as devnull:
+    with open(os.devnull, 'w') as devnull:
         subprocess.call(
-            ["vagrant", "box", "remove", box_name, "--force"],
+            ['vagrant', 'box', 'remove', box_name, '--force'],
             stdout=devnull,
             stderr=subprocess.STDOUT
         )
 
-    status = subprocess.call(["vagrant", "box", "add", box_path, "--name", box_name])
+    status = subprocess.call(['vagrant', 'box', 'add', box_path, '--name', box_name])
     return status == 0
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     run()
