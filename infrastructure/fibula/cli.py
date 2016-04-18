@@ -1,7 +1,7 @@
 import click
 
 from fibula.actions.backups import Backups
-from fibula.actions.deploy import ENVIRONMENTS, Deploy
+from fibula.actions.deploy import confirm_deploy_action, Deploy, ENVIRONMENTS
 from fibula.actions.dns import DNS
 from fibula.actions.domains import Domains
 from fibula.actions.email import Email
@@ -204,24 +204,33 @@ def deploy():
 
 @deploy.command('bootstrap')
 @click.argument('host', type=str)
-@click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
+@click.option('--force/--no-force', default=False)
+@click.option('--inventory', type=click.Choice(ENVIRONMENTS))
 @click.option('--user', type=str, default='root')
-def deploy_bootstrap(host, inventory, user):
+def deploy_bootstrap(host, force, inventory, user):
     """Bootstrap one or more hosts for deployment."""
-    Deploy().bootstrap(host, inventory, user=user)
+    inventory = inventory or host
+    if force or confirm_deploy_action('bootstrap', host, inventory):
+        Deploy().bootstrap(host, inventory, user=user)
 
 
 @deploy.command('to')
 @click.argument('environment', type=click.Choice(ENVIRONMENTS))
-@click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
-def deploy_to(environment, inventory):
+@click.option('--force/--no-force', default=False)
+@click.option('--inventory', type=click.Choice(ENVIRONMENTS))
+def deploy_to(environment, force, inventory):
     """Deploy application code to an environment."""
-    Deploy().deploy(environment, inventory)
+    inventory = inventory or environment
+    if force or confirm_deploy_action('deploy', environment, inventory):
+        Deploy().deploy(environment, inventory)
 
 
 @deploy.command('rollback')
 @click.argument('environment', type=click.Choice(ENVIRONMENTS))
-@click.option('--inventory', type=click.Choice(ENVIRONMENTS), default=ENVIRONMENTS[0])
-def deploy_rollback(environment, inventory):
+@click.option('--force/--no-force', default=False)
+@click.option('--inventory', type=click.Choice(ENVIRONMENTS))
+def deploy_rollback(environment, force, inventory):
     """Roll back deployed code in an environment."""
-    Deploy().roll_back(environment, inventory)
+    inventory = inventory or environment
+    if force or confirm_deploy_action('bootstrap', environment, inventory):
+        Deploy().roll_back(environment, inventory)

@@ -107,22 +107,15 @@ and desired state of resources, and remove any unused resources.
 Application code can be deployed by running the following command:
 
 ```bash
-$ fib deploy to <ENVIRONMENT> --inventory <INVENTORY>
+$ fib deploy to <ENVIRONMENT>
 ```
 
-This is a thin wrapper around `ansible-playbook` that deploys to all machines
-in the `<ENVIRONMENT>` group found in the `<INVENTORY>` inventory file. By
-default, the development inventory file is used, in order to prevent accidental
-deploys.  For example, to do a test deploy to all staging machines in the
-development inventory, you could run the following command:
+This is a thin wrapper around `ansible-playbook` that deploys to all machines in
+the `<ENVIRONMENT>` group. By default, the inventory file whose name matches the
+environment is used, but this can be changed using the `--inventory` option. For
+example, to do a test deploy to all staging machines in the development
+inventory, you could run the following command:
 
 ```bash
-$ fib deploy to staging
-```
-
-If you wished to deploy to all staging machines in the staging inventory, you
-could instead run the following command:
-
-```bash
-$ fib deploy to staging --inventory staging
+$ fib deploy to staging --inventory=development
 ```

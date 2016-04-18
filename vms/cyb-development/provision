@@ -5,4 +5,4 @@ if ! which -s ansible-playbook; then
   exit 1
 fi
 
-fib deploy to development --inventory=development
+fib deploy to development --inventory=development --force
