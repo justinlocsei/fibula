@@ -10,9 +10,3 @@ trim_trailing_whitespace = true
 
 [*.py]
 indent_size = 4
-
-[scripts/build-box]
-indent_size = 4
-
-[ansible/scripts/vault-password]
-indent_size = 4
