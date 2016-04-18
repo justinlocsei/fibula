@@ -1,6 +1,10 @@
+# Ansible
 cryptography
 httplib2
 Jinja2
 paramiko
 PyYAML
 six
+
+# Fibula
+flake8==2.5.4

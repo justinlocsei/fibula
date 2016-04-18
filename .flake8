@@ -1,0 +1,4 @@
+[flake8]
+exclude = environments,vendor
+ignore = E402,F402,F403
+max-line-length = 160
