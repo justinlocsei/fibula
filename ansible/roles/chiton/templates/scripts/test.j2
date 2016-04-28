@@ -11,7 +11,7 @@ esac
 cd "{{ chiton_source_dir }}" || exit 1
 
 if [[ $refresh == 1 ]]; then
-  tox --recreate
+  tox --recreate || true
   py.test --create-db
 else
   tox
