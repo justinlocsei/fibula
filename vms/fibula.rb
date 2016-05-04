@@ -78,7 +78,7 @@ module Fibula
           group: options.fetch(:group_id),
           map_uid: options.fetch(:user_id),
           map_gid: options.fetch(:group_id),
-          mount_options: ["locallocks", "nolocks", "tcp", "vers=3"],
+          mount_options: ["locallocks", "nolocks", "soft", "tcp", "vers=3"],
           unmount_options: ["-f"]
         }
       ]
