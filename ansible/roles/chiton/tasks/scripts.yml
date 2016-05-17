@@ -81,3 +81,17 @@
     group: "{{ chiton_group }}"
     force: yes
     state: link
+
+- name: create symlinks to the current version's development scripts
+  file:
+    src: "{{ chiton_current_version_dir }}/scripts/{{ item }}"
+    dest: "{{ chiton_scripts_dir }}/{{ item }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    force: yes
+    state: link
+  with_items:
+      - check.sh
+      - lint.sh
+      - test.sh
+  when: chiton_allow_development
