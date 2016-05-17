@@ -54,7 +54,6 @@
     mode: 0755
   with_items:
     - develop
-    - test
   when: chiton_allow_development
 
 - name: create an init script for chiton
