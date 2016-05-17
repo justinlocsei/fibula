@@ -91,7 +91,7 @@
     force: yes
     state: link
   with_items:
-      - check.sh
-      - lint.sh
-      - test.sh
+    - check.sh
+    - lint.sh
+    - test.sh
   when: chiton_allow_development
