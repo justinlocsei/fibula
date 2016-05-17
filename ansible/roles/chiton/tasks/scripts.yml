@@ -53,7 +53,7 @@
     group: "{{ chiton_group }}"
     mode: 0755
   with_items:
-    - develop
+    - serve
   when: chiton_allow_development
 
 - name: create an init script for chiton
