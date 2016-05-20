@@ -1,11 +1,17 @@
 #!{{ chiton_current_version_python_bin }}
 
 import os
+import pwd
 import sys
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chiton.settings')
     os.environ.setdefault('CHITON_CONFIG_FILE', '{{ chiton_config_file }}')
+
+    username = pwd.getpwuid(os.getuid()).pw_name
+    if username != '{{ chiton_user }}':
+      sys.stdout.write('You must run this command as the {{ chiton_user }} user\n')
+      sys.exit(1)
 
     from django.core.management import execute_from_command_line
 
