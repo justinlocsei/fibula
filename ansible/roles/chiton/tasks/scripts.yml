@@ -84,7 +84,7 @@
 
 - name: create symlinks to the current version's development scripts
   file:
-    src: "{{ chiton_current_version_dir }}/scripts/{{ item }}"
+    src: "{{ chiton_source_dir }}/scripts/{{ item }}"
     dest: "{{ chiton_scripts_dir }}/{{ item }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
