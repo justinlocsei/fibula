@@ -19,3 +19,6 @@
 
 - name: finalize the release
   include: finalize.yml
+
+- name: configure background tasks
+  include: background.yml

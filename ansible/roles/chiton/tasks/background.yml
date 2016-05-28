@@ -1,0 +1,13 @@
+---
+- name: add a cron job to update item stock every night
+  cron:
+    name: update item stock
+    job: >
+      CHITON_CONFIG_FILE={{ chiton_config_file | quote }}
+      {{ chiton_current_version_manage_file | quote }} chiton_update_stock
+      --workers={{ chiton_stock_worker_count }}
+    minute: 0
+    hour: 0
+    user: "{{ chiton_user }}"
+    cron_file: chiton-update-item-stock
+    state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
