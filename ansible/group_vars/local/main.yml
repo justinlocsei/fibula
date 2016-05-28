@@ -1,2 +1,2 @@
 ---
-chiton_automate_backups: no
+chiton_run_background_tasks: no

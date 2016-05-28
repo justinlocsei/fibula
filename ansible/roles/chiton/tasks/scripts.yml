@@ -43,7 +43,7 @@
     name: Create nightly backups
     cron_file: chiton-backups
     user: "{{ chiton_user }}"
-    state: "{{ chiton_automate_backups | ternary('present' ,'absent') }}"
+    state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
 
 - name: create development scripts
   template:
