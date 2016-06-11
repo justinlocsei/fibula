@@ -10,6 +10,7 @@ dependencies:
     postgresql_server_version: "{{ chiton_postgresql_version }}"
   - role: postgresql_client
     postgresql_client_version: "{{ chiton_postgresql_version }}"
+  - role: redis
   - role: python
     python_version: "{{ chiton_python_version }}"
   - role: chiton
