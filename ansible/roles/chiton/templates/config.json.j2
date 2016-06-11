@@ -19,6 +19,8 @@
     "file_logging": {{ chiton_daemonize | lower }},
     "log_file": "{{ chiton_app_log_path }}",
     "log_level": "{{ chiton_log_level }}",
+    "redis_db": {{ chiton_redis_db }},
+    "redis_socket": "{{ redis_socket_path }}",
     "secret_key": "{{ chiton_config_secret_key | require_value }}",
     "sentry_dsn": "{{ chiton_sentry_dsn | require_value }}",
     "server_email": "{{ chiton_server_email }}",
