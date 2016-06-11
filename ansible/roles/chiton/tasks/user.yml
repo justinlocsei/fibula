@@ -20,6 +20,11 @@
     password: "*"
     state: present
 
+- name: add the application user to application-specific groups
+  user:
+    name: "{{ chiton_user }}"
+    groups: "{{ redis_group }}"
+
 - name: create the application user's SSH directory
   file:
     path: "{{ chiton_user_home_dir }}/.ssh"
