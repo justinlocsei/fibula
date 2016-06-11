@@ -1,0 +1,5 @@
+---
+redis_group: redis
+redis_run_dir: /var/run/redis
+redis_socket_path: "{{ redis_run_dir }}/redis.sock"
+redis_user: redis

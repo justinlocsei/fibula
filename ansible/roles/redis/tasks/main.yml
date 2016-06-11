@@ -1,0 +1,25 @@
+---
+- name: add Chris Lea's Redis repository
+  apt_repository:
+    repo: ppa:chris-lea/redis-server
+    state: present
+
+- name: install the latest version of redis
+  apt:
+    name: redis-server
+    state: latest
+
+- name: manage the redis configuration file
+  template:
+    src: templates/redis.conf.j2
+    dest: /etc/redis/redis.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart redis
+
+- name: ensure that redis is running
+  service:
+    name: redis-server
+    state: started

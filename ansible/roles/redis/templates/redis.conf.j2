@@ -1,0 +1,26 @@
+# General
+daemonize yes
+databases 16
+
+# Sync the pidfile in the configuration file with the location of the pidfile
+# set in the redis-server package's init script
+pidfile {{ redis_run_dir }}/redis-server.pid
+
+# Connection
+bind 127.0.0.1
+tcp-keepalive 0
+timeout 0
+unixsocket {{ redis_socket_path }}
+unixsocketperm 775
+
+# Logging
+logfile /var/log/redis/redis-server.log
+loglevel notice
+
+# Snapshotting
+dbfilename dump.rdb
+dir /var/lib/redis
+rdbchecksum yes
+rdbcompression yes
+save 900 1
+stop-writes-on-bgsave-error yes
