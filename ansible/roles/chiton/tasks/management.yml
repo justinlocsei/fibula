@@ -24,3 +24,6 @@
       command: "{{ chiton_current_version_manage_file | quote }} collectstatic --noinput"
       register: chiton_collectstatic_result
       changed_when: chiton_collectstatic_result.stdout | search("\n+[^0] static files? copied")
+
+    - name: refresh the cache
+      command: "{{ chiton_current_version_manage_file | quote }} chiton_refresh_cache"
