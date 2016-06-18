@@ -22,6 +22,7 @@ dependencies:
     chiton_pg_dump_path: "{{ postgresql_server_pg_dump_path }}"
     chiton_pg_restore_path: "{{ postgresql_server_pg_restore_path }}"
     chiton_python_bin_name: "{{ python_executable }}"
+  - role: himation
   - role: nginx
   - role: postfix
   - role: monit
