@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import string
 import random
 import re
+import string
 
 
 characters = ''.join([string.ascii_letters, string.digits, string.punctuation])
