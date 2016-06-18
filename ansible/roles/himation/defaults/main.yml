@@ -1,11 +1,17 @@
 ---
+himation_allow_development: no
 himation_app_server: null
 himation_asset_server: null
+himation_debug_assets: no
+himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
+himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
 himation_git_branch: master
 himation_group: himation
 himation_group_id: null
-himation_is_development: yes
-himation_source_dir: /var/cyb-himation
+himation_optimize_assets: no
+himation_root_dir: /var/cyb-himation
+himation_source_dir: "{{ himation_root_dir }}/source"
+himation_use_debug_logging: no
 himation_user: himation
 himation_user_id: null
 himation_user_authorized_keys: []

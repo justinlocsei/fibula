@@ -1,54 +1,6 @@
 ---
-- include_vars: keys.yml
-  no_log: yes
+- name: configure the application user
+  include: user.yml
 
-- name: create the application group
-  group:
-    name: "{{ himation_group }}"
-    gid: "{{ himation_group_id or omit }}"
-    state: present
-
-- name: create the application user
-  user:
-    name: "{{ himation_user }}"
-    group: "{{ himation_group }}"
-    comment: "Himation application user"
-    uid: "{{ himation_user_id or omit }}"
-    shell: /bin/bash
-    password: "*"
-    state: present
-  register: himation_user_details
-
-- name: create the application user's SSH directory
-  file:
-    path: "{{ himation_user_details.home }}/.ssh"
-    mode: 0700
-    owner: "{{ himation_user }}"
-    group: "{{ himation_group }}"
-    state: directory
-  register: himation_user_ssh_dir
-
-- name: add the GitHub deploy keys for the application user
-  copy:
-    dest: "{{ himation_user_ssh_dir.path }}/{{ item.dest }}"
-    content: "{{ item.content }}"
-    mode: 0600
-    owner: "{{ himation_user }}"
-    group: "{{ himation_group }}"
-  no_log: yes
-  with_items:
-    - content: "{{ himation_deploy_ssh_key }}"
-      dest: "id_rsa"
-    - content: "{{ himation_deploy_ssh_key_public }}"
-      dest: "id_rsa.pub"
-
-- name: make the source directory the default directory for the application user
-  lineinfile:
-    dest: "{{ himation_user_details.home }}/.profile"
-    line: "cd \"{{ himation_source_dir }}\""
-    state: present
-
-- include: development.yml
-  when: himation_is_development
-  become: yes
-  become_user: "{{ himation_user }}"
+- name: install the application
+  include: install.yml

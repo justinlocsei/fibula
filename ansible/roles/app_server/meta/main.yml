@@ -13,6 +13,8 @@ dependencies:
   - role: redis
   - role: python
     python_version: "{{ chiton_python_version }}"
+  - role: nodejs
+    nodejs_version: "{{ himation_nodejs_version }}"
   - role: chiton
     chiton_db_host: "{{ postgresql_server_address }}"
     chiton_db_port: "{{ postgresql_server_port }}"

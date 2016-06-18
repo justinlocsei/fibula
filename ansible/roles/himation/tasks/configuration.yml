@@ -1,0 +1,8 @@
+---
+- name: create an application configuration file
+  template:
+    src: settings.json.j2
+    dest: "{{ himation_source_dir }}/config/settings.json"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0644
