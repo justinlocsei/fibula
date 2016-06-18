@@ -14,23 +14,22 @@
     group: "{{ himation_group }}"
     comment: "Himation application user"
     uid: "{{ himation_user_id or omit }}"
+    home: "{{ himation_user_home_dir }}"
     shell: /bin/bash
     password: "*"
     state: present
-  register: himation_user_details
 
 - name: create the application user's SSH directory
   file:
-    path: "{{ himation_user_details.home }}/.ssh"
+    path: "{{ himation_user_ssh_dir }}"
     mode: 0700
     owner: "{{ himation_user }}"
     group: "{{ himation_group }}"
     state: directory
-  register: himation_user_ssh_dir
 
 - name: add the GitHub deploy keys for the application user
   copy:
-    dest: "{{ himation_user_ssh_dir.path }}/{{ item.dest }}"
+    dest: "{{ himation_user_ssh_dir }}/{{ item.dest }}"
     content: "{{ item.content }}"
     mode: 0600
     owner: "{{ himation_user }}"
