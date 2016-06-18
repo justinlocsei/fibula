@@ -5,5 +5,19 @@
   },
   "server": {
     "debugLogging": {{ himation_use_debug_logging | lower }}
+  },
+  "servers": {
+    "app": {
+      "host": "{{ himation_app_server_host }}",
+      "path": "{{ himation_app_server_path }}",
+      "port": {{ himation_app_server_port }},
+      "protocol": "{{ himation_app_server_protocol }}"
+    },
+    "assets": {
+      "host": "{{ himation_asset_server_host }}",
+      "path": "{{ himation_asset_server_path }}",
+      "port": {{ himation_asset_server_port }},
+      "protocol": "{{ himation_asset_server_protocol }}"
+    }
   }
 }

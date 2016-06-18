@@ -1,7 +1,5 @@
 ---
 himation_allow_development: no
-himation_app_server: null
-himation_asset_server: null
 himation_debug_assets: no
 himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
 himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
@@ -15,3 +13,12 @@ himation_use_debug_logging: no
 himation_user: himation
 himation_user_id: null
 himation_user_authorized_keys: []
+
+himation_app_server_host: 127.0.0.1
+himation_app_server_path: "/"
+himation_app_server_port: 3000
+himation_app_server_protocol: http
+himation_asset_server_host: 127.0.0.1
+himation_asset_server_path: "/assets"
+himation_asset_server_port: 4000
+himation_asset_server_protocol: http
