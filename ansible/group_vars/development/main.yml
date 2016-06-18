@@ -1,5 +1,6 @@
 ---
 chiton_activate_virtualenv: yes
+chiton_allow_api_browsing: yes
 chiton_allow_development: yes
 chiton_allow_tests: yes
 chiton_amazon_associates_tracking_id: coveryourbasics-development-20

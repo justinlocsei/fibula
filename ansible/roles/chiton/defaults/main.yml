@@ -3,6 +3,7 @@ chiton_activate_virtualenv: no
 chiton_admin_email: noreply@coveryourbasics.com
 chiton_admin_password: null
 chiton_admin_username: chiton
+chiton_allow_api_browsing: no
 chiton_allow_development: no
 chiton_allow_tests: no
 chiton_amazon_associates_aws_access_key_id: null
