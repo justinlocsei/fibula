@@ -2,7 +2,7 @@
 
 SCRIPTS_DIR="$(dirname "$BASH_SOURCE")"
 
-source "$SCRIPTS_DIR/.functions"
+source "$SCRIPTS_DIR/.functions.sh"
 
 create_virtualenv
 install_python_requirements
