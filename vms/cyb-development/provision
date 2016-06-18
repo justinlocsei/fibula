@@ -1,8 +1,3 @@
 #!/bin/bash
 
-if ! which -s ansible-playbook; then
-  echo "You must source the development script to provision this VM"
-  exit 1
-fi
-
 fib deploy to development --inventory=development --force
