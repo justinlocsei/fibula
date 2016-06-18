@@ -1,3 +1,4 @@
 ---
 nodejs_arch: "{{ ansible_machine }}"
+nodejs_config_dir: /usr/etc
 nodejs_distro: "{{ ansible_distribution_release }}"

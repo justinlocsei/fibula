@@ -18,17 +18,16 @@
 
 - name: create the directory for the global npm configuration
   file:
-    path: /usr/etc
+    path: "{{ nodejs_config_dir }}"
     owner: root
     group: root
+    mode: 0755
     state: directory
-  register: nodejs_config_dir
 
 - name: update the global npm configuration file
   copy:
     src: npmrc
-    dest: "{{ nodejs_config_dir.path }}/npmrc"
+    dest: "{{ nodejs_config_dir }}/npmrc"
     owner: root
     group: root
     mode: 0644
-
