@@ -5,7 +5,7 @@ himation_asset_server: null
 himation_debug_assets: no
 himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
 himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
-himation_git_branch: master
+himation_git_ref: master
 himation_group: himation
 himation_group_id: null
 himation_optimize_assets: no

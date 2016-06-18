@@ -20,7 +20,7 @@
         dest: "{{ himation_source_dir }}"
         repo: git@github.com:justinlocsei/himation.git
         update: yes
-        version: "{{ himation_git_branch }}"
+        version: "{{ himation_git_ref }}"
 
     - name: install Node dependencies
       npm:
