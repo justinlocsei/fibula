@@ -2,7 +2,6 @@
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-VENDOR_DIR="vendor"
 VENV_DIR="environments"
 VENV_NAME="fibula"
 
