@@ -4,3 +4,6 @@
 
 - name: install the application
   include: install.yml
+
+- name: configure the application
+  include: configuration.yml
