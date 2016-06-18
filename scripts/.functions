@@ -22,17 +22,6 @@ function enable_virtualenv() {
   VIRTUAL_ENV_DISABLE_PROMPT="true" source $VENV_NAME/bin/activate
 }
 
-# Install the latest version of Ansible
-function install_ansible() {
-  git submodule update --recursive
-}
-
-# Enable the Ansible development environment
-function enable_ansible() {
-  cd "$ROOT_DIR/$VENDOR_DIR/ansible" || exit
-  source hacking/env-setup
-}
-
 # Install the project's Python requirements via pip
 function install_python_requirements() {
   cd "$ROOT_DIR" || exit
