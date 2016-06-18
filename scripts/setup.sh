@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPTS_DIR="$(dirname "$BASH_SOURCE")"
+SCRIPTS_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
 source "$SCRIPTS_DIR/.functions.sh"
 
