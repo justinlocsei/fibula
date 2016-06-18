@@ -1,4 +1,8 @@
 ---
+app_server_chiton_port: 80
+app_server_chiton_port_https: 443
+app_server_chiton_proxy_name: chiton-proxy
+app_server_chiton_upstream_name: chiton-upstream
 app_server_monit_config_chiton: "{{ monit_configs_dir }}/chiton.conf"
 app_server_nginx_site_chiton: "{{ nginx_sites_dir }}/chiton.conf"
 app_server_ssl_certificate_key_path: "{{ nginx_certs_dir }}/cyb.key"

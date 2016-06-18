@@ -24,6 +24,7 @@ dependencies:
     chiton_pg_dump_path: "{{ postgresql_server_pg_dump_path }}"
     chiton_pg_restore_path: "{{ postgresql_server_pg_restore_path }}"
     chiton_python_bin_name: "{{ python_executable }}"
+    chiton_server_name: "{{ app_server_chiton_server_name }}"
   - role: himation
   - role: nginx
   - role: postfix
@@ -31,8 +32,8 @@ dependencies:
   - role: logrotate
   - role: firewall
     firewall_ports:
-      - port: "{{ chiton_server_port }}"
-      - port: "{{ chiton_server_port_https }}"
+      - port: "{{ app_server_chiton_port }}"
+      - port: "{{ app_server_chiton_port_https }}"
       - port: "{{ postgresql_server_port }}"
         protocol: tcp
         allow: "{{ postgresql_server_allow_external_connections }}"

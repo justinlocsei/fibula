@@ -48,8 +48,6 @@ chiton_run_dir: null
 chiton_sentry_dsn: null
 chiton_server_email: noreply@coveryourbasics.com
 chiton_server_name: null
-chiton_server_port: 80
-chiton_server_port_https: 443
 chiton_shopstyle_uid: null
 chiton_stock_worker_count: 2
 chiton_source_dir: "{{ chiton_root_dir }}/source"

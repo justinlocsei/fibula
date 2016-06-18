@@ -6,8 +6,6 @@ chiton_pip_version: 8.1.1
 chiton_postgresql_version: 9.4
 chiton_public_files_dir_name: public
 chiton_python_version: 3.5
-chiton_server_proxy_name: chiton-proxy
-chiton_server_upstream_name: chiton-upstream
 chiton_virtualenv_dir_name: venv
 chiton_wheel_version: 0.29.0
 chiton_wsgi_module: chiton.wsgi

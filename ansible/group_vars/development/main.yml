@@ -1,4 +1,6 @@
 ---
+app_server_chiton_port: 80
+app_server_chiton_port_https: 443
 chiton_activate_virtualenv: yes
 chiton_allow_api_browsing: yes
 chiton_allow_development: yes
@@ -12,8 +14,6 @@ chiton_git_ref: development
 chiton_group: chiton
 chiton_group_id: 2000
 chiton_root_dir: /var/cyb-chiton
-chiton_server_port: 80
-chiton_server_port_https: 443
 chiton_source_dir: /var/cyb-chiton/source
 chiton_track_errors: no
 chiton_user: chiton

@@ -8,4 +8,4 @@ staging
 staging
 
 [staging:vars]
-chiton_server_name=staging-data.coveryourbasics.com
+app_server_chiton_server_name=staging-data.coveryourbasics.com
