@@ -6,7 +6,7 @@ VENV_DIR="environments"
 VENV_NAME="fibula"
 
 # Create the Python virtual environment if it does not exist
-function create_virtualenv() {
+create_virtualenv() {
   mkdir -p "$ROOT_DIR/$VENV_DIR"
   cd "$ROOT_DIR/$VENV_DIR" || exit
 
@@ -16,24 +16,24 @@ function create_virtualenv() {
 }
 
 # Enable the Python virtual environment
-function enable_virtualenv() {
+enable_virtualenv() {
   cd "$ROOT_DIR/$VENV_DIR" || exit
   VIRTUAL_ENV_DISABLE_PROMPT="true" source $VENV_NAME/bin/activate
 }
 
 # Install the project's Python requirements via pip
-function install_python_requirements() {
+install_python_requirements() {
   cd "$ROOT_DIR" || exit
   "$VENV_DIR/$VENV_NAME/bin/pip" install --requirement requirements.txt
 }
 
 # Allow the infrastructure scripts to run
-function configure_infrastructure_scripts() {
+configure_infrastructure_scripts() {
   pip install --editable "$ROOT_DIR/infrastructure"
 }
 
 # Install all required Vagrant plugins
-function install_vagrant_plugins() {
+install_vagrant_plugins() {
   local plugin
 
   for plugin in "vagrant-nfs_guest" "vagrant-hostsupdater"; do
@@ -44,7 +44,7 @@ function install_vagrant_plugins() {
 }
 
 # Set AWS environment variables
-function set_aws_variables() {
+set_aws_variables() {
   if [[ -z "$CYB_AWS_ACCESS_KEY_ID" ]]; then
     echo "You must set an AWS access key ID via the CYB_AWS_ACCESS_KEY_ID environment variable!"
   else
@@ -59,7 +59,7 @@ function set_aws_variables() {
 }
 
 # Update the SSH config file to relax settings for the development machines
-function update_ssh_config() {
+update_ssh_config() {
   local begin_flag
   local end_flag
   local line
