@@ -20,6 +20,7 @@ chiton_user: chiton
 chiton_user_authorized_keys: "{{ users_admins | map(attribute='public_keys') | flatten | list }}"
 chiton_user_id: 2000
 himation_allow_development: yes
+himation_current_version: development
 himation_git_ref: development
 himation_group: himation
 himation_group_id: 3000

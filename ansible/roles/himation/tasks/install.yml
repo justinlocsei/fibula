@@ -69,6 +69,16 @@
       args:
         chdir: "{{ himation_source_dir }}"
         creates: "{{ himation_current_version_source_dir }}/package.json"
+      when: not himation_allow_development
+
+    - name: use the source directory as the current version
+      file:
+        src: "{{ himation_source_dir }}"
+        dest: "{{ himation_current_version_source_dir }}"
+        owner: "{{ himation_user }}"
+        group: "{{ himation_group }}"
+        state: link
+      when: himation_allow_development
 
     - name: install Node dependencies
       npm:
