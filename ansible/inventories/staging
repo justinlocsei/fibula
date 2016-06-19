@@ -9,3 +9,4 @@ staging
 
 [staging:vars]
 app_server_chiton_server_name=staging-data.coveryourbasics.com
+app_server_himation_server_name=staging-www.coveryourbasics.com
