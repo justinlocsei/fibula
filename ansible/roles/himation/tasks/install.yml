@@ -49,13 +49,17 @@
     himation_current_version_public_dir: "{{ himation_current_version_dir }}/{{ himation_public_dir_name }}"
     himation_current_version_source_dir: "{{ himation_current_version_dir }}/{{ himation_source_dir_name }}"
 
-- name: ensure that the current version's directory exists
+- name: create the current version's directories
   file:
-    path: "{{ himation_current_version_dir }}"
+    path: "{{ item }}"
     owner: "{{ himation_user }}"
     group: "{{ himation_group }}"
     mode: 0755
     state: directory
+  with_items:
+    - "{{ himation_current_version_dir }}"
+    - "{{ himation_current_version_build_dir }}"
+    - "{{ himation_current_version_public_dir }}"
 
 - become: yes
   become_user: "{{ himation_user }}"
@@ -77,14 +81,3 @@
       args:
         chdir: "{{ himation_current_version_source_dir }}"
       when: himation_allow_development
-
-- name: create directories for assets
-  file:
-    path: "{{ item }}"
-    owner: "{{ himation_user }}"
-    group: "{{ himation_group }}"
-    mode: 0755
-    state: directory
-  with_items:
-    - "{{ himation_current_version_build_dir }}"
-    - "{{ himation_current_version_public_dir }}"
