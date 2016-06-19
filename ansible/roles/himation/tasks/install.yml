@@ -9,27 +9,82 @@
   with_items:
     - "{{ himation_root_dir }}"
     - "{{ himation_source_dir }}"
+    - "{{ himation_var_dir }}"
+    - "{{ himation_log_dir_final }}"
+    - "{{ himation_run_dir_final }}"
+    - "{{ himation_versions_dir }}"
+    - "{{ himation_config_dir }}"
+    - "{{ himation_scripts_dir }}"
+
+- name: fetch the source code
+  git:
+    accept_hostkey: yes
+    clone: yes
+    dest: "{{ himation_source_dir }}"
+    repo: git@github.com:justinlocsei/himation.git
+    update: yes
+    version: "{{ himation_git_ref }}"
+  become: yes
+  become_user: "{{ himation_user }}"
+  register: himation_source_fetch
+  when: not himation_rollback_delta
+
+- when: himation_rollback_delta
+  block:
+    - name: determine the rollback version
+      shell: ls -t {{ himation_versions_dir | quote }} | head -n {{ himation_rollback_delta + 1 }} | tail -n 1
+      register: himation_rollback_version
+
+    - name: set the current version to the rollback version
+      set_fact:
+        himation_current_version: "{{ himation_rollback_version.stdout }}"
+
+- name: set the directory for the current version
+  set_fact:
+    himation_current_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_source_fetch.after }}"
+
+- name: set the paths to functional subdirectories for the current version
+  set_fact:
+    himation_current_version_build_dir: "{{ himation_current_version_dir }}/{{ himation_build_dir_name }}"
+    himation_current_version_public_dir: "{{ himation_current_version_dir }}/{{ himation_public_dir_name }}"
+    himation_current_version_source_dir: "{{ himation_current_version_dir }}/{{ himation_source_dir_name }}"
+
+- name: ensure that the current version's directory exists
+  file:
+    path: "{{ himation_current_version_dir }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0755
+    state: directory
 
 - become: yes
   become_user: "{{ himation_user }}"
   block:
-    - name: fetch the source code
-      git:
-        accept_hostkey: yes
-        clone: yes
-        dest: "{{ himation_source_dir }}"
-        repo: git@github.com:justinlocsei/himation.git
-        update: yes
-        version: "{{ himation_git_ref }}"
+    - name: install the current version's source code
+      command: git checkout-index --all --force --prefix={{ himation_current_version_source_dir | quote }}/
+      args:
+        chdir: "{{ himation_source_dir }}"
+        creates: "{{ himation_current_version_source_dir }}/package.json"
 
     - name: install Node dependencies
       npm:
-        path: "{{ himation_source_dir }}"
+        path: "{{ himation_current_version_source_dir }}"
         production: "{{ not himation_allow_development }}"
         state: present
 
     - name: link source directories through npm
       command: npm run link
       args:
-        chdir: "{{ himation_source_dir }}"
+        chdir: "{{ himation_current_version_source_dir }}"
       when: himation_allow_development
+
+- name: create directories for assets
+  file:
+    path: "{{ item }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ himation_current_version_build_dir }}"
+    - "{{ himation_current_version_public_dir }}"

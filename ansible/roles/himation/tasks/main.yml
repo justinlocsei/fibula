@@ -7,3 +7,6 @@
 
 - name: configure the application
   include: configuration.yml
+
+- name: finalize the release
+  include: finalize.yml

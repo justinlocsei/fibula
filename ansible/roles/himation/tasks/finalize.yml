@@ -1,0 +1,29 @@
+---
+- name: add a robots.txt file
+  copy:
+    src: public/robots.txt
+    dest: "{{ himation_current_version_public_dir }}/robots.txt"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0644
+
+- name: update the current version's symlink
+  file:
+    src: "{{ himation_current_version_dir }}"
+    dest: "{{ himation_current_dir }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    state: link
+  notify:
+    - reload chiton
+
+- name: determine old releases
+  shell: ls -dt {{ himation_versions_dir | quote }}/* | tail -n +{{ himation_keep_releases + 1 }}
+  register: himation_old_releases
+  changed_when: False
+
+- name: prune old releases
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ himation_old_releases.stdout | newline_list }}"
