@@ -1,0 +1,28 @@
+---
+- name: grant nginx access to the himation socket
+  user:
+    name: "{{ nginx_user }}"
+    groups: "{{ himation_group }}"
+    append: yes
+
+- name: check if the nginx site config exists
+  stat:
+    path: "{{ app_server_nginx_site_himation }}"
+  register: app_server_check_himation_site
+  changed_when: False
+
+- name: create the nginx site config
+  template:
+    src: nginx/himation.conf.j2
+    dest: "{{ app_server_nginx_site_himation }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload nginx
+
+- name: apply a new site config
+  service:
+    name: nginx
+    state: restarted
+  when: app_server_check_himation_site.stat.isreg is not defined
