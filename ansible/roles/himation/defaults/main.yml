@@ -22,8 +22,8 @@ himation_user_authorized_keys: []
 himation_app_server_host: 127.0.0.1
 himation_app_server_path: "/"
 himation_app_server_port: 3000
-himation_app_server_protocol: https
+himation_app_server_protocol: http
 himation_asset_server_host: 127.0.0.1
 himation_asset_server_path: "/assets"
 himation_asset_server_port: 3001
-himation_asset_server_protocol: https
+himation_asset_server_protocol: http
