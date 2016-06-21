@@ -2,6 +2,8 @@
 
 alias ll="ls -hlF"
 
+export HIMATION_CONFIG_FILE="{{ himation_config_file }}"
+
 {% if himation_allow_development %}
 cd "{{ himation_current_source_dir }}"
 {% endif %}
