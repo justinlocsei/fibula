@@ -45,6 +45,7 @@
 
 - name: set the paths to functional subdirectories for the current version
   set_fact:
+    himation_current_version_assets_dir: "{{ himation_current_version_dir }}/{{ himation_assets_dir_name }}"
     himation_current_version_build_dir: "{{ himation_current_version_dir }}/{{ himation_build_dir_name }}"
     himation_current_version_public_dir: "{{ himation_current_version_dir }}/{{ himation_public_dir_name }}"
     himation_current_version_source_dir: "{{ himation_current_version_dir }}/{{ himation_source_dir_name }}"
@@ -58,6 +59,7 @@
     state: directory
   with_items:
     - "{{ himation_current_version_dir }}"
+    - "{{ himation_current_version_assets_dir }}"
     - "{{ himation_current_version_build_dir }}"
     - "{{ himation_current_version_public_dir }}"
 
