@@ -26,8 +26,7 @@ dependencies:
     chiton_python_bin_name: "{{ python_executable }}"
     chiton_server_name: "{{ app_server_chiton_server_name }}"
   - role: himation
-    himation_app_server_host: "{{ app_server_himation_server_name }}"
-    himation_asset_server_host: "{{ app_server_himation_server_name }}"
+    himation_server_name: "{{ app_server_himation_server_name }}"
   - role: nginx
   - role: postfix
   - role: monit

@@ -9,16 +9,12 @@
   },
   "servers": {
     "app": {
-      "host": "{{ himation_app_server_host }}",
-      "path": "{{ himation_app_server_path }}",
       "port": {{ himation_app_server_port }},
-      "protocol": "{{ himation_app_server_protocol }}"
+      "publicURL": "{{ himation_app_server_public_url }}"
     },
     "assets": {
-      "host": "{{ himation_asset_server_host }}",
-      "path": "{{ himation_asset_server_path }}",
       "port": {{ himation_asset_server_port }},
-      "protocol": "{{ himation_asset_server_protocol }}"
+      "publicURL": "{{ himation_asset_server_public_url }}"
     }
   }
 }
