@@ -25,6 +25,15 @@ server {
   root {{ himation_public_dir }};
   try_files $uri $uri/ @{{ app_server_himation_proxy_name }};
 
+  location {{ himation_assets_path | trailing_slash_url }} {
+    alias {{ himation_assets_dir | trailing_slash_fs }};
+
+    {% if himation_optimize_assets %}
+      add_header Cache-Control "public";
+      expires max
+    {% endif %}
+  }
+
   location @{{ app_server_himation_proxy_name }} {
     proxy_redirect off;
     proxy_set_header Host $http_host;
