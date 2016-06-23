@@ -1,3 +1,3 @@
 #!/bin/bash
 
-fib deploy to development --inventory=development --force
+fib deploy bootstrap development --inventory=development --force --user=vagrant
