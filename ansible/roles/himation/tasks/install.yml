@@ -85,9 +85,3 @@
         path: "{{ himation_current_version_source_dir }}"
         production: "{{ not himation_allow_development }}"
         state: present
-
-    - name: link source directories through npm
-      command: npm run link
-      args:
-        chdir: "{{ himation_current_version_source_dir }}"
-      when: himation_allow_development
