@@ -23,7 +23,7 @@ server {
 
   autoindex off;
   root {{ himation_public_dir }};
-  try_files $uri $uri/ @{{ app_server_himation_proxy_name }};
+  try_files $uri @{{ app_server_himation_proxy_name }};
 
   location {{ himation_assets_path | trailing_slash_url }} {
     alias {{ himation_assets_dir | trailing_slash_fs }};

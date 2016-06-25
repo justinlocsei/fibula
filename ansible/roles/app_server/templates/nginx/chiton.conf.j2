@@ -23,7 +23,7 @@ server {
 
   autoindex off;
   root {{ chiton_public_files_dir }};
-  try_files $uri $uri/ @{{ app_server_chiton_proxy_name }};
+  try_files $uri @{{ app_server_chiton_proxy_name }};
 
   location {{ chiton_assets_url | trailing_slash_url }} {
     add_header Cache-Control "public";
