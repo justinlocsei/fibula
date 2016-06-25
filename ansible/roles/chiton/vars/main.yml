@@ -58,8 +58,8 @@ chiton_requirements_files:
 
 chiton_server_requirements:
   - name: gunicorn
-    version: 19.4.5
+    version: 19.6.0
     notify: reload chiton
   - name: rainbow-saddle
-    version: 0.3.1
+    version: 0.3.2
     notify: restart chiton
