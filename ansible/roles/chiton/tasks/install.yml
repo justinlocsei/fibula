@@ -130,13 +130,24 @@
       notify:
         - "{{ item.notify | default(omit) }}"
 
-    - name: install chiton
+    - name: install chiton as a package
       command: >-
         {{ chiton_current_version_pip_bin | quote }} install
-        {{ chiton_allow_development | ternary('-e', '') }}
         {{ chiton_source_dir | quote }}
       register: chiton_source_install
       changed_when: "'Installing collected packages' in chiton_source_install.stdout"
+      when: not chiton_allow_development
+
+    - name: install chiton as a symlink
+      file:
+        src: "{{ chiton_source_dir }}/chiton"
+        dest: "{{ chiton_current_version_virtualenv_dir }}/lib/python{{ chiton_python_version }}/site-packages/chiton"
+        owner: "{{ chiton_user }}"
+        group: "{{ chiton_group }}"
+        mode: 0755
+        force: yes
+        state: link
+      when: chiton_allow_development
 
     - name: install server dependencies
       pip:
