@@ -6,6 +6,8 @@ chiton_admin_username: chiton
 chiton_allow_api_browsing: no
 chiton_allow_development: no
 chiton_allow_tests: no
+chiton_api_user_name: null
+chiton_api_user_token: null
 chiton_amazon_associates_aws_access_key_id: null
 chiton_amazon_associates_aws_secret_access_key: null
 chiton_amazon_associates_tracking_id: null

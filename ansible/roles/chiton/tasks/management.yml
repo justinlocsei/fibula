@@ -20,6 +20,11 @@
       register: chiton_load_fixtures_result
       changed_when: "chiton_load_fixtures_result.stdout | search('New model count: [^0]')"
 
+    - name: create the API recommender user
+      command: "{{ chiton_current_version_manage_file | quote }} chiton_ensure_recommender_exists --username {{ chiton_api_user_name | quote }} --token {{ chiton_api_user_token | quote }}"
+      register: chiton_ensure_recommender_exists_result
+      changed_when: chiton_ensure_recommender_exists_result.stdout
+
     - name: collect the assets
       command: "{{ chiton_current_version_manage_file | quote }} collectstatic --noinput"
       register: chiton_collectstatic_result
