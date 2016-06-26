@@ -1,6 +1,8 @@
 ---
 himation_allow_development: no
 himation_assets_path: /assets
+himation_chiton_endpoint: null
+himation_chiton_token: null
 himation_current_version: null
 himation_debug_assets: no
 himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"

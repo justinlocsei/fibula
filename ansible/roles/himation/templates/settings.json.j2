@@ -4,6 +4,10 @@
     "distDir": "{{ himation_current_version_assets_dir }}",
     "optimize": {{ himation_optimize_assets | lower }}
   },
+  "chiton": {
+    "endpoint": "{{ himation_chiton_endpoint | require_value }}",
+    "token": "{{ himation_chiton_token | require_value }}"
+  },
   "server": {
     "debugLogging": {{ himation_use_debug_logging | lower }}
   },
