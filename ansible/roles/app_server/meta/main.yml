@@ -16,6 +16,7 @@ dependencies:
   - role: nodejs
     nodejs_version: "{{ himation_nodejs_version }}"
   - role: chiton
+    chiton_api_user_name: himation
     chiton_db_host: "{{ postgresql_server_address }}"
     chiton_db_port: "{{ postgresql_server_port }}"
     chiton_db_root_name: "{{ postgresql_server_root_user }}"
@@ -26,6 +27,8 @@ dependencies:
     chiton_python_bin_name: "{{ python_executable }}"
     chiton_server_name: "{{ app_server_chiton_server_name }}"
   - role: himation
+    himation_chiton_endpoint: "http://unix:{{ chiton_server_socket_path }}:/api"
+    himation_chiton_token: "{{ chiton_api_user_token }}"
     himation_server_name: "{{ app_server_himation_server_name }}"
   - role: nginx
   - role: postfix
