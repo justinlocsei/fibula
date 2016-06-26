@@ -10,10 +10,10 @@
       changed_when: "'No migrations to apply.' not in chiton_migrate_result.stdout"
 
     - name: create the in-app administrator account
-      command: "{{ chiton_current_version_manage_file | quote }} chiton_ensure_superuser --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
+      command: "{{ chiton_current_version_manage_file | quote }} chiton_ensure_superuser_exists --username {{ chiton_admin_username | quote }} --email {{ chiton_admin_email | quote }} --password {{ chiton_admin_password | require_value | quote }}"
       no_log: yes
-      register: chiton_ensure_superuser_result
-      changed_when: "'User modified' in chiton_ensure_superuser_result.stdout"
+      register: chiton_ensure_superuser_exists_result
+      changed_when: "'User modified' in chiton_ensure_superuser_exists_result.stdout"
 
     - name: load core fixtures
       command: "{{ chiton_current_version_manage_file | quote }} chiton_load_fixtures"
