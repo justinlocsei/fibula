@@ -1,6 +1,8 @@
 ---
 postfix_relay_host: smtp.sendgrid.net
+postfix_relay_password: "{{ vault__postfix_relay_password }}"
 postfix_relay_port: 587
+postgresql_server_root_password: "{{ vault__postgresql_server_root_password }}"
 
 chiton_admin_password: "{{ vault__chiton_admin_password }}"
 chiton_amazon_associates_aws_access_key_id: "{{ vault__chiton_amazon_associates_aws_access_key_id }}"
@@ -14,5 +16,3 @@ chiton_shopstyle_uid: "{{ vault__chiton_shopstyle_uid }}"
 cyb_certificates_wildcard_ca_bundle: "{{ vault__cyb_certificates_wildcard_ca_bundle | default('') }}"
 cyb_certificates_wildcard_certificate: "{{ vault__cyb_certificates_wildcard_certificate }}"
 cyb_certificates_wildcard_key: "{{ vault__cyb_certificates_wildcard_key }}"
-postfix_relay_password: "{{ vault__postfix_relay_password }}"
-postgresql_server_root_password: "{{ vault__postgresql_server_root_password }}"
