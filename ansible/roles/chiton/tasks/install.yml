@@ -17,6 +17,7 @@
     - "{{ chiton_config_dir }}"
     - "{{ chiton_scripts_dir }}"
     - "{{ chiton_package_cache_dir }}"
+    - "{{ chiton_media_dir }}"
 
 - name: install requirements for building Python dependencies and extensions
   apt:
