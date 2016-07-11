@@ -31,6 +31,10 @@ server {
     expires max;
   }
 
+  location {{ chiton_media_url | trailing_slash_url }} {
+    alias {{ chiton_media_dir | trailing_slash_fs }};
+  }
+
   location @{{ app_server_chiton_proxy_name }} {
     proxy_redirect off;
     proxy_set_header Host $http_host;
