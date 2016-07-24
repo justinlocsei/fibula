@@ -17,6 +17,7 @@
       "publicURL": "{{ himation_app_server_public_url }}"
     },
     "assets": {
+      "path": "{{ himation_assets_path | trailing_slash_url }}",
       "port": {{ himation_asset_server_port }},
       "publicURL": "{{ himation_asset_server_public_url }}"
     }
