@@ -1,5 +1,5 @@
 upstream {{ app_server_chiton_upstream_name }} {
-  server unix://{{ chiton_server_socket_path }};
+  server 127.0.0.1:{{ chiton_server_port }};
 }
 
 server {

@@ -26,7 +26,7 @@ def find_current_version_virtualenv_dirs():
     return existing_venv_dirs
 
 
-bind = 'unix:{{ chiton_server_socket_path }}'
+bind = '127.0.0.1:{{ chiton_server_port }}'
 daemon = False
 group = '{{ chiton_group }}'
 preload_app = {{ chiton_allow_development | ternary("False", "True") }}

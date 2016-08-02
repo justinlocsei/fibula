@@ -48,7 +48,6 @@ chiton_server_access_log_path: "{{ chiton_log_dir_final }}/server-access.log"
 chiton_server_error_log_path: "{{ chiton_log_dir_final }}/server-error.log"
 chiton_server_pidfile_slave_path: "{{ chiton_run_dir_final }}/chiton-slave.pid"
 chiton_server_pidfile_path: "{{ chiton_run_dir_final }}/chiton-master.pid"
-chiton_server_socket_path: "{{ chiton_run_dir_final }}/chiton.sock"
 
 chiton_requirements_files:
   - file: core.txt
