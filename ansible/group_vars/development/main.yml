@@ -21,6 +21,7 @@ chiton_user_authorized_keys: "{{ users_admins | map(attribute='public_keys') | f
 chiton_user_id: 2000
 himation_allow_development: yes
 himation_current_version: development
+himation_daemonize: no
 himation_debug_assets: yes
 himation_git_ref: development
 himation_group: himation
