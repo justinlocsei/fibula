@@ -45,17 +45,16 @@ start() {
 
 stop() {
   pm2_app_command stop
+
+  pm2_command delete all
+  pm2_command kill
+
+  rm -f "$PIDFILE"
 }
 
 restart() {
   echo "Restarting $NAME"
-
-  pm2_command delete all
-  pm2_command kill
-  pm2_command resurrect
-
-  rm -f "$PIDFILE"
-
+  stop
   start
 }
 
