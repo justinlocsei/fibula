@@ -8,6 +8,10 @@
     "endpoint": "{{ himation_chiton_endpoint | require_value }}",
     "token": "{{ himation_chiton_token | require_value }}"
   },
+  "errors": {
+    "sentryDsn": "{{ himation_sentry_dsn }}",
+    "track": {{ himation_track_errors | lower }}
+  },
   "server": {
     "debugLogging": {{ himation_use_debug_logging | lower }}
   },
