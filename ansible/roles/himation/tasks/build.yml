@@ -1,0 +1,8 @@
+- name: build assets
+  command: npm run build
+  args:
+    chdir: "{{ himation_current_version_source_dir }}"
+  environment:
+    HIMATION_CONFIG_FILE: "{{ himation_config_file }}"
+  become: yes
+  become_user: "{{ himation_user }}"

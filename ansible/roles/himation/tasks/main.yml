@@ -8,6 +8,9 @@
 - name: configure the application
   include: configuration.yml
 
+- name: run build steps
+  include: build.yml
+
 - name: allow the application to run as a daemon
   include: daemon.yml
   when: himation_daemonize
