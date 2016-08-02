@@ -29,6 +29,7 @@ himation_group_id: 3000
 himation_optimize_assets: no
 himation_root_dir: /var/cyb-himation
 himation_source_dir: /var/cyb-himation/source
+himation_track_errors: no
 himation_use_debug_logging: yes
 himation_user: himation
 himation_user_authorized_keys: "{{ users_admins | map(attribute='public_keys') | flatten | list }}"
