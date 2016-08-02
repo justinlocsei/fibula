@@ -40,3 +40,10 @@
   notify:
     - reload monit
 
+- name: configure log rotation
+  template:
+    src: logrotate/himation.j2
+    dest: "{{ logrotate_conf_dir }}/himation"
+    owner: root
+    group: root
+    mode: 0644

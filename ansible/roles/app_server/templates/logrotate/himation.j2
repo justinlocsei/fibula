@@ -1,0 +1,9 @@
+{{ himation_log_dir }}/*.log {
+  compress
+  create 640 {{ himation_user }} {{ himation_group }}
+  daily
+  delaycompress
+  missingok
+  notifempty
+  rotate 30
+}
