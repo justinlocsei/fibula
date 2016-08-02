@@ -21,8 +21,8 @@ chiton_config_secret_key: null
 chiton_current_version: null
 chiton_daemonize: yes
 chiton_default_email: noreply@coveryourbasics.com
-chiton_deploy_ssh_key: "{{ vault__chiton_deploy_ssh_key }}"
-chiton_deploy_ssh_key_public: "{{ vault__chiton_deploy_ssh_key_public }}"
+chiton_deploy_ssh_key: null
+chiton_deploy_ssh_key_public: null
 chiton_db_host: null
 chiton_db_port: null
 chiton_db_root_name: null

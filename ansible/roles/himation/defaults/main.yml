@@ -7,8 +7,8 @@ himation_chiton_endpoint: null
 himation_chiton_token: null
 himation_current_version: null
 himation_debug_assets: no
-himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
-himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
+himation_deploy_ssh_key: null
+himation_deploy_ssh_key_public: null
 himation_git_ref: master
 himation_group: himation
 himation_group_id: null

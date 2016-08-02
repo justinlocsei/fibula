@@ -1,8 +1,4 @@
 ---
-- name: load the application user's keys
-  include_vars: user_keys.yml
-  no_log: yes
-
 - name: create the application group
   group:
     name: "{{ chiton_group }}"

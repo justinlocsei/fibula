@@ -1,7 +1,4 @@
 ---
-- include_vars: user_keys.yml
-  no_log: yes
-
 - name: create the application group
   group:
     name: "{{ himation_group }}"

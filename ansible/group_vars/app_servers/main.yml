@@ -11,6 +11,8 @@ chiton_api_user_token: "{{ vault__chiton_api_user_token }}"
 chiton_backups_aws_access_key_id: "{{ vault__chiton_backups_aws_access_key_id }}"
 chiton_backups_aws_secret_access_key: "{{ vault__chiton_backups_aws_secret_access_key }}"
 chiton_config_secret_key: "{{ vault__chiton_config_secret_key }}"
+chiton_deploy_ssh_key: "{{ vault__chiton_deploy_ssh_key }}"
+chiton_deploy_ssh_key_public: "{{ vault__chiton_deploy_ssh_key_public }}"
 chiton_db_user_password: "{{ vault__chiton_db_user_password }}"
 chiton_sentry_dsn: "{{ vault__chiton_sentry_dsn }}"
 chiton_server_port: 3002
@@ -20,3 +22,5 @@ cyb_certificates_wildcard_certificate: "{{ vault__cyb_certificates_wildcard_cert
 cyb_certificates_wildcard_key: "{{ vault__cyb_certificates_wildcard_key }}"
 himation_app_server_port: 3000
 himation_asset_server_port: 3001
+himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
+himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
