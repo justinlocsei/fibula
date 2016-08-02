@@ -15,7 +15,7 @@ himation_group: himation
 himation_group_id: null
 himation_keep_releases: 10
 himation_log_dir: null
-himation_optimize_assets: no
+himation_optimize_assets: yes
 himation_rollback_delta: 0
 himation_root_dir: /var/cyb-himation
 himation_run_dir: null
