@@ -6,6 +6,8 @@
     owner: "{{ himation_user }}"
     group: "{{ himation_group }}"
     mode: 0644
+  notify:
+    - reload himation
 
 - name: create a profile script to customize the application user's environment
   template:

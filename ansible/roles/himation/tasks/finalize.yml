@@ -15,7 +15,7 @@
     group: "{{ himation_group }}"
     state: link
   notify:
-    - reload chiton
+    - reload himation
 
 - name: determine old releases
   shell: ls -dt {{ himation_versions_dir | quote }}/* | tail -n +{{ himation_keep_releases + 1 }}
