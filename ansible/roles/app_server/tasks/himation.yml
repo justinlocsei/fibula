@@ -1,10 +1,4 @@
 ---
-- name: grant nginx access to the himation socket
-  user:
-    name: "{{ nginx_user }}"
-    groups: "{{ himation_group }}"
-    append: yes
-
 - name: check if the nginx site config exists
   stat:
     path: "{{ app_server_nginx_site_himation }}"
