@@ -1,0 +1,5 @@
+check process himation with pidfile {{ himation_pm2_pidfile }}
+  start program = "/etc/init.d/himation start"
+    as uid {{ himation_user }} and gid {{ himation_group }}
+  stop program = "/etc/init.d/himation stop"
+    as uid {{ himation_user }} and gid {{ himation_group }}

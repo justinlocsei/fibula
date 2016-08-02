@@ -20,3 +20,23 @@
     name: nginx
     state: restarted
   when: app_server_check_himation_site.stat.isreg is not defined
+
+- name: create a monit config
+  template:
+    src: monit/himation.conf.j2
+    dest: "{{ app_server_monit_config_himation }}"
+    mode: 0600
+    owner: "{{ monit_user }}"
+    group: "{{ monit_group }}"
+  when: himation_daemonize
+  notify:
+    - reload monit
+
+- name: delete the monit config
+  file:
+    path: "{{ app_server_monit_config_himation }}"
+    state: absent
+  when: not himation_daemonize
+  notify:
+    - reload monit
+
