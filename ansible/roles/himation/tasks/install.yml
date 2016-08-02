@@ -9,9 +9,8 @@
   with_items:
     - "{{ himation_root_dir }}"
     - "{{ himation_source_dir }}"
-    - "{{ himation_var_dir }}"
-    - "{{ himation_log_dir_final }}"
-    - "{{ himation_run_dir_final }}"
+    - "{{ himation_log_dir }}"
+    - "{{ himation_run_dir }}"
     - "{{ himation_versions_dir }}"
     - "{{ himation_config_dir }}"
     - "{{ himation_scripts_dir }}"

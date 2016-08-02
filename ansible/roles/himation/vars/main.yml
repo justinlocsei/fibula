@@ -12,18 +12,16 @@ himation_source_dir_name: source
 himation_current_dir: "{{ himation_root_dir }}/current"
 himation_config_dir: "{{ himation_root_dir }}/config"
 himation_scripts_dir: "{{ himation_root_dir }}/scripts"
-himation_var_dir: "{{ himation_root_dir }}/var"
 himation_versions_dir: "{{ himation_root_dir }}/versions"
+
+himation_log_dir: /var/log/himation
+himation_run_dir: /var/run/himation
 
 himation_app_log_path: "{{ himation_log_dir_final }}/app.log"
 himation_assets_dir: "{{ himation_current_dir }}/{{ himation_assets_dir_name }}"
 himation_config_file: "{{ himation_config_dir }}/settings.json"
 himation_current_source_dir: "{{ himation_current_dir }}/{{ himation_source_dir_name }}"
-himation_log_dir_app: "{{ himation_var_dir }}/log"
-himation_log_dir_final: "{{ himation_log_dir or himation_log_dir_app }}"
 himation_public_dir: "{{ himation_current_dir }}/{{ himation_public_dir_name }}"
-himation_run_dir_app: "{{ himation_var_dir }}/run"
-himation_run_dir_final: "{{ himation_run_dir or himation_run_dir_app }}"
 
 himation_app_server_public_url: https://{{ himation_server_name }}
 himation_asset_server_public_url: https://{{ himation_server_name }}{{ himation_assets_path }}
