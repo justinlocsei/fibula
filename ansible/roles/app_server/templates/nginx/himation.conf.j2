@@ -30,7 +30,7 @@ server {
 
     {% if himation_optimize_assets %}
       add_header Cache-Control "public";
-      expires max
+      expires max;
     {% endif %}
   }
 
