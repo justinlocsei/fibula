@@ -22,5 +22,5 @@ himation_server_name: null
 himation_source_dir: "{{ himation_root_dir }}/source"
 himation_use_debug_logging: no
 himation_user: himation
-himation_user_id: null
 himation_user_authorized_keys: []
+himation_user_id: null
