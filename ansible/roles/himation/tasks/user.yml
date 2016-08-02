@@ -12,7 +12,7 @@
     comment: "Himation application user"
     uid: "{{ himation_user_id or omit }}"
     home: "{{ himation_user_home_dir }}"
-    shell: /bin/bash
+    shell: "{{ himation_user_shell }}"
     password: "*"
     state: present
 

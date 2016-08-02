@@ -2,6 +2,7 @@
 himation_nodejs_version: 4.2.4
 himation_user_custom_profile: "{{ himation_user_home_dir }}/.profile.himation"
 himation_user_home_dir: "/home/{{ himation_user }}"
+himation_user_shell: /bin/bash
 himation_user_ssh_dir: "{{ himation_user_home_dir }}/.ssh"
 
 himation_assets_dir_name: assets
