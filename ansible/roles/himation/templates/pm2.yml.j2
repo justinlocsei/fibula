@@ -5,6 +5,9 @@ apps:
     exec_mode: cluster
     instances: max
 
+    env:
+      HIMATION_CONFIG_FILE: "{{ himation_config_file }}"
+
     error_file: "{{ himation_log_dir }}/error.log"
     out_file: "{{ himation_log_dir }}/access.log"
     pid_file: "{{ himation_run_dir }}/himation.pid"
