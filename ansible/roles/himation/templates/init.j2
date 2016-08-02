@@ -1,0 +1,95 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          himation
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Should-Start:      $network
+# Should-Stop:       $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Himation PM2 manager
+# Description:       Controls the himation front-end server
+### END INIT INFO
+
+NAME=himation
+USER="{{ himation_user }}"
+GROUP="{{ himation_group }}"
+USER_SHELL="{{ himation_user_shell }}"
+PIDFILE="{{ himation_pm2_pidfile }}"
+
+PM2=/usr/lib/node_modules/pm2/bin/pm2
+APP_DEFINITION="{{ himation_pm2_app_definition }}"
+APP_NAME="{{ himation_pm2_app_name }}"
+
+export PATH=/usr/bin:$PATH
+export PM2_HOME="{{ himation_user_home_dir }}/.pm2"
+
+STATUS=0
+
+pm2_command() {
+  su - "$USER" -s "$USER_SHELL" -c "PATH=$PATH; PM2_HOME=$PM2_HOME '$PM2' $*"
+}
+
+pm2_app_command() {
+  pm2_command "$@" "$APP_DEFINITION" --only "$APP_NAME"
+}
+
+start() {
+  echo "Starting $NAME"
+  pm2_app_command start
+
+  pgrep --uid "$USER" PM2 > "$PIDFILE"
+  chown "$USER:$GROUP" "$PIDFILE"
+}
+
+stop() {
+  pm2_app_command stop
+}
+
+restart() {
+  echo "Restarting $NAME"
+
+  pm2_command delete all
+  pm2_command kill
+  pm2_command resurrect
+
+  rm -f "$PIDFILE"
+
+  start
+}
+
+reload() {
+  echo "Reloading $NAME"
+  pm2_app_command reload
+}
+
+status() {
+  echo "Status for $NAME:"
+  pm2_app_command show "$APP_NAME"
+  STATUS=$?
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status
+    ;;
+  restart)
+    restart
+    ;;
+  reload)
+    reload
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|status|restart|reload}"
+    exit 1
+    ;;
+esac
+
+exit $STATUS

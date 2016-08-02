@@ -1,0 +1,12 @@
+---
+- name: reload himation
+  service:
+    name: himation
+    state: reloaded
+  when: himation_daemonize
+
+- name: restart himation
+  service:
+    name: himation
+    state: restarted
+  when: himation_daemonize

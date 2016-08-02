@@ -1,0 +1,16 @@
+apps:
+  - name: "{{ himation_pm2_app_name }}"
+    cwd: "{{ himation_current_source_dir }}"
+    script: index.js
+    exec_mode: cluster
+    instances: max
+
+    error_file: "{{ himation_log_dir }}/error.log"
+    out_file: "{{ himation_log_dir }}/access.log"
+    pid_file: "{{ himation_run_dir }}/himation.pid"
+    log_date_format: YYYY-MM-DD HH:mm Z
+    combine_logs: true
+
+    autorestart: true
+    max_restarts: 10
+    vizion: false

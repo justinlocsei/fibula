@@ -1,0 +1,35 @@
+---
+- name: install pm2 globally
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    version: "{{ himation_pm2_version }}"
+    state: present
+  notify:
+    - restart himation
+
+- name: create a pm2 application definition
+  template:
+    src: templates/pm2.yml.j2
+    dest: "{{ himation_pm2_app_definition }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0644
+  notify:
+    - restart himation
+
+- name: create an init script for himation
+  template:
+    src: init.j2
+    dest: /etc/init.d/himation
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - restart himation
+
+- name: run himation at boot
+  service:
+    name: himation
+    enabled: yes
