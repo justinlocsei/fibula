@@ -1,5 +1,7 @@
 ---
 himation_allow_development: no
+himation_app_server_port: 3000
+himation_asset_server_port: 3001
 himation_assets_path: /assets
 himation_chiton_endpoint: null
 himation_chiton_token: null
