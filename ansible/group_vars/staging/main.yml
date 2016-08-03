@@ -4,5 +4,6 @@ chiton_backups_s3_bucket: chiton-backups-staging
 chiton_environment: staging
 chiton_git_ref: staging
 chiton_stock_worker_count: 10
+himation_environment: staging
 himation_git_ref: staging
 postfix_relay_user: cyb-staging

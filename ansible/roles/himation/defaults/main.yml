@@ -10,6 +10,7 @@ himation_daemonize: yes
 himation_debug_assets: no
 himation_deploy_ssh_key: null
 himation_deploy_ssh_key_public: null
+himation_environment: development
 himation_git_ref: master
 himation_group: himation
 himation_group_id: null
