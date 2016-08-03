@@ -21,6 +21,7 @@ himation_rollback_delta: 0
 himation_root_dir: /var/cyb-himation
 himation_run_dir: null
 himation_sentry_dsn: null
+himation_sentry_dsn_public: null
 himation_server_name: null
 himation_source_dir: "{{ himation_root_dir }}/source"
 himation_track_errors: yes
