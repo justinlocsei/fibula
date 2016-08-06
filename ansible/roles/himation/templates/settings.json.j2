@@ -20,12 +20,12 @@
   "servers": {
     "app": {
       "port": {{ himation_app_server_port }},
-      "publicUrl": "{{ himation_app_server_public_url }}"
+      "publicUrl": "{{ himation_app_server_public_url | trailing_slash_url }}"
     },
     "assets": {
       "path": "{{ himation_assets_path | trailing_slash_url }}",
       "port": {{ himation_asset_server_port }},
-      "publicUrl": "{{ himation_asset_server_public_url }}"
+      "publicUrl": "{{ himation_asset_server_public_url | trailing_slash_url }}"
     }
   }
 }
