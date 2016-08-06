@@ -36,7 +36,7 @@
 - name: create the sync script
   template:
     src: templates/sync.sh.j2
-    dest: "{{ keycdn_syncer_bin }}"
+    dest: "{{ keycdn_sync_script }}"
     owner: "{{ keycdn_user }}"
     group: "{{ keycdn_group }}"
     mode: 0755
