@@ -26,3 +26,6 @@ himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
 himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
 himation_sentry_dsn: "{{ vault__himation_sentry_dsn }}"
 himation_sentry_dsn_public: "{{ vault__himation_sentry_dsn_public }}"
+
+keycdn_private_key: "{{ vault__keycdn_private_key }}"
+keycdn_public_key: "{{ vault__keycdn_public_key }}"
