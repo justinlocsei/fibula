@@ -1,0 +1,8 @@
+---
+keycdn_config_dir: /usr/local/etc/keycdn
+keycdn_group: keycdn
+keycdn_syncer_bin: /usr/local/bin/keycdn-sync
+keycdn_user: keycdn
+
+keycdn_private_key_path: "{{ keycdn_config_dir }}/id_rsa"
+keycdn_public_key_path: "{{ keycdn_config_dir }}/id_rsa.pub"
