@@ -14,6 +14,7 @@ himation_environment: development
 himation_git_ref: master
 himation_group: himation
 himation_group_id: null
+himation_groups: []
 himation_keep_releases: 10
 himation_log_dir: null
 himation_node_env: production

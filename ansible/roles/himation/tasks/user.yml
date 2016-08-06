@@ -9,6 +9,7 @@
   user:
     name: "{{ himation_user }}"
     group: "{{ himation_group }}"
+    groups: "{{ himation_groups | join(',') }}"
     comment: "Himation application user"
     uid: "{{ himation_user_id or omit }}"
     home: "{{ himation_user_home_dir }}"
