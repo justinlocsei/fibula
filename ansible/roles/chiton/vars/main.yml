@@ -1,6 +1,5 @@
 ---
 chiton_assets_dir_name: assets
-chiton_cdn_dir: chiton
 chiton_db_name: chiton
 chiton_db_user_name: chiton
 chiton_pip_version: 8.1.2
