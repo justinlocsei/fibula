@@ -1,20 +1,32 @@
 #!/bin/bash
 
+ACCOUNT_NAME="{{ keycdn_account_name }}"
+RSYNC_HOST="rsync.keycdn.com"
 SSH_KEY="{{ keycdn_private_key_path }}"
 ZONE="{{ keycdn_zone }}"
 
 SOURCE_DIR=$(readlink -f "$1")
-TARGET_DIR=$(readlink -f "$2")
+TARGET_DIR="$2"
 
-if [ ! -d "$SOURCE_DIR" ] || [ ! -d "$TARGET_DIR" ]; then
+if [ -z "$SOURCE_DIR" ] || [ -z "$TARGET_DIR" ]; then
   echo "Usage: $(basename "$0") SOURCE_DIR TARGET_DIR"
   exit 1
 fi
 
+if [ ! -d "$SOURCE_DIR" ]; then
+  echo "No media files found in $SOURCE_DIR"
+  exit 1
+fi
+
+# Update the identity of the KeyCDN rsync server in the known-hosts file
+ssh-keygen -R "$RSYNC_HOST"
+ssh-keyscan -t rsa -H "$RSYNC_HOST" >> ~/.ssh/known_hosts
+
+# Sync local assets with the KeyCDN zone and diretory
 rsync \
   --archive \
   --compress \
   --verbose \
   --rsh="ssh -i '$SSH_KEY'" \
   --chmod=u=rwX,g=rX "$SOURCE_DIR/" \
-  "coveryourbasics@rsync.keycdn.com:zones/$ZONE/$TARGET_DIR/"
+  "$ACCOUNT_NAME@$RSYNC_HOST:zones/$ZONE/$TARGET_DIR/"

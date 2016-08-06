@@ -1,4 +1,5 @@
 ---
+keycdn_account_name: coveryourbasics
 keycdn_config_dir: /usr/local/etc/keycdn
 keycdn_group: keycdn
 keycdn_sync_script: /usr/local/bin/keycdn-sync
