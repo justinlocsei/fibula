@@ -29,6 +29,7 @@ chiton_db_root_name: null
 chiton_db_root_password: null
 chiton_db_user_password: null
 chiton_environment: development
+chiton_external_media_url: https://{{ chiton_server_name }}{{ chiton_media_url }}
 chiton_git_ref: master
 chiton_group: chiton
 chiton_group_id: null

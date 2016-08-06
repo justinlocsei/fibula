@@ -22,7 +22,7 @@
   "log_file": "{{ chiton_app_log_path }}",
   "log_level": "{{ chiton_log_level }}",
   "media_root": "{{ chiton_media_dir }}",
-  "media_url": "https://{{ chiton_server_name }}{{ chiton_media_url | trailing_slash_url }}",
+  "media_url": "{{ chiton_external_media_url | trailing_slash_url }}",
   "redis_db": {{ chiton_redis_db }},
   "redis_socket": "{{ redis_socket_path }}",
   "secret_key": "{{ chiton_config_secret_key | require_value }}",
