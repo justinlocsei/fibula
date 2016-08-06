@@ -19,8 +19,8 @@ if [ ! -d "$SOURCE_DIR" ]; then
 fi
 
 # Update the identity of the KeyCDN rsync server in the known-hosts file
-ssh-keygen -R "$RSYNC_HOST"
-ssh-keyscan -t rsa -H "$RSYNC_HOST" >> ~/.ssh/known_hosts
+ssh-keygen -R "$RSYNC_HOST" > /dev/null 2>&1
+ssh-keyscan -t rsa -H "$RSYNC_HOST" >> ~/.ssh/known_hosts 2>/dev/null
 
 # Sync local assets with the KeyCDN zone and diretory
 rsync \
