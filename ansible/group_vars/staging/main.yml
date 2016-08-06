@@ -6,4 +6,5 @@ chiton_git_ref: staging
 chiton_stock_worker_count: 10
 himation_environment: staging
 himation_git_ref: staging
+keycdn_zone: cybstaging
 postfix_relay_user: cyb-staging
