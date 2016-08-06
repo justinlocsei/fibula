@@ -36,7 +36,6 @@ himation_use_debug_logging: yes
 himation_user: himation
 himation_user_authorized_keys: "{{ users_admins | map(attribute='public_keys') | flatten | list }}"
 himation_user_id: 3000
-keycdn_zone: cybdevelopment
 monit_alert_recipient: development@coveryourbasics.com
 postfix_relay_user: cyb-development
 postfix_universal_redirect: development@coveryourbasics.com
