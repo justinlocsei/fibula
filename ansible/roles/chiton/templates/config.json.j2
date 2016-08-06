@@ -7,6 +7,8 @@
     "amazon_associates_aws_access_key_id": "{{ chiton_amazon_associates_aws_access_key_id | require_value }}",
     "amazon_associates_aws_secret_access_key": "{{ chiton_amazon_associates_aws_secret_access_key | require_value }}",
     "amazon_associates_tracking_id": "{{ chiton_amazon_associates_tracking_id | require_value }}",
+    "cdn_asset_dir": "{{ chiton_cdn_dir }}",
+    "cdn_sync_script": "{{ chiton_cdn_sync_script }}",
     "database": {
         "engine": "postgresql",
         "host": "{{ chiton_db_host }}",
@@ -31,5 +33,6 @@
     "shopstyle_uid": "{{ chiton_shopstyle_uid | require_value }}",
     "static_root": "{{ chiton_current_version_assets_dir }}",
     "static_url": "https://{{ chiton_server_name }}{{ chiton_assets_url | trailing_slash_url }}",
-    "track_errors": {{ chiton_track_errors | lower }}
+    "track_errors": {{ chiton_track_errors | lower }},
+    "use_cdn": {{ chiton_use_cdn | lower }}
 }
