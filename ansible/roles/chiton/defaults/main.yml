@@ -32,6 +32,7 @@ chiton_environment: development
 chiton_git_ref: master
 chiton_group: chiton
 chiton_group_id: null
+chiton_groups: []
 chiton_gunicorn_log_level: info
 chiton_gunicorn_threads: 1
 chiton_gunicorn_workers: 1

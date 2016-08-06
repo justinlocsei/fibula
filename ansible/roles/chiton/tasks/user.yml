@@ -9,17 +9,13 @@
   user:
     name: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
+    groups: "{{ chiton_groups | join(',') }}"
     home: "{{ chiton_user_home_dir }}"
     comment: "Chiton application user"
     uid: "{{ chiton_user_id or omit }}"
     shell: /bin/bash
     password: "*"
     state: present
-
-- name: add the application user to application-specific groups
-  user:
-    name: "{{ chiton_user }}"
-    groups: "{{ redis_group }}"
 
 - name: create the application user's SSH directory
   file:
