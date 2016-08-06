@@ -22,6 +22,9 @@ dependencies:
     chiton_db_port: "{{ postgresql_server_port }}"
     chiton_db_root_name: "{{ postgresql_server_root_user }}"
     chiton_db_root_password: "{{ postgresql_server_root_password }}"
+    chiton_groups:
+      - "{{ keycdn_group }}"
+      - "{{ redis_group }}"
     chiton_pip_bin_name: "{{ python_pip_executable }}"
     chiton_pg_dump_path: "{{ postgresql_server_pg_dump_path }}"
     chiton_pg_restore_path: "{{ postgresql_server_pg_restore_path }}"
