@@ -10,7 +10,6 @@ chiton_backups_s3_bucket: chiton-backups-development
 chiton_config_debug: yes
 chiton_current_version: development
 chiton_daemonize: no
-chiton_external_media_url: https://mediastaging-4b66.kxcdn.com
 chiton_git_ref: development
 chiton_group: chiton
 chiton_group_id: 2000
@@ -21,7 +20,6 @@ chiton_user: chiton
 chiton_user_authorized_keys: "{{ users_admins | map(attribute='public_keys') | flatten | list }}"
 chiton_user_id: 2000
 himation_allow_development: yes
-himation_asset_server_public_url: https://assetsstaging-4b66.kxcdn.com
 himation_current_version: development
 himation_daemonize: no
 himation_debug_assets: yes
