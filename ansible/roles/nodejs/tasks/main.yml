@@ -31,3 +31,11 @@
     owner: root
     group: root
     mode: 0644
+
+- name: install a fixed version of NPM
+  npm:
+    name: npm
+    global: yes
+    production: yes
+    version: "{{ nodejs_npm_version }}"
+    state: present
