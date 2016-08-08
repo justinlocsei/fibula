@@ -36,6 +36,7 @@ dependencies:
   - role: postfix
   - role: monit
   - role: logrotate
+  - role: new_relic
   - role: firewall
     firewall_ports:
       - port: "{{ app_server_chiton_port }}"
