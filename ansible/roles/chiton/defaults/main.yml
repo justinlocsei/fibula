@@ -38,7 +38,6 @@ chiton_gunicorn_log_level: info
 chiton_gunicorn_threads: 1
 chiton_gunicorn_workers: 1
 chiton_keep_releases: 10
-chiton_log_dir: null
 chiton_log_level: INFO
 chiton_media_url: /media/
 chiton_pg_dump_path: pg_dump
@@ -49,7 +48,6 @@ chiton_redis_db: 0
 chiton_rollback_delta: null
 chiton_root_dir: /var/cyb-chiton
 chiton_run_background_tasks: yes
-chiton_run_dir: null
 chiton_sentry_dsn: null
 chiton_server_email: noreply@coveryourbasics.com
 chiton_server_name: null

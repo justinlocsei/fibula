@@ -25,14 +25,12 @@ chiton_versions_dir: "{{ chiton_root_dir }}/versions"
 chiton_virtualenv_dir: "{{ chiton_current_dir }}/{{ chiton_virtualenv_dir_name }}"
 chiton_wheel_cache_dir: "{{ chiton_package_cache_dir }}/wheels"
 
-chiton_app_log_path: "{{ chiton_log_dir_final }}/app.log"
+chiton_app_log_path: "{{ chiton_log_dir }}/app.log"
 chiton_config_file: "{{ chiton_config_dir }}/environment.json"
-chiton_log_dir_app: "{{ chiton_var_dir }}/log"
-chiton_log_dir_final: "{{ chiton_log_dir or chiton_log_dir_app }}"
+chiton_log_dir: /var/log/chiton
 chiton_manage_file: "{{ chiton_scripts_dir }}/manage.py"
 chiton_public_files_dir: "{{ chiton_current_dir }}/{{ chiton_public_files_dir_name }}"
-chiton_run_dir_app: "{{ chiton_var_dir }}/run"
-chiton_run_dir_final: "{{ chiton_run_dir or chiton_run_dir_app }}"
+chiton_run_dir: /var/run/chiton
 chiton_user_custom_profile: "{{ chiton_user_home_dir }}/.profile.chiton"
 chiton_user_home_dir: "/home/{{ chiton_user }}"
 
@@ -44,10 +42,10 @@ chiton_scripts_virtualenv_python_bin: "{{ chiton_scripts_virtualenv_dir }}/bin/p
 chiton_virtualenv_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
 
 chiton_gunicorn_config_file: "{{ chiton_config_dir }}/gunicorn.py"
-chiton_server_access_log_path: "{{ chiton_log_dir_final }}/server-access.log"
-chiton_server_error_log_path: "{{ chiton_log_dir_final }}/server-error.log"
-chiton_server_pidfile_slave_path: "{{ chiton_run_dir_final }}/chiton-slave.pid"
-chiton_server_pidfile_path: "{{ chiton_run_dir_final }}/chiton-master.pid"
+chiton_server_access_log_path: "{{ chiton_log_dir }}/server-access.log"
+chiton_server_error_log_path: "{{ chiton_log_dir }}/server-error.log"
+chiton_server_pidfile_slave_path: "{{ chiton_run_dir }}/chiton-slave.pid"
+chiton_server_pidfile_path: "{{ chiton_run_dir }}/chiton-master.pid"
 
 chiton_requirements_files:
   - file: core.txt
