@@ -26,27 +26,27 @@
   become: yes
   become_user: "{{ himation_user }}"
   register: himation_source_fetch
-  when: not himation_rollback_delta
 
-- when: himation_rollback_delta
-  block:
-    - name: determine the rollback version
-      shell: ls -t {{ himation_versions_dir | quote }} | head -n {{ himation_rollback_delta + 1 }} | tail -n 1
-      register: himation_rollback_version
+- name: determine the target version based on the rollback delta
+  shell: ls -t {{ himation_versions_dir | quote }} | head -n {{ himation_rollback_delta + 1 }} | tail -n 1
+  register: himation_target_version
+  changed_when: False
 
-    - name: set the current version to the rollback version
-      set_fact:
-        himation_current_version: "{{ himation_rollback_version.stdout }}"
-
-- name: set the directory for the current version
+- name: determine the current and previous directories
   set_fact:
-    himation_current_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_source_fetch.after }}"
+    himation_current_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_target_version.stdout }}"
+    himation_previous_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_source_fetch.before }}"
 
 - name: set the paths to functional subdirectories for the current version
   set_fact:
     himation_current_version_assets_dir: "{{ himation_current_version_dir }}/{{ himation_assets_dir_name }}"
     himation_current_version_public_dir: "{{ himation_current_version_dir }}/{{ himation_public_dir_name }}"
     himation_current_version_source_dir: "{{ himation_current_version_dir }}/{{ himation_source_dir_name }}"
+
+- name: set the paths to the node_modules directory for the current and previous version
+  set_fact:
+    himation_current_version_node_modules_dir: "{{ himation_current_version_source_dir }}/node_modules"
+    himation_previous_version_node_modules_dir: "{{ himation_previous_version_dir }}/{{ himation_source_dir_name }}/node_modules"
 
 - name: create the current version's directories
   file:
@@ -79,7 +79,17 @@
         state: link
       when: himation_allow_development
 
-    - name: install Node dependencies
+    - name: check if the previous version has a node_modules directory
+      stat:
+        path: "{{ himation_previous_version_node_modules_dir }}"
+      register: himation_previous_version_node_modules_dir_stat
+      changed_when: False
+
+    - name: use the previous version's node_modules as a base for the current version
+      command: cp -R {{ himation_previous_version_node_modules_dir | quote }} {{ himation_current_version_source_dir | quote }}
+      when: himation_previous_version_node_modules_dir_stat.stat.isdir and himation_previous_version_node_modules_dir != himation_current_version_node_modules_dir
+
+    - name: install NPM dependencies
       npm:
         path: "{{ himation_current_version_source_dir }}"
         production: "{{ not himation_allow_development }}"
