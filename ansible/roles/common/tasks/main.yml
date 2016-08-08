@@ -4,6 +4,10 @@
     update_cache: yes
   ignore_errors: yes
 
+- name: ensure that swap space is available
+  include: swap.yml
+  when: ansible_swaptotal_mb < 1
+
 - name: ensure that ntp is current
   apt:
     name: ntp
