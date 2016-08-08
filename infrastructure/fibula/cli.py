@@ -218,11 +218,12 @@ def deploy_bootstrap(host, force, inventory, user):
 @click.argument('environment', type=click.Choice(ENVIRONMENTS))
 @click.option('--force/--no-force', default=False)
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS))
-def deploy_to(environment, force, inventory):
+@click.option('--tag', type=str)
+def deploy_to(environment, force, inventory, tag):
     """Deploy application code to an environment."""
     inventory = inventory or environment
     if force or confirm_deploy_action('deploy', environment, inventory):
-        Deploy().deploy(environment, inventory)
+        Deploy().deploy(environment, inventory, tag)
 
 
 @deploy.command('rollback')

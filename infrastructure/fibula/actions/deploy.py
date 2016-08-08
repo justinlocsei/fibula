@@ -46,14 +46,15 @@ class Deploy(BaseAction):
         """
         self._run_playbook('provision.yml', environment, inventory, user=user)
 
-    def deploy(self, environment, inventory):
+    def deploy(self, environment, inventory, tag):
         """Deploy code to a given environment.
 
         Args:
             environment (str): The name of an environment
             inventory (str): The name of an inventory file
+            tag (str): The name of the tag to run
         """
-        self._run_playbook('deploy.yml', environment, inventory)
+        self._run_playbook('deploy.yml', environment, inventory, tag=tag)
 
     def roll_back(self, environment, inventory):
         """Roll back deploy code for a given environment.
@@ -64,7 +65,7 @@ class Deploy(BaseAction):
         """
         self._run_playbook('rollback.yml', environment, inventory)
 
-    def _run_playbook(self, playbook, limit, inventory, user=None):
+    def _run_playbook(self, playbook, limit, inventory, tag=None, user=None):
         """Run an Ansible playbook.
 
         Args:
@@ -73,6 +74,7 @@ class Deploy(BaseAction):
             inventory (str): The name of an inventory file
 
         Keyword Args:
+            tag (str): The name of the tag to run
             user (str): The SSH user to use when connecting
         """
         ansible_args = [
@@ -85,6 +87,10 @@ class Deploy(BaseAction):
         if user:
             ansible_args.append('--user')
             ansible_args.append(user)
+
+        if tag:
+            ansible_args.append('--tags')
+            ansible_args.append(tag)
 
         playbook = subprocess.Popen(ansible_args, cwd=ANSIBLE_DIR)
         playbook.wait()
