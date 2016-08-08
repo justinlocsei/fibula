@@ -9,6 +9,16 @@
   notify:
     - reload chiton
 
+- name: create a New Relic configuration file
+  template:
+    src: newrelic.ini.j2
+    dest: "{{ chiton_new_relic_config_file }}"
+    owner: "{{ chiton_user }}"
+    group: "{{ chiton_group }}"
+    mode: 0600
+  notify:
+    - reload chiton
+
 - name: create a gunicorn configuration file
   template:
     src: gunicorn.py.j2

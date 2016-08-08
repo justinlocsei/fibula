@@ -7,6 +7,7 @@ import sys
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chiton.settings')
     os.environ.setdefault('CHITON_CONFIG_FILE', '{{ chiton_config_file }}')
+    os.environ.setdefault('NEW_RELIC_CONFIG_FILE', '{{ chiton_new_relic_config_file }}')
 
     username = pwd.getpwuid(os.getuid()).pw_name
     if username != '{{ chiton_user }}':
