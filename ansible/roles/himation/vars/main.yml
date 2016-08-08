@@ -18,7 +18,6 @@ himation_versions_dir: "{{ himation_root_dir }}/versions"
 himation_log_dir: /var/log/himation
 himation_run_dir: /var/run/himation
 
-himation_app_log_path: "{{ himation_log_dir_final }}/app.log"
 himation_assets_dir: "{{ himation_current_dir }}/{{ himation_assets_dir_name }}"
 himation_config_file: "{{ himation_config_dir }}/settings.json"
 himation_current_source_dir: "{{ himation_current_dir }}/{{ himation_source_dir_name }}"
