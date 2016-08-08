@@ -3,7 +3,7 @@ apps:
     cwd: "{{ himation_current_source_dir }}"
     script: index.js
     exec_mode: cluster
-    instances: max
+    instances: {{ himation_app_instances }}
 
     env:
       HIMATION_CONFIG_FILE: "{{ himation_config_file }}"
