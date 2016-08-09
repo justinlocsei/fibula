@@ -5,7 +5,7 @@
     dest: "{{ himation_config_file }}"
     owner: "{{ himation_user }}"
     group: "{{ himation_group }}"
-    mode: 0644
+    mode: 0600
   notify:
     - reload himation
 
