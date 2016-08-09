@@ -31,7 +31,7 @@
 
 - name: grant passwordless sudo to admins
   template:
-    src: templates/admin_sudoers.j2
+    src: admin_sudoers.j2
     dest: /etc/sudoers.d/{{ users_admin_group }}
     mode: 0440
     owner: root

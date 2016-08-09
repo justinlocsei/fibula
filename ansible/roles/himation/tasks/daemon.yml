@@ -11,7 +11,7 @@
 
 - name: create a pm2 application definition
   template:
-    src: templates/pm2.yml.j2
+    src: pm2.yml.j2
     dest: "{{ himation_pm2_app_definition }}"
     owner: "{{ himation_user }}"
     group: "{{ himation_group }}"

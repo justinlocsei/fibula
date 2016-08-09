@@ -16,7 +16,7 @@
 
 - name: create the New Relic configuration file
   template:
-    src: templates/nrsysmond.cfg.j2
+    src: nrsysmond.cfg.j2
     dest: /etc/newrelic/nrsysmond.cfg
     owner: newrelic
     group: newrelic
