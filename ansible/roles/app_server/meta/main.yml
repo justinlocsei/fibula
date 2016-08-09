@@ -32,6 +32,7 @@ dependencies:
   - role: himation
     himation_chiton_endpoint: "http://127.0.0.1:{{ chiton_server_port }}/api"
     himation_chiton_token: "{{ chiton_api_user_token }}"
+    himation_new_relic_license_key: "{{ new_relic_license_key }}"
     himation_server_name: "{{ app_server_himation_server_name }}"
   - role: nginx
   - role: postfix
