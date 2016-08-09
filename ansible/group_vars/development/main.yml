@@ -27,6 +27,7 @@ himation_debug_assets: yes
 himation_git_ref: development
 himation_group: himation
 himation_group_id: 3000
+himation_new_relic_enabled: no
 himation_node_env: development
 himation_optimize_assets: no
 himation_root_dir: /var/cyb-himation
