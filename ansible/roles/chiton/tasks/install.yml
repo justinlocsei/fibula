@@ -36,24 +36,17 @@
     repo: git@github.com:justinlocsei/chiton.git
     update: yes
     version: "{{ chiton_git_ref }}"
-  register: chiton_source_fetch
-  when: not chiton_rollback_delta
   become: yes
   become_user: "{{ chiton_user }}"
 
-- when: chiton_rollback_delta
-  block:
-    - name: determine the rollback version
-      shell: ls -t {{ chiton_versions_dir | quote }} | head -n {{ chiton_rollback_delta + 1 }} | tail -n 1
-      register: chiton_rollback_version
-
-    - name: set the current version to the rollback version
-      set_fact:
-        chiton_current_version: "{{ chiton_rollback_version.stdout }}"
+- name: determine the target version using the rollback delta
+  shell: ls -t {{ chiton_versions_dir | quote }} | head -n {{ chiton_rollback_delta + 1 }} | tail -n 1
+  register: chiton_target_version
+  changed_when: False
 
 - name: set the directory for the current version
   set_fact:
-    chiton_current_version_dir: "{{ chiton_versions_dir }}/{{ chiton_current_version or chiton_source_fetch.after }}"
+    chiton_current_version_dir: "{{ chiton_versions_dir }}/{{ chiton_current_version or chiton_target_version.stdout }}"
 
 - name: set the paths to functional subdirectories for the current version
   set_fact:
