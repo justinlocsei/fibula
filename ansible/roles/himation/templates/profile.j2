@@ -3,6 +3,7 @@
 alias ll="ls -hlF"
 
 export HIMATION_CONFIG_FILE="{{ himation_config_file }}"
+export NEW_RELIC_HOME="{{ himation_new_relic_config_file | dirname }}"
 
 {% if himation_allow_development %}
 cd "{{ himation_current_source_dir }}"

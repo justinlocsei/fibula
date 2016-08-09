@@ -21,6 +21,7 @@ himation_run_dir: /var/run/himation
 himation_assets_dir: "{{ himation_current_dir }}/{{ himation_assets_dir_name }}"
 himation_config_file: "{{ himation_config_dir }}/settings.json"
 himation_current_source_dir: "{{ himation_current_dir }}/{{ himation_source_dir_name }}"
+himation_new_relic_config_file: "{{ himation_config_dir }}/newrelic.js"
 himation_pm2_app_definition: "{{ himation_config_dir }}/application.yml"
 himation_pm2_app_name: himation
 himation_pm2_pidfile: "{{ himation_run_dir }}/pm2.pid"

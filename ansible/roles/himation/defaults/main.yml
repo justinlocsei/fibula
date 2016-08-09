@@ -20,6 +20,8 @@ himation_group_id: null
 himation_groups: []
 himation_keep_releases: 10
 himation_log_dir: null
+himation_new_relic_enabled: yes
+himation_new_relic_license_key: null
 himation_node_env: production
 himation_optimize_assets: yes
 himation_rollback_delta: 0

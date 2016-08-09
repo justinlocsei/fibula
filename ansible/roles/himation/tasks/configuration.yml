@@ -9,6 +9,16 @@
   notify:
     - reload himation
 
+- name: create a New Relic configuration file
+  template:
+    src: newrelic.js.j2
+    dest: "{{ himation_new_relic_config_file }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0600
+  notify:
+    - reload himation
+
 - name: create a profile script to customize the application user's environment
   template:
     src: profile.j2

@@ -7,6 +7,7 @@ apps:
 
     env:
       HIMATION_CONFIG_FILE: "{{ himation_config_file }}"
+      NEW_RELIC_HOME: "{{ himation_new_relic_config_file | dirname }}"
       NODE_ENV: "{{ himation_node_env }}"
 
     error_file: "{{ himation_log_dir }}/error.log"
