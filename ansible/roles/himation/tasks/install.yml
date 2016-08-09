@@ -87,7 +87,7 @@
 
     - name: use the previous version's node_modules as a base for the current version
       command: cp -R {{ himation_previous_version_node_modules_dir | quote }} {{ himation_current_version_source_dir | quote }}
-      when: himation_previous_version_node_modules_dir_stat.stat.isdir and himation_previous_version_node_modules_dir != himation_current_version_node_modules_dir
+      when: himation_previous_version_node_modules_dir_stat.stat.exists and himation_previous_version_node_modules_dir != himation_current_version_node_modules_dir
 
     - name: install NPM dependencies
       npm:
