@@ -21,7 +21,7 @@ sub vcl_recv {
   {% endif %}
 
   # Normalize the host and URL
-  set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");
+  set req.http.host = regsub(req.http.host, ":[0-9]+", "");
   set req.url = std.querysort(req.url);
   unset req.http.proxy;
 
@@ -60,11 +60,11 @@ sub vcl_recv {
 
   # Remove Google Analytics cookies
   {% for regex in varnish_google_analytics_cookie_regexes %}
-  set req.http.Cookie = regsuball(req.http.Cookie, "{{ regex }}=[^;]+(; )?", "");
+  set req.http.cookie = regsuball(req.http.cookie, "{{ regex }}=[^;]+(; )?", "");
   {% endfor %}
 
   # Remove a ";" prefix in the cookie if present
-  set req.http.Cookie = regsuball(req.http.Cookie, "^;\s*", "");
+  set req.http.cookie = regsuball(req.http.cookie, "^;\s*", "");
 
   # Unset cookies entirely if the cookie string contains only whitespace
   if (req.http.cookie ~ "^\s*$") {
@@ -92,8 +92,8 @@ sub vcl_hash {
   }
 
   # Hash cookies for requests that have them
-  if (req.http.Cookie) {
-    hash_data(req.http.Cookie);
+  if (req.http.cookie) {
+    hash_data(req.http.cookie);
   }
 
 }
@@ -147,8 +147,8 @@ sub vcl_backend_response {
 sub vcl_deliver {
 
   # Remove debug headers
-  unset resp.http.Via;
-  unset resp.http.X-Varnish;
+  unset resp.http.via;
+  unset resp.http.x-varnish;
 
   # Strip the ban URL
   unset resp.http.x-url;
