@@ -1,0 +1,46 @@
+---
+- name: allow APT to use HTTPS
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: install the Varnish APT key
+  apt_key:
+    url: https://repo.varnish-cache.org/GPG-key.txt
+    state: present
+
+- name: add the Varnish APT repository
+  apt_repository:
+    repo: deb https://repo.varnish-cache.org/ubuntu/ {{ ansible_distribution_release }} varnish-4.1
+    state: present
+
+- name: install Varnish
+  apt:
+    name: varnish
+    state: present
+
+- name: create the default VCL
+  template:
+    src: default.vcl.j2
+    dest: "{{ varnish_default_vcl }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload varnish
+
+- name: configure the Varnish daemon
+  template:
+    src: defaults.j2
+    dest: /etc/default/varnish
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart varnish
+
+- name: run Varnish at boot
+  service:
+    name: varnish
+    enabled: yes
+    state: started

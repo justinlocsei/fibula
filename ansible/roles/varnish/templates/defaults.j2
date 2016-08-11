@@ -1,0 +1,11 @@
+START=yes
+
+MEMLOCK=82000
+NFILES=131072
+
+PIDFILE={{ varnish_pidfile }}
+DAEMON_OPTS="-a localhost:{{ varnish_port }} \
+             -T localhost:{{ varnish_telnet_port }} \
+             -f {{ varnish_default_vcl }} \
+             -S {{ varnish_secret }} \
+             -s malloc,{{ varnish_cache_size }}"

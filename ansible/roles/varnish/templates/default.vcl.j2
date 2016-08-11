@@ -1,0 +1,132 @@
+vcl 4.0;
+
+import std;
+
+backend default {
+  .host = "127.0.0.1";
+  .port = "{{ varnish_backend_port }}";
+}
+
+acl purge {
+  "localhost";
+  "127.0.0.1";
+  "::1";
+}
+
+sub vcl_recv {
+
+  # Normalize the host and URL
+  set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");
+  set req.url = std.querysort(req.url);
+  unset req.http.proxy;
+
+  # Allow purging from IP addresses in the purge ACL
+  if (req.method == "PURGE") {
+    if (!client.ip ~ purge) {
+      return (synth(405, "This IP is not allowed to send PURGE requests."));
+    }
+    return (purge);
+  }
+
+  # Only handle normal HTTP methods, and only cache non-POST requests
+  if (req.method != "GET" && req.method != "HEAD" && req.method != "POST") {
+    return (pipe);
+  }
+  if (req.method != "GET" && req.method != "HEAD") {
+    return (pass);
+  }
+
+  # Remove Google Analytics query parameters
+  if (req.url ~ "(\?|&)({{ varnish_google_analytics_params | join('|') }})=") {
+    set req.url = regsuball(req.url, "&({{ varnish_google_analytics_params | join('|') }})=([A-z0-9_\-\.%25]+)", "");
+    set req.url = regsuball(req.url, "\?({{ varnish_google_analytics_params | join('|') }})=([A-z0-9_\-\.%25]+)", "?");
+    set req.url = regsub(req.url, "\?&", "?");
+    set req.url = regsub(req.url, "\?$", "");
+  }
+
+  # Strip hashes and trailing query-parameter indicators
+  if (req.url ~ "\#") {
+    set req.url = regsub(req.url, "\#.*$", "");
+  }
+  if (req.url ~ "\?$") {
+    set req.url = regsub(req.url, "\?$", "");
+  }
+
+  # Remove Google Analytics cookies
+  {% for regex in varnish_google_analytics_cookie_regexes %}
+  set req.http.Cookie = regsuball(req.http.Cookie, "{{ regex }}=[^;]+(; )?", "");
+  {% endfor %}
+
+  # Remove a ";" prefix in the cookie if present
+  set req.http.Cookie = regsuball(req.http.Cookie, "^;\s*", "");
+
+  # Unset cookies entirely if the cookie string contains only whitespace
+  if (req.http.cookie ~ "^\s*$") {
+    unset req.http.cookie;
+  }
+
+  # Don't cache any requests with authorization headers
+  if (req.http.Authorization) {
+    return (pass);
+  }
+
+  # Attempt to store the request in the cache
+  return (hash);
+
+}
+
+sub vcl_hash {
+
+  # Use a bash hash of the URL and IP address
+  hash_data(req.url);
+  if (req.http.host) {
+    hash_data(req.http.host);
+  } else {
+    hash_data(server.ip);
+  }
+
+  # Hash cookies for requests that have them
+  if (req.http.Cookie) {
+    hash_data(req.http.Cookie);
+  }
+
+}
+
+sub vcl_hit {
+
+  # Serve cached responses with a positive TTL
+  if (obj.ttl >= 0s) {
+    return (deliver);
+  }
+
+  # Get a response from the backend for expired responses
+  return (fetch);
+
+}
+
+sub vcl_miss {
+
+  # Get a response from the backend if the request is a cache miss
+  return (fetch);
+
+}
+
+sub vcl_backend_response {
+
+  # Abort caching of server errors
+  if (beresp.status == 500 || beresp.status == 502 || beresp.status == 503 || beresp.status == 504) {
+    return (abandon);
+  }
+
+  # Enable serving of stale content if the backend goes down
+  set beresp.grace = 1h;
+
+  # Set a default TTL if the response does not specify one
+  if (beresp.ttl <= 0s) {
+    set beresp.ttl = {{ varnish_default_ttl }};
+  }
+
+  # Continue processing non-error responses
+  return (deliver);
+
+}

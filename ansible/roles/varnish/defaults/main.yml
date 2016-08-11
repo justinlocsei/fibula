@@ -1,0 +1,6 @@
+---
+varnish_backend_port: 8080
+varnish_cache_size: 256m
+varnish_default_ttl: 60s
+varnish_port: 6081
+varnish_telnet_port: 6082
