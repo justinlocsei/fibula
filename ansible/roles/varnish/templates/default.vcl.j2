@@ -30,6 +30,9 @@ sub vcl_recv {
     if (!client.ip ~ purge) {
       return (synth(405, "This IP is not allowed to send BAN requests."));
     }
+    if (!req.http.x-ban) {
+      return (synth(405, "The ban URL must be specified in an X-Ban header."));
+    }
     ban("obj.http.x-url ~ " + req.http.x-ban);
     return (synth(200, "Ban added"));
   }
