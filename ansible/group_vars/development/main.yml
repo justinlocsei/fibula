@@ -1,6 +1,7 @@
 ---
 app_server_chiton_port: 80
 app_server_chiton_port_https: 443
+app_server_use_caching: no
 chiton_activate_virtualenv: yes
 chiton_allow_api_browsing: yes
 chiton_allow_development: yes
