@@ -131,7 +131,11 @@ sub vcl_backend_response {
     set beresp.ttl = {{ varnish_default_ttl }};
   }
 
-  # Continue processing non-error responses
+  # Do not cache responses that are explicitly uncacheable
+  if (beresp.http.cache-control ~ "(no-cache|private)" || beresp.http.pragma ~ "no-cache") {
+    set beresp.ttl = 0s;
+  }
+
   return (deliver);
 
 }
