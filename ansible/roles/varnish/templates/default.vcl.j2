@@ -25,12 +25,13 @@ sub vcl_recv {
   set req.url = std.querysort(req.url);
   unset req.http.proxy;
 
-  # Allow purging from IP addresses in the purge ACL
-  if (req.method == "PURGE") {
+  # Allow banning from IP addresses in the ban ACL
+  if (req.method == "BAN") {
     if (!client.ip ~ purge) {
-      return (synth(405, "This IP is not allowed to send PURGE requests."));
+      return (synth(405, "This IP is not allowed to send BAN requests."));
     }
-    return (purge);
+    ban("obj.http.x-url ~ " + req.http.x-ban);
+    return (synth(200, "Ban added"));
   }
 
   # Only handle normal HTTP methods, and only cache non-POST requests
@@ -136,6 +137,22 @@ sub vcl_backend_response {
     set beresp.ttl = 0s;
   }
 
+  # Set the request URL on the object to enable lurker-friendly bans
+  set beresp.http.x-url = bereq.url;
+
   return (deliver);
+
+}
+
+sub vcl_deliver {
+
+  # Remove debug headers
+  unset resp.http.Via;
+  unset resp.http.X-Varnish;
+
+  # Strip the ban URL
+  unset resp.http.x-url;
+
+  return(deliver);
 
 }
