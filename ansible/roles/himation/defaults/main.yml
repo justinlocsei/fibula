@@ -9,6 +9,7 @@ himation_assets_path: /assets
 himation_chiton_endpoint: null
 himation_chiton_token: null
 himation_current_version: null
+himation_cache_ttl: 60
 himation_daemonize: yes
 himation_debug_assets: no
 himation_deploy_ssh_key: null
