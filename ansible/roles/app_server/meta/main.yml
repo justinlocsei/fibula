@@ -35,6 +35,10 @@ dependencies:
     himation_new_relic_license_key: "{{ new_relic_license_key }}"
     himation_server_name: "{{ app_server_himation_server_name }}"
   - role: nginx
+  - role: varnish
+    varnish_backend_port: "{{ himation_app_server_port }}"
+    varnish_port: "{{ app_server_himation_varnish_port }}"
+    varnish_telnet_port: "{{ app_server_himation_varnish_telnet_port }}"
   - role: postfix
   - role: monit
   - role: logrotate
