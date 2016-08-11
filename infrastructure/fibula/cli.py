@@ -207,11 +207,12 @@ def deploy():
 @click.option('--force/--no-force', default=False)
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS))
 @click.option('--user', type=str, default='root')
-def deploy_bootstrap(host, force, inventory, user):
+@click.option('--tag', type=str)
+def deploy_bootstrap(host, force, inventory, user, tag):
     """Bootstrap one or more hosts for deployment."""
     inventory = inventory or host
     if force or confirm_deploy_action('bootstrap', host, inventory):
-        Deploy().bootstrap(host, inventory, user=user)
+        Deploy().bootstrap(host, inventory, user=user, tag=tag)
 
 
 @deploy.command('to')

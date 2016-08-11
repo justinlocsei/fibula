@@ -36,15 +36,16 @@ class Deploy(BaseAction):
 
     log_prefix = 'deploy'
 
-    def bootstrap(self, environment, inventory, user):
+    def bootstrap(self, environment, inventory, user, tag):
         """Bootstrap hosts for deployment.
 
         Args:
             environment (str): The name of a remote environment
             inventory (str): The name of an inventory file
             user (str): The SSH user for the connection
+            tag (str): The name of the tag to run
         """
-        self._run_playbook('provision.yml', environment, inventory, user=user)
+        self._run_playbook('provision.yml', environment, inventory, user=user, tag=tag)
 
     def deploy(self, environment, inventory, tag):
         """Deploy code to a given environment.
