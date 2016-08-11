@@ -33,7 +33,7 @@ sub vcl_recv {
     if (!req.http.x-ban) {
       return (synth(405, "The ban URL must be specified in an X-Ban header."));
     }
-    ban("obj.http.x-url ~ " + req.http.x-ban);
+    ban("obj.http.x-url == " + req.http.x-ban);
     return (synth(200, "Ban added"));
   }
 
