@@ -132,8 +132,12 @@ sub vcl_backend_response {
     set beresp.ttl = {{ varnish_default_ttl }};
   }
 
-  # Do not cache responses that are explicitly uncacheable
-  if (beresp.http.cache-control ~ "(no-store|private)" || beresp.http.pragma ~ "no-cache") {
+  # Use the value of the Surrogate-Control header's max-age value to set the
+  # internal TTL for any responses that use this header, and mark any responses
+  # that lack surrogate instructions and should not be stored as uncacheable
+  if (beresp.http.surrogate-control) {
+    set beresp.ttl = std.duration(regsub(beresp.http.surrogate-control, "max-age=(\d+)", "\1s"), {{ varnish_default_ttl }});
+  } else if (beresp.http.cache-control ~ "(no-store|private)" || beresp.http.pragma ~ "no-cache") {
     set beresp.ttl = 0s;
   }
 
@@ -152,6 +156,9 @@ sub vcl_deliver {
 
   # Strip the ban URL
   unset resp.http.x-url;
+
+  # Remove the Surrogate-Control header provided by the backend response
+  unset resp.http.surrogate-control;
 
   return(deliver);
 
