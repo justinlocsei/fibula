@@ -127,18 +127,20 @@ sub vcl_backend_response {
   # Enable serving of stale content if the backend goes down
   set beresp.grace = 1h;
 
-  # Cache 404 pages using the default TTL
+  # Set TTLs for responses as follows:
+  #
+  # 1.) Mark all 404 responses as cacheable for the default duration.
+  # 2.) Use the value of the Surrogate-Control header's max-age value to set the
+  #     internal TTL for any responses that use this header.
+  # 3.) Mark any other responses that lack surrogate instructions and should not
+  #     be stored as uncacheable for the default duration.
   if (beresp.status == 404) {
     set beresp.ttl = {{ varnish_default_ttl }};
-  }
-
-  # Use the value of the Surrogate-Control header's max-age value to set the
-  # internal TTL for any responses that use this header, and mark any responses
-  # that lack surrogate instructions and should not be stored as uncacheable
-  if (beresp.http.surrogate-control) {
+  } else if (beresp.http.surrogate-control && beresp.http.surrogate-control ~ "max-age") {
     set beresp.ttl = std.duration(regsub(beresp.http.surrogate-control, "max-age=(\d+)", "\1s"), {{ varnish_default_ttl }});
   } else if (beresp.http.cache-control ~ "(no-store|private)" || beresp.http.pragma ~ "no-cache") {
-    set beresp.ttl = 0s;
+    set beresp.uncacheable = true;
+    set beresp.ttl = {{ varnish_default_ttl }};
   }
 
   # Set the request URL on the object to enable lurker-friendly bans
