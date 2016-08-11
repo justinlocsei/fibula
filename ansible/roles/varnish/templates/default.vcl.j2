@@ -126,8 +126,8 @@ sub vcl_backend_response {
   # Enable serving of stale content if the backend goes down
   set beresp.grace = 1h;
 
-  # Set a default TTL if the response does not specify one
-  if (beresp.ttl <= 0s) {
+  # Cache 404 pages using the default TTL
+  if (beresp.status == 404) {
     set beresp.ttl = {{ varnish_default_ttl }};
   }
 
