@@ -25,6 +25,7 @@ himation_current_version: development
 himation_daemonize: no
 himation_debug_assets: yes
 himation_git_ref: development
+himation_google_analytics_id: UA-82122862-2
 himation_group: himation
 himation_group_id: 3000
 himation_new_relic_enabled: no

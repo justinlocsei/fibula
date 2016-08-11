@@ -8,4 +8,5 @@ chiton_stock_worker_count: 10
 himation_asset_server_public_url: https://assetsstaging-4b66.kxcdn.com
 himation_environment: staging
 himation_git_ref: staging
+himation_google_analytics_id: UA-82122862-1
 postfix_relay_user: cyb-staging
