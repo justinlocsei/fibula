@@ -19,6 +19,7 @@ himation_google_analytics_id: null
 himation_group: himation
 himation_group_id: null
 himation_groups: []
+himation_is_crawlable: no
 himation_keep_releases: 10
 himation_log_dir: null
 himation_new_relic_enabled: yes

@@ -1,2 +1,6 @@
 User-agent: *
+{% if himation_is_crawlable %}
+Disallow: /recommendations
+{% else %}
 Disallow: /
+{% endif %}
