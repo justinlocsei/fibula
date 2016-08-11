@@ -1,5 +1,5 @@
 upstream {{ app_server_himation_upstream_name }} {
-  server 127.0.0.1:{{ himation_app_server_port }};
+  server 127.0.0.1:{{ app_server_himation_varnish_port }};
 }
 
 server {
