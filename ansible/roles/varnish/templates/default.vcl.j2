@@ -15,6 +15,11 @@ acl purge {
 
 sub vcl_recv {
 
+  {% if not varnish_use_cache %}
+  # Bypass Varnish for every request
+  return(pass);
+  {% endif %}
+
   # Normalize the host and URL
   set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");
   set req.url = std.querysort(req.url);
