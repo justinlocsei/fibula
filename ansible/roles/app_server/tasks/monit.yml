@@ -13,3 +13,4 @@
     - nginx
     - postfix
     - postgres
+    - varnish
