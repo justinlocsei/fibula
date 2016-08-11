@@ -133,7 +133,7 @@ sub vcl_backend_response {
   }
 
   # Do not cache responses that are explicitly uncacheable
-  if (beresp.http.cache-control ~ "(no-cache|private)" || beresp.http.pragma ~ "no-cache") {
+  if (beresp.http.cache-control ~ "(no-store|private)" || beresp.http.pragma ~ "no-cache") {
     set beresp.ttl = 0s;
   }
 
