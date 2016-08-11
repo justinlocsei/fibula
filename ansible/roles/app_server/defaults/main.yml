@@ -2,3 +2,5 @@
 app_server_enable_monitoring: yes
 app_server_chiton_server_name: null
 app_server_himation_server_name: null
+app_server_himation_varnish_port: 6081
+app_server_himation_varnish_telnet_port: 6082

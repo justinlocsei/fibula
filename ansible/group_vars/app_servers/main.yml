@@ -15,15 +15,18 @@ chiton_deploy_ssh_key: "{{ vault__chiton_deploy_ssh_key }}"
 chiton_deploy_ssh_key_public: "{{ vault__chiton_deploy_ssh_key_public }}"
 chiton_db_user_password: "{{ vault__chiton_db_user_password }}"
 chiton_sentry_dsn: "{{ vault__chiton_sentry_dsn }}"
-chiton_server_port: 3002
 chiton_shopstyle_uid: "{{ vault__chiton_shopstyle_uid }}"
 cyb_certificates_wildcard_ca_bundle: "{{ vault__cyb_certificates_wildcard_ca_bundle | default('') }}"
 cyb_certificates_wildcard_certificate: "{{ vault__cyb_certificates_wildcard_certificate }}"
 cyb_certificates_wildcard_key: "{{ vault__cyb_certificates_wildcard_key }}"
-himation_app_server_port: 3000
-himation_asset_server_port: 3001
 himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
 himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
 himation_sentry_dsn: "{{ vault__himation_sentry_dsn }}"
 himation_sentry_dsn_public: "{{ vault__himation_sentry_dsn_public }}"
 new_relic_license_key: "{{ vault__new_relic_license_key }}"
+
+himation_app_server_port: 3000
+himation_asset_server_port: 3001
+chiton_server_port: 3002
+app_server_himation_varnish_port: 3003
+app_server_himation_varnish_telnet_port: 3004
