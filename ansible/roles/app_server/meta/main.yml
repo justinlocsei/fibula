@@ -39,6 +39,7 @@ dependencies:
     varnish_backend_port: "{{ himation_app_server_port }}"
     varnish_port: "{{ app_server_himation_varnish_port }}"
     varnish_telnet_port: "{{ app_server_himation_varnish_telnet_port }}"
+    varnish_use_cache: "{{ app_server_use_caching }}"
   - role: postfix
   - role: monit
   - role: logrotate
