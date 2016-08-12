@@ -1,0 +1,18 @@
+---
+- name: install trusted CA certificates
+  apt:
+    name: ca-certificates
+    state: present
+
+- name: copy the CYB CA certificate to the certificates directory
+  copy:
+    dest: "{{ cyb_certificates_ca_certificate_path }}"
+    owner: root
+    group: root
+    mode: 0644
+    content: "{{ cyb_certificates_wildcard_ca_bundle or cyb_certificates_wildcard_certificate }}\n"
+  register: cyb_certificates_copy
+
+- name: re-hash the certificates
+  command: update-ca-certificates --fresh
+  when: cyb_certificates_copy.changed
