@@ -10,3 +10,13 @@
     name: himation
     state: restarted
   when: himation_daemonize
+
+- name: refresh the himation cache
+  command: npm run refresh-cache
+  args:
+    chdir: "{{ himation_current_source_dir }}"
+  environment:
+    HIMATION_CONFIG_FILE: "{{ himation_config_file }}"
+  become: yes
+  become_user: "{{ himation_user }}"
+  when: himation_use_caching
