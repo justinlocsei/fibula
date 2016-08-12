@@ -164,7 +164,7 @@
         version: 0.3.2
         executable: "{{ chiton_pip_bin_name }}"
         virtualenv: "{{ chiton_server_virtualenv_dir }}"
-        state: latest
+        state: present
       notify:
         - restart chiton
 
