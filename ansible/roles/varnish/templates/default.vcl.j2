@@ -122,9 +122,11 @@ sub vcl_miss {
 
 sub vcl_backend_response {
 
-  # Abort caching of server errors
+  # Return 500 errors and mark them as uncacheable
   if (beresp.status == 500 || beresp.status == 502 || beresp.status == 503 || beresp.status == 504) {
-    return (abandon);
+    set beresp.uncacheable = true;
+    set beresp.ttl = {{ varnish_default_ttl }};
+    return (deliver);
   }
 
   # Enable serving of stale content if the backend goes down
