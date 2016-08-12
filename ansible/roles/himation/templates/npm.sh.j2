@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SOURCE_DIR="{{ himation_current_version_source_dir }}"
+
+export HIMATION_CONFIG_FILE="{{ himation_config_file }}"
+export NODE_ENV="{{ himation_node_env }}"
+
+cd "$SOURCE_DIR" && npm run "$@"

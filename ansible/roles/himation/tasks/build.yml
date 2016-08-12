@@ -1,9 +1,18 @@
+---
+- name: create scripts to run tasks with the correct environment
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0755
+  with_items:
+    - src: gulp.sh.j2
+      dest: "{{ himation_gulp_runner }}"
+    - src: npm.sh.j2
+      dest: "{{ himation_npm_runner }}"
+
 - name: build assets
-  command: npm run build
-  args:
-    chdir: "{{ himation_current_version_source_dir }}"
-  environment:
-    HIMATION_CONFIG_FILE: "{{ himation_config_file }}"
-    NODE_ENV: "{{ himation_node_env }}"
+  command: "{{ himation_npm_runner }} build"
   become: yes
   become_user: "{{ himation_user }}"

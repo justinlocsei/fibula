@@ -27,3 +27,6 @@ himation_pm2_app_definition: "{{ himation_config_dir }}/application.yml"
 himation_pm2_app_name: himation
 himation_pm2_pidfile: "{{ himation_run_dir }}/pm2.pid"
 himation_public_dir: "{{ himation_current_dir }}/{{ himation_public_dir_name }}"
+
+himation_gulp_runner: "{{ himation_scripts_dir }}/gulp.sh"
+himation_npm_runner: "{{ himation_scripts_dir }}/npm.sh"
