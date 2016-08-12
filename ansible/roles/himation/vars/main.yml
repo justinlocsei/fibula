@@ -10,6 +10,7 @@ himation_assets_dir_name: assets
 himation_public_dir_name: public
 himation_source_dir_name: source
 
+himation_app_temp_dir: "{{ himation_root_dir }}/var"
 himation_current_dir: "{{ himation_root_dir }}/current"
 himation_config_dir: "{{ himation_root_dir }}/config"
 himation_scripts_dir: "{{ himation_root_dir }}/scripts"

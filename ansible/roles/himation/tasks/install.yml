@@ -14,6 +14,7 @@
     - "{{ himation_versions_dir }}"
     - "{{ himation_config_dir }}"
     - "{{ himation_scripts_dir }}"
+    - "{{ himation_app_temp_dir }}"
 
 - name: fetch the source code
   git:
