@@ -8,9 +8,6 @@ staging-www.coveryourbasics.dev
 development
 staging
 
-[cloud:children]
-staging
-
 [local:children]
 development
 staging
