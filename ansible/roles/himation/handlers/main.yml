@@ -4,12 +4,16 @@
     name: himation
     state: reloaded
   when: himation_daemonize
+  notify:
+    - refresh the himation cache
 
 - name: restart himation
   service:
     name: himation
     state: restarted
   when: himation_daemonize
+  notify:
+    - refresh the himation cache
 
 - name: refresh the himation cache
   command: npm run refresh-cache
