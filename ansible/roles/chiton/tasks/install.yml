@@ -148,16 +148,25 @@
         state: link
       when: chiton_allow_development
 
-    - name: install server dependencies
+    - name: install gunicorn
       pip:
-        name: "{{ item.name }}"
-        version: "{{ item.version }}"
+        name: gunicorn
+        version: 19.6.0
         executable: "{{ chiton_pip_bin_name }}"
         virtualenv: "{{ chiton_server_virtualenv_dir }}"
         state: present
-      with_items: "{{ chiton_server_requirements }}"
       notify:
-        - "{{ item.notify }}"
+        - reload chiton
+
+    - name: install rainbow saddle
+      pip:
+        name: rainbow-saddle
+        version: 0.3.2
+        executable: "{{ chiton_pip_bin_name }}"
+        virtualenv: "{{ chiton_server_virtualenv_dir }}"
+        state: latest
+      notify:
+        - restart chiton
 
 - name: create directories for assets
   file:
