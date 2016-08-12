@@ -31,7 +31,7 @@ def find_current_version_virtualenv_dirs():
 
 
 bind = '127.0.0.1:{{ chiton_server_port }}'
-daemon = False
+daemon = True
 group = '{{ chiton_group }}'
 preload_app = {{ chiton_allow_development | ternary("False", "True") }}
 pythonpath = ','.join(find_current_version_virtualenv_dirs())
