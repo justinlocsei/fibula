@@ -17,7 +17,7 @@ sub vcl_recv {
 
   {% if not varnish_use_cache %}
   # Bypass Varnish for every request
-  return(pass);
+  return(pipe);
   {% endif %}
 
   # Normalize the host and URL
