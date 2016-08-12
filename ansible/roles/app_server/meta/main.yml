@@ -30,6 +30,7 @@ dependencies:
     chiton_python_bin_name: "{{ python_executable }}"
     chiton_server_name: "{{ app_server_chiton_server_name }}"
   - role: himation
+    himation_app_server_ca_cert_path: "{{ cyb_certificates_ca_certificate_path }}"
     himation_cache_gateway_url: "http://127.0.0.1:{{ varnish_port }}"
     himation_chiton_endpoint: "http://127.0.0.1:{{ chiton_server_port }}/api"
     himation_chiton_token: "{{ chiton_api_user_token }}"
