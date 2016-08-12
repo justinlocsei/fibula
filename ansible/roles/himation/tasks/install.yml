@@ -29,12 +29,16 @@
 
 - name: determine the target version based on the rollback delta
   shell: ls -t {{ himation_versions_dir | quote }} | head -n {{ himation_rollback_delta + 1 }} | tail -n 1
-  register: himation_target_version
+  register: himation_target_version_query
   changed_when: False
+
+- name: set the target version
+  set_fact:
+    himation_target_version: "{{ himation_rollback_delta | ternary(himation_target_version_query.stdout, himation_source_fetch.after) }}"
 
 - name: determine the current and previous directories
   set_fact:
-    himation_current_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_target_version.stdout or himation_source_fetch.after }}"
+    himation_current_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_target_version }}"
     himation_previous_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_source_fetch.before }}"
 
 - name: set the paths to functional subdirectories for the current version

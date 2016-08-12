@@ -38,15 +38,20 @@
     version: "{{ chiton_git_ref }}"
   become: yes
   become_user: "{{ chiton_user }}"
+  register: chiton_source_fetch
 
 - name: determine the target version using the rollback delta
   shell: ls -t {{ chiton_versions_dir | quote }} | head -n {{ chiton_rollback_delta + 1 }} | tail -n 1
-  register: chiton_target_version
+  register: chiton_target_version_query
   changed_when: False
+
+- name: set the target version
+  set_fact:
+    chiton_target_version: "{{ chiton_rollback_delta | ternary(chiton_target_version_query.stdout, chiton_source_fetch.after) }}"
 
 - name: set the directory for the current version
   set_fact:
-    chiton_current_version_dir: "{{ chiton_versions_dir }}/{{ chiton_current_version or chiton_target_version.stdout }}"
+    chiton_current_version_dir: "{{ chiton_versions_dir }}/{{ chiton_current_version or chiton_target_version }}"
 
 - name: set the paths to functional subdirectories for the current version
   set_fact:
