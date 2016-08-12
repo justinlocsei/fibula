@@ -156,16 +156,6 @@
         virtualenv: "{{ chiton_server_virtualenv_dir }}"
         state: present
       notify:
-        - reload chiton
-
-    - name: install rainbow saddle
-      pip:
-        name: rainbow-saddle
-        version: 0.3.2
-        executable: "{{ chiton_pip_bin_name }}"
-        virtualenv: "{{ chiton_server_virtualenv_dir }}"
-        state: present
-      notify:
         - restart chiton
 
 - name: create directories for assets
