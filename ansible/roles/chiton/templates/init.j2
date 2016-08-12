@@ -12,52 +12,68 @@
 
 . /lib/lsb/init-functions
 
-GROUP="{{ chiton_group }}"
 GUNICORN="{{ chiton_gunicorn_bin }}"
 GUNICORN_CONFIG="{{ chiton_gunicorn_config_file }}"
+NAME=chiton
 PIDFILE="{{ chiton_server_pidfile_path }}"
-PIDFILE_SLAVE="{{ chiton_server_pidfile_slave_path }}"
-RAINBOW_SADDLE="{{ chiton_rainbow_saddle_bin }}"
+PIDFILE_CLONE="{{ chiton_server_pidfile_path }}.2"
 USER="{{ chiton_user }}"
+WSGI_MODULE="{{ chiton_wsgi_module }}"
+
+is_running() {
+  start-stop-daemon --status \
+    --pidfile "$PIDFILE" \
+    --user "$USER"
+}
 
 start() {
-  if [ ! -f "$PIDFILE_SLAVE" ]; then
-    touch "$PIDFILE_SLAVE"
-    chown "$USER:$GROUP" "$PIDFILE_SLAVE"
-    chmod 600 "$PIDFILE_SLAVE"
+  if is_running; then
+    echo "$NAME already running"
+  else
+    echo "Starting $NAME..."
+    start-stop-daemon --start \
+      --chuid "$USER" \
+      --pidfile "$PIDFILE" \
+      --startas "$GUNICORN" \
+      --user "$USER" \
+      -- \
+      --daemon \
+      --pid="$PIDFILE" \
+      --config="$GUNICORN_CONFIG" \
+      "$WSGI_MODULE"
   fi
-
-  start-stop-daemon --start \
-    --background \
-    --pidfile "$PIDFILE" \
-    --user "$USER" \
-    --chuid "$USER:$GROUP" \
-    --startas "$RAINBOW_SADDLE" \
-    -- \
-    --pid "$PIDFILE" \
-    --gunicorn-pidfile "$PIDFILE_SLAVE" \
-    "$GUNICORN" --config "$GUNICORN_CONFIG" "{{ chiton_wsgi_module }}"
 }
 
 stop() {
+  echo "Stopping $NAME..."
   start-stop-daemon --stop \
     --pidfile "$PIDFILE" \
     --user "$USER" \
     --oknodo \
-    --retry 30 \
-    --chuid "$USER:$GROUP"
+    --retry 30
 }
 
 reload() {
-  start-stop-daemon --stop \
-    --pidfile "$PIDFILE" \
-    --user "$USER" \
-    --signal HUP \
-    --chuid "$USER:$GROUP"
-
-  if [ $? = 1 ]; then
+  if ! is_running; then
     start
+    return
   fi
+
+  master_pid=$(cat "$PIDFILE")
+  old_workers=$(pgrep -P "$master_pid")
+
+  echo "Spawning new arbiter..."
+  kill -USR2 "$master_pid"
+  while [ ! -f "$PIDFILE_CLONE" ]; do sleep 1; done
+
+  echo "Shutting down old workers..."
+  kill -WINCH "$master_pid"
+  while [ "$(pgrep -P "$master_pid")" = "$old_workers" ]; do sleep 1; done
+
+  echo "Promoting new arbiter..."
+  kill -TERM "$master_pid"
+
+  echo "$NAME reloaded"
 }
 
 restart() {
@@ -66,15 +82,10 @@ restart() {
 }
 
 status() {
-  start-stop-daemon --status \
-    --pidfile "$PIDFILE" \
-    --user "$USER" \
-    --chuid "$USER:$GROUP"
-
-  if [ $? = 0 ]; then
-    echo "Running"
+  if is_running; then
+    echo "$NAME is running"
   else
-    echo "Not running"
+    echo "$NAME is not running"
   fi
 }
 

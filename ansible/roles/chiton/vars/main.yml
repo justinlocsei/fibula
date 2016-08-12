@@ -44,8 +44,7 @@ chiton_virtualenv_python_bin: "{{ chiton_virtualenv_dir }}/bin/python"
 chiton_gunicorn_config_file: "{{ chiton_config_dir }}/gunicorn.py"
 chiton_server_access_log_path: "{{ chiton_log_dir }}/server-access.log"
 chiton_server_error_log_path: "{{ chiton_log_dir }}/server-error.log"
-chiton_server_pidfile_slave_path: "{{ chiton_run_dir }}/chiton-slave.pid"
-chiton_server_pidfile_path: "{{ chiton_run_dir }}/chiton-master.pid"
+chiton_server_pidfile_path: "{{ chiton_run_dir }}/gunicorn.pid"
 
 chiton_requirements_files:
   - file: core.txt
