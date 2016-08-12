@@ -1,4 +1,5 @@
 ---
+new_relic_license_key: "{{ vault__new_relic_license_key }}"
 postfix_relay_host: smtp.sendgrid.net
 postfix_relay_password: "{{ vault__postfix_relay_password }}"
 postfix_relay_port: 587
@@ -24,7 +25,6 @@ himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
 himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
 himation_sentry_dsn: "{{ vault__himation_sentry_dsn }}"
 himation_sentry_dsn_public: "{{ vault__himation_sentry_dsn_public }}"
-new_relic_license_key: "{{ vault__new_relic_license_key }}"
 
 himation_app_server_port: 3000
 himation_asset_server_port: 3001
