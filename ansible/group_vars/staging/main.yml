@@ -2,10 +2,8 @@
 chiton_amazon_associates_tracking_id: coveryourbasics-staging-20
 chiton_backups_s3_bucket: chiton-backups-staging
 chiton_environment: staging
-chiton_external_media_url: https://mediastaging-4b66.kxcdn.com
 chiton_git_ref: staging
 chiton_stock_worker_count: 10
-himation_asset_server_public_url: https://assetsstaging-4b66.kxcdn.com
 himation_environment: staging
 himation_git_ref: staging
 himation_google_analytics_id: UA-82122862-1
