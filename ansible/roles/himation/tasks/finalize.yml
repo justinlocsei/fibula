@@ -1,7 +1,7 @@
 ---
 - name: add a robots.txt file
-  copy:
-    src: public/robots.txt
+  template:
+    src: robots.txt.j2
     dest: "{{ himation_current_version_public_dir }}/robots.txt"
     owner: "{{ himation_user }}"
     group: "{{ himation_group }}"
