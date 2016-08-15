@@ -40,12 +40,12 @@ server {
   location {{ url | trailing_slash_url }} {
     limit_req zone={{ app_server_himation_limit_zone_name }} burst=5;
 
-    {{ lookup("template", "./himation_proxy.conf.j2") }}
+    {{ lookup("template", "nginx/himation_proxy.conf.j2") }}
   }
   {% endfor %}
 
   location @{{ app_server_himation_proxy_name }} {
-    {{ lookup("template", "./himation_proxy.conf.j2") }}
+    {{ lookup("template", "nginx/himation_proxy.conf.j2") }}
   }
 
   client_max_body_size 2M;
