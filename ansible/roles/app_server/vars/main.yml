@@ -3,6 +3,7 @@ app_server_chiton_port: 80
 app_server_chiton_port_https: 443
 app_server_chiton_proxy_name: chiton-proxy
 app_server_chiton_upstream_name: chiton-upstream
+app_server_himation_limit_zone_name: himation-throttled
 app_server_himation_port: 80
 app_server_himation_port_https: 443
 app_server_himation_proxy_name: himation-proxy
