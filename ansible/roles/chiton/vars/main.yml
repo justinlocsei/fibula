@@ -1,4 +1,5 @@
 ---
+chiton_api_url: /api/
 chiton_assets_dir_name: assets
 chiton_db_name: chiton
 chiton_db_user_name: chiton
