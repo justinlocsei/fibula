@@ -16,3 +16,4 @@
   command: "{{ himation_npm_runner }} build"
   become: yes
   become_user: "{{ himation_user }}"
+  changed_when: False

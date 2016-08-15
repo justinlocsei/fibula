@@ -32,3 +32,4 @@
 
     - name: refresh the cache
       command: "{{ chiton_current_version_manage_file | quote }} chiton_refresh_cache"
+      changed_when: False
