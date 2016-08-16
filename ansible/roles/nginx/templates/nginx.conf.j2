@@ -1,6 +1,6 @@
 user {{ nginx_user }} {{ nginx_group }};
 
-worker_processes {{ ansible_processor_cores }};
+worker_processes auto;
 worker_rlimit_nofile {{ nginx_nofile_limit }};
 
 events {
