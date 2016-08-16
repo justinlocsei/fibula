@@ -13,7 +13,7 @@
       dest: "{{ himation_npm_runner }}"
 
 - name: build assets
-  command: "{{ himation_npm_runner }} build"
+  command: "{{ himation_npm_runner | quote }} build"
   become: yes
   become_user: "{{ himation_user }}"
   changed_when: False
