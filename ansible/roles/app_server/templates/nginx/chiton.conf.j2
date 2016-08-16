@@ -23,7 +23,10 @@ server {
 
   autoindex off;
   root {{ chiton_public_files_dir }};
-  try_files $uri @{{ app_server_chiton_proxy_name }};
+
+  location / {
+    try_files $uri @{{ app_server_chiton_proxy_name }};
+  }
 
   location {{ chiton_assets_url | trailing_slash_url }} {
     add_header Cache-Control "public";
@@ -39,11 +42,16 @@ server {
     allow 127.0.0.1;
     deny all;
 
-    {{ lookup("template", "nginx/chiton_proxy.conf.j2") }}
+    try_files $uri @{{ app_server_chiton_proxy_name }};
   }
 
   location @{{ app_server_chiton_proxy_name }} {
-    {{ lookup("template", "nginx/chiton_proxy.conf.j2") }}
+    proxy_redirect off;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+
+    proxy_pass http://{{ app_server_chiton_upstream_name }};
   }
 
   client_max_body_size 2M;

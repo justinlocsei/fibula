@@ -25,7 +25,10 @@ server {
 
   autoindex off;
   root {{ himation_public_dir }};
-  try_files $uri @{{ app_server_himation_proxy_name }};
+
+  location / {
+    try_files $uri @{{ app_server_himation_proxy_name }};
+  }
 
   location {{ himation_assets_path | trailing_slash_url }} {
     alias {{ himation_assets_dir | trailing_slash_fs }};
@@ -39,13 +42,17 @@ server {
   {% for url in himation_rate_limited_urls %}
   location {{ url | trailing_slash_url }} {
     limit_req zone={{ app_server_himation_limit_zone_name }} burst=5;
-
-    {{ lookup("template", "nginx/himation_proxy.conf.j2") }}
+    try_files $uri @{{ app_server_himation_proxy_name }};
   }
   {% endfor %}
 
   location @{{ app_server_himation_proxy_name }} {
-    {{ lookup("template", "nginx/himation_proxy.conf.j2") }}
+    proxy_redirect off;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;
+
+    proxy_pass http://{{ app_server_himation_upstream_name }};
   }
 
   client_max_body_size 2M;
