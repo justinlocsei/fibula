@@ -24,6 +24,20 @@ server {
   autoindex off;
   root {{ chiton_public_files_dir }};
 
+  error_page 403 =404 /{{ nginx_404_page | basename }};
+  error_page 404 /{{ nginx_404_page | basename }};
+  error_page 500 502 503 504 /{{ nginx_500_page | basename }};
+
+  location = /{{ nginx_404_page | basename }} {
+    root {{ nginx_404_page | dirname }};
+    internal;
+  }
+
+  location = /{{ nginx_500_page | basename }} {
+    root {{ nginx_500_page | dirname }};
+    internal;
+  }
+
   location / {
     try_files $uri @{{ app_server_chiton_proxy_name }};
   }
@@ -46,6 +60,7 @@ server {
   }
 
   location @{{ app_server_chiton_proxy_name }} {
+    proxy_intercept_errors {{ chiton_track_errors | ternary('on', 'off') }};
     proxy_redirect off;
     proxy_set_header Host $http_host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
