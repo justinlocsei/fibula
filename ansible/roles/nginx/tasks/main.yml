@@ -12,6 +12,14 @@
     system: yes
     state: present
 
+- name: create the data directory
+  file:
+    path: "{{ nginx_data_dir }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
 - name: update the default environment for the nginx worker user
   template:
     src: default.j2

@@ -1,4 +1,7 @@
 ---
+nginx_data_dir: /usr/local/share/nginx
+nginx_404_page: "{{ nginx_data_dir }}/404.html"
+nginx_500_page: "{{ nginx_data_dir }}/500.html"
 nginx_config_dir: /etc/nginx
 nginx_nofile_limit: 4096
 nginx_dhparam_pem: "{{ nginx_certs_dir }}/dhparam.pem"
