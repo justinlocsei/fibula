@@ -47,3 +47,13 @@
     owner: root
     group: root
     mode: 0644
+
+- name: export static error pages for use with nginx
+  command: "{{ himation_gulp_runner | quote }} {{ item.task }} --export-to={{ item.dest | quote }}"
+  register: himation_export_page_result
+  changed_when: "'File updated' in himation_export_page_result.stdout"
+  with_items:
+    - dest: "{{ nginx_404_page }}"
+      task: export-404-page
+    - dest: "{{ nginx_500_page }}"
+      task: export-500-page
