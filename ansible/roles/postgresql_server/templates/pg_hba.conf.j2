@@ -1,5 +1,5 @@
-local  all  {{ postgresql_server_root_user }}                 peer
-host   all  {{ postgresql_server_root_user }}  127.0.0.1/32   md5
+local  all  {{ postgresql_server_root_user }}  peer
+host  all  {{ postgresql_server_root_user }}  127.0.0.1/32  md5
 
 {% for user in postgresql_server_remote_users %}
 host  all  {{ user }}  {% if postgresql_server_allow_external_connections %}all{% else %}127.0.0.1/32{% endif %}  md5
