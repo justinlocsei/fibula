@@ -1,4 +1,5 @@
 ---
-postfix_pidfile: /var/spool/postfix/pid/master.pid
+postfix_data_dir: /var/spool/postfix
+postfix_pidfile: "{{ postfix_data_dir }}/pid/master.pid"
 postfix_sasl_passwd: /etc/postfix/sasl_passwd
 postfix_virtual_regexp: /etc/postfix/virtual_regexp
