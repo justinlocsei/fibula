@@ -29,6 +29,11 @@
     group: root
     validate: visudo -cf %s
 
+- name: add the Datadog user to other groups
+  user:
+    name: "{{ datadog_user }}"
+    groups: "{{ datadog_user_groups | join(',') }}"
+
 - name: create the Datadog configuration file
   template:
     src: datadog.conf.j2
