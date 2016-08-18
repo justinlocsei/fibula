@@ -8,3 +8,4 @@ nginx_dhparam_pem: "{{ nginx_certs_dir }}/dhparam.pem"
 nginx_certs_dir: "{{ nginx_config_dir }}/certs"
 nginx_pidfile: /var/run/nginx.pid
 nginx_sites_dir: "{{ nginx_config_dir }}/conf.d"
+nginx_status_path: /status

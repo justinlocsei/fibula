@@ -77,3 +77,13 @@
     mode: 0644
   notify:
     - reload nginx
+
+- name: create a configuration for the internal status page
+  template:
+    src: status.conf.j2
+    dest: "{{ nginx_sites_dir }}/status.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload nginx

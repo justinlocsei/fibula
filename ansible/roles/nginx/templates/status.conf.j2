@@ -1,0 +1,12 @@
+server {
+  server_name localhost;
+  listen {{ nginx_status_port }};
+
+  access_log off;
+  allow 127.0.0.1;
+  deny all;
+
+  location {{ nginx_status_path }} {
+    stub_status on;
+  }
+}
