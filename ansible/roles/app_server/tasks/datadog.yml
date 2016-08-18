@@ -1,5 +1,5 @@
 ---
-- name: monitor services
+- name: monitor services with Datadog
   template:
     src: datadog/{{ item }}.yaml.j2
     dest: "{{ datadog_configs_dir }}/{{ item }}.yaml"
