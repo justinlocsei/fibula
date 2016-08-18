@@ -1,10 +1,12 @@
 ---
-- name: monitor Postfix
+- name: monitor services
   template:
-    src: datadog/postfix.yaml.j2
-    dest: "{{ datadog_configs_dir }}/postfix.yaml"
+    src: datadog/{{ item }}.yaml.j2
+    dest: "{{ datadog_configs_dir }}/{{ item }}.yaml"
     owner: "{{ datadog_user }}"
     group: "{{ datadog_group }}"
     mode: 0644
   notify:
     - restart Datadog
+  with_items:
+    - postfix
