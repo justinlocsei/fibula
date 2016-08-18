@@ -23,6 +23,7 @@ dependencies:
     chiton_db_root_password: "{{ postgresql_server_root_password }}"
     chiton_groups:
       - "{{ redis_group }}"
+    chiton_gunicorn_statsd_host: "localhost:{{ datadog_statsd_port }}"
     chiton_pip_bin_name: "{{ python_pip_executable }}"
     chiton_pg_dump_path: "{{ postgresql_server_pg_dump_path }}"
     chiton_pg_restore_path: "{{ postgresql_server_pg_restore_path }}"
