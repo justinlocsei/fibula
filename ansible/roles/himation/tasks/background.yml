@@ -1,0 +1,12 @@
+---
+- name: add a cron job to refresh the cache every night
+  cron:
+    name: refresh cache
+    job: >
+      HIMATION_CONFIG_FILE={{ himation_config_file | quote }}
+      {{ himation_npm_runner | quote }} refresh-cache
+    minute: 0
+    hour: 0
+    user: "{{ himation_user }}"
+    cron_file: himation-refresh-cache
+    state: "{{ himation_run_background_tasks | ternary('present' ,'absent') }}"
