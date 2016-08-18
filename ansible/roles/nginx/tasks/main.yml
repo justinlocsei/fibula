@@ -87,3 +87,9 @@
     mode: 0644
   notify:
     - reload nginx
+
+- name: run nginx at boot
+  service:
+    name: nginx
+    enabled: yes
+    state: started
