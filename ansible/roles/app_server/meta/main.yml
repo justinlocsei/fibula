@@ -46,6 +46,7 @@ dependencies:
   - role: monit
   - role: logrotate
   - role: new_relic
+  - role: datadog
   - role: firewall
     firewall_ports:
       - port: "{{ app_server_chiton_port }}"
