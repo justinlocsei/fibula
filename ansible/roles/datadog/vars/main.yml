@@ -2,4 +2,5 @@
 datadog_configs_dir: /etc/dd-agent/conf.d
 datadog_group: root
 datadog_service: datadog-agent
+datadog_statsd_port: 8125
 datadog_user: dd-agent
