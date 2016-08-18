@@ -1,0 +1,45 @@
+---
+- name: allow APT to use HTTPS
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: install the Datadog APT key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: C7A7DA52
+    state: present
+
+- name: add the Datadog APT repository
+  apt_repository:
+    repo: deb https://apt.datadoghq.com/ stable main
+    state: present
+
+- name: install the Datadog agent
+  apt:
+    name: datadog-agent
+    state: present
+
+- name: create the Datadog configuration file
+  template:
+    src: datadog.conf.j2
+    dest: /etc/dd-agent/datadog.conf
+    owner: dd-agent
+    group: root
+    mode: 0640
+  notify:
+    - restart Datadog
+
+- name: run the Datadog agent at boot
+  service:
+    name: "{{ datadog_service }}"
+    enabled: yes
+    state: started
+  when: datadog_enabled
+
+- name: disable the Datadog agent
+  service:
+    name: "{{ datadog_service }}"
+    enabled: no
+    state: stopped
+  when: not datadog_enabled

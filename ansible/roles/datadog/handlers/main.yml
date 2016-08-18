@@ -1,0 +1,5 @@
+---
+- name: restart Datadog
+  service:
+    name: "{{ datadog_service }}"
+    state: restarted
