@@ -7,7 +7,7 @@ databases 16
 pidfile {{ redis_run_dir }}/redis-server.pid
 
 # Connection
-bind 127.0.0.1
+bind {{ redis_host }}
 tcp-keepalive 0
 timeout 0
 unixsocket {{ redis_socket_path }}
