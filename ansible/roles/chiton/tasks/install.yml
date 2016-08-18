@@ -150,8 +150,8 @@
 
     - name: install gunicorn and dependencies
       pip:
-        name: gunicorn
-        version: 19.6.0
+        name: "{{ item.name }}"
+        version: "{{ item.version }}"
         executable: "{{ chiton_pip_bin_name }}"
         virtualenv: "{{ chiton_server_virtualenv_dir }}"
         state: present
