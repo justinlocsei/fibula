@@ -6,7 +6,8 @@ dependencies:
   - role: ssh
   - role: git
   - role: postgresql_server
-    postgresql_server_remote_users: ["{{ chiton_db_user_name }}"]
+    postgresql_server_remote_users:
+      - "{{ chiton_db_user_name }}"
     postgresql_server_version: "{{ chiton_postgresql_version }}"
   - role: postgresql_client
     postgresql_client_version: "{{ chiton_postgresql_version }}"
