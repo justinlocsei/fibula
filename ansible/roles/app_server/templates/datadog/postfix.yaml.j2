@@ -1,0 +1,8 @@
+init_config:
+
+instances:
+  - directory: "{{ postfix_data_dir }}"
+    queues:
+      - incoming
+      - active
+      - deferred
