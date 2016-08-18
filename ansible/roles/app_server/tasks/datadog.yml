@@ -9,4 +9,5 @@
   notify:
     - restart Datadog
   with_items:
+    - gunicorn
     - postfix
