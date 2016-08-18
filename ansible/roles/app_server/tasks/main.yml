@@ -5,6 +5,9 @@
 - name: configure monit
   include: monit.yml
 
+- name: configure Datadog
+  include: datadog.yml
+
 - name: configure chiton
   include: chiton.yml
 
