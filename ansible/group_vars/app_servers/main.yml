@@ -1,6 +1,5 @@
 ---
 datadog_api_key: "{{ vault__datadog_api_key }}"
-new_relic_license_key: "{{ vault__new_relic_license_key }}"
 postfix_relay_host: smtp.sendgrid.net
 postfix_relay_password: "{{ vault__postfix_relay_password }}"
 postfix_relay_port: 587
