@@ -11,6 +11,7 @@
   with_items:
     - gunicorn
     - nginx
+    - postgres
     - postfix
     - redisdb
     - varnish
