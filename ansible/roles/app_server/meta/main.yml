@@ -45,7 +45,6 @@ dependencies:
   - role: postfix
   - role: monit
   - role: logrotate
-  - role: new_relic
   - role: datadog
   - role: firewall
     firewall_ports:
