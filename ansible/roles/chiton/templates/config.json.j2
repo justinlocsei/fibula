@@ -24,8 +24,11 @@
   "log_level": "{{ chiton_log_level }}",
   "media_root": "{{ chiton_media_dir }}",
   "media_url": "{{ chiton_external_media_url | trailing_slash_url }}",
-  "redis_db": {{ chiton_redis_db }},
-  "redis_socket": "{{ redis_socket_path }}",
+  "redis": {
+    "db": {{ chiton_redis_db }},
+    "host": "{{ chiton_redis_host }}",
+    "port": "{{ chiton_redis_port }}"
+  },
   "secret_key": "{{ chiton_config_secret_key | require_value }}",
   "sentry_dsn": "{{ chiton_sentry_dsn | require_value }}",
   "server_email": "{{ chiton_server_email }}",

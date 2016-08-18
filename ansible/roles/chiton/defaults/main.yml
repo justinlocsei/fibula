@@ -46,6 +46,8 @@ chiton_pg_restore_path: pg_restore
 chiton_pip_bin_name: pip
 chiton_python_bin_name: python
 chiton_redis_db: 0
+chiton_redis_host: null
+chiton_redis_port: null
 chiton_rollback_delta: 0
 chiton_root_dir: /var/cyb-chiton
 chiton_run_background_tasks: yes
