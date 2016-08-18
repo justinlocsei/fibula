@@ -33,6 +33,7 @@ def find_current_version_virtualenv_dirs():
 bind = '127.0.0.1:{{ chiton_server_port }}'
 group = '{{ chiton_group }}'
 preload_app = {{ chiton_allow_development | ternary("False", "True") }}
+proc_name = '{{ chiton_gunicorn_process_name }}'
 pythonpath = ','.join(find_current_version_virtualenv_dirs())
 reload = {{ chiton_allow_development | ternary("True", "False") }}
 threads = {{ chiton_gunicorn_threads }}
