@@ -8,10 +8,9 @@ pidfile {{ redis_run_dir }}/redis-server.pid
 
 # Connection
 bind {{ redis_host }}
+port {{ redis_port }}
 tcp-keepalive 0
 timeout 0
-unixsocket {{ redis_socket_path }}
-unixsocketperm 775
 
 # Logging
 logfile /var/log/redis/redis-server.log
