@@ -45,6 +45,8 @@ dependencies:
   - role: monit
   - role: logrotate
   - role: datadog
+    datadog_user_groups:
+      - "{{ varnish_group }}"
   - role: firewall
     firewall_ports:
       - port: "{{ app_server_chiton_port }}"
