@@ -4,6 +4,7 @@ postfix_relay_host: smtp.sendgrid.net
 postfix_relay_password: "{{ vault__postfix_relay_password }}"
 postfix_relay_port: 587
 postgresql_server_root_password: "{{ vault__postgresql_server_root_password }}"
+postgresql_server_stats_user_password: "{{ vault__postgresql_server_stats_user_password }}"
 varnish_cache_size: 32m
 
 chiton_admin_password: "{{ vault__chiton_admin_password }}"
