@@ -1,5 +1,6 @@
 ---
 varnish_default_vcl: /etc/varnish/default.vcl
+varnish_group: varnish
 varnish_pidfile: /run/varnishd.pid
 varnish_secret: /etc/varnish/secret
 
