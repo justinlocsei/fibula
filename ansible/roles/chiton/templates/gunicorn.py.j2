@@ -41,6 +41,10 @@ umask = 0o117
 user = '{{ chiton_user }}'
 workers = {{ chiton_gunicorn_workers }}
 
+{% if chiton_gunicorn_statsd_host %}
+statsd_host = '{{ chiton_gunicorn_statsd_host }}'
+{% endif %}
+
 accesslog = '{{ chiton_allow_development | ternary("-", chiton_server_access_log_path) }}'
 errorlog = '{{ chiton_allow_development | ternary("-", chiton_server_error_log_path) }}'
 loglevel = '{{ chiton_gunicorn_log_level }}'
