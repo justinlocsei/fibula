@@ -20,6 +20,15 @@
     name: datadog-agent
     state: present
 
+- name: manage sudo permissions for the agent user
+  template:
+    src: sudoers.j2
+    dest: /etc/sudoers.d/{{ datadog_user }}
+    mode: 0440
+    owner: root
+    group: root
+    validate: visudo -cf %s
+
 - name: create the Datadog configuration file
   template:
     src: datadog.conf.j2

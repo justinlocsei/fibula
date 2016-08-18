@@ -1,2 +1,3 @@
 ---
 datadog_service: datadog-agent
+datadog_user: dd-agent
