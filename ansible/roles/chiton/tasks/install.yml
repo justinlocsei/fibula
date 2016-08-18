@@ -148,7 +148,7 @@
         state: link
       when: chiton_allow_development
 
-    - name: install gunicorn
+    - name: install gunicorn and dependencies
       pip:
         name: gunicorn
         version: 19.6.0
@@ -157,6 +157,11 @@
         state: present
       notify:
         - restart chiton
+      with_items:
+        - name: setproctitle
+          version: 1.1.10
+        - name: gunicorn
+          version: 19.6.0
 
 - name: create directories for assets
   file:
