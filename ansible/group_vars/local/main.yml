@@ -1,3 +1,4 @@
 ---
 chiton_run_background_tasks: no
+himation_run_background_tasks: no
 new_relic_enabled: no
