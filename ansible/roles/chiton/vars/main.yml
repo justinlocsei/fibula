@@ -30,7 +30,6 @@ chiton_app_log_path: "{{ chiton_log_dir }}/app.log"
 chiton_config_file: "{{ chiton_config_dir }}/environment.json"
 chiton_log_dir: /var/log/chiton
 chiton_manage_file: "{{ chiton_scripts_dir }}/manage.py"
-chiton_new_relic_config_file: "{{ chiton_config_dir }}/newrelic.ini"
 chiton_public_files_dir: "{{ chiton_current_dir }}/{{ chiton_public_files_dir_name }}"
 chiton_run_dir: /var/run/chiton
 chiton_user_custom_profile: "{{ chiton_user_home_dir }}/.profile.chiton"

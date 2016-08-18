@@ -40,8 +40,6 @@ chiton_gunicorn_workers: 1
 chiton_keep_releases: 10
 chiton_log_level: INFO
 chiton_media_url: /media/
-chiton_new_relic_enabled: yes
-chiton_new_relic_license_key: null
 chiton_pg_dump_path: pg_dump
 chiton_pg_restore_path: pg_restore
 chiton_pip_bin_name: pip

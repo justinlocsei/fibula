@@ -13,7 +13,6 @@ chiton_daemonize: no
 chiton_git_ref: development
 chiton_group: chiton
 chiton_group_id: 2000
-chiton_new_relic_enabled: no
 chiton_root_dir: /var/cyb-chiton
 chiton_source_dir: /var/cyb-chiton/source
 chiton_track_errors: no
