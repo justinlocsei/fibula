@@ -11,3 +11,15 @@
     user: "{{ chiton_user }}"
     cron_file: chiton-update-item-stock
     state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
+
+- name: add a cron job to refresh the cache every night
+  cron:
+    name: refresh cache
+    job: >
+      CHITON_CONFIG_FILE={{ chiton_config_file | quote }}
+      {{ chiton_current_version_manage_file | quote }} chiton_refresh_cache
+    minute: 0
+    hour: 1
+    user: "{{ chiton_user }}"
+    cron_file: chiton-refresh-cache
+    state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
