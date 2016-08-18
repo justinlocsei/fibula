@@ -41,3 +41,13 @@
     name: postgresql
     state: reloaded
   when: postgresql_server_pg_hba_update | changed
+
+- name: create the stats user
+  become: yes
+  become_user: "{{ postgresql_server_root_user }}"
+  postgresql_user:
+    db: postgres
+    name: "{{ postgresql_server_stats_user_name }}"
+    password: "{{ postgresql_server_stats_user_password | require_value }}"
+    priv: "pg_stat_database:SELECT"
+    state: present

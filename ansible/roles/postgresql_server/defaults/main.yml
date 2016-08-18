@@ -2,4 +2,5 @@
 postgresql_server_allow_external_connections: no
 postgresql_server_remote_users: []
 postgresql_server_root_password: null
+postgresql_server_stats_user_password: null
 postgresql_server_version: 9.4

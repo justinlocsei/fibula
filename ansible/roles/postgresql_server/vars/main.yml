@@ -7,6 +7,7 @@ postgresql_server_port: 5432
 postgresql_server_pg_dump_path: /usr/bin/pg_dump
 postgresql_server_pg_restore_path: /usr/bin/pg_restore
 postgresql_server_root_user: postgres
+postgresql_server_stats_user_name: metrics
 postgresql_server_socket_dir: /var/run/postgresql
 
 postgresql_server_config: "{{ postgresql_server_conf_dir }}/postgresql.conf"
