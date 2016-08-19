@@ -1,0 +1,14 @@
+{
+  "name": "cyb-benchmark",
+  "version": "1.0.0",
+  "description": "A benchmarking tool for the Cover Your Basics infrastructure",
+  "main": "benchmark.js",
+  "private": true,
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.15.0",
+    "pad": "^1.0.0",
+    "request": "^2.74.0",
+    "yargs": "^5.0.0"
+  }
+}
