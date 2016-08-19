@@ -4,6 +4,8 @@
 *.retry
 .vagrant/
 
+node_modules/
+
 /environments/
 /packer/build/
 /tmp/
