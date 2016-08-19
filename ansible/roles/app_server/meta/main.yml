@@ -46,6 +46,7 @@ dependencies:
   - role: monit
   - role: logrotate
   - role: datadog
+    datadog_hostname: "{{ app_server_himation_server_name }}"
     datadog_user_groups:
       - "{{ varnish_group }}"
   - role: firewall
