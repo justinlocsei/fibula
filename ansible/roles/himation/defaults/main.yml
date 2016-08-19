@@ -36,6 +36,7 @@ himation_sentry_dsn_public: null
 himation_server_name: null
 himation_source_dir: "{{ himation_root_dir }}/source"
 himation_track_errors: yes
+himation_track_stats: yes
 himation_use_caching: yes
 himation_use_debug_logging: no
 himation_user: himation
