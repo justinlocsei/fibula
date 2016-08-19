@@ -29,8 +29,8 @@ To work with the infrastructure code, run the following from the root of this
 repository:
 
 ```sh
-$ ./scripts/setup.sh
-$ source scripts/develop.sh
+$ ./scripts/env/setup.sh
+$ source scripts/env/develop.sh
 ```
 
 The `setup` script installs all dependencies, and should only need to be run
@@ -44,7 +44,7 @@ found in the `packer` directory.  To build a box and add it to the local Vagrant
 box list, run the following:
 
 ```sh
-$ ./scripts/build-box.py BOX_NAME
+$ ./scripts/vms/build-box.py BOX_NAME
 ```
 
 Provided that `BOX_NAME` matches the basename of a JSON file in the `packer`
@@ -72,7 +72,7 @@ provisioned using Ansible, and lacks a provisioner configuration in Vagrant.  To
 provision a machine, run the following commands from the root directory:
 
 ```bash
-$ source scripts/develop
+$ source scripts/env/develop.sh
 $ cd ansible
 $ ansible-playbook playbooks/PLAYBOOOK.yml
 ```
@@ -84,8 +84,8 @@ machine in question.
 ## Servers
 
 All management of servers is done using the `fib` command, which is made
-available when running the `scripts/setup.sh` script, and whose source code is
-located in the `infrastructure` directory of this repo.  It has many
+available when running the `scripts/env/setup.sh` script, and whose source code
+is located in the `infrastructure` directory of this repo.  It has many
 subcommands, all of which can be listed by running `fib --help`.
 
 ### Infrastructure
