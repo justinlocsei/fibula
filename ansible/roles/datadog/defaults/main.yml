@@ -2,4 +2,5 @@
 datadog_api_key: null
 datadog_enabled: yes
 datadog_environment: development
+datadog_hostname: null
 datadog_user_groups: []
