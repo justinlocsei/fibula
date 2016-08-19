@@ -32,6 +32,7 @@ himation_optimize_assets: no
 himation_root_dir: /var/cyb-himation
 himation_source_dir: /var/cyb-himation/source
 himation_track_errors: no
+himation_track_stats: no
 himation_use_caching: no
 himation_use_debug_logging: yes
 himation_user: himation
