@@ -103,6 +103,7 @@ function measureRequest(index) {
     var endTime = new Date().getTime();
     var duration = endTime - startTime;
 
+    process.stdout.write('.');
     var dataIndex = CONCURRENCY - 1;
     REQUESTS[dataIndex] = REQUESTS[dataIndex] || [];
     REQUESTS[dataIndex].push(duration);
@@ -133,7 +134,8 @@ function summarizePass() {
   var strTime = Math.ceil(average) + 'ms';
   var strRate = Math.floor(MAX_REQUESTS / (duration / 1000)).toString();
 
-  console.log('Benchmark Duration:    ' + Math.ceil(duration) + 'ms')
+  console.log('');
+  console.log('Benchmark Duration:    ' + Math.ceil(duration) + 'ms');
   console.log('Average Response Time: ' + strTime);
   console.log('Requests per Second:   ' + strRate);
   console.log('');
