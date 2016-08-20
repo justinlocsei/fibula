@@ -5,7 +5,7 @@ from fibula.actions.base import BaseAction
 from fibula.paths import ANSIBLE_DIR
 
 
-ENVIRONMENTS = ('development', 'staging')
+ENVIRONMENTS = ('development', 'staging', 'production')
 
 
 def confirm_deploy_action(action, hosts, inventory):
