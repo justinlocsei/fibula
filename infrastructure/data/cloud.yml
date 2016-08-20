@@ -16,7 +16,7 @@ servers:
 
   - name: production
     config:
-      backups: no
+      backups: yes
       image: ubuntu-14-04-x64
       region: nyc3
       size: 512mb
