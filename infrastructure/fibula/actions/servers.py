@@ -104,7 +104,7 @@ class Servers(BaseAction):
                 ui.warn('To change regions, you must spin up a new droplet')
 
             # Warn about different images
-            if droplet.image['slug'] != config['image']:
+            if droplet.image['slug'] and droplet.image['slug'] != config['image']:
                 divergent = True
                 ui.warn('This droplet uses the "%s" image, but it should use "%s"' % (droplet.image['slug'], config['image']))
                 ui.warn('To change the image, you must spin up a new droplet')
