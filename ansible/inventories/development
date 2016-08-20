@@ -10,6 +10,7 @@ www.coveryourbasics.dev
 [app_servers:children]
 development
 staging
+production
 
 [local:children]
 development
