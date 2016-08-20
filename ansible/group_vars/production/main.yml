@@ -1,0 +1,11 @@
+---
+chiton_amazon_associates_tracking_id: coveryourbasics-production-20
+chiton_backups_s3_bucket: chiton-backups-production
+chiton_environment: production
+chiton_git_ref: master
+chiton_stock_worker_count: 10
+datadog_environment: production
+himation_environment: production
+himation_git_ref: master
+himation_google_analytics_id: UA-82122862-3
+postfix_relay_user: cyb-production
