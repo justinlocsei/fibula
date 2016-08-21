@@ -3,7 +3,6 @@
   cron:
     name: refresh cache
     job: >
-      HIMATION_CONFIG_FILE={{ himation_config_file | quote }}
       {{ himation_npm_runner | quote }} refresh-cache
     minute: 0
     hour: 0
