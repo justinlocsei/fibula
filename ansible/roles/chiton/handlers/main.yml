@@ -4,9 +4,18 @@
     name: chiton
     state: reloaded
   when: chiton_daemonize
+  notify:
+    - refresh the chiton cache
 
 - name: restart chiton
   service:
     name: chiton
     state: restarted
   when: chiton_daemonize
+  notify:
+    - refresh the chiton cache
+
+- name: refresh the chiton cache
+  command: "{{ chiton_manage_file | quote }} chiton_refresh_cache"
+  become: yes
+  become_user: "{{ chiton_user }}"
