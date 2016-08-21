@@ -3,7 +3,6 @@
   cron:
     name: update item stock
     job: >
-      CHITON_CONFIG_FILE={{ chiton_config_file | quote }}
       {{ chiton_current_version_manage_file | quote }} chiton_update_stock
       --workers={{ chiton_stock_worker_count }}
     minute: 0
@@ -16,7 +15,6 @@
   cron:
     name: refresh cache
     job: >
-      CHITON_CONFIG_FILE={{ chiton_config_file | quote }}
       {{ chiton_current_version_manage_file | quote }} chiton_refresh_cache
     minute: 0
     hour: 1
