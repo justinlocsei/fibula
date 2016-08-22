@@ -1,0 +1,3 @@
+---
+dependencies:
+  - role: cyb_apt_repo

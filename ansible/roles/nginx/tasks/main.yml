@@ -30,15 +30,10 @@
   notify:
     - restart nginx
 
-- name: add the nginx package repository's key
-  apt_key:
-    url: http://nginx.org/keys/nginx_signing.key
-    state: present
-
-- name: add the nginx package repository
+- name: ensure that the official nginx repo does not conflict with the CYB repo
   apt_repository:
     repo: deb http://nginx.org/packages/mainline/ubuntu/ {{ ansible_distribution_release }} nginx
-    state: present
+    state: absent
 
 - name: install nginx
   apt:
