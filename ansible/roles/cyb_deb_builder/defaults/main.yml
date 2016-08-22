@@ -2,3 +2,7 @@
 cyb_deb_builder_aws_access_key_id: null
 cyb_deb_builder_aws_secret_access_key: null
 cyb_deb_builder_user_authorized_keys: []
+cyb_deb_builder_gpg_master_key: null
+cyb_deb_builder_gpg_signing_key_fingerprint: null
+cyb_deb_builder_gpg_signing_key_private: null
+cyb_deb_builder_gpg_signing_key_public: null

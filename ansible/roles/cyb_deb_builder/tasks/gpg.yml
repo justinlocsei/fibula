@@ -1,0 +1,41 @@
+---
+- name: create a directory for storing key files
+  file:
+    path: "{{ cyb_deb_builder_gpg_keys_dir }}"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
+    mode: 0700
+    state: directory
+
+- name: create temporary files for the GPG keys
+  copy:
+    dest: "{{ cyb_deb_builder_gpg_keys_dir }}/{{ item.name }}.key"
+    content: "{{ item.content }}"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
+    mode: 0600
+  no_log: yes
+  changed_when: False
+  with_items:
+    - name: master
+      content: "{{ cyb_deb_builder_gpg_master_key }}"
+    - name: public
+      content: "{{ cyb_deb_builder_gpg_signing_key_public }}"
+    - name: signing
+      content: "{{ cyb_deb_builder_gpg_signing_key_private }}"
+
+- name: import all GPG keys
+  shell: gpg --import *.key
+  args:
+    chdir: "{{ cyb_deb_builder_gpg_keys_dir }}"
+  register: cyb_deb_buidler_import_keys
+  failed_when: "'read: 0' in cyb_deb_buidler_import_keys.stderr"
+  changed_when: "'unchanged: 2' not in cyb_deb_buidler_import_keys.stderr"
+  become: yes
+  become_user: "{{ cyb_deb_builder_user }}"
+
+- name: remove all GPG keys
+  shell: rm *.key
+  args:
+    chdir: "{{ cyb_deb_builder_gpg_keys_dir }}"
+  changed_when: False

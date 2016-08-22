@@ -8,6 +8,7 @@
       - dh-make
       - fakeroot
       - reprepro
+      - rng-tools
     state: present
 
 - name: install the s3cmd signing key

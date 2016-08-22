@@ -2,6 +2,9 @@
 - name: create the build user
   include: user.yml
 
+- name: configure GPG
+  include: gpg.yml
+
 - name: install build tools
   include: tools.yml
 

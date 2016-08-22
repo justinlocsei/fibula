@@ -10,3 +10,5 @@ cyb_deb_builder_build_dir: "{{ cyb_deb_builder_root_dir }}/build"
 cyb_deb_builder_packages_dir: "{{ cyb_deb_builder_root_dir }}/packages"
 cyb_deb_builder_repo_conf_dir: "{{ cyb_deb_builder_repo_dir }}/conf"
 cyb_deb_builder_repo_dir: "{{ cyb_deb_builder_root_dir }}/repo"
+
+cyb_deb_builder_gpg_keys_dir: "{{ cyb_deb_builder_user_home_dir }}/gpg-keys"
