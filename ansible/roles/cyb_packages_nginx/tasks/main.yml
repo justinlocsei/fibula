@@ -62,3 +62,11 @@
     line: "        --with-openssl=\"{{ cyb_packages_nginx_openssl_dir }}\" \\"
     insertafter: with-file-aio
     state: present
+
+- name: update the changelog to use a new version identifier
+  template:
+    src: changelog.j2
+    dest: "{{ cyb_package_dir }}/debian/changelog"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
+    mode: 0644
