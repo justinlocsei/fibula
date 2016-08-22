@@ -2,14 +2,15 @@
 
 DISTRIBUTION="{{ cyb_deb_builder_distribution }}"
 BUILD_DIR="{{ cyb_deb_builder_build_dir }}"
-REPO_DIR="{{ cyb_deb_builder_repo_dir }}"
+REPO_DIR="{{ cyb_deb_builder_repo_root_dir }}"
+REPO_PACKAGES_DIR="{{ cyb_deb_builder_repo_packages_dir }}"
 S3_BUCKET="{{ cyb_deb_builder_s3_bucket }}"
 
 if [[ "$1" == "--sync" ]]; then
   SYNC="true"
 fi
 
-cd "$REPO_DIR" || exit 1
+cd "$REPO_PACKAGES_DIR" || exit 1
 for dir in db dists pool; do
   if [[ -d "$dir" ]]; then
     rm -R "$dir"
@@ -18,7 +19,7 @@ done
 
 cd "$BUILD_DIR" || exit 1
 echo "# Building repo..."
-reprepro -b "$REPO_DIR" includedeb "$DISTRIBUTION" ./*.deb
+reprepro -b "$REPO_PACKAGES_DIR" includedeb "$DISTRIBUTION" ./*.deb
 
 if [[ -n "$SYNC" ]]; then
   echo

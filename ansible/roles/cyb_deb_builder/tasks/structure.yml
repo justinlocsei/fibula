@@ -10,8 +10,10 @@
     - "{{ cyb_deb_builder_root_dir }}"
     - "{{ cyb_deb_builder_packages_dir }}"
     - "{{ cyb_deb_builder_build_dir }}"
-    - "{{ cyb_deb_builder_repo_dir }}"
+    - "{{ cyb_deb_builder_repo_root_dir }}"
+    - "{{ cyb_deb_builder_repo_packages_dir }}"
     - "{{ cyb_deb_builder_repo_conf_dir }}"
+    - "{{ cyb_deb_builder_repo_meta_dir }}"
 
 - name: create the repo configuration files
   template:
@@ -23,6 +25,14 @@
   with_items:
     - distributions
     - options
+
+- name: add the public signing key to the repository
+  copy:
+    dest: "{{ cyb_deb_builder_repo_meta_dir }}/cyb.key"
+    content: "{{ cyb_deb_builder_gpg_signing_key_public }}"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
+    mode: 0644
 
 - name: create the build scripts
   template:
