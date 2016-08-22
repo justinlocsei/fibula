@@ -7,6 +7,9 @@ staging-www.coveryourbasics.dev
 [production]
 www.coveryourbasics.dev
 
+[apt]
+apt.coveryourbasics.dev
+
 [app_servers:children]
 development
 staging
