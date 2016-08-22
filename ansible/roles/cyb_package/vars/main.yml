@@ -1,3 +1,3 @@
 ---
-cyb_package_dir: "{{ cyb_repo_packages_dir }}/{{ cyb_package_slug }}"
+cyb_package_dir: "{{ cyb_deb_builder_packages_dir }}/{{ cyb_package_slug }}"
 cyb_package_slug: "{{ cyb_package_name }}-{{ cyb_package_version }}"

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-DISTRIBUTION="{{ cyb_repo_distribution }}"
-BUILD_DIR="{{ cyb_repo_build_dir }}"
-REPO_DIR="{{ cyb_repo_repo_dir }}"
-S3_BUCKET="{{ cyb_repo_s3_bucket }}"
+DISTRIBUTION="{{ cyb_deb_builder_distribution }}"
+BUILD_DIR="{{ cyb_deb_builder_build_dir }}"
+REPO_DIR="{{ cyb_deb_builder_repo_dir }}"
+S3_BUCKET="{{ cyb_deb_builder_s3_bucket }}"
 
 if [[ "$1" == "--sync" ]]; then
   SYNC="true"

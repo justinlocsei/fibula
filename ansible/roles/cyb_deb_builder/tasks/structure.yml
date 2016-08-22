@@ -1,0 +1,36 @@
+---
+- name: create the build directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ cyb_deb_builder_root_dir }}"
+    - "{{ cyb_deb_builder_packages_dir }}"
+    - "{{ cyb_deb_builder_build_dir }}"
+    - "{{ cyb_deb_builder_repo_dir }}"
+    - "{{ cyb_deb_builder_repo_conf_dir }}"
+
+- name: create the repo configuration files
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ cyb_deb_builder_repo_conf_dir }}/{{ item }}"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
+    mode: 0644
+  with_items:
+    - distributions
+    - options
+
+- name: create the build scripts
+  template:
+    src: "{{ item }}.sh.j2"
+    dest: "{{ cyb_deb_builder_root_dir }}/{{ item }}.sh"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
+    mode: 0755
+  with_items:
+    - build-package
+    - create-repo

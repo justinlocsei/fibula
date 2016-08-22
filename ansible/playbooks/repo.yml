@@ -1,5 +1,5 @@
 ---
 - hosts: apt
   roles:
-    - cyb_repo
+    - cyb_deb_builder
     - cyb_packages_nginx

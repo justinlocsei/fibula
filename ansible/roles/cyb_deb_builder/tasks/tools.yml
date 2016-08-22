@@ -28,7 +28,7 @@
 - name: create an s3cmd config file
   template:
     src: s3cfg.j2
-    dest: "{{ cyb_repo_user_home_dir }}/.s3cfg"
-    owner: "{{ cyb_repo_user }}"
-    group: "{{ cyb_repo_group }}"
+    dest: "{{ cyb_deb_builder_user_home_dir }}/.s3cfg"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
     mode: 0600

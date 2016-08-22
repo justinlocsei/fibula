@@ -1,9 +1,9 @@
 #!/bin/bash
 
 PACKAGE_NAME="$1"
-PACKAGES_DIR="{{ cyb_repo_packages_dir }}"
+PACKAGES_DIR="{{ cyb_deb_builder_packages_dir }}"
 PACKAGE_DIR="$PACKAGES_DIR/$PACKAGE_NAME"
-BUILD_DIR="{{ cyb_repo_build_dir }}"
+BUILD_DIR="{{ cyb_deb_builder_build_dir }}"
 
 if [[ -z "$PACKAGE_NAME" ]] || [[ ! -d "$PACKAGE_DIR" ]]; then
   echo "Usage: $(basename "$0") PACKAGE_NAME"

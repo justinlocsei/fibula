@@ -6,16 +6,16 @@
 
 - name: add the nginx source package repository
   apt_repository:
-    repo: deb-src http://nginx.org/packages/mainline/ubuntu/ {{ cyb_repo_distribution }} nginx
+    repo: deb-src http://nginx.org/packages/mainline/ubuntu/ {{ cyb_deb_builder_distribution }} nginx
     state: present
 
 - name: download the nginx package source
-  shell: apt-get source nginx={{ cyb_package_version | quote }} && rm {{ cyb_repo_packages_dir | quote }}/nginx*[.dsc,.gz]
+  shell: apt-get source nginx={{ cyb_package_version | quote }} && rm {{ cyb_deb_builder_packages_dir | quote }}/nginx*[.dsc,.gz]
   args:
-    chdir: "{{ cyb_repo_packages_dir }}"
+    chdir: "{{ cyb_deb_builder_packages_dir }}"
     creates: "{{ cyb_package_dir }}"
   become: yes
-  become_user: "{{ cyb_repo_user }}"
+  become_user: "{{ cyb_deb_builder_user }}"
 
 - name: install the package dependencies
   command: apt-get build-dep nginx={{ cyb_package_version | quote }} -y
@@ -33,8 +33,8 @@
 - name: create a vendor directory in the source tree
   file:
     path: "{{ cyb_packages_nginx_vendor_dir }}"
-    owner: "{{ cyb_repo_user }}"
-    group: "{{ cyb_repo_group }}"
+    owner: "{{ cyb_deb_builder_user }}"
+    group: "{{ cyb_deb_builder_group }}"
     mode: 0755
     state: directory
 
@@ -43,7 +43,7 @@
     url: https://www.openssl.org/source/{{ cyb_packages_nginx_openssl_version }}.tar.gz
     dest: "{{ cyb_packages_nginx_openssl_archive }}"
   become: yes
-  become_user: "{{ cyb_repo_user }}"
+  become_user: "{{ cyb_deb_builder_user }}"
 
 - name: extract the OpenSSL source
   command: tar -xzf "{{ cyb_packages_nginx_openssl_archive | quote }}"
@@ -51,7 +51,7 @@
     chdir: "{{ cyb_packages_nginx_openssl_dir | dirname }}"
     creates: "{{ cyb_packages_nginx_openssl_dir }}"
   become: yes
-  become_user: "{{ cyb_repo_user }}"
+  become_user: "{{ cyb_deb_builder_user }}"
 
 - name: update the rules file to use the local OpenSSL source
   lineinfile:
