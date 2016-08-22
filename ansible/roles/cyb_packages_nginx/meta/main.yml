@@ -1,0 +1,5 @@
+---
+dependencies:
+  - role: cyb_package
+    cyb_package_name: nginx
+    cyb_package_version: 1.9.13

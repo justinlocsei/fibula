@@ -1,0 +1,5 @@
+---
+cyb_packages_nginx_openssl_version: openssl-1.0.2h
+cyb_packages_nginx_openssl_archive: "{{ cyb_packages_nginx_vendor_dir }}/{{ cyb_packages_nginx_openssl_version }}.tar.gz"
+cyb_packages_nginx_openssl_dir: "{{ cyb_packages_nginx_vendor_dir }}/{{ cyb_packages_nginx_openssl_version }}"
+cyb_packages_nginx_vendor_dir: "{{ cyb_package_dir }}/vendor"
