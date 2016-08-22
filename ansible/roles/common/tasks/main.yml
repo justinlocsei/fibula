@@ -19,7 +19,7 @@
 - name: ensure that ntp is running
   service:
     name: ntp
-    state: running
+    state: started
     enabled: yes
 
 - name: customize readline settings
