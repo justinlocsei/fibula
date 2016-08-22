@@ -1,0 +1,32 @@
+---
+- name: create the build group
+  group:
+    name: "{{ cyb_repo_group }}"
+    state: present
+
+- name: create the build user
+  user:
+    name: "{{ cyb_repo_user }}"
+    group: "{{ cyb_repo_group }}"
+    home: "{{ cyb_repo_user_home_dir }}"
+    comment: APT build user
+    shell: /bin/bash
+    password: "*"
+    generate_ssh_key: yes
+    state: present
+
+- name: add all known keys to the application user's authorized keys
+  authorized_key:
+    user: "{{ cyb_repo_user }}"
+    key: "{{ cyb_repo_user_authorized_keys | join('\n') }}"
+    exclusive: yes
+    state: present
+
+- name: grant passwordless sudo to the build user
+  template:
+    src: templates/sudoers.j2
+    dest: /etc/sudoers.d/{{ cyb_repo_user }}
+    mode: 0440
+    owner: root
+    group: root
+    validate: /usr/sbin/visudo -cf %s

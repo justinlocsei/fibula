@@ -1,0 +1,27 @@
+#!/bin/bash
+
+DISTRIBUTION="{{ cyb_repo_distribution }}"
+BUILD_DIR="{{ cyb_repo_build_dir }}"
+REPO_DIR="{{ cyb_repo_repo_dir }}"
+S3_BUCKET="{{ cyb_repo_s3_bucket }}"
+
+if [[ "$1" == "--sync" ]]; then
+  SYNC="true"
+fi
+
+cd "$REPO_DIR" || exit 1
+for dir in db dists pool; do
+  if [[ -d "$dir" ]]; then
+    rm -R "$dir"
+  fi
+done
+
+cd "$BUILD_DIR" || exit 1
+echo "# Building repo..."
+reprepro -b "$REPO_DIR" includedeb "$DISTRIBUTION" ./*.deb
+
+if [[ -n "$SYNC" ]]; then
+  echo
+  echo "# Syncing with S3..."
+  s3cmd --acl-public --delete-removed sync "$REPO_DIR"/ "s3://$S3_BUCKET/"
+fi

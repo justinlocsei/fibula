@@ -1,0 +1,37 @@
+#!/bin/bash
+
+PACKAGE_NAME="$1"
+PACKAGES_DIR="{{ cyb_repo_packages_dir }}"
+PACKAGE_DIR="$PACKAGES_DIR/$PACKAGE_NAME"
+BUILD_DIR="{{ cyb_repo_build_dir }}"
+
+if [[ -z "$PACKAGE_NAME" ]] || [[ ! -d "$PACKAGE_DIR" ]]; then
+  echo "Usage: $(basename "$0") PACKAGE_NAME"
+
+  echo
+  echo "Available packages"
+  for package in "$PACKAGES_DIR"/*; do
+    echo "  $(basename "$package")"
+  done
+
+  exit 1
+fi
+
+for ext in build changes deb; do
+  rm -f "$BUILD_DIR"*."$ext"
+done
+
+cd "$PACKAGE_DIR" || exit 1
+
+echo -e "\nBuilding $PACKAGE_NAME\n"
+debuild -b -uc -us
+
+if [ $? -ne 0 ]; then
+  echo "Could not build the $PACKAGE_NAME package"
+  exit 1
+fi
+
+cd "$PACKAGES_DIR" || exit 1
+rm ./*.build
+rm ./*.changes
+mv ./*.deb "$BUILD_DIR"

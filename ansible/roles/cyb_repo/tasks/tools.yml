@@ -1,0 +1,34 @@
+---
+- name: install build tools
+  apt:
+    name:
+      - build-essential
+      - bzr-builddeb
+      - devscripts
+      - dh-make
+      - fakeroot
+      - reprepro
+    state: present
+
+- name: install the s3cmd signing key
+  apt_key:
+    url: http://s3tools.org/repo/deb-all/stable/s3tools.key
+    state: present
+
+- name: add the s3cmd repository
+  apt_repository:
+    repo: deb http://s3tools.org/repo/deb-all stable/
+    state: present
+
+- name: install s3cmd
+  apt:
+    name: s3cmd
+    state: present
+
+- name: create an s3cmd config file
+  template:
+    src: s3cfg.j2
+    dest: "{{ cyb_repo_user_home_dir }}/.s3cfg"
+    owner: "{{ cyb_repo_user }}"
+    group: "{{ cyb_repo_group }}"
+    mode: 0600

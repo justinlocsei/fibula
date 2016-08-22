@@ -1,0 +1,12 @@
+---
+cyb_repo_distribution: "{{ ansible_distribution_release }}"
+cyb_repo_group: build
+cyb_repo_s3_bucket: chiton-apt
+cyb_repo_user: build
+cyb_repo_user_home_dir: /home/{{ cyb_repo_user }}
+
+cyb_repo_root_dir: "{{ cyb_repo_user_home_dir }}/packages"
+cyb_repo_build_dir: "{{ cyb_repo_root_dir }}/build"
+cyb_repo_packages_dir: "{{ cyb_repo_root_dir }}/packages"
+cyb_repo_repo_conf_dir: "{{ cyb_repo_repo_dir }}/conf"
+cyb_repo_repo_dir: "{{ cyb_repo_root_dir }}/repo"
