@@ -208,11 +208,12 @@ def deploy():
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS))
 @click.option('--user', type=str, default='root')
 @click.option('--tag', type=str)
-def deploy_bootstrap(host, force, inventory, user, tag):
+@click.option('--playbook', type=str, default='provision.yml')
+def deploy_bootstrap(host, force, inventory, user, tag, playbook):
     """Bootstrap one or more hosts for deployment."""
     inventory = inventory or host
     if force or confirm_deploy_action('bootstrap', host, inventory):
-        Deploy().bootstrap(host, inventory, user=user, tag=tag)
+        Deploy().bootstrap(host, inventory, user, tag, playbook)
 
 
 @deploy.command('to')
@@ -220,11 +221,12 @@ def deploy_bootstrap(host, force, inventory, user, tag):
 @click.option('--force/--no-force', default=False)
 @click.option('--inventory', type=click.Choice(ENVIRONMENTS))
 @click.option('--tag', type=str)
-def deploy_to(environment, force, inventory, tag):
+@click.option('--playbook', type=str, default='deploy.yml')
+def deploy_to(environment, force, inventory, tag, playbook):
     """Deploy application code to an environment."""
     inventory = inventory or environment
     if force or confirm_deploy_action('deploy', environment, inventory):
-        Deploy().deploy(environment, inventory, tag)
+        Deploy().deploy(environment, inventory, tag, playbook)
 
 
 @deploy.command('rollback')

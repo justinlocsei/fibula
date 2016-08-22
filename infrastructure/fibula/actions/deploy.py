@@ -36,7 +36,7 @@ class Deploy(BaseAction):
 
     log_prefix = 'deploy'
 
-    def bootstrap(self, environment, inventory, user, tag):
+    def bootstrap(self, environment, inventory, user, tag, playbook):
         """Bootstrap hosts for deployment.
 
         Args:
@@ -44,18 +44,20 @@ class Deploy(BaseAction):
             inventory (str): The name of an inventory file
             user (str): The SSH user for the connection
             tag (str): The name of the tag to run
+            playbook (str): The name of the playbook to run
         """
-        self._run_playbook('provision.yml', environment, inventory, user=user, tag=tag)
+        self._run_playbook(playbook, environment, inventory, user=user, tag=tag)
 
-    def deploy(self, environment, inventory, tag):
+    def deploy(self, environment, inventory, tag, playbook):
         """Deploy code to a given environment.
 
         Args:
             environment (str): The name of an environment
             inventory (str): The name of an inventory file
             tag (str): The name of the tag to run
+            playbook (str): The name of the playbook to run
         """
-        self._run_playbook('deploy.yml', environment, inventory, tag=tag)
+        self._run_playbook(playbook, environment, inventory, tag=tag)
 
     def roll_back(self, environment, inventory):
         """Roll back deploy code for a given environment.
