@@ -44,6 +44,8 @@
   apt:
     name: "nginx={{ nginx_version }}*"
     state: present
+  notify:
+    - restart nginx
 
 - name: create a directory for storing SSL certificates
   file:
