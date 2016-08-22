@@ -1,4 +1,8 @@
 ---
 cyb_deb_builder_aws_access_key_id: "{{ vault__cyb_deb_builder_aws_access_key_id }}"
 cyb_deb_builder_aws_secret_access_key: "{{ vault__cyb_deb_builder_aws_secret_access_key }}"
+cyb_deb_builder_gpg_master_key: "{{ vault__cyb_deb_builder_gpg_master_key }}"
+cyb_deb_builder_gpg_signing_key_fingerprint: E5C4644F
+cyb_deb_builder_gpg_signing_key_private: "{{ vault__cyb_deb_builder_gpg_signing_key_private }}"
+cyb_deb_builder_gpg_signing_key_public: "{{ vault__cyb_deb_builder_gpg_signing_key_public }}"
 cyb_deb_builder_user_authorized_keys: "{{ users_admins | map(attribute='public_keys') | flatten | list }}"
