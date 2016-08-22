@@ -19,6 +19,8 @@
 
 - name: install the package dependencies
   command: apt-get build-dep nginx={{ cyb_package_version | quote }} -y
+  register: cyb_packages_nginx_install_deps
+  changed_when: "'0 upgraded, 0 newly installed, 0 to remove' not in cyb_packages_nginx_install_deps.stdout"
 
 - name: install build dependencies
   apt:
