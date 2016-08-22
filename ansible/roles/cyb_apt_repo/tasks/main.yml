@@ -1,0 +1,10 @@
+---
+- name: add the CYB signing key
+  apt_key:
+    url: https://s3.amazonaws.com/chiton-apt/meta/cyb.key
+    state: present
+
+- name: add the CYB APT repository
+  apt_repository:
+    repo: deb http://s3.amazonaws.com/chiton-apt/packages/ {{ ansible_distribution_release }} main
+    state: present
