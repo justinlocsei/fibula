@@ -39,7 +39,7 @@ reload = {{ chiton_allow_development | ternary("True", "False") }}
 threads = {{ chiton_gunicorn_threads }}
 umask = 0o117
 user = '{{ chiton_user }}'
-worker_class = 'gevent'
+worker_class = 'sync'
 workers = {{ chiton_app_instances }}
 
 {% if chiton_gunicorn_statsd_host %}
