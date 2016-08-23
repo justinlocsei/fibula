@@ -23,6 +23,7 @@ chiton_current_version: null
 chiton_daemonize: yes
 chiton_db_host: null
 chiton_db_port: null
+chiton_db_root_db_name: null
 chiton_db_root_name: null
 chiton_db_root_password: null
 chiton_db_user_password: null

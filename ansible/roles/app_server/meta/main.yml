@@ -20,6 +20,7 @@ dependencies:
     chiton_api_user_name: himation
     chiton_db_host: "{{ postgresql_server_address }}"
     chiton_db_port: "{{ postgresql_server_port }}"
+    chiton_db_root_db_name: "{{ postgresql_server_root_db }}"
     chiton_db_root_name: "{{ postgresql_server_root_user }}"
     chiton_db_root_password: "{{ postgresql_server_root_password }}"
     chiton_gunicorn_statsd_host: "localhost:{{ datadog_statsd_port }}"

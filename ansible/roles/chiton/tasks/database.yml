@@ -22,7 +22,7 @@
 
 - name: grant read privileges on the postgres database to the application user
   postgresql_privs:
-    db: postgres
+    db: "{{ chiton_db_root_db_name }}"
     objs: ALL_IN_SCHEMA
     roles: "{{ chiton_db_user_name }}"
     privs: SELECT
