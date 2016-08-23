@@ -1,0 +1,11 @@
+---
+pgbouncer_admin_user_name: null
+pgbouncer_admin_user_password: null
+pgbouncer_db_host: null
+pgbouncer_db_port: null
+pgbouncer_db_user_name: null
+pgbouncer_db_user_password: null
+pgbouncer_group: null
+pgbouncer_host: 127.0.0.1
+pgbouncer_port: 6543
+pgbouncer_user: null

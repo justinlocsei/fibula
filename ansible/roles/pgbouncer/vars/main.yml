@@ -1,0 +1,3 @@
+---
+pgbouncer_conf_dir: /etc/pgbouncer
+pgbouncer_users_file: "{{ pgbouncer_conf_dir }}/userlist.txt"

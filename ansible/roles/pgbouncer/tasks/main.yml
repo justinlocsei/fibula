@@ -1,0 +1,31 @@
+---
+- name: install the pgbouncer package
+  apt:
+    name: pgbouncer
+    state: present
+  notify:
+    - restart pgbouncer
+
+- name: create the config file
+  template:
+    src: pgbouncer.ini.j2
+    dest: "{{ pgbouncer_conf_dir }}/pgbouncer.ini"
+    owner: "{{ pgbouncer_user }}"
+    group: "{{ pgbouncer_group }}"
+    mode: 0600
+  notify:
+    - restart pgbouncer
+
+- name: create the users file
+  template:
+    src: userlist.txt.j2
+    dest: "{{ pgbouncer_users_file }}"
+    owner: "{{ pgbouncer_user }}"
+    group: "{{ pgbouncer_group }}"
+    mode: 0600
+
+- name: run pgbouncer at boot
+  service:
+    name: pgbouncer
+    enabled: yes
+    state: started

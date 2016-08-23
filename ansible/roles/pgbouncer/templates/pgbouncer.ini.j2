@@ -1,0 +1,18 @@
+[databases]
+* = host={{ pgbouncer_db_host }} port={{ pgbouncer_db_port }}
+
+[pgbouncer]
+listen_addr = {{ pgbouncer_host }}
+listen_port = {{ pgbouncer_port }}
+
+admin_users = {{ pgbouncer_admin_user_name }}
+auth_file = {{ pgbouncer_users_file }}
+auth_type = md5
+
+logfile = /var/log/postgresql/pgbouncer.log
+pidfile = /var/run/postgresql/pgbouncer.pid
+
+default_pool_size = 20
+max_client_conn = {{ pgbouncer_max_connections }}
+pool_mode = transaction
+server_reset_query = DISCARD ALL
