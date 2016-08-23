@@ -12,7 +12,7 @@ ident_file = '{{ postgresql_server_pg_ident }}'
 #------------------------------------------------------------------------------
 
 listen_addresses = '{{ postgresql_server_allow_external_connections | ternary("*", "localhost") }}'
-max_connections = 100
+max_connections = {{ postgresql_server_max_connections }}
 port = {{ postgresql_server_port }}
 ssl = false
 unix_socket_directories = '{{ postgresql_server_socket_dir }}'
