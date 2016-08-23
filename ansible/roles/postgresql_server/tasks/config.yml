@@ -46,7 +46,7 @@
   become: yes
   become_user: "{{ postgresql_server_root_user }}"
   postgresql_user:
-    db: postgres
+    db: "{{ postgresql_server_root_db }}"
     name: "{{ postgresql_server_stats_user_name }}"
     password: "{{ postgresql_server_stats_user_password | require_value }}"
     priv: "pg_stat_database:SELECT"
