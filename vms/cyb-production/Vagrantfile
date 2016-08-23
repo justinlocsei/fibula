@@ -16,8 +16,8 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = false
 
     config.vm.provider "virtualbox" do |vbox|
-      vbox.cpus = 1
-      vbox.memory = 1024
+      vbox.cpus = 2
+      vbox.memory = 2048
 
       Fibula.virtualbox_networking_optimizations.each do |optimization|
         vbox.customize optimization
