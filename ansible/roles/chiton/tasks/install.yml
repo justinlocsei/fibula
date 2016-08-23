@@ -160,6 +160,8 @@
       with_items:
         - name: setproctitle
           version: 1.1.10
+        - name: gevent
+          version: 1.1.2
         - name: gunicorn
           version: 19.6.0
 
