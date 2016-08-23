@@ -2,6 +2,8 @@
 
 alias ll="ls -hlF"
 
+export CHITON_CONFIG_FILE="{{ chiton_config_file }}"
+
 {% if chiton_activate_virtualenv %}
 cd "{{ chiton_scripts_dir }}" && . "{{ chiton_virtualenv_dir }}/bin/activate"
 {% endif %}
