@@ -3,7 +3,7 @@ nginx_data_dir: /usr/local/share/nginx
 nginx_404_page: "{{ nginx_data_dir }}/404.html"
 nginx_500_page: "{{ nginx_data_dir }}/500.html"
 nginx_config_dir: /etc/nginx
-nginx_nofile_limit: 4096
+nginx_nofile_limit: "{{ nginx_worker_connections * 4 }}"
 nginx_dhparam_pem: "{{ nginx_certs_dir }}/dhparam.pem"
 nginx_certs_dir: "{{ nginx_config_dir }}/certs"
 nginx_pidfile: /var/run/nginx.pid
