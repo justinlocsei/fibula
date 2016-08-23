@@ -1,4 +1,7 @@
 ---
+postgresql_server_user: postgres
+postgresql_server_group: postgres
+
 postgresql_server_address: 127.0.0.1
 postgresql_server_apt_key_id: ACCC4CF8
 postgresql_server_conf_dir: /etc/postgresql/{{ postgresql_server_version }}/main
@@ -6,6 +9,7 @@ postgresql_server_lib_dir: /var/lib/postgresql
 postgresql_server_port: 5432
 postgresql_server_pg_dump_path: /usr/bin/pg_dump
 postgresql_server_pg_restore_path: /usr/bin/pg_restore
+postgresql_server_root_db: postgres
 postgresql_server_root_user: postgres
 postgresql_server_stats_user_name: metrics
 postgresql_server_socket_dir: /var/run/postgresql
