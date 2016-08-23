@@ -174,5 +174,8 @@ function summarizeAll() {
     });
     console.log('');
   });
-  console.log('');
+
+  console.log(Array(headerRow.length + 1).join('-'));
+  var rpsValues = data.map(d => parseInt(d[2], 10));
+  console.log('Requests per minute: ' + Math.floor(_.sum(rpsValues) / rpsValues.length) * 60);
 }
