@@ -3,8 +3,8 @@
     {
       "slug": "api",
       "path": "/recommendations",
-      "requests": 50,
-      "concurrency": 5,
+      "requests": 10,
+      "concurrency": 10,
       "post": {
         "birthYear": "1983",
         "bodyShape": "inverted",
