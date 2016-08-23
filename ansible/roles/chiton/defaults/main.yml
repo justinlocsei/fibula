@@ -11,7 +11,7 @@ chiton_amazon_associates_aws_secret_access_key: null
 chiton_amazon_associates_tracking_id: null
 chiton_api_user_name: null
 chiton_api_user_token: null
-chiton_app_instances: 1
+chiton_app_instances: "{{ 2 * ansible_processor_cores + 1 }}"
 chiton_assets_url: /assets/
 chiton_backups_aws_access_key_id: null
 chiton_backups_aws_secret_access_key: null
