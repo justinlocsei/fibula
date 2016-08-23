@@ -153,6 +153,7 @@ function summarizePass() {
  */
 function summarizeAll() {
   var labels = ['Concurrency', 'Response Time', 'Requests per Second'];
+  var separator = ' | ';
 
   var data = PASSES.map(function(pass, i) {
     return [
@@ -162,12 +163,14 @@ function summarizeAll() {
     ];
   });
 
-  labels.forEach(function(label) { process.stdout.write(label + ' '); });
-  console.log('');
+  var headerRow = labels.join(separator);
+  console.log(headerRow);
+  console.log(Array(headerRow.length + 1).join('-'));
 
   data.forEach(function(datum) {
     datum.forEach(function(value, j) {
-      process.stdout.write(pad(value, labels[j].length) + ' ');
+      var ender = j === datum.length - 1 ? '' : separator;
+      process.stdout.write(pad(value, labels[j].length) + ender);
     });
     console.log('');
   });
