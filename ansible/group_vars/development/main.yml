@@ -9,6 +9,7 @@ chiton_amazon_associates_tracking_id: coveryourbasics-development-20
 chiton_app_instances: 1
 chiton_backups_s3_bucket: chiton-backups-development
 chiton_config_debug: yes
+chiton_conn_max_age: 0
 chiton_current_version: development
 chiton_daemonize: no
 chiton_git_ref: development
