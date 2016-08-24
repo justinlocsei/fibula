@@ -10,6 +10,20 @@ server {
   return 301 https://$server_name$request_uri;
 }
 
+{% for variant in app_server_himation_server_name_variants %}
+server {
+  listen {{ app_server_himation_port }};
+  server_name {{ variant }};
+  return 301 https://{{ app_server_himation_server_name }}$request_uri;
+}
+
+server {
+  listen {{ app_server_himation_port_https }} ssl http2;
+  server_name {{ variant }};
+  return 301 https://{{ app_server_himation_server_name }}$request_uri;
+}
+{% endfor %}
+
 server {
   listen {{ app_server_himation_port_https }} ssl http2;
   server_name {{ app_server_himation_server_name | require_value }};
