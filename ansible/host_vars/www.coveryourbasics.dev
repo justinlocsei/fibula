@@ -1,3 +1,5 @@
 ---
 app_server_chiton_server_name: data.coveryourbasics.dev
 app_server_himation_server_name: www.coveryourbasics.dev
+app_server_himation_server_name_variants:
+  - coveryourbasics.dev
