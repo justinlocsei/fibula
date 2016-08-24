@@ -19,15 +19,3 @@ production
 development
 staging
 production
-
-[development:vars]
-app_server_chiton_server_name=development-data.coveryourbasics.dev
-app_server_himation_server_name=development-www.coveryourbasics.dev
-
-[staging:vars]
-app_server_chiton_server_name=staging-data.coveryourbasics.dev
-app_server_himation_server_name=staging-www.coveryourbasics.dev
-
-[production:vars]
-app_server_chiton_server_name=data.coveryourbasics.dev
-app_server_himation_server_name=www.coveryourbasics.dev
