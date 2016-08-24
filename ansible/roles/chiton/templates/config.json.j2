@@ -8,6 +8,7 @@
   "amazon_associates_aws_access_key_id": "{{ chiton_amazon_associates_aws_access_key_id | require_value }}",
   "amazon_associates_aws_secret_access_key": "{{ chiton_amazon_associates_aws_secret_access_key | require_value }}",
   "amazon_associates_tracking_id": "{{ chiton_amazon_associates_tracking_id | require_value }}",
+  "conn_max_age": {{ chiton_conn_max_age }},
   "database": {
     "engine": "postgresql",
     "host": "{{ chiton_db_host }}",

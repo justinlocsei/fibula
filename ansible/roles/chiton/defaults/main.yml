@@ -19,6 +19,7 @@ chiton_backups_local_retention_days: 30
 chiton_backups_s3_bucket: null
 chiton_config_debug: no
 chiton_config_secret_key: null
+chiton_conn_max_age: 20
 chiton_current_version: null
 chiton_daemonize: yes
 chiton_db_host: null
