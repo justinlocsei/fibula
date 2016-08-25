@@ -25,6 +25,13 @@
     group: "{{ himation_group }}"
     state: link
 
+- name: create a static sitemap
+  command: "{{ himation_gulp_runner | quote }} export-sitemap --export-to={{ himation_current_version_public_dir | quote }}/{{ himation_sitemap_name | quote }}"
+  register: himation_export_sitemap_result
+  changed_when: "'Sitemap updated' in himation_export_sitemap_result.stdout"
+  become: yes
+  become_user: "{{ himation_user }}"
+
 - name: determine old releases
   shell: ls -dt {{ himation_versions_dir | quote }}/* | tail -n +{{ himation_keep_releases + 1 }}
   register: himation_old_releases
