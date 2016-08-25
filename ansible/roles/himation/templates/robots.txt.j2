@@ -1,6 +1,7 @@
 User-agent: *
 {% if himation_is_crawlable %}
 Disallow: /recommendations
+Sitemap: {{ himation_app_server_public_url | trailing_slash_url }}{{ himation_sitemap_name }}
 {% else %}
 Disallow: /
 {% endif %}
