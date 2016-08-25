@@ -7,6 +7,13 @@
     group: "{{ chiton_group }}"
     mode: 0644
 
+- name: export the favicon
+  command: "{{ chiton_current_version_manage_file | quote }} chiton_export_favicon --target={{ chiton_current_version_public_dir | quote }}/favicon.ico"
+  register: chiton_export_favicon_result
+  changed_when: "'exported' in chiton_export_favicon_result.stdout"
+  become: yes
+  become_user: "{{ chiton_user }}"
+
 - name: update the current version's symlink
   file:
     src: "{{ chiton_current_version_dir }}"
