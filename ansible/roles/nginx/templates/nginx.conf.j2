@@ -27,5 +27,10 @@ http {
   ssl_session_cache shared:SSL:20m;
   ssl_session_timeout 180m;
 
+  open_file_cache max=10000 inactive=1m;
+  open_file_cache_valid 1m;
+  open_file_cache_min_uses 2;
+  open_file_cache_errors on;
+
   include /etc/nginx/conf.d/*.conf;
 }
