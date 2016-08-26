@@ -24,7 +24,7 @@
     name: /var/lib/varnish
     src: tmpfs
     fstype: tmpfs
-    opts: size=100m
+    opts: size={{ (varnish_shmlog_size_mb * 2.5) | int }}M
     state: mounted
 
 - name: create the default VCL

@@ -7,5 +7,6 @@ PIDFILE={{ varnish_pidfile }}
 DAEMON_OPTS="-a localhost:{{ varnish_port }} \
              -T localhost:{{ varnish_telnet_port }} \
              -f {{ varnish_default_vcl }} \
+             -l {{ varnish_shmlog_size_mb }}M \
              -S {{ varnish_secret }} \
              -s malloc,{{ varnish_cache_size }}"
