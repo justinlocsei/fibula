@@ -19,6 +19,14 @@
     name: varnish
     state: present
 
+- name: mount Varnish's log file using tmpfs
+  mount:
+    name: /var/lib/varnish
+    src: tmpfs
+    fstype: tmpfs
+    opts: size=100m
+    state: mounted
+
 - name: create the default VCL
   template:
     src: default.vcl.j2
