@@ -8,4 +8,5 @@ datadog_environment: production
 himation_environment: production
 himation_git_ref: master
 himation_google_analytics_id: UA-82122862-3
+himation_is_crawlable: yes
 postfix_relay_user: cyb-production
