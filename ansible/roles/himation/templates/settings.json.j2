@@ -19,6 +19,7 @@
     "sentryDsnPublic": "{{ himation_sentry_dsn_public }}",
     "track": {{ himation_track_errors | lower }}
   },
+  {% if himation_facebook_app_id %}"facebookAppId": "{{ himation_facebook_app_id }}",{% endif %}
   "googleAnalyticsId": "{{ himation_google_analytics_id }}",
   "server": {
     "debugLogging": {{ himation_use_debug_logging | lower }}

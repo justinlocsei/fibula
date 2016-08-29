@@ -17,6 +17,7 @@ himation_debug_assets: no
 himation_deploy_ssh_key: null
 himation_deploy_ssh_key_public: null
 himation_environment: development
+himation_facebook_app_id: null
 himation_git_ref: master
 himation_google_analytics_id: null
 himation_group: himation
