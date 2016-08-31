@@ -65,6 +65,15 @@
     - "{{ himation_current_version_assets_dir }}"
     - "{{ himation_current_version_public_dir }}"
 
+- name: create a temporary directory for NPM files
+  file:
+    path: "{{ himation_npm_tmpdir }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0755
+    state: directory
+  changed_when: False
+
 - become: yes
   become_user: "{{ himation_user }}"
   block:
@@ -99,3 +108,11 @@
         path: "{{ himation_current_version_source_dir }}"
         production: "{{ not himation_allow_development }}"
         state: present
+      env:
+        npm_config_tmp: "{{ himation_npm_tmpdir }}"
+
+- name: remove the NPM temporary directory
+  file:
+    path: "{{ himation_npm_tmpdir }}"
+    state: absent
+  changed_when: False
