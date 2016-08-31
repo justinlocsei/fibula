@@ -24,6 +24,12 @@
   notify:
     - reload chiton
 
+- name: refresh the cache
+  command: "{{ chiton_current_version_manage_file | quote }} chiton_refresh_cache"
+  changed_when: False
+  become: yes
+  become_user: "{{ chiton_user }}"
+
 - name: determine old releases
   shell: ls -dt {{ chiton_versions_dir | quote }}/* | tail -n +{{ chiton_keep_releases + 1 }}
   register: chiton_old_releases
