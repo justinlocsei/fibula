@@ -1,4 +1,5 @@
 ---
 chiton_admin_email: operations@coveryourbasics.com
 chiton_admin_username: coveryourbasics
+cron_mailto: operations@coveryourbasics.com
 monit_alert_recipient: operations@coveryourbasics.com

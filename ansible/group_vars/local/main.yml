@@ -1,3 +1,4 @@
 ---
 chiton_run_background_tasks: no
+cron_mailto: development@coveryourbasics.com
 himation_run_background_tasks: no
