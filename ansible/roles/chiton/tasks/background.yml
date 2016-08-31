@@ -2,25 +2,24 @@
 - name: add a cron job to update item stock every night
   cron:
     name: update item stock
-    job: >
-      {{ chiton_manage_file | quote }} chiton_update_stock
-      --workers={{ chiton_stock_worker_count }}
-    minute: 0
-    hour: 0
-    user: "{{ chiton_user }}"
+    job: "{{ chiton_manage_file | quote }} chiton_update_stock --workers={{ chiton_stock_worker_count }}"
+    hour: "0"
+    minute: "0"
     cron_file: chiton-update-item-stock
-    state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
+    user: "{{ chiton_user }}"
+    state: present
+    disabled: "{{ not chiton_run_background_tasks }}"
 
 - name: add a cron job to refresh the cache every night
   cron:
     name: refresh cache
-    job: >
-      {{ chiton_manage_file | quote }} chiton_refresh_cache
-    minute: 0
-    hour: 1
-    user: "{{ chiton_user }}"
+    job: "{{ chiton_manage_file | quote }} chiton_refresh_cache"
+    hour: "1"
+    minute: "0"
     cron_file: chiton-refresh-cache
-    state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
+    user: "{{ chiton_user }}"
+    state: present
+    disabled: "{{ not chiton_run_background_tasks }}"
 
 - name: configure automated backups
   cron:
