@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -eu
+
+TMP_DIR=$(mktemp -d)
+STDOUT=$TMP_DIR/cronic.out
+STDERR=$TMP_DIR/cronic.err
+
+set +e
+"$@" > "$STDOUT" 2> "$STDERR"
+EXIT_STATUS=$?
+set -e
+
+if [ $EXIT_STATUS -ne 0 ] || [ -s "$STDERR" ]; then
+  echo "The following command failed in a cron job:"
+  echo "$@"
+
+  echo
+  echo "Exit Status: $EXIT_STATUS"
+
+  echo
+  echo "Standard Error:"
+  cat "$STDERR"
+
+  echo
+  echo "Standard Out:"
+  cat "$STDOUT"
+fi
+
+rm -rf "$TMP_DIR"
