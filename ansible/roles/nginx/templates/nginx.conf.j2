@@ -12,6 +12,9 @@ events {
 http {
   include /etc/nginx/mime.types;
 
+  charset utf-8;
+  charset_types application/javascript application/json image/svg+xml text/css text/html text/plain;
+
   default_type application/octet-stream;
 
   sendfile on;
