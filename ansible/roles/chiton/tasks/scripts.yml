@@ -35,16 +35,6 @@
     group: "{{ chiton_group }}"
     mode: 0700
 
-- name: configure automated backups
-  cron:
-    job: "{{ chiton_backups_script }} create > {{ chiton_log_dir }}/backups.log"
-    hour: 5
-    minute: 0
-    name: Create nightly backups
-    cron_file: chiton-backups
-    user: "{{ chiton_user }}"
-    state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
-
 - name: create development scripts
   template:
     src: "scripts/{{ item }}.j2"

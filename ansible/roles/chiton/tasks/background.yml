@@ -21,3 +21,14 @@
     user: "{{ chiton_user }}"
     cron_file: chiton-refresh-cache
     state: "{{ chiton_run_background_tasks | ternary('present' ,'absent') }}"
+
+- name: configure automated backups
+  cron:
+    job: "{{ chiton_backups_script }} create > {{ chiton_log_dir }}/backups.log"
+    hour: "5"
+    minute: "0"
+    name: Create nightly backups
+    cron_file: chiton-backups
+    user: "{{ chiton_user }}"
+    state: present
+    disabled: "{{ not chiton_run_background_tasks }}"
