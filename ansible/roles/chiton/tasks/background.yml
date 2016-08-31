@@ -2,7 +2,7 @@
 - name: add a cron job to update item stock every night
   cron:
     name: update item stock
-    job: "{{ chiton_manage_file | quote }} chiton_update_stock --workers={{ chiton_stock_worker_count }}"
+    job: "{{ cron_runner | quote }} {{ chiton_manage_file | quote }} chiton_update_stock --workers={{ chiton_stock_worker_count }}"
     hour: "0"
     minute: "0"
     cron_file: chiton-update-item-stock
@@ -13,7 +13,7 @@
 - name: add a cron job to refresh the cache every night
   cron:
     name: refresh cache
-    job: "{{ chiton_manage_file | quote }} chiton_refresh_cache"
+    job: "{{ cron_runner | quote }} {{ chiton_manage_file | quote }} chiton_refresh_cache"
     hour: "1"
     minute: "0"
     cron_file: chiton-refresh-cache
@@ -23,7 +23,7 @@
 
 - name: configure automated backups
   cron:
-    job: "{{ chiton_backups_script }} create > {{ chiton_log_dir }}/backups.log"
+    job: "{{ cron_runner | quote }} {{ chiton_backups_script }} create > {{ chiton_log_dir }}/backups.log"
     hour: "5"
     minute: "0"
     name: Create nightly backups
