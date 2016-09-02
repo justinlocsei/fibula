@@ -8,3 +8,10 @@
     - liblcms2-dev
     - libwebp-dev
     - zlib1g-dev
+
+- name: install packages for building libsodium
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libffi-dev
