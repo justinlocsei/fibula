@@ -31,6 +31,7 @@ chiton_db_user_password: null
 chiton_default_email: noreply@coveryourbasics.com
 chiton_deploy_ssh_key: null
 chiton_deploy_ssh_key_public: null
+chiton_encryption_key: null
 chiton_environment: development
 chiton_external_media_url: https://{{ chiton_server_name }}{{ chiton_media_url }}
 chiton_git_ref: master
@@ -46,6 +47,7 @@ chiton_media_url: /media/
 chiton_pg_dump_path: pg_dump
 chiton_pg_restore_path: pg_restore
 chiton_pip_bin_name: pip
+chiton_previous_encryption_key: null
 chiton_python_bin_name: python
 chiton_redis_db: 0
 chiton_redis_host: null
