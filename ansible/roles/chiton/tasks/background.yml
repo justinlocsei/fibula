@@ -1,4 +1,11 @@
 ---
+- name: use the cron mailto for chiton cron jobs
+  cronvar:
+    name: MAILTO
+    value: "{{ cron_mailto }}"
+    user: "{{ chiton_user }}"
+    state: present
+
 - name: add a cron job to update item stock every night
   cron:
     name: update item stock
