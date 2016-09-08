@@ -54,6 +54,11 @@ dependencies:
     himation_server_name: "{{ app_server_himation_server_name }}"
   - role: nginx
   - role: postfix
+    postfix_aliases:
+      - user: "{{ chiton_user }}"
+        email: "{{ cron_mailto }}"
+      - user: "{{ himation_user }}"
+        email: "{{ cron_mailto }}"
   - role: monit
   - role: logrotate
   - role: datadog
