@@ -1,4 +1,5 @@
 ---
+postfix_aliases: []
 postfix_hostname: "{{ inventory_hostname }}"
 postfix_origin: "{{ inventory_hostname | domain }}"
 postfix_relay_host: null

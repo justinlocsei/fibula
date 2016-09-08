@@ -8,3 +8,9 @@
   service:
     name: postfix
     state: restarted
+
+- name: rebuild mail aliases
+  command: newaliases
+
+- name: rebuild virtual aliases
+  command: postmap {{ postfix_virtual_aliases_file }}

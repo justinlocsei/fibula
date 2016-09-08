@@ -38,3 +38,23 @@
   when: postfix_universal_redirect is not none
   notify:
     - reload postfix
+
+- name: set aliases
+  template:
+    src: aliases.j2
+    dest: "{{ postfix_aliases_file }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - rebuild mail aliases
+
+- name: set virtual aliases
+  template:
+    src: virtual_aliases.j2
+    dest: "{{ postfix_virtual_aliases_file }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - rebuild virtual aliases
