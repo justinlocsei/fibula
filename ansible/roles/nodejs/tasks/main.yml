@@ -1,7 +1,7 @@
 ---
 - name: install the NodeSource APT key
   apt_key:
-    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    url: http://deb.nodesource.com/gpgkey/nodesource.gpg.key
     state: present
 
 - name: download the Node.js version {{ nodejs_version }} package
