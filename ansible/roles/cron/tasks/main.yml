@@ -4,12 +4,6 @@
     name: cron
     state: present
 
-- name: use a valid address for cron emails
-  cronvar:
-    name: MAILTO
-    value: "{{ cron_mailto }}"
-    state: present
-
 - name: install the cronic wrapper script
   template:
     src: cronic.j2

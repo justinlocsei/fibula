@@ -1,11 +1,4 @@
 ---
-- name: use the cron mailto for chiton cron jobs
-  cronvar:
-    name: MAILTO
-    value: "{{ cron_mailto }}"
-    user: "{{ himation_user }}"
-    state: present
-
 - name: add a cron job to refresh the cache every night
   cron:
     name: refresh cache
