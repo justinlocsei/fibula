@@ -15,3 +15,12 @@
       data: sendgrid.net
     - name: 2544857
       data: sendgrid.net
+  txt:
+    - name: "@"
+      data: google-site-verification=pz0Qmo-6F-SmftZgohhr0PCp3aoTf-zBMp848qgw3cA
+    - name: m1._domainkey
+      data: k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDxQCy7O6XQ/MsTjBggtISB85UE8mOxLcByFyk5cREo1VSaXkjVP1EuYXyTsIYnbQnhZtuCQsSqdw//49lp371ibjaHm/UUGmBLqF3x3liygJECl2jouLRzutHo5FJDjZroF3GgVi0zcd1V/iJd8LUnSz97MZmxVAJreBFMvSWQjwIDAQAB
+    - name: mail
+      data: v=spf1 include:sendgrid.net ~all
+    - name: "@"
+      data: v=spf1 include:_spf.google.com ~all

@@ -33,6 +33,31 @@ class Email(BaseAction):
                         remote_record.save()
                         ui.update('Updated CNAME "%s" to point to "%s"' % (cname['name'], cname['data']))
 
+    def configure_spf(self):
+        """Set up TXT records to define SPF settings."""
+        for email_domain, remote_domain, domain_records in self._each_domain_group():
+            ui = self.ui.group(remote_domain.name)
+
+            for txt in email_domain['txt']:
+                match = [r for r in domain_records if r.data == txt['data'] and r.type == 'TXT']
+
+                if not len(match):
+                    remote_domain.create_new_domain_record(
+                        type='TXT',
+                        name=txt['name'],
+                        data=txt['data']
+                    )
+                    ui.create('Added TXT record "%s" with data "%s"' % (txt['name'], txt['data']))
+                else:
+                    remote_record = match[0]
+                    if remote_record.name == txt['name']:
+                        ui.skip('TXT record of "%s" has an accurate name' % txt['data'])
+                    else:
+                        remote_record.name = txt['name']
+                        remote_record.save()
+                        ui.update('Updated TXT record of "%s" to be named "%s"' % (txt['data'], txt['name']))
+
+
     def forward(self):
         """Set up MX records to forward email."""
         for email_domain, remote_domain, domain_records in self._each_domain_group():

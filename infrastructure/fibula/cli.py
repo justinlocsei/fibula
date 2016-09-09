@@ -182,6 +182,7 @@ def email_forward():
 def email_whitelabel():
     """Add DNS records to whitelabel email domains."""
     Email().whitelabel()
+    Email().configure_spf()
 
 
 @cli.group()
