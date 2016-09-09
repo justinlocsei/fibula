@@ -12,6 +12,9 @@
     "endpoint": "{{ himation_chiton_endpoint | require_value }}",
     "token": "{{ himation_chiton_token | require_value }}"
   },
+  "cookies": {
+    "registered": "{{ himation_cookies_registered }}"
+  },
   "debug": {{ himation_allow_development | lower }},
   "environment": "{{ himation_environment }}",
   "errors": {
