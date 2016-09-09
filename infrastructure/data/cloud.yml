@@ -6,7 +6,7 @@ domains:
 servers:
   - name: staging
     config:
-      backups: yes
+      backups: no
       image: ubuntu-14-04-x64
       region: nyc3
       size: 1gb
@@ -16,7 +16,7 @@ servers:
 
   - name: production
     config:
-      backups: yes
+      backups: no
       image: ubuntu-14-04-x64
       region: nyc3
       size: 2gb
