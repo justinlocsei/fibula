@@ -63,34 +63,35 @@ class Email(BaseAction):
         for email_domain, remote_domain, domain_records in self._each_domain_group():
             ui = self.ui.group(remote_domain.name)
 
-            mx = email_domain['mx']
-            final_data = '%s.' % mx['data']
-            match = [r for r in domain_records if r.name == mx['hostname'] and r.type == 'MX']
+            mxs = email_domain['mx']
+            for mx in mxs:
+                final_data = '%s.' % mx['data']
+                match = [r for r in domain_records if r.data == mx['data'] and r.type == 'MX']
 
-            if not len(match):
-                remote_domain.create_new_domain_record(
-                    type='MX',
-                    name=mx['hostname'],
-                    priority=mx['priority'],
-                    data=final_data
-                )
-                ui.create('Added MX record "%s" pointing to "%s"' % (mx['hostname'], mx['data']))
-            else:
-                remote_mx = match[0]
-
-                if remote_mx.data == mx['data']:
-                    ui.skip('MX record "%s" has accurate data' % mx['hostname'])
+                if not len(match):
+                    remote_domain.create_new_domain_record(
+                        type='MX',
+                        name=mx['hostname'],
+                        priority=mx['priority'],
+                        data=final_data
+                    )
+                    ui.create('Added MX record "%s" pointing to "%s"' % (mx['hostname'], mx['data']))
                 else:
-                    remote_mx.data = final_data
-                    remote_mx.save()
-                    ui.update('Updated MX record "%s" to point to "%s"' % (mx['hostname'], mx['data']))
+                    remote_mx = match[0]
 
-                if remote_mx.priority == mx['priority']:
-                    ui.skip('MX record "%s" has accurate priority' % mx['hostname'])
-                else:
-                    remote_mx.priority = mx['priority']
-                    remote_mx.save()
-                    ui.update('Updated the priority of MX record "%s" to %d' % (mx['hostname'], mx['priority']))
+                    if remote_mx.name == mx['hostname']:
+                        ui.skip('MX record of "%s" has an accurate name' % mx['data'])
+                    else:
+                        remote_mx.name = mx['hostname']
+                        remote_mx.save()
+                        ui.update('Updated MX record of "%s" to be named "%s"' % (mx['data'], mx['hostname']))
+
+                    if remote_mx.priority == mx['priority']:
+                        ui.skip('MX record "%s" has accurate priority' % mx['hostname'])
+                    else:
+                        remote_mx.priority = mx['priority']
+                        remote_mx.save()
+                        ui.update('Updated the priority of MX record "%s" to %d' % (mx['hostname'], mx['priority']))
 
     def _each_domain_group(self):
         """Yield a three-tuple of a local domain, remote domain, and domain records."""
