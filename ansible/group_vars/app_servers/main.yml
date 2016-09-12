@@ -27,6 +27,7 @@ cyb_certificates_wildcard_key: "{{ vault__cyb_certificates_wildcard_key }}"
 himation_cache_ttl: "{{ 60 * 60 * 24 * 30 }}"
 himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
 himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
+himation_sendgrid_api_key: "{{ vault__himation_sendgrid_api_key }}"
 himation_sentry_dsn: "{{ vault__himation_sentry_dsn }}"
 himation_sentry_dsn_public: "{{ vault__himation_sentry_dsn_public }}"
 
