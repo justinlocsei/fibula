@@ -32,6 +32,7 @@ himation_rollback_delta: 0
 himation_root_dir: /var/cyb-himation
 himation_run_background_tasks: yes
 himation_run_dir: null
+himation_sendgrid_api_key: null
 himation_sentry_dsn: null
 himation_sentry_dsn_public: null
 himation_server_name: null
