@@ -2,4 +2,6 @@
 chiton_admin_email: operations@coveryourbasics.com
 chiton_admin_username: coveryourbasics
 cron_mailto: operations@coveryourbasics.com
+himation_email_sender_address: bethany@coveryourbasics.com
+himation_email_sender_name: Bethany
 monit_alert_recipient: operations@coveryourbasics.com
