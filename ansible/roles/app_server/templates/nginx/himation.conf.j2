@@ -65,6 +65,10 @@ server {
     {% if himation_optimize_assets %}
       add_header Cache-Control "public";
       expires max;
+    {% else %}
+      add_header Cache-Control "no-cache";
+      add_header ETag "";
+      add_header Last-Modified "";
     {% endif %}
   }
 
