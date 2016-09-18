@@ -26,7 +26,9 @@
   "log_level": "{{ chiton_log_level }}",
   "media_root": "{{ chiton_media_dir }}",
   "media_url": "{{ chiton_external_media_url | trailing_slash_url }}",
-  "previous_encryption_key": {% if chiton_previous_encryption_key %}"{{ chiton_previous_encryption_key }}"{% else %}null{% endif %},
+  {% if chiton_previous_encryption_key %}
+  "previous_encryption_key": "{{ chiton_previous_encryption_key }}",
+  {% endif %}
   "public_api": false,
   "redis": {
     "db": {{ chiton_redis_db }},
