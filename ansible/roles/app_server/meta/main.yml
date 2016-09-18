@@ -51,6 +51,8 @@ dependencies:
     himation_cache_gateway_url: "http://127.0.0.1:{{ varnish_port }}"
     himation_chiton_endpoint: "http://127.0.0.1:{{ app_server_chiton_port_local }}/api"
     himation_chiton_token: "{{ chiton_api_user_token }}"
+    himation_redis_host: "{{ redis_host }}"
+    himation_redis_port: "{{ redis_port }}"
     himation_server_name: "{{ app_server_himation_server_name }}"
   - role: nginx
   - role: postfix
