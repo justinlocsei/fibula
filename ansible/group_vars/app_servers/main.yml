@@ -37,3 +37,6 @@ chiton_server_port: 3002
 app_server_himation_varnish_port: 3003
 app_server_himation_varnish_telnet_port: 3004
 app_server_chiton_port_local: 3005
+
+chiton_redis_db: 0
+himation_redis_db: 1
