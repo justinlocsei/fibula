@@ -16,6 +16,8 @@ himation_daemonize: yes
 himation_debug_assets: no
 himation_deploy_ssh_key: null
 himation_deploy_ssh_key_public: null
+himation_email_sender_address: null
+himation_email_sender_name: null
 himation_environment: development
 himation_facebook_app_id: null
 himation_git_ref: master
