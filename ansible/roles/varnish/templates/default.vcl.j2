@@ -61,8 +61,8 @@ sub vcl_recv {
     set req.url = regsub(req.url, "\?$", "");
   }
 
-  # Remove Google Analytics cookies
-  {% for regex in varnish_google_analytics_cookie_regexes %}
+  # Remove Google Analytics and custom cookies
+  {% for regex in varnish_google_analytics_cookie_regexes + varnish_ignore_cookie_regexes %}
   set req.http.cookie = regsuball(req.http.cookie, "{{ regex }}=[^;]+(; )?", "");
   {% endfor %}
 
