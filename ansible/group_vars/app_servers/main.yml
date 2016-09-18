@@ -6,6 +6,8 @@ postfix_relay_port: 587
 postgresql_server_root_password: "{{ vault__postgresql_server_root_password }}"
 postgresql_server_stats_user_password: "{{ vault__postgresql_server_stats_user_password }}"
 varnish_cache_size: 32m
+varnish_ignore_cookie_regexes:
+  - "{{ himation_cookies_registered }}"
 
 chiton_admin_password: "{{ vault__chiton_admin_password }}"
 chiton_amazon_associates_aws_access_key_id: "{{ vault__chiton_amazon_associates_aws_access_key_id }}"
