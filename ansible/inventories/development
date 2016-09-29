@@ -19,7 +19,7 @@ development
 staging
 production
 
-[local]
+[coveryourbasics_dev]
 development
 staging
 production
