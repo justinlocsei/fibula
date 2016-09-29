@@ -1,8 +1,10 @@
+www ansible_host=www.coveryourbasics.com
+
 [production]
-www.coveryourbasics.com
+www
 
-[app_servers:children]
-production
+[app_servers]
+www
 
-[cloud:children]
-production
+[cloud]
+www

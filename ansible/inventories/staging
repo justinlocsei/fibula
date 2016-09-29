@@ -1,8 +1,10 @@
+www ansible_host=staging-www.coveryourbasics.com
+
 [staging]
-staging-www.coveryourbasics.com
+www
 
-[app_servers:children]
-staging
+[app_servers]
+www
 
-[cloud:children]
-staging
+[cloud]
+www
