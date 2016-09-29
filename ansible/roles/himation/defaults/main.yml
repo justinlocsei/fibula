@@ -1,46 +1,47 @@
 ---
+~himation_app_server_ca_cert_path: null
+~himation_chiton_endpoint: null
+~himation_chiton_token: null
+~himation_current_version: null
+~himation_cache_gateway_url: null
+~himation_deploy_ssh_key: null
+~himation_deploy_ssh_key_public: null
+~himation_email_sender_address: null
+~himation_email_sender_name: null
+~himation_facebook_app_id: null
+~himation_google_analytics_id: null
+~himation_log_dir: null
+~himation_redis_host: null
+~himation_redis_port: null
+~himation_run_dir: null
+~himation_sendgrid_api_key: null
+~himation_sentry_dsn: null
+~himation_sentry_dsn_public: null
+~himation_server_name: null
+
 himation_allow_development: no
 himation_app_instances: 2
 himation_app_server_port: 3000
-himation_app_server_ca_cert_path: null
 himation_app_server_public_url: https://{{ himation_server_name }}
 himation_asset_server_port: 3001
 himation_asset_server_public_url: https://{{ himation_server_name }}{{ himation_assets_path }}
 himation_assets_path: /assets
-himation_chiton_endpoint: null
-himation_chiton_token: null
-himation_current_version: null
-himation_cache_gateway_url: null
 himation_cache_ttl: 60
 himation_daemonize: yes
 himation_debug_assets: no
-himation_deploy_ssh_key: null
-himation_deploy_ssh_key_public: null
-himation_email_sender_address: null
-himation_email_sender_name: null
 himation_environment: development
-himation_facebook_app_id: null
 himation_git_ref: master
-himation_google_analytics_id: null
 himation_group: himation
 himation_group_id: null
 himation_groups: []
 himation_is_crawlable: no
 himation_keep_releases: 10
-himation_log_dir: null
 himation_node_env: production
 himation_optimize_assets: yes
 himation_redis_db: 0
-himation_redis_host: null
-himation_redis_port: null
 himation_rollback_delta: 0
 himation_root_dir: /var/cyb-himation
 himation_run_background_tasks: yes
-himation_run_dir: null
-himation_sendgrid_api_key: null
-himation_sentry_dsn: null
-himation_sentry_dsn_public: null
-himation_server_name: null
 himation_source_dir: "{{ himation_root_dir }}/source"
 himation_track_errors: yes
 himation_track_stats: yes
