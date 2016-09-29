@@ -20,7 +20,6 @@
 ~chiton_deploy_ssh_key_public: null
 ~chiton_encryption_key: null
 ~chiton_gunicorn_statsd_host: null
-~chiton_previous_encryption_key: null
 ~chiton_redis_host: null
 ~chiton_redis_port: null
 ~chiton_sentry_dsn: null
@@ -54,6 +53,7 @@ chiton_media_url: /media/
 chiton_pg_dump_path: pg_dump
 chiton_pg_restore_path: pg_restore
 chiton_pip_bin_name: pip
+chiton_previous_encryption_key: null
 chiton_python_bin_name: python
 chiton_redis_db: 0
 chiton_rollback_delta: 0
