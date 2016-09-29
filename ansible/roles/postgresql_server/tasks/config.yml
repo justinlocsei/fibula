@@ -9,7 +9,7 @@
   become_user: "{{ postgresql_server_root_user }}"
   postgresql_user:
     name: "{{ postgresql_server_root_user }}"
-    password: "{{ postgresql_server_root_password | require_value }}"
+    password: "{{ postgresql_server_root_password }}"
     state: present
 
 - name: create the server configuration file
@@ -48,7 +48,7 @@
   postgresql_user:
     db: "{{ postgresql_server_root_db }}"
     name: "{{ postgresql_server_stats_user_name }}"
-    password: "{{ postgresql_server_stats_user_password | require_value }}"
+    password: "{{ postgresql_server_stats_user_password }}"
     priv: "pg_stat_database:SELECT"
     state: present
   changed_when: False

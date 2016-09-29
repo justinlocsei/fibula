@@ -2,12 +2,12 @@
 - name: create the application database user
   postgresql_user:
     name: "{{ chiton_db_user_name }}"
-    password: "{{ chiton_db_user_password | require_value }}"
+    password: "{{ chiton_db_user_password }}"
     role_attr_flags: "{{ chiton_allow_tests | ternary('CREATEDB,', '') }}NOSUPERUSER"
-    login_host: "{{ chiton_db_host | require_value }}"
-    login_password: "{{ chiton_db_root_password | require_value }}"
-    login_user: "{{ chiton_db_root_name | require_value }}"
-    port: "{{ chiton_db_port | require_value }}"
+    login_host: "{{ chiton_db_host }}"
+    login_password: "{{ chiton_db_root_password }}"
+    login_user: "{{ chiton_db_root_name }}"
+    port: "{{ chiton_db_port }}"
     state: present
 
 - name: create the application database with the application user as its owner
