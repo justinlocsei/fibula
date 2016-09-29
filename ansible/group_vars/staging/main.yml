@@ -9,3 +9,22 @@ himation_environment: staging
 himation_git_ref: staging
 himation_google_analytics_id: UA-83909523-2
 postfix_relay_user: cyb-staging
+
+chiton_admin_password: "{{ vault__chiton_admin_password }}"
+chiton_api_user_token: "{{ vault__chiton_api_user_token }}"
+chiton_backups_aws_access_key_id: "{{ vault__chiton_backups_aws_access_key_id }}"
+chiton_backups_aws_secret_access_key: "{{ vault__chiton_backups_aws_secret_access_key }}"
+chiton_config_secret_key: "{{ vault__chiton_config_secret_key }}"
+chiton_db_user_password: "{{ vault__chiton_db_user_password }}"
+chiton_deploy_ssh_key: "{{ vault__chiton_deploy_ssh_key }}"
+chiton_deploy_ssh_key_public: "{{ vault__chiton_deploy_ssh_key_public }}"
+chiton_encryption_key: "{{ vault__chiton_encryption_key }}"
+chiton_sentry_dsn: "{{ vault__chiton_sentry_dsn }}"
+himation_deploy_ssh_key: "{{ vault__himation_deploy_ssh_key }}"
+himation_deploy_ssh_key_public: "{{ vault__himation_deploy_ssh_key_public }}"
+himation_sendgrid_api_key: "{{ vault__himation_sendgrid_api_key }}"
+himation_sentry_dsn: "{{ vault__himation_sentry_dsn }}"
+himation_sentry_dsn_public: "{{ vault__himation_sentry_dsn_public }}"
+postfix_relay_password: "{{ vault__postfix_relay_password }}"
+postgresql_server_root_password: "{{ vault__postgresql_server_root_password }}"
+postgresql_server_stats_user_password: "{{ vault__postgresql_server_stats_user_password }}"

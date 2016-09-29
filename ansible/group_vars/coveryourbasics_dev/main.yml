@@ -4,3 +4,6 @@ cron_mailto: development@coveryourbasics.com
 himation_email_sender_address: development@coveryourbasics.com
 himation_email_sender_name: Cover Your Basics
 himation_run_background_tasks: no
+
+cyb_certificates_wildcard_certificate: "{{ vault__cyb_certificates_wildcard_certificate }}"
+cyb_certificates_wildcard_key: "{{ vault__cyb_certificates_wildcard_key }}"
