@@ -47,7 +47,6 @@ dependencies:
     varnish_telnet_port: "{{ app_server_himation_varnish_telnet_port }}"
     varnish_use_cache: "{{ himation_use_caching }}"
   - role: himation
-    himation_app_server_ca_cert_path: "{{ cyb_certificates_ca_certificate_path }}"
     himation_cache_gateway_url: "http://127.0.0.1:{{ varnish_port }}"
     himation_chiton_endpoint: "http://127.0.0.1:{{ app_server_chiton_port_local }}/api"
     himation_chiton_token: "{{ chiton_api_user_token }}"

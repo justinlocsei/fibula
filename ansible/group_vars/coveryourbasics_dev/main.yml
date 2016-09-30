@@ -1,6 +1,7 @@
 ---
 chiton_run_background_tasks: no
 cron_mailto: development@coveryourbasics.com
+himation_app_server_ca_cert_path: "{{ cyb_certificates_ca_certificate_path }}"
 himation_email_sender_address: development@coveryourbasics.com
 himation_email_sender_name: Cover Your Basics
 himation_run_background_tasks: no
