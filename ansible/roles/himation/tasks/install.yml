@@ -39,8 +39,8 @@
 
 - name: determine the current and previous directories
   set_fact:
-    himation_current_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_target_version }}"
-    himation_previous_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version or himation_source_fetch.before }}"
+    himation_current_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version | default(himation_target_version) }}"
+    himation_previous_version_dir: "{{ himation_versions_dir }}/{{ himation_current_version | default(himation_source_fetch.before) }}"
 
 - name: set the paths to functional subdirectories for the current version
   set_fact:
