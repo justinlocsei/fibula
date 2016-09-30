@@ -1,10 +1,10 @@
-www ansible_host=staging-www.coveryourbasics.com
+staging ansible_host=staging-www.coveryourbasics.com
 
 [staging]
-www
+staging
 
 [app_servers]
-www
+staging
 
 [coveryourbasics_com]
-www
+staging

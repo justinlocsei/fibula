@@ -1,25 +1,25 @@
 development ansible_host=development-www.coveryourbasics.dev
-staging ansible_host=staging-www.coveryourbasics.dev
-production ansible_host=www.coveryourbasics.dev
+staging-local ansible_host=staging-www.coveryourbasics.dev
+production-local ansible_host=www.coveryourbasics.dev
 
 [development]
 development
 
 [staging]
-staging
+staging-local
 
 [production]
-production
+production-local
 
 [apt]
 apt.coveryourbasics.dev
 
 [app_servers]
 development
-staging
-production
+staging-local
+production-local
 
 [coveryourbasics_dev]
 development
-staging
-production
+staging-local
+production-local

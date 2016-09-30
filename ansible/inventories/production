@@ -1,10 +1,10 @@
-www ansible_host=www.coveryourbasics.com
+production ansible_host=www.coveryourbasics.com
 
 [production]
-www
+production
 
 [app_servers]
-www
+production
 
 [coveryourbasics_com]
-www
+production
