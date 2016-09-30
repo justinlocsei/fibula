@@ -4,14 +4,15 @@
     name: ca-certificates
     state: present
 
-- name: copy the CYB CA certificate to the certificates directory
+- name: create a CA certificate for self-signed certificates
   copy:
     dest: "{{ cyb_certificates_ca_certificate_path }}"
     owner: root
     group: root
     mode: 0644
-    content: "{{ cyb_certificates_wildcard_ca_bundle or cyb_certificates_wildcard_certificate }}\n"
+    content: "{{ cyb_certificates_wildcard_certificate }}\n"
   register: cyb_certificates_copy
+  when: not cyb_certificates_wildcard_ca_bundle
 
 - name: re-hash the certificates
   command: update-ca-certificates --fresh
