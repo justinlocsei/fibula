@@ -51,7 +51,7 @@
 
 - name: set the directory for the current version
   set_fact:
-    chiton_current_version_dir: "{{ chiton_versions_dir }}/{{ chiton_current_version or chiton_target_version }}"
+    chiton_current_version_dir: "{{ chiton_versions_dir }}/{{ chiton_current_version | default(chiton_target_version) }}"
 
 - name: set the paths to functional subdirectories for the current version
   set_fact:
