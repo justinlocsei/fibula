@@ -33,7 +33,7 @@
   },
   "servers": {
     "app": {
-      "caCertificatePath": "{{ himation_app_server_ca_cert_path }}",
+      {% if himation_app_server_ca_cert_path %}"caCertificatePath": "{{ himation_app_server_ca_cert_path }}",{% endif %}
       "port": {{ himation_app_server_port }},
       "publicUrl": "{{ himation_app_server_public_url | trailing_slash_url }}"
     },

@@ -1,5 +1,4 @@
 ---
-~himation_app_server_ca_cert_path: null
 ~himation_chiton_endpoint: null
 ~himation_chiton_token: null
 ~himation_current_version: null
@@ -21,6 +20,7 @@
 
 himation_allow_development: no
 himation_app_instances: 2
+himation_app_server_ca_cert_path: null
 himation_app_server_port: 3000
 himation_app_server_public_url: https://{{ himation_server_name }}
 himation_asset_server_port: 3001
