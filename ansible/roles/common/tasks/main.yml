@@ -7,7 +7,7 @@
 
 - name: set the hostname
   hostname:
-    name: "{{ ansible_host | host }}"
+    name: "{{ ansible_host | hostname }}"
   register: common_set_hostname
 
 - name: manage the hosts file

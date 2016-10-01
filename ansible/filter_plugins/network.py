@@ -1,26 +1,26 @@
-def domain(hostname):
-    """Extract the domain from a hostname.
+def domain(host):
+    """Extract the domain from a host.
 
     Args:
-        hostname (str): A full hostname
+        host (str): A full host
 
     Returns:
-        str: The domain component of the hostname
+        str: The domain component of the host
     """
-    parts = hostname.split('.')
+    parts = host.split('.')
     return '.'.join(parts[1:])
 
 
-def host(hostname):
-    """Extract the host from a full hostname.
+def hostname(host):
+    """Extract the hostname from a full host.
 
     Args:
-        hostname (str): A full hostname
+        host (str): A full host
 
     Returns:
-        str: The host component of the hostname
+        str: The host component of the host
     """
-    return hostname.split('.')[0]
+    return host.split('.')[0]
 
 
 class FilterModule(object):
@@ -29,5 +29,5 @@ class FilterModule(object):
     def filters(self):
         return {
             'domain': domain,
-            'host': host
+            'hostname': hostname
         }
