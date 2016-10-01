@@ -5,6 +5,6 @@
 ~postfix_relay_user: null
 
 postfix_aliases: []
-postfix_hostname: "{{ inventory_hostname }}"
-postfix_origin: "{{ inventory_hostname | domain }}"
+postfix_hostname: "{{ ansible_fqdn }}"
+postfix_origin: "{{ ansible_fqdn | domain }}"
 postfix_universal_redirect: null
