@@ -11,10 +11,23 @@ def domain(hostname):
     return '.'.join(parts[1:])
 
 
+def host(hostname):
+    """Extract the host from a full hostname.
+
+    Args:
+        hostname (str): A full hostname
+
+    Returns:
+        str: The host component of the hostname
+    """
+    return hostname.split('.')[0]
+
+
 class FilterModule(object):
     """Custom Jinja2 filters for networking logic."""
 
     def filters(self):
         return {
-            'domain': domain
+            'domain': domain,
+            'host': host
         }
