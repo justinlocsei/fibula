@@ -7,7 +7,6 @@
 ~himation_deploy_ssh_key_public: null
 ~himation_email_sender_address: null
 ~himation_email_sender_name: null
-~himation_facebook_app_id: null
 ~himation_google_analytics_id: null
 ~himation_log_dir: null
 ~himation_redis_host: null
@@ -30,6 +29,7 @@ himation_cache_ttl: 60
 himation_daemonize: yes
 himation_debug_assets: no
 himation_environment: development
+himation_facebook_app_id: null
 himation_git_ref: master
 himation_group: himation
 himation_group_id: null
