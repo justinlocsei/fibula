@@ -6,7 +6,7 @@
 
 - name: download the Node.js version {{ nodejs_version }} package
   get_url:
-    url: https://deb.nodesource.com/node_{{ nodejs_version | regex_replace('\..*', '') }}.x/pool/main/n/nodejs/nodejs_{{ nodejs_version }}-1nodesource1~{{ nodejs_distro }}1_{{ nodejs_arch | replace("x86_", "amd") }}.deb
+    url: http://deb.nodesource.com/node_{{ nodejs_version | regex_replace('\..*', '') }}.x/pool/main/n/nodejs/nodejs_{{ nodejs_version }}-1nodesource1~{{ nodejs_distro }}1_{{ nodejs_arch | replace("x86_", "amd") }}.deb
     dest: /tmp/nodejs-{{ nodejs_version }}.deb
     force: no
   register: nodejs_package
