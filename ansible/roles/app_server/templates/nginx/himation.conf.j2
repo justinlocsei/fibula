@@ -34,10 +34,6 @@ server {
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
 
-  gzip on;
-  gzip_types application/javascript image/svg+xml image/x-icon text/css;
-  gzip_vary on;
-
   autoindex off;
   root {{ himation_public_dir }};
 

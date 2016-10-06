@@ -39,10 +39,6 @@ server {
 
   add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
 
-  gzip on;
-  gzip_types application/javascript application/json image/x-icon text/css;
-  gzip_vary on;
-
   autoindex off;
   root {{ chiton_public_files_dir }};
 

@@ -28,6 +28,10 @@ http {
 
   keepalive_timeout 20;
 
+  gzip on;
+  gzip_types application/javascript image/svg+xml image/x-icon text/css text/plain text/xml;
+  gzip_vary on;
+
   ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
   ssl_dhparam {{ nginx_dhparam_pem }};
   ssl_prefer_server_ciphers on;
