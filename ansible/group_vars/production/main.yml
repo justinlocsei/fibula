@@ -6,7 +6,6 @@ chiton_git_ref: master
 chiton_stock_worker_count: 10
 datadog_environment: production
 himation_environment: production
-himation_facebook_app_id: "974211189368087"
 himation_git_ref: master
 himation_google_analytics_id: UA-83909523-1
 himation_is_crawlable: yes

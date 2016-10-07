@@ -29,7 +29,6 @@ himation_cache_ttl: 60
 himation_daemonize: yes
 himation_debug_assets: no
 himation_environment: development
-himation_facebook_app_id: null
 himation_git_ref: master
 himation_group: himation
 himation_group_id: null
