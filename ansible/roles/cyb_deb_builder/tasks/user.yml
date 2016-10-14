@@ -24,7 +24,7 @@
 
 - name: grant passwordless sudo to the build user
   template:
-    src: templates/sudoers.j2
+    src: sudoers.j2
     dest: /etc/sudoers.d/{{ cyb_deb_builder_user }}
     mode: 0440
     owner: root
