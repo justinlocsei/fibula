@@ -81,6 +81,26 @@ This enables the development version of Ansible and then uses the
 `ansible-playbook` command to apply the playbook provided in `PLAYBOOK` to the
 machine in question.
 
+### Developing
+
+To develop Cover Your Basics, run the following commands:
+
+```sh
+$ cd vms/cyb-development
+
+# Run the chiton server
+$ ./develop chiton
+$ ./serve
+
+# Run the himation server
+$ ./develop himation
+$ npm run serve
+
+# Open the URLs
+$ open https://development-data.coveryourbasics.dev/stockroom
+$ open https://development-www.coveryourbasics.dev
+```
+
 ## Servers
 
 All management of servers is done using the `fib` command, which is made
