@@ -57,42 +57,6 @@ Each machine can be accessed using `ssh SUBDOMAIN.coveryourbasics.dev`, which
 bypasses Vagrant and relies on the partially managed `/etc/hosts` file to
 provide the correct SSH parameters.
 
-### Provisioning
-
-```bash
-# Activate the development environment
-$ source scripts/env/develop.sh
-
-# Provision using an arbitrary Ansible playbook
-$ cd ansible
-$ ansible-playbook playbooks/provision.yml
-
-# Provision VMs using per-machine wrapper scripts
-$ cd vms
-$ cd cyb-apt && ./provision.sh
-$ cd cyb-development && ./provision.sh
-$ cd cyb-production && ./deploy.sh
-$ cd cyb-staging && ./deploy.sh
-```
-
-### Developing
-
-```bash
-$ cd vms/cyb-development
-
-# Run the chiton server
-$ ./develop chiton
-$ ./serve
-
-# Run the himation server
-$ ./develop himation
-$ npm run develop
-
-# Open the URLs
-$ open https://development-data.coveryourbasics.dev/stockroom
-$ open https://development-www.coveryourbasics.dev
-```
-
 ## Servers
 
 All management of servers is done using the `fib` command, which is made

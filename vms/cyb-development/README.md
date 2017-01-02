@@ -3,16 +3,17 @@
 The `Vagrantfile` in this directory defines a virtual machine for working on
 the back-end and front-end code for Cover Your Basics.
 
-## SSH Access
+```bash
+# Provision the VM
+$ ./provision.sh
 
-Using `ssh development-www.coveryourbasics.dev` command will access this machine
-as the `vagrant` user, which is suitable for inspecting the state of the
-provisioned VM.  However, for development, you will want to run the `develop`
-script in this directory.  Calling this script with the name of an application
-as its first and only argument will SSH in to the VM as the application user,
-allowing you to interact with the application and its source code.
+# Run the Chiton development server
+$ ./develop chiton
+$ ./serve
+$ open https://development-data.coveryourbasics.dev/stockroom
 
-## Provisioning
-
-To provision this VM, run the `provision` script in this directory, which is a
-thin wrapper around `ansible-playbook` that uses a development playbook.
+# Run the Himation development server
+$ ./develop himation
+$ npm run develop
+$ open https://development-www.coveryourbasics.dev
+```

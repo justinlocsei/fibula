@@ -3,15 +3,13 @@
 The `Vagrantfile` in this directory defines a virtual machine that replicates
 the public-facing production server for Cover Your Basics.
 
-## SSH Access
+```bash
+# Provision the VM
+$ ./provision.sh
 
-Using `ssh www.coveryourbasics.dev` will grant you access as the `vagrant` user.
-To log in as a known admin user, which replicates the access pattern for the
-actual staging server, you can pass an admin user's name via
-`ssh ADMIN@www.coveryourbasics.dev`.
+# Connect to the VM
+$ ssh www.coveryourbasics.dev
 
-## Provisioning
-
-To provision this VM, run the `provision` script in this directory, which is a
-thin wrapper around `ansible-playbook` that uses a cloud playbook with a filter
-that targets the production group.
+# Connect to the VM as an admin
+$ ssh justinlocsei@www.coveryourbasics.dev
+```
