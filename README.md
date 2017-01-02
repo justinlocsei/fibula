@@ -105,7 +105,7 @@ To automatically build out the remote resources used to serve Cover Your Basics,
 run the following commands:
 
 ```bash
-# Create rsources
+# Create resources
 $ fib build
 
 # Update resources
