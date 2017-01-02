@@ -86,7 +86,7 @@ $ ./serve
 
 # Run the himation server
 $ ./develop himation
-$ npm run serve
+$ npm run develop
 
 # Open the URLs
 $ open https://development-data.coveryourbasics.dev/stockroom
