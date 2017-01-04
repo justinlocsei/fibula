@@ -96,3 +96,20 @@ inventory, you could run the following command:
 ```bash
 $ fib deploy to staging --inventory=development
 ```
+
+### Profiling
+
+To benchmark the performance of a CYB server, use commands like the following:
+
+```bash
+$ cd scripts/load
+
+# Profile API calls in development
+$ ./benchmark --host=development-www.coveryourbasics.dev --service=api
+
+# Profile Nginx performance in staging
+$ ./benchmark --host=staging-www.coveryourbasics.com --service=nginx
+
+# Profile Varnish performance in production
+$ ./benchmark --host=www.coveryourbasics.com --service=varnish
+```
