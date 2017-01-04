@@ -5,7 +5,7 @@ the public-facing production server for Cover Your Basics.
 
 ```bash
 # Provision the VM
-$ ./provision.sh
+$ ./provision
 
 # Connect to the VM
 $ ssh www.coveryourbasics.dev

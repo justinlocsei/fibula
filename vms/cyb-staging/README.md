@@ -5,7 +5,7 @@ the public-facing staging server for Cover Your Basics.
 
 ```bash
 # Provision the VM
-$ ./deploy.sh
+$ ./deploy
 
 # Connect to the VM
 $ ssh staging-www.coveryourbasics.dev

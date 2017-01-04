@@ -5,7 +5,7 @@ the back-end and front-end code for Cover Your Basics.
 
 ```bash
 # Provision the VM
-$ ./provision.sh
+$ ./provision
 
 # Run the Chiton development server
 $ ./develop chiton

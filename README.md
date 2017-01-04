@@ -28,7 +28,7 @@ To work with the infrastructure code, run the following commands:
 
 ```bash
 # Install dependencies
-$ ./scripts/env/setup.sh
+$ ./scripts/env/setup
 
 # Activate the development environment
 $ source scripts/env/develop.sh
@@ -38,7 +38,7 @@ $ source scripts/env/develop.sh
 
 ```bash
 # Build the Ubuntu 14.04 Packer box defined in the packer/ directory
-$ ./scripts/vms/build-box.py ubuntu-14.04
+$ ./scripts/vms/build-box ubuntu-14.04
 
 # Use the box in a Vagrantfile
 $ cat 'config.vm.box = "fibula/ubuntu-14.04"' >> Vagrantfile

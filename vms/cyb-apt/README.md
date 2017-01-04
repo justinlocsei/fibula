@@ -5,7 +5,7 @@ custom APT packages and a repository for Cover Your Basics.
 
 ```bash
 # Provision the VM
-$ ./provision.sh
+$ ./provision
 
 # Connect to the VM
 $ ssh apt.coveryourbasics.dev
