@@ -81,8 +81,7 @@
     force: yes
     state: link
   with_items:
-    - benchmark.sh
-    - check.sh
-    - lint.sh
-    - test.sh
+    - benchmark
+    - lint
+    - test
   when: chiton_allow_development
