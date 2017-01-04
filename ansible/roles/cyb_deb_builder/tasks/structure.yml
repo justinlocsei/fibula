@@ -36,8 +36,8 @@
 
 - name: create the build scripts
   template:
-    src: "{{ item }}.sh.j2"
-    dest: "{{ cyb_deb_builder_root_dir }}/{{ item }}.sh"
+    src: "{{ item }}.j2"
+    dest: "{{ cyb_deb_builder_root_dir }}/{{ item }}"
     owner: "{{ cyb_deb_builder_user }}"
     group: "{{ cyb_deb_builder_group }}"
     mode: 0755
