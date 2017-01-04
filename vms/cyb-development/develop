@@ -10,9 +10,7 @@ case $1 in
   ssh himation@development-www.coveryourbasics.dev
   ;;
 *)
-  echo "Usage: develop APP"
-  echo
-  echo "       APP: The name of an application (${APPS[*]})"
+  IFS="|" && echo "Usage: $(basename "${BASH_SOURCE[0]}") (${APPS[*]})"
   exit 1
   ;;
 esac
