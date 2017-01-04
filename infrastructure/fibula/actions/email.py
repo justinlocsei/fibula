@@ -57,7 +57,6 @@ class Email(BaseAction):
                         remote_record.save()
                         ui.update('Updated TXT record of "%s" to be named "%s"' % (txt['data'], txt['name']))
 
-
     def forward(self):
         """Set up MX records to forward email."""
         for email_domain, remote_domain, domain_records in self._each_domain_group():
