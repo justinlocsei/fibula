@@ -10,8 +10,9 @@ $ ./provision
 # Connect to the VM
 $ ssh apt.coveryourbasics.dev
 
-# Connect to the VM and build a package
+# Connect to the VM, build a package, and upload it to the repo
 $ ssh build@apt.coveryourbasics.dev
 $ cd packages
-$ ./build <package>
+$ ./build-package <package>
+$ ./create-repo --sync
 ```
