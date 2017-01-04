@@ -7,9 +7,9 @@
     group: "{{ himation_group }}"
     mode: 0755
   with_items:
-    - src: gulp.sh.j2
+    - src: gulp.j2
       dest: "{{ himation_gulp_runner }}"
-    - src: npm.sh.j2
+    - src: npm.j2
       dest: "{{ himation_npm_runner }}"
 
 - name: build assets
