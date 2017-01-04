@@ -1,6 +1,6 @@
 - name: create a monit installer script
   template:
-    src: installer.sh.j2
+    src: installer.j2
     dest: "{{ monit_installer }}"
     mode: 0755
 
