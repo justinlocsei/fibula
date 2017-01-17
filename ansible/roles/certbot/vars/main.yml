@@ -1,0 +1,2 @@
+---
+certbot_auto_bin: /usr/local/sbin/certbot-auto

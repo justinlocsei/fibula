@@ -1,0 +1,12 @@
+---
+- name: install certbot-auto
+  get_url:
+    url: https://dl.eff.org/certbot-auto
+    dest: "{{ certbot_auto_bin }}"
+
+- name: make certbot-auto executable
+  file:
+    path: "{{ certbot_auto_bin }}"
+    owner: root
+    group: root
+    mode: 0755
