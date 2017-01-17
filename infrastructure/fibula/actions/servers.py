@@ -23,7 +23,10 @@ class Servers(BaseAction):
 
         servers = load_data('cloud')['servers']
         droplet_names = [d.name for d in droplets]
-        missing_servers = [s for s in servers if s['name'] not in droplet_names]
+        missing_servers = [
+            s for s in servers
+            if s['name'] not in droplet_names and s['enabled']
+        ]
 
         for server in missing_servers:
             ui = self.ui.group(server['name'])
@@ -124,7 +127,7 @@ class Servers(BaseAction):
         droplets = self.do.manager.get_all_droplets()
         servers = load_data('cloud')['servers']
 
-        server_names = [s['name'] for s in servers]
+        server_names = [s['name'] for s in servers if s['enabled']]
         orphan_servers = [d for d in droplets if d.name not in server_names]
         local_servers = [d.name for d in droplets if d.name in server_names]
 
