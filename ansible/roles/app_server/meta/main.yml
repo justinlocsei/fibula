@@ -54,6 +54,7 @@ dependencies:
     himation_redis_port: "{{ redis_port }}"
     himation_server_name: "{{ app_server_himation_server_name }}"
   - role: nginx
+  - role: certbot
   - role: postfix
     postfix_aliases:
       - user: "{{ chiton_user }}"
