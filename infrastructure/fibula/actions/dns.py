@@ -1,3 +1,5 @@
+import subprocess
+
 from fibula.actions.base import BaseAction
 from fibula.data import load_data
 
@@ -25,7 +27,7 @@ class DNS(BaseAction):
                     if domain_name != domain.name:
                         continue
 
-                    if subdomain_name not in subdomains:
+                    if subdomain_name not in subdomains and not self._resolve_dns(fqdn):
                         domain.create_new_domain_record(
                             type='A',
                             name=subdomain_name,
@@ -75,3 +77,20 @@ class DNS(BaseAction):
             record for record in domain.get_records()
             if record.type == 'A' and record.name != '@'
         ]
+
+    def _resolve_dns(self, hostname):
+        """Perform a DNS lookup of a hostname.
+
+        Args:
+            hostname (str): The hostname to resolve
+
+        Returns:
+            str: The possible IP for the hostname
+        """
+        resolved = subprocess.check_output(['dig', '+short', hostname]).strip()
+        lines = [line.strip() for line in resolved.split('\n')]
+
+        if len(lines) == 1:
+            return lines[0]
+        else:
+            return None
