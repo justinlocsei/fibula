@@ -21,7 +21,7 @@ class API:
         """
         floating_ips = self.manager.get_all_floating_ips()
 
-        matches = [f for f in floating_ips if f.droplet['id'] == droplet.id]
+        matches = [f for f in floating_ips if f.droplet and f.droplet['id'] == droplet.id]
         if len(matches) > 1:
             self.ui.abort('Multiple floating IPs are bound to the "%s" droplet' % droplet.name)
         elif not len(matches):
