@@ -13,8 +13,13 @@
     owner: "{{ pgbouncer_user }}"
     group: "{{ pgbouncer_group }}"
     mode: 0600
-  notify:
-    - restart pgbouncer
+  register: pgbouncer_config_result
+
+- name: restart pgbouncer in response to config changes
+  service:
+    name: pgbouncer
+    state: restarted
+  when: pgbouncer_config_result.changed
 
 - name: create the users file
   template:
