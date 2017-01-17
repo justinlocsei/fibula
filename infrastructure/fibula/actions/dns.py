@@ -64,6 +64,30 @@ class DNS(BaseAction):
                         else:
                             ui.skip('The IP address for "%s" is correct' % fqdn)
 
+    def prune(self):
+        """Remove unused DNS entries for servers."""
+        disabled_servers = [s for s in load_data('cloud')['servers'] if not s['enabled']]
+        remote_domains = self.do.manager.get_all_domains()
+
+        for domain in remote_domains:
+            subdomains = self._get_subdomains(domain)
+
+            for server in disabled_servers:
+                ui = self.ui.group(domain.name, server['name'])
+
+                for fqdn in server['fqdns']:
+                    subdomain_name, domain_name = fqdn.split(".", 1)
+                    if domain_name != domain.name:
+                        continue
+
+                    for subdomain in subdomains:
+                        if subdomain.name == subdomain_name:
+                            if ui.confirm('Are you sure you want to delete the %s DNS entry?' % fqdn):
+                                subdomain.destroy()
+                                ui.delete('Removed DNS entry')
+                            else:
+                                ui.skip('Not removing DNS entry')
+
     def _get_subdomains(self, domain):
         """Get the subdomain names associated with a domain.
 
