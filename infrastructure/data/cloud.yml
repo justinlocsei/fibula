@@ -5,6 +5,7 @@ domains:
 
 servers:
   - name: staging
+    enabled: yes
     config:
       backups: no
       image: ubuntu-14-04-x64
@@ -15,6 +16,7 @@ servers:
         - staging-www.coveryourbasics.com
 
   - name: production
+    enabled: yes
     config:
       backups: no
       image: ubuntu-14-04-x64
