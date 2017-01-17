@@ -71,7 +71,7 @@ class DNS(BaseAction):
             domain (digitalocean.Domain): A domain instance
 
         Returns:
-            list: A list of subdomain names as strings
+            list: A list of subdomain objects
         """
         return [
             record for record in domain.get_records()
