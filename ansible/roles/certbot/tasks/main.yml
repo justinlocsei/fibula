@@ -10,3 +10,29 @@
     owner: root
     group: root
     mode: 0755
+
+- name: create the base directories
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ certbot_root_dir }}"
+    - "{{ certbot_domains_dir }}"
+
+- name: create the domain directories
+  file:
+    path: "{{ certbot_domains_dir }}/{{ item.domain }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  with_items: "{{ certbot_domains }}"
+
+- include: public.yml
+  when: certbot_is_public
+
+- include: private.yml
+  when: not certbot_is_public
