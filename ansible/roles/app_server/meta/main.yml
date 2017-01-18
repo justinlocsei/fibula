@@ -28,6 +28,7 @@ dependencies:
     nodejs_version: "{{ himation_nodejs_version }}"
   - role: chiton
     chiton_api_user_name: himation
+    chiton_acme_challenges_dir_name: "{{ certbot_challenges_dir_name }}"
     chiton_db_host: "{{ chiton_allow_development | ternary(postgresql_server_address, pgbouncer_host) }}"
     chiton_db_port: "{{ chiton_allow_development | ternary(postgresql_server_port, pgbouncer_port) }}"
     chiton_db_root_db_name: "{{ postgresql_server_root_db }}"
@@ -47,6 +48,7 @@ dependencies:
     varnish_telnet_port: "{{ app_server_himation_varnish_telnet_port }}"
     varnish_use_cache: "{{ himation_use_caching }}"
   - role: himation
+    himation_acme_challenges_dir_name: "{{ certbot_challenges_dir_name }}"
     himation_cache_gateway_url: "http://127.0.0.1:{{ varnish_port }}"
     himation_chiton_endpoint: "http://127.0.0.1:{{ app_server_chiton_port_local }}/api"
     himation_chiton_token: "{{ chiton_api_user_token }}"
