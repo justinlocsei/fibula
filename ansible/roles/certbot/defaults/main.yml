@@ -1,0 +1,7 @@
+---
+~certbot_static_certificate: null
+~certbot_static_key: null
+
+certbot_domains: []
+certbot_is_public: yes
+certbot_renew_hook: null

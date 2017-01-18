@@ -1,0 +1,18 @@
+---
+- name: create per-domain private keys
+  copy:
+    dest: "{{ certbot_domains_dir }}/{{ item.domain }}/{{ certbot_key_file_name }}"
+    content: "{{ certbot_static_key }}\n"
+    owner: root
+    group: root
+    mode: 0600
+  with_items: "{{ certbot_domains }}"
+
+- name: create per-domain certificates
+  copy:
+    dest: "{{ certbot_domains_dir }}/{{ item.domain }}/{{ certbot_certificate_file_name }}"
+    content: "{{ certbot_static_certificate }}\n"
+    owner: root
+    group: root
+    mode: 0600
+  with_items: "{{ certbot_domains }}"

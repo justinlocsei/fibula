@@ -1,0 +1,14 @@
+---
+- name: request certificates for all domains
+  command: "{{ certbot_auto_bin | quote }} certonly --webroot {{ certbot_domains | certbot_webroot_args }}"
+
+- name: enable automatic renewal of certificates
+  cron:
+    name: renew certificates
+    job: "{{ cron_runner | quote }} {{ certbot_auto_bin | quote }} renew --renew-hook {{ certbot_renew_hook | quote }}"
+    hour: "0"
+    minute: "0"
+    cron_file: himation-refresh-cache
+    user: "{{ himation_user }}"
+    state: present
+    disabled: "{{ not himation_run_background_tasks }}"
