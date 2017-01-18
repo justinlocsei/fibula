@@ -10,9 +10,9 @@
     owner: root
     group: root
     mode: 0644
-    content: "{{ cyb_certificates_wildcard_certificate }}\n"
+    content: "{{ cyb_certificates_certificate }}\n"
   register: cyb_certificates_copy
-  when: not cyb_certificates_wildcard_ca_bundle
+  when: not cyb_certificates_ca_bundle
 
 - name: re-hash the certificates
   command: update-ca-certificates --fresh
