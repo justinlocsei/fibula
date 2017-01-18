@@ -12,7 +12,7 @@
     path: "{{ himation_current_version_public_dir }}/{{ himation_acme_challenges_dir_name }}"
     owner: "{{ himation_user }}"
     group: "{{ himation_group }}"
-    mode: 0644
+    mode: 0755
     state: directory
 
 - name: update the current version's symlink

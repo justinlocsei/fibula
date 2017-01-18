@@ -19,7 +19,7 @@
     path: "{{ chiton_current_version_public_dir }}/{{ chiton_acme_challenges_dir_name }}"
     owner: "{{ chiton_user }}"
     group: "{{ chiton_group }}"
-    mode: 0644
+    mode: 0755
     state: directory
 
 - name: update the current version's symlink
