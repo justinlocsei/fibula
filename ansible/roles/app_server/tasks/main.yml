@@ -1,7 +1,4 @@
 ---
-- name: configure nginx
-  include: nginx.yml
-
 - name: configure monit
   include: monit.yml
 
