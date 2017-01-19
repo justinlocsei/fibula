@@ -54,7 +54,7 @@ class Domains(BaseAction):
 
         for local_domain, remote_domain in existing_domains:
             ui = self.ui.group(remote_domain.name)
-            a_record = [r for r in remote_domain.get_records() if r.type == 'A'][0]
+            a_record = [r for r in self.do.get_domain_records(remote_domain) if r.type == 'A'][0]
             droplet = self.do.get_named_droplet(local_domain['root_server'])
             floating_ip = self.do.get_droplet_floating_ip(droplet)
 

@@ -98,7 +98,7 @@ class Email(BaseAction):
         remote_domains = self.do.get_domains()
 
         for remote_domain in remote_domains:
-            domain_records = remote_domain.get_records()
+            domain_records = self.do.get_domain_records(remote_domain)
 
             for email_domain in email_domains:
                 if email_domain['domain'] == remote_domain.name:
