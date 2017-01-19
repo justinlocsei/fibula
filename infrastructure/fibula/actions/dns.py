@@ -100,7 +100,7 @@ class DNS(BaseAction):
             list: A list of subdomain objects
         """
         return [
-            record for record in domain.get_records()
+            record for record in self.do.fetch_all(domain.get_records)
             if record.type == 'A' and record.name != '@'
         ]
 
