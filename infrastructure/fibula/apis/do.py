@@ -56,6 +56,31 @@ class API:
 
         return matches[0]
 
+    def fetch_all(self, fetcher):
+        """Piece together all records from all pages of API results.
+
+        Args:
+            fetcher (function): A function that retrieves results
+
+        Returns:
+            list: All results
+        """
+        all_results = []
+
+        exhausted = False
+        previous_results = 0
+        page = 1
+
+        while not exhausted:
+            results = fetcher(params={"page": page})
+            all_results += results
+
+            exhausted = not results or len(results) < previous_results
+            previous_results = len(results)
+            page += 1
+
+        return all_results
+
     @property
     def manager(self):
         """A manager instance for the Digital Ocean API.
