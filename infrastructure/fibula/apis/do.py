@@ -18,6 +18,17 @@ class API:
         """
         return self.manager.get_all_domains()
 
+    def get_domain_records(self, domain):
+        """Get all records for a domain.
+
+        Args:
+            domain (digitalocean.Domain): A domain instance
+
+        Returns:
+            list[digitalocean.Record]: All records for the domain
+        """
+        return self._fetch_all(domain.get_records)
+
     def get_droplet_floating_ip(self, droplet):
         """Get the floating IP for a droplet.
 
@@ -56,31 +67,6 @@ class API:
 
         return matches[0]
 
-    def fetch_all(self, fetcher):
-        """Piece together all records from all pages of API results.
-
-        Args:
-            fetcher (function): A function that retrieves results
-
-        Returns:
-            list: All results
-        """
-        all_results = []
-
-        exhausted = False
-        previous_results = 0
-        page = 1
-
-        while not exhausted:
-            results = fetcher(params={"page": page})
-            all_results += results
-
-            exhausted = not results or len(results) < previous_results
-            previous_results = len(results)
-            page += 1
-
-        return all_results
-
     @property
     def manager(self):
         """A manager instance for the Digital Ocean API.
@@ -105,3 +91,28 @@ class API:
         if self._token is None:
             self._token = os.environ['CYB_DO_API_TOKEN']
         return self._token
+
+    def _fetch_all(self, fetcher):
+        """Piece together all records from all pages of API results.
+
+        Args:
+            fetcher (function): A function that retrieves results
+
+        Returns:
+            list: All results
+        """
+        all_results = []
+
+        exhausted = False
+        previous_results = 0
+        page = 1
+
+        while not exhausted:
+            results = fetcher(params={"page": page})
+            all_results += results
+
+            exhausted = not results or len(results) < previous_results
+            previous_results = len(results)
+            page += 1
+
+        return all_results
