@@ -12,7 +12,7 @@
     mode: 0644
     content: "{{ cyb_certificates_certificate }}\n"
   register: cyb_certificates_copy
-  when: not cyb_certificates_ca_bundle
+  when: cyb_certificates_certificate | has_value
 
 - name: re-hash the certificates
   command: update-ca-certificates --fresh
