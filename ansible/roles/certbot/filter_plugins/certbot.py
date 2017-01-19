@@ -7,7 +7,7 @@ def certbot_webroot_args(domains):
     Returns:
         str: The request arguments
     """
-    return ' '.join(['-w %s -d %s' % (d['webroot'], d['domain]']) for d in domains])
+    return ' '.join(['-w %s -d %s' % (d['webroot'], d['domain']) for d in domains])
 
 
 class FilterModule(object):
