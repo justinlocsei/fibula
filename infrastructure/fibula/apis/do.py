@@ -10,6 +10,14 @@ class API:
         self._manager = None
         self._token = None
 
+    def get_domains(self):
+        """Return all available domains.
+
+        Returns:
+            list[digitalocean.Domain]: All domains
+        """
+        return self.manager.get_all_domains()
+
     def get_droplet_floating_ip(self, droplet):
         """Get the floating IP for a droplet.
 
