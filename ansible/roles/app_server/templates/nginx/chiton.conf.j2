@@ -44,6 +44,14 @@ server {
   ssl_certificate {{ app_server_chiton_ssl_certificate_path }};
   ssl_certificate_key {{ app_server_chiton_ssl_key_path }};
 
+  {% if certbot_is_public %}
+  ssl_stapling on;
+  ssl_stapling_verify on;
+  ssl_trusted_certificate {{ app_server_chiton_ssl_chain_path }};
+
+  resolver 8.8.8.8 8.8.4.4;
+  {% endif %}
+
   add_header Strict-Transport-Security "max-age=31536000; includeSubdomains;";
 
   autoindex off;

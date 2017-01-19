@@ -14,6 +14,8 @@ app_server_nginx_site_chiton: "{{ nginx_sites_dir }}/chiton.conf"
 app_server_nginx_site_himation: "{{ nginx_sites_dir }}/himation.conf"
 
 app_server_chiton_ssl_certificate_path: "{{ certbot_domains_dir }}/{{ app_server_chiton_server_name }}/{{ certbot_certificate_file_name }}"
+app_server_chiton_ssl_chain_path: "{{ certbot_domains_dir }}/{{ app_server_chiton_server_name }}/{{ certbot_chain_file_name }}"
 app_server_chiton_ssl_key_path: "{{ certbot_domains_dir }}/{{ app_server_chiton_server_name }}/{{ certbot_key_file_name }}"
 app_server_himation_ssl_certificate_path: "{{ certbot_domains_dir }}/{{ app_server_himation_server_name }}/{{ certbot_certificate_file_name }}"
+app_server_himation_ssl_chain_path: "{{ certbot_domains_dir }}/{{ app_server_himation_server_name }}/{{ certbot_chain_file_name }}"
 app_server_himation_ssl_key_path: "{{ certbot_domains_dir }}/{{ app_server_himation_server_name }}/{{ certbot_key_file_name }}"
