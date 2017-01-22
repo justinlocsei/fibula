@@ -67,7 +67,8 @@ def normalize_environment_data():
     commands = [
         ['chiton_clear_encryption'],
         ['chiton_ensure_recommender_exists', '--token', RECOMMENDER_USER_TOKEN, '--username', RECOMMENDER_USER_NAME],
-        ['chiton_update_stock', '--workers', str(UPDATE_STOCK_WORKERS_COUNT)]
+        ['chiton_update_stock', '--workers', str(UPDATE_STOCK_WORKERS_COUNT)],
+        ['chiton_refresh_cache']
     ]
 
     for command_args in commands:
