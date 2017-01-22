@@ -1,4 +1,5 @@
 ---
+~certbot_email: null
 ~certbot_static_certificate: null
 ~certbot_static_key: null
 
