@@ -1,0 +1,15 @@
+---
+- name: create placeholder files
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ certbot_placeholders_dir }}/{{ item.file }}"
+    owner: root
+    group: root
+    state: link
+  with_items:
+    - src: /etc/ssl/private/ssl-cert-snakeoil.key
+      file: "{{ certbot_key_file_name }}"
+    - src: /etc/ssl/certs/ssl-cert-snakeoil.pem
+      file: "{{ certbot_certificate_file_name }}"
+    - src: /etc/ssl/certs/ssl-cert-snakeoil.pem
+      file: "{{ certbot_chain_file_name }}"

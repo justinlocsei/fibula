@@ -21,47 +21,12 @@
   with_items:
     - "{{ certbot_root_dir }}"
     - "{{ certbot_domains_dir }}"
+    - "{{ certbot_placeholders_dir }}"
 
-- name: create the domain directories
-  file:
-    path: "{{ certbot_domains_dir }}/{{ item.domain }}"
-    owner: root
-    group: root
-    mode: 0755
-    state: directory
-  with_items: "{{ certbot_domains }}"
-
-- name: create per-domain private keys
-  copy:
-    dest: "{{ certbot_domains_dir }}/{{ item.domain }}/{{ certbot_key_file_name }}"
-    content: "{{ certbot_static_key }}\n"
-    owner: root
-    group: root
-    mode: 0600
-  with_items: "{{ certbot_domains }}"
-  when: not certbot_is_public
-
-- name: create per-domain certificates
-  copy:
-    dest: "{{ certbot_domains_dir }}/{{ item.domain }}/{{ certbot_certificate_file_name }}"
-    content: "{{ certbot_static_certificate }}\n"
-    owner: root
-    group: root
-    mode: 0600
-  with_items: "{{ certbot_domains }}"
-  when: not certbot_is_public
-
-- name: request certificates for all domains
-  command: "{{ certbot_auto_bin | quote }} certonly --webroot {{ certbot_domains | certbot_webroot_args }}"
+- name: configure public bootstrap placeholders
+  include: public.yml
   when: certbot_is_public
 
-- name: enable automatic renewal of certificates
-  cron:
-    name: renew certificates
-    job: "{{ cron_runner | quote }} {{ certbot_auto_bin | quote }} renew --renew-hook {{ certbot_renew_hook | quote }}"
-    hour: "0"
-    minute: "0"
-    cron_file: certbot-renew
-    user: root
-    state: present
-    disabled: "{{ not certbot_is_public }}"
+- name: configure static placeholders
+  include: private.yml
+  when: not certbot_is_public
