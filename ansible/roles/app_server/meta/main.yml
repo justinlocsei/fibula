@@ -75,6 +75,7 @@ dependencies:
       - port: "{{ postgresql_server_port }}"
         protocol: tcp
         allow: "{{ postgresql_server_allow_external_connections }}"
+  - role: cron
   - role: certbot
     certbot_domains:
       - domain: "{{ app_server_himation_server_name }}"
