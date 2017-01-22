@@ -36,13 +36,13 @@ server {
   listen {{ app_server_himation_port_https }} ssl http2;
   server_name {{ app_server_himation_server_name }};
 
-  ssl_certificate {{ app_server_himation_ssl_certificate_path }};
-  ssl_certificate_key {{ app_server_himation_ssl_key_path }};
+  ssl_certificate {{ app_server_ssl_dir }}/{{ certbot_certificate_file_name }};
+  ssl_certificate_key {{ app_server_ssl_dir }}/{{ certbot_key_file_name }};
 
   {% if certbot_is_public %}
   ssl_stapling on;
   ssl_stapling_verify on;
-  ssl_trusted_certificate {{ app_server_chiton_ssl_chain_path }};
+  ssl_trusted_certificate {{ app_server_ssl_dir }}/{{ certbot_chain_file_name }};
 
   resolver 8.8.8.8 8.8.4.4;
   {% endif %}
