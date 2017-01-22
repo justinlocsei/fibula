@@ -77,9 +77,6 @@ dependencies:
         allow: "{{ postgresql_server_allow_external_connections }}"
   - role: cron
   - role: certbot
-    certbot_domains:
-      - domain: "{{ app_server_himation_server_name }}"
-        webroot: "{{ himation_public_dir }}"
-      - domain: "{{ app_server_chiton_server_name }}"
-        webroot: "{{ chiton_public_files_dir }}"
-    certbot_renew_hook: service nginx reload
+    certbot_domain: "{{ app_server_himation_server_name }}"
+  - role: certbot
+    certbot_domain: "{{ app_server_chiton_server_name }}"

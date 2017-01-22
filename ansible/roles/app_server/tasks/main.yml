@@ -5,8 +5,14 @@
 - name: configure Datadog
   include: datadog.yml
 
+- name: bootstrap SSL files
+  include: bootstrap_ssl.yml
+
 - name: configure chiton
   include: chiton.yml
 
 - name: configure himation
   include: himation.yml
+
+- name: configure certbot
+  include: certbot.yml
