@@ -85,7 +85,7 @@ class DNS(BaseAction):
                             if ui.confirm('Are you sure you want to delete the %s DNS entry?' % fqdn):
                                 subdomain.destroy()
                                 ui.delete('Removed DNS entry')
-                                subprocess.check_call(['ssh-keygen', '-R', fqdn])
+                                subprocess.check_output(['ssh-keygen', '-R', fqdn])
                                 ui.delete('Removed known-hosts entry')
                             else:
                                 ui.skip('Not removing DNS entry')
