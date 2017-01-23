@@ -2,11 +2,15 @@ import os
 
 import digitalocean
 
+from fibula.communicator import Communicator
+
 
 class API:
     """An interface to the Digital Ocean API."""
 
     def __init__(self):
+        self.ui = Communicator(label='digitalocean')
+
         self._manager = None
         self._token = None
 
