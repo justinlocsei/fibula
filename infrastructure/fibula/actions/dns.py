@@ -1,3 +1,5 @@
+import subprocess
+
 from fibula.actions.base import BaseAction
 from fibula.data import load_data
 
@@ -9,8 +11,8 @@ class DNS(BaseAction):
 
     def add(self):
         """Create DNS entries for each server's subdomains."""
-        local_servers = load_data('cloud')['servers']
-        remote_domains = self.do.manager.get_all_domains()
+        local_servers = [s for s in load_data('cloud')['servers'] if s['enabled']]
+        remote_domains = self.do.get_domains()
 
         for domain in remote_domains:
             subdomains = [s.name for s in self._get_subdomains(domain)]
@@ -37,8 +39,8 @@ class DNS(BaseAction):
 
     def sync(self):
         """Ensure that the subdomains for servers match the DNS records."""
-        local_servers = load_data('cloud')['servers']
-        remote_domains = self.do.manager.get_all_domains()
+        local_servers = [s for s in load_data('cloud')['servers'] if s['enabled']]
+        remote_domains = self.do.get_domains()
 
         for domain in remote_domains:
             subdomains = self._get_subdomains(domain)
@@ -62,6 +64,32 @@ class DNS(BaseAction):
                         else:
                             ui.skip('The IP address for "%s" is correct' % fqdn)
 
+    def prune(self):
+        """Remove unused DNS entries for servers."""
+        disabled_servers = [s for s in load_data('cloud')['servers'] if not s['enabled']]
+        remote_domains = self.do.get_domains()
+
+        for domain in remote_domains:
+            subdomains = self._get_subdomains(domain)
+
+            for server in disabled_servers:
+                ui = self.ui.group(domain.name, server['name'])
+
+                for fqdn in server['fqdns']:
+                    subdomain_name, domain_name = fqdn.split(".", 1)
+                    if domain_name != domain.name:
+                        continue
+
+                    for subdomain in subdomains:
+                        if subdomain.name == subdomain_name:
+                            if ui.confirm('Are you sure you want to delete the %s DNS entry?' % fqdn):
+                                subdomain.destroy()
+                                ui.delete('Removed DNS entry')
+                                subprocess.check_output(['ssh-keygen', '-R', fqdn])
+                                ui.delete('Removed known-hosts entry')
+                            else:
+                                ui.skip('Not removing DNS entry')
+
     def _get_subdomains(self, domain):
         """Get the subdomain names associated with a domain.
 
@@ -69,9 +97,9 @@ class DNS(BaseAction):
             domain (digitalocean.Domain): A domain instance
 
         Returns:
-            list: A list of subdomain names as strings
+            list: A list of subdomain objects
         """
         return [
-            record for record in domain.get_records()
+            record for record in self.do.get_domain_records(domain)
             if record.type == 'A' and record.name != '@'
         ]

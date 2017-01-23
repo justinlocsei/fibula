@@ -3,8 +3,16 @@
   apt:
     name: pgbouncer
     state: present
-  notify:
-    - restart pgbouncer
+  register: pgbouncer_install_result
+
+- name: restart pgbouncer when a new version in installed
+  service:
+    name: pgbouncer
+    state: "{{ item }}"
+  when: pgbouncer_install_result.changed
+  with_items:
+    - stopped
+    - started
 
 - name: create the config file
   template:
@@ -13,8 +21,13 @@
     owner: "{{ pgbouncer_user }}"
     group: "{{ pgbouncer_group }}"
     mode: 0600
-  notify:
-    - restart pgbouncer
+  register: pgbouncer_config_result
+
+- name: restart pgbouncer in response to config changes
+  service:
+    name: pgbouncer
+    state: restarted
+  when: pgbouncer_config_result.changed
 
 - name: create the users file
   template:

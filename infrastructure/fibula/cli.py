@@ -50,6 +50,7 @@ def prune(ctx):
     ctx.forward(servers_prune)
     ctx.forward(domains_prune)
     ctx.forward(ips_prune)
+    ctx.forward(dns_prune)
 
 
 @cli.group()
@@ -140,6 +141,12 @@ def dns_add():
 def dns_sync():
     """Sync the DNS configuration with the manifest."""
     DNS().sync()
+
+
+@dns.command('prune')
+def dns_prune():
+    """Remove unused DNS entries."""
+    DNS().prune()
 
 
 @cli.group()

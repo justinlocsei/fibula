@@ -1,0 +1,32 @@
+---
+- name: install certbot-auto
+  get_url:
+    url: https://dl.eff.org/certbot-auto
+    dest: "{{ certbot_auto_bin }}"
+
+- name: make certbot-auto executable
+  file:
+    path: "{{ certbot_auto_bin }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: create the base directories
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  with_items:
+    - "{{ certbot_root_dir }}"
+    - "{{ certbot_domains_dir }}"
+    - "{{ certbot_placeholders_dir }}"
+
+- name: configure public bootstrap placeholders
+  include: public.yml
+  when: certbot_is_public
+
+- name: configure static placeholders
+  include: private.yml
+  when: not certbot_is_public

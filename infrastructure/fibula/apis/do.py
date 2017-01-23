@@ -2,13 +2,36 @@ import os
 
 import digitalocean
 
+from fibula.communicator import Communicator
+
 
 class API:
     """An interface to the Digital Ocean API."""
 
     def __init__(self):
+        self.ui = Communicator(label='digitalocean')
+
         self._manager = None
         self._token = None
+
+    def get_domains(self):
+        """Return all available domains.
+
+        Returns:
+            list[digitalocean.Domain]: All domains
+        """
+        return self.manager.get_all_domains()
+
+    def get_domain_records(self, domain):
+        """Get all records for a domain.
+
+        Args:
+            domain (digitalocean.Domain): A domain instance
+
+        Returns:
+            list[digitalocean.Record]: All records for the domain
+        """
+        return self._fetch_all(domain.get_records)
 
     def get_droplet_floating_ip(self, droplet):
         """Get the floating IP for a droplet.
@@ -21,7 +44,7 @@ class API:
         """
         floating_ips = self.manager.get_all_floating_ips()
 
-        matches = [f for f in floating_ips if f.droplet['id'] == droplet.id]
+        matches = [f for f in floating_ips if f.droplet and f.droplet['id'] == droplet.id]
         if len(matches) > 1:
             self.ui.abort('Multiple floating IPs are bound to the "%s" droplet' % droplet.name)
         elif not len(matches):
@@ -72,3 +95,28 @@ class API:
         if self._token is None:
             self._token = os.environ['CYB_DO_API_TOKEN']
         return self._token
+
+    def _fetch_all(self, fetcher):
+        """Piece together all records from all pages of API results.
+
+        Args:
+            fetcher (function): A function that retrieves results
+
+        Returns:
+            list: All results
+        """
+        all_results = []
+
+        exhausted = False
+        previous_results = 0
+        page = 1
+
+        while not exhausted:
+            results = fetcher(params={"page": page})
+            all_results += results
+
+            exhausted = not results or len(results) < previous_results
+            previous_results = len(results)
+            page += 1
+
+        return all_results

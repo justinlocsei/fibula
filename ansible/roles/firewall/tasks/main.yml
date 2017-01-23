@@ -12,7 +12,7 @@
 
 - name: update ports
   ufw:
-    rule: "{{ item.allow | default(true) | ternary('allow', 'deny') }}"
+    rule: "{{ item.allow | default(True) | ternary('allow', 'deny') }}"
     port: "{{ item.port }}"
     proto: "{{ item.protocol | default('tcp') }}"
   with_items: "{{ firewall_ports }}"

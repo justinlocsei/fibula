@@ -7,7 +7,7 @@ setup(
     install_requires=[
         'boto==2.39.0',
         'click==6.4',
-        'python-digitalocean==1.8'
+        'python-digitalocean==1.10.1'
     ],
     entry_points="""
         [console_scripts]

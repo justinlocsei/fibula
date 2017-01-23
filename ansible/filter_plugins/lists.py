@@ -25,11 +25,24 @@ def newline_list(value):
     return value.strip().splitlines()
 
 
+def str_map(values, formatting):
+    """Map each element in a list to a formatted string.
+
+    Args:
+        value (list[str]): A list of strings
+
+    Retruns:
+        list[str]: The mapped strings
+    """
+    return [formatting % v for v in values]
+
+
 class FilterModule(object):
     """Custom Jinja2 filters for working with lists."""
 
     def filters(self):
         return {
             'flatten': flatten,
-            'newline_list': newline_list
+            'newline_list': newline_list,
+            'str_map': str_map
         }

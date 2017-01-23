@@ -7,6 +7,14 @@
     group: "{{ himation_group }}"
     mode: 0644
 
+- name: create a directory for ACME challenges
+  file:
+    path: "{{ himation_current_version_public_dir }}/{{ himation_acme_challenges_dir_name }}"
+    owner: "{{ himation_user }}"
+    group: "{{ himation_group }}"
+    mode: 0755
+    state: directory
+
 - name: update the current version's symlink
   file:
     src: "{{ himation_current_version_dir }}"

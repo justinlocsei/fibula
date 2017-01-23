@@ -77,6 +77,9 @@ $ fib sync
 
 # Remove unused resources
 $ fib prune
+
+# Configure a newly created server
+$ fib deploy bootstrap <environment>
 ```
 
 ### Deploying

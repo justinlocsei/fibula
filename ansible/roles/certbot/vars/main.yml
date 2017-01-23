@@ -1,0 +1,9 @@
+---
+certbot_auto_bin: /usr/local/sbin/certbot-auto
+certbot_certificate_file_name: fullchain.pem
+certbot_chain_file_name: chain.pem
+certbot_challenges_dir_name: .well-known
+certbot_domains_dir: "{{ certbot_root_dir }}/live"
+certbot_placeholders_dir: "{{ certbot_root_dir }}/placeholders"
+certbot_key_file_name: privkey.pem
+certbot_root_dir: /etc/letsencrypt

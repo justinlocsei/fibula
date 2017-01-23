@@ -1,0 +1,35 @@
+---
+- name: enable automatic renewal of certificates
+  cron:
+    name: renew certificates
+    job: "{{ cron_runner | quote }} {{ certbot_auto_bin | quote }} renew --renew-hook 'service nginx reload'"
+    hour: "3"
+    minute: "25"
+    cron_file: certbot-renew
+    user: root
+    state: present
+    disabled: "{{ not certbot_is_public }}"
+
+- when: certbot_is_public
+  block:
+    - name: request certificates for all domains
+      command: >-
+        {{ certbot_auto_bin | quote }} certonly
+        --agree-tos
+        --non-interactive
+        --email {{ certbot_email | quote }}
+        --webroot
+        -w {{ himation_public_dir }} -d {{ app_server_himation_server_name }} {{ app_server_himation_server_name_variants | str_map('-d %s') | join(' ') }}
+        -w {{ chiton_public_files_dir }} -d {{ app_server_chiton_server_name }}
+      register: app_server_request_certificates_result
+      changed_when: "'Congratulations!' in app_server_request_certificates_result.stdout"
+      notify:
+        - reload nginx
+
+    - name: update the certificate links
+      file:
+        src: "{{ app_server_certbot_ssl_dir }}"
+        dest: "{{ app_server_ssl_dir }}"
+        owner: root
+        group: root
+        state: link

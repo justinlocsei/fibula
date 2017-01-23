@@ -1,11 +1,9 @@
 ---
+certbot_email: operations@coveryourbasics.com
+certbot_is_public: yes
 chiton_admin_email: operations@coveryourbasics.com
 chiton_admin_username: coveryourbasics
 cron_mailto: operations@coveryourbasics.com
 himation_email_sender_address: bethany@coveryourbasics.com
 himation_email_sender_name: Bethany
 monit_alert_recipient: operations@coveryourbasics.com
-
-cyb_certificates_wildcard_ca_bundle: "{{ vault__cyb_certificates_wildcard_ca_bundle }}"
-cyb_certificates_wildcard_certificate: "{{ vault__cyb_certificates_wildcard_certificate }}"
-cyb_certificates_wildcard_key: "{{ vault__cyb_certificates_wildcard_key }}"

@@ -3,6 +3,7 @@
 import datetime
 import os
 import subprocess
+import sys
 import time
 
 import boto
@@ -15,12 +16,17 @@ AWS_ACCESS_KEY_ID = '{{ chiton_backups_aws_access_key_id }}'
 AWS_SECRET_ACCESS_KEY = '{{ chiton_backups_aws_secret_access_key }}'
 BACKUPS_DIR = '{{ chiton_backups_dir }}'
 BUCKET_NAME = '{{ chiton_backups_s3_bucket }}'
+CHITON_MANAGE_COMMAND = '{{ chiton_manage_file }}'
+CURRENT_ENVIRONMENT = '{{ chiton_environment }}'
 DB_NAME = '{{ chiton_db_name }}'
 DB_USER = '{{ chiton_db_root_name }}'
 PG_DUMP = '{{ chiton_pg_dump_path }}'
 PG_RESTORE = '{{ chiton_pg_restore_path }}'
+RECOMMENDER_USER_NAME = '{{ chiton_api_user_name }}'
+RECOMMENDER_USER_TOKEN = '{{ chiton_api_user_token }}'
 REMOTE_PREFIX = 'db/'
 RETENTION_DAYS = {{ chiton_backups_local_retention_days }}
+UPDATE_STOCK_WORKERS_COUNT = {{ chiton_stock_worker_count }}
 
 
 def dump_db():
@@ -54,6 +60,22 @@ def restore_db(dump):
         pg_restore_args = [PG_RESTORE, '--clean', '--format', 'c', '--dbname', DB_NAME]
         pg_restore = subprocess.Popen(sudo_args + pg_restore_args, stdin=backup)
         pg_restore.wait()
+
+
+def normalize_environment_data():
+    """Normalize the data for the current environment."""
+    commands = [
+        ['chiton_clear_encryption'],
+        ['chiton_ensure_recommender_exists', '--token', RECOMMENDER_USER_TOKEN, '--username', RECOMMENDER_USER_NAME],
+        ['chiton_update_stock', '--workers', str(UPDATE_STOCK_WORKERS_COUNT)],
+        ['chiton_prune_affiliate_items'],
+        ['chiton_refresh_cache']
+    ]
+
+    for command_args in commands:
+        print('Running %s' % command_args[0])
+        manage = subprocess.Popen([CHITON_MANAGE_COMMAND] + command_args)
+        manage.wait()
 
 
 def upload_backup(backup):
@@ -161,10 +183,21 @@ def create():
 
 @cli.command()
 @click.argument('file', type=click.Path(exists=True))
-def restore(file):
+@click.option('--foreign/--no-foreign', default=False)
+def restore(file, foreign):
+    if foreign:
+        print('Are you sure you want to import foreign data into the current environment?')
+        sys.stdout.write('Type the name of the current environment to confirm (%s): ' % CURRENT_ENVIRONMENT)
+        if input() != CURRENT_ENVIRONMENT:
+            sys.exit(0)
+
     full_path = click.format_filename(file)
     restore_db(full_path)
     print('Restored the database from the local backup at "%s"' % full_path)
+
+    if foreign:
+        normalize_environment_data()
+        print('Migrated the data into the %s environment' % CURRENT_ENVIRONMENT)
 
 
 @cli.command()
