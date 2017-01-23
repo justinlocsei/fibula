@@ -11,7 +11,7 @@ class DNS(BaseAction):
 
     def add(self):
         """Create DNS entries for each server's subdomains."""
-        local_servers = load_data('cloud')['servers']
+        local_servers = [s for s in load_data('cloud')['servers'] if s['enabled']]
         remote_domains = self.do.get_domains()
 
         for domain in remote_domains:
@@ -39,7 +39,7 @@ class DNS(BaseAction):
 
     def sync(self):
         """Ensure that the subdomains for servers match the DNS records."""
-        local_servers = load_data('cloud')['servers']
+        local_servers = [s for s in load_data('cloud')['servers'] if s['enabled']]
         remote_domains = self.do.get_domains()
 
         for domain in remote_domains:
