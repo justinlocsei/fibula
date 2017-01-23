@@ -5,7 +5,7 @@ domains:
 
 servers:
   - name: staging
-    enabled: yes
+    enabled: no
     config:
       backups: no
       image: ubuntu-14-04-x64
